@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-07-28T16:58:47.733458",
+  "event": "user_action",
+  "data": {
+    "action": "login",
+    "user": "test_user"
+  }
+}

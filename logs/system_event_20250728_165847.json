@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-07-28T16:58:47.733650",
+  "event": "system_event",
+  "data": {
+    "event": "startup",
+    "version": "0.4.1"
+  }
+}
