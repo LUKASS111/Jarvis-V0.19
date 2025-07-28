@@ -147,6 +147,11 @@ QSlider::handle:horizontal {
 class SimplifiedJarvisGUI(QWidget):
     """Simplified GUI for AutoGPT - focused on essential functionality"""
     
+    # Signals for thread-safe updates (defined as class attributes)
+    if PYQT_AVAILABLE:
+        response_update_signal = pyqtSignal(str)
+        status_update_signal = pyqtSignal(str)
+    
     def __init__(self):
         if not PYQT_AVAILABLE:
             # Create a dummy GUI for testing when PyQt5 is not available
@@ -157,14 +162,6 @@ class SimplifiedJarvisGUI(QWidget):
             return
             
         super().__init__()
-        
-        # Signals for thread-safe updates (only if PyQt5 available)
-        try:
-            self.response_update_signal = pyqtSignal(str)
-            self.status_update_signal = pyqtSignal(str)
-        except NameError:
-            # pyqtSignal not available when PyQt5 is missing
-            pass
         
         # Initialize stats
         self.stats = {
@@ -377,8 +374,9 @@ class SimplifiedJarvisGUI(QWidget):
     
     def connect_signals(self):
         """Connect signals for thread-safe updates"""
-        self.response_update_signal.connect(self.update_response_safe)
-        self.status_update_signal.connect(self.update_status_safe)
+        if PYQT_AVAILABLE and hasattr(self, 'response_update_signal'):
+            self.response_update_signal.connect(self.update_response_safe)
+            self.status_update_signal.connect(self.update_status_safe)
     
     def load_initial_data(self):
         """Load initial data"""

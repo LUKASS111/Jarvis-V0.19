@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-07-28T17:23:30.060144",
+  "event": "concurrent_log_3_6",
+  "data": {
+    "worker_id": 3,
+    "event_index": 6,
+    "timestamp": 1753723410.060124,
+    "data": "Worker 3 event 6"
+  }
+}
