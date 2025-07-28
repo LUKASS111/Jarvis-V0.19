@@ -91,6 +91,58 @@ def simple_llm_process(prompt: str) -> dict:
             "error": True
         }
 
+@safe_execute(fallback_value=None, context="Interactive input processing")
+def process_interactive_input(user_input: str) -> dict:
+    """Process interactive user input with comprehensive handling"""
+    if not user_input or not user_input.strip():
+        return None
+    
+    user_input = user_input.strip()
+    
+    # Handle special commands
+    if user_input.lower() in {"exit", "quit", "q"}:
+        return {"action": "exit", "message": "Goodbye!"}
+    
+    if user_input.lower() in {"błędy", "errors", "raport"}:
+        try:
+            from error_handler import create_error_report
+            report = create_error_report()
+            return {"action": "error_report", "report": report}
+        except Exception as e:
+            error_handler.log_error(e, "Error report generation", ErrorLevel.WARNING)
+            return {"action": "error", "message": "Cannot generate error report"}
+    
+    if user_input.lower().startswith("model "):
+        new_model = user_input[6:].strip()
+        if new_model in AVAILABLE_MODELS:
+            try:
+                set_ollama_model(new_model)
+                return {"action": "model_change", "model": new_model, "success": True}
+            except Exception as e:
+                error_handler.log_error(e, "Model selection", ErrorLevel.WARNING)
+                return {"action": "model_change", "model": new_model, "success": False}
+        else:
+            return {"action": "model_change", "error": "Unknown model", "available": AVAILABLE_MODELS}
+    
+    if user_input.lower() in {"nowa", "new"}:
+        return {"action": "new_session", "message": "New session started"}
+    
+    # Handle memory operations
+    try:
+        memory_response = process_memory_prompt(user_input)
+        if memory_response:
+            return {"action": "memory", "response": memory_response, "prompt": user_input}
+    except Exception as e:
+        error_handler.log_error(e, "Memory processing", ErrorLevel.WARNING)
+    
+    # Default LLM processing
+    try:
+        result = simple_llm_process(user_input)
+        return {"action": "llm_response", "result": result}
+    except Exception as e:
+        error_handler.log_error(e, "Interactive input processing", ErrorLevel.ERROR)
+        return {"action": "error", "message": f"Processing error: {str(e)}"}
+
 @safe_execute(fallback_value=False, context="Main application")
 def main():
     """Simplified main function with clean interface"""

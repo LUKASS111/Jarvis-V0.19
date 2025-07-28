@@ -53,12 +53,18 @@ def export_memory():
 
 def process_memory_prompt(prompt: str):
     prompt = prompt.strip().lower()
-    if prompt.startswith("zapamiętaj"):
-        return remember_fact(prompt.replace("zapamiętaj", "").strip())
+    if prompt.startswith("zapamiętaj") or prompt.startswith("remember"):
+        content = prompt.replace("zapamiętaj", "").replace("remember", "").strip()
+        return remember_fact(content)
     elif "co wiesz o" in prompt:
-        return recall_fact(prompt.replace("co wiesz o", "").strip())
-    elif prompt.startswith("zapomnij"):
-        return forget_fact(prompt.replace("zapomnij", "").strip())
-    elif "eksportuj pamięć" in prompt or "zapisz pamięć" in prompt:
+        key = prompt.replace("co wiesz o", "").strip()
+        return recall_fact(key)
+    elif prompt.startswith("recall "):
+        key = prompt.replace("recall ", "").strip()
+        return recall_fact(key)
+    elif prompt.startswith("zapomnij") or prompt.startswith("forget"):
+        key = prompt.replace("zapomnij", "").replace("forget", "").strip()
+        return forget_fact(key)
+    elif "eksportuj pamięć" in prompt or "zapisz pamięć" in prompt or "export memory" in prompt:
         return export_memory()
     return None
