@@ -191,7 +191,7 @@ class TestLoggingPerformance(unittest.TestCase):
         
         # Test bulk retrieval
         start_time = time.time()
-        logs = get_logs()
+        logs = get_logs(limit=event_count + 100)  # Get more than we need to be sure
         retrieval_time = time.time() - start_time
         
         # Performance assertions
@@ -296,7 +296,7 @@ class TestLLMInterfacePerformance(unittest.TestCase):
             result = ask_local_llm(f"Test prompt {i}")
             direct_times.append(time.time() - start_time)
             
-            self.assertIsInstance(result, dict)
+            self.assertIsInstance(result, str)  # ask_local_llm returns string
         
         # Test processed LLM calls
         processed_times = []
