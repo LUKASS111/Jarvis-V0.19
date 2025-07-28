@@ -142,10 +142,10 @@ if __name__ == "__main__":
         "analysis": {
             "intent": "question",
             "chain_of_thought": [
-                "📌 Rozpoczęcie analizy promptu: 'Czym jest sztuczna inteligencja?'",
-                "🧩 Tokenizacja: 5 tokenów",
-                "🎯 Rozpoznana intencja: question",
-                "🔍 To pytanie – możliwe, że użytkownik oczekuje szczegółowego wyjaśnienia.",
+                "[PIN] Rozpoczęcie analizy promptu: 'Czym jest sztuczna inteligencja?'",
+                "[PUZZLE] Tokenizacja: 5 tokenów",
+                "[TARGET] Rozpoznana intencja: question",
+                "[SEARCH] To pytanie – możliwe, że użytkownik oczekuje szczegółowego wyjaśnienia.",
                 "✅ Wygenerowano strukturę odpowiedzi."
             ]
         }

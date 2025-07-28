@@ -139,7 +139,7 @@ class TestEndToEndWorkflows(unittest.TestCase):
         
         # Step 4: Forget a fact
         forget_result = forget_fact("user_age")
-        self.assertIn("🗑️", forget_result)
+        self.assertIn("[TRASH]", forget_result)
         
         # Step 5: Verify forgotten
         forgotten_result = recall_fact("user_age")

@@ -69,7 +69,7 @@ class ErrorHandler:
             with open(self.log_file, "a", encoding="utf-8") as f:
                 f.write(json.dumps(error_data, ensure_ascii=False) + "\n")
         except Exception as log_error:
-            print(f"⚠️ Failed to write error log: {log_error}")
+            print(f"[WARN] Failed to write error log: {log_error}")
         
         # Console output
         emoji = self._get_error_emoji(level)
@@ -107,10 +107,10 @@ class ErrorHandler:
     def _get_error_emoji(self, level: ErrorLevel) -> str:
         """Get appropriate emoji for error level"""
         emoji_map = {
-            ErrorLevel.INFO: "ℹ️",
-            ErrorLevel.WARNING: "⚠️",
-            ErrorLevel.ERROR: "❌",
-            ErrorLevel.CRITICAL: "🚨"
+            ErrorLevel.INFO: "[INFO]",
+            ErrorLevel.WARNING: "[WARN]",
+            ErrorLevel.ERROR: "[FAIL]",
+            ErrorLevel.CRITICAL: "[ALERT]"
         }
         return emoji_map.get(level, "❓")
     

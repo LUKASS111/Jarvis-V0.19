@@ -17,7 +17,7 @@ import os
 # Version information
 VERSION_STRING = "0.4.1-simplified"
 
-print(f"🚀 AutoGPT {VERSION_STRING} - Simplified AI Assistant")
+print(f"[LAUNCH] AutoGPT {VERSION_STRING} - Simplified AI Assistant")
 print("=" * 60)
 from jarvis.core.error_handler import (
     error_handler, safe_execute, ErrorLevel
@@ -149,7 +149,7 @@ def main():
     
     global chat_history
     
-    print("🧠 Jarvis CLI uruchomiony. Zadaj pytanie (lub wpisz 'exit' by zakończyć).\n"
+    print("[BRAIN] Jarvis CLI uruchomiony. Zadaj pytanie (lub wpisz 'exit' by zakończyć).\n"
           "Dostępne modele: " + ", ".join(AVAILABLE_MODELS) + "\n"
           "Aby zmienić model wpisz: 'model <nazwa_modelu>' (np. model codellama:13b)\n"
           "Aby rozpocząć nową rozmowę wpisz: 'nowa'\n"
@@ -162,7 +162,7 @@ def main():
         try:
             prompt = input("\nTy: ").strip()
         except (EOFError, KeyboardInterrupt):
-            print("\n👋 Do zobaczenia!")
+            print("\n[WAVE] Do zobaczenia!")
             break
         except Exception as e:
             error_handler.log_error(e, "User input", ErrorLevel.WARNING,
@@ -174,7 +174,7 @@ def main():
             
         # Exit commands
         if prompt.lower() in {"exit", "quit", "q"}:
-            print("👋 Do zobaczenia!")
+            print("[WAVE] Do zobaczenia!")
             break
 
         # Error report command
@@ -187,7 +187,7 @@ def main():
                 print("="*50)
             except Exception as e:
                 error_handler.log_error(e, "Error report generation", ErrorLevel.WARNING)
-                print("❌ Nie można wygenerować raportu błędów")
+                print("[FAIL] Nie można wygenerować raportu błędów")
             continue
 
         # Model selection with validation
@@ -198,7 +198,7 @@ def main():
                     set_ollama_model(new_model)
                     print(f"✅ Wybrano model: {new_model}")
                 else:
-                    print(f"❌ Nieznany model. Dostępne: " + ", ".join(AVAILABLE_MODELS))
+                    print(f"[FAIL] Nieznany model. Dostępne: " + ", ".join(AVAILABLE_MODELS))
             except Exception as e:
                 error_handler.log_error(e, "Model selection", ErrorLevel.WARNING,
                                        "Problem z wyborem modelu")
@@ -208,7 +208,7 @@ def main():
         if prompt.lower() in {"nowa", "new"}:
             try:
                 chat_history.clear()
-                print("🧹 Rozpoczęto nową sesję rozmowy.")
+                print("[CLEAN] Rozpoczęto nową sesję rozmowy.")
             except Exception as e:
                 error_handler.log_error(e, "Session reset", ErrorLevel.WARNING)
             continue
@@ -217,7 +217,7 @@ def main():
         try:
             memory_response = process_memory_prompt(prompt)
             if memory_response:
-                print(f"🧠 Jarvis (memory): {memory_response}")
+                print(f"[BRAIN] Jarvis (memory): {memory_response}")
                 log_event("memory_action", {"prompt": prompt, "response": memory_response})
                 continue
         except Exception as e:
@@ -229,9 +229,9 @@ def main():
             result = simple_llm_process(prompt)
             
             if not result.get("error"):
-                print(f"\n🤖 Jarvis: {result['response']}")
+                print(f"\n[ROBOT] Jarvis: {result['response']}")
             else:
-                print(f"\n❌ Błąd: {result['response']}")
+                print(f"\n[FAIL] Błąd: {result['response']}")
             
             # Add to chat history with size limit
             chat_history.append(result)
@@ -240,7 +240,7 @@ def main():
                 old_entries = chat_history[:25]
                 simple_log_to_file(old_entries, "old_session.json")
                 chat_history = chat_history[25:]
-                print("📦 Zapisano starsze wpisy")
+                print("[PACKAGE] Zapisano starsze wpisy")
             
             # Simple logging
             log_event("llm_interaction", {
@@ -252,7 +252,7 @@ def main():
         except Exception as e:
             error_handler.log_error(e, "Main processing", ErrorLevel.ERROR,
                                    "Błąd w głównym przetwarzaniu")
-            print("❌ Wystąpił błąd. Sprawdź 'błędy' aby zobaczyć szczegóły.")
+            print("[FAIL] Wystąpił błąd. Sprawdź 'błędy' aby zobaczyć szczegóły.")
 
         # Brief pause to prevent overwhelming
         try:
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     except Exception as e:
         error_handler.log_error(e, "Application startup", ErrorLevel.CRITICAL,
                                "Krytyczny błąd podczas uruchamiania aplikacji")
-        print("🚨 Krytyczny błąd systemu. Sprawdź logi błędów.")
+        print("[ALERT] Krytyczny błąd systemu. Sprawdź logi błędów.")
         sys.exit(1)
     finally:
         # Generate final error report
@@ -274,7 +274,7 @@ if __name__ == "__main__":
             from error_handler import create_error_report
             summary = error_handler.get_session_summary()
             if summary['total_errors'] > 0 or summary['total_warnings'] > 0:
-                print(f"\n📊 Podsumowanie sesji: {summary['total_errors']} błędów, "
+                print(f"\n[CHART] Podsumowanie sesji: {summary['total_errors']} błędów, "
                       f"{summary['total_warnings']} ostrzeżeń, {summary['total_fallbacks']} fallback'ów")
         except:
             pass

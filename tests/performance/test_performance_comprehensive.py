@@ -64,7 +64,7 @@ class TestMemoryPerformance(unittest.TestCase):
         self.assertLess(forget_time, 15.0, f"Bulk forget too slow: {forget_time:.2f}s for {fact_count//2} facts")
         
         # Print performance metrics
-        print(f"\n💾 Memory Performance Metrics:")
+        print(f"\n[SAVE] Memory Performance Metrics:")
         print(f"   Remember: {remember_time:.3f}s ({fact_count/remember_time:.1f} ops/sec)")
         print(f"   Recall:   {recall_time:.3f}s ({fact_count/recall_time:.1f} ops/sec)")
         print(f"   Forget:   {forget_time:.3f}s ({(fact_count//2)/forget_time:.1f} ops/sec)")
@@ -145,7 +145,7 @@ class TestMemoryPerformance(unittest.TestCase):
         avg_remember_time = sum(all_remember_times) / len(all_remember_times)
         avg_recall_time = sum(all_recall_times) / len(all_recall_times)
         
-        print(f"\n🔄 Concurrent Memory Performance:")
+        print(f"\n[REFRESH] Concurrent Memory Performance:")
         print(f"   Avg Remember: {avg_remember_time:.4f}s")
         print(f"   Avg Recall:   {avg_recall_time:.4f}s")
         
@@ -201,7 +201,7 @@ class TestLoggingPerformance(unittest.TestCase):
         # Verify log count
         self.assertGreaterEqual(len(logs), event_count)
         
-        print(f"\n📝 Logging Performance Metrics:")
+        print(f"\n[MEMO] Logging Performance Metrics:")
         print(f"   Logging:   {log_time:.3f}s ({event_count/log_time:.1f} events/sec)")
         print(f"   Retrieval: {retrieval_time:.3f}s")
         print(f"   Total logs: {len(logs)}")
@@ -265,7 +265,7 @@ class TestLoggingPerformance(unittest.TestCase):
         # Analyze performance
         avg_log_time = sum(all_times) / len(all_times)
         
-        print(f"\n🔄 Concurrent Logging Performance:")
+        print(f"\n[REFRESH] Concurrent Logging Performance:")
         print(f"   Avg Log Time: {avg_log_time:.4f}s")
         print(f"   Total Events: {len(all_times)}")
         
@@ -312,7 +312,7 @@ class TestLLMInterfacePerformance(unittest.TestCase):
         avg_direct_time = sum(direct_times) / len(direct_times)
         avg_processed_time = sum(processed_times) / len(processed_times)
         
-        print(f"\n🤖 LLM Interface Performance:")
+        print(f"\n[ROBOT] LLM Interface Performance:")
         print(f"   Direct calls:    {avg_direct_time:.4f}s avg")
         print(f"   Processed calls: {avg_processed_time:.4f}s avg")
         
@@ -343,7 +343,7 @@ class TestLLMInterfacePerformance(unittest.TestCase):
         # Analyze performance
         avg_switch_time = sum(switch_times) / len(switch_times)
         
-        print(f"\n🔄 Model Switching Performance:")
+        print(f"\n[REFRESH] Model Switching Performance:")
         print(f"   Avg Switch Time: {avg_switch_time:.4f}s")
         
         # Model switching should be instant
@@ -387,7 +387,7 @@ class TestErrorHandlingPerformance(unittest.TestCase):
         avg_log_time = sum(log_times) / len(log_times)
         total_time = sum(log_times)
         
-        print(f"\n⚠️  Error Logging Performance:")
+        print(f"\n[WARN]  Error Logging Performance:")
         print(f"   Avg Log Time: {avg_log_time:.4f}s")
         print(f"   Total Time:   {total_time:.3f}s for {error_count} errors")
         print(f"   Rate:         {error_count/total_time:.1f} errors/sec")
@@ -428,7 +428,7 @@ class TestErrorHandlingPerformance(unittest.TestCase):
         avg_fail_time = sum(fail_times) / len(fail_times)
         avg_success_time = sum(success_times) / len(success_times)
         
-        print(f"\n🛡️  Safe Execute Performance:")
+        print(f"\n[SHIELD]  Safe Execute Performance:")
         print(f"   Failing functions:    {avg_fail_time:.4f}s avg")
         print(f"   Successful functions: {avg_success_time:.4f}s avg")
         
@@ -468,7 +468,7 @@ class TestSystemPerformance(unittest.TestCase):
         # Analyze performance
         avg_workflow_time = sum(workflow_times) / len(workflow_times)
         
-        print(f"\n🔄 Complete Workflow Performance:")
+        print(f"\n[REFRESH] Complete Workflow Performance:")
         print(f"   Avg Workflow Time: {avg_workflow_time:.3f}s")
         print(f"   Operations per workflow: 4")
         
@@ -506,7 +506,7 @@ if __name__ == "__main__":
     print(f"Success rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")
     
     if result.failures:
-        print(f"\n⚠️  PERFORMANCE ISSUES:")
+        print(f"\n[WARN]  PERFORMANCE ISSUES:")
         for test, traceback in result.failures:
             print(f"   - {test}")
     

@@ -196,7 +196,7 @@ class TestMemory(unittest.TestCase):
         
         # Test invalid fact format
         result = remember_fact("invalid fact")
-        self.assertIn("❌", result)
+        self.assertIn("[FAIL]", result)
     
     def test_recall_fact(self):
         """Test fact recall"""
@@ -222,7 +222,7 @@ class TestMemory(unittest.TestCase):
         
         # Forget existing fact
         result = forget_fact("forget_test")
-        self.assertIn("🗑️", result)
+        self.assertIn("[TRASH]", result)
         
         # Verify fact is forgotten
         recall_result = recall_fact("forget_test")

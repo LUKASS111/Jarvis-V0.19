@@ -31,7 +31,7 @@ def run_test_file(test_file, description):
         }
     
     print(f"\n{'='*60}")
-    print(f"🧪 Running {description}")
+    print(f"[TEST] Running {description}")
     print(f"{'='*60}")
     
     start_time = time.time()
@@ -109,7 +109,7 @@ def run_test_file(test_file, description):
         
     except Exception as e:
         duration = time.time() - start_time
-        print(f"❌ Error running test suite: {e}")
+        print(f"[FAIL] Error running test suite: {e}")
         
         return {
             "name": test_file,
@@ -124,7 +124,7 @@ def run_test_file(test_file, description):
 
 def main():
     """Main test runner function"""
-    print("🚀 V0.41-black-ui COMPREHENSIVE TEST SUITE")
+    print("[LAUNCH] V0.41-black-ui COMPREHENSIVE TEST SUITE")
     print("=" * 80)
     print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -151,7 +151,7 @@ def main():
     
     # Generate comprehensive summary
     print(f"\n{'='*80}")
-    print("📊 COMPREHENSIVE TEST RESULTS SUMMARY")
+    print("[CHART] COMPREHENSIVE TEST RESULTS SUMMARY")
     print(f"{'='*80}")
     
     total_tests = 0
@@ -166,10 +166,10 @@ def main():
     for result in results:
         status_symbol = {
             "PASS": "✅",
-            "FAIL": "❌", 
+            "FAIL": "[FAIL]", 
             "TIMEOUT": "⏰",
-            "ERROR": "💥",
-            "SKIPPED": "⏭️"
+            "ERROR": "[BOOM]",
+            "SKIPPED": "[SKIP]"
         }.get(result["status"], "❓")
         
         print(f"{result['description']:<40} {status_symbol} {result['status']:<7} "
@@ -197,7 +197,7 @@ def main():
         successful_tests = total_tests - total_failures - total_errors
         test_success_rate = (successful_tests / total_tests * 100)
     
-    print(f"\n🎯 OVERALL SUMMARY:")
+    print(f"\n[TARGET] OVERALL SUMMARY:")
     print(f"   Test Suites:     {passed_suites}/{total_suite_count} passed ({suite_success_rate:.1f}%)")
     print(f"   Individual Tests: {total_tests - total_failures - total_errors}/{total_tests} passed ({test_success_rate:.1f}%)")
     print(f"   Total Duration:   {overall_duration:.1f} seconds")
@@ -206,24 +206,24 @@ def main():
     
     # Overall status
     if suite_success_rate >= 100:
-        overall_status = "🟢 PERFECT"
+        overall_status = "[GREEN] PERFECT"
     elif suite_success_rate >= 80:
-        overall_status = "🟢 EXCELLENT"
+        overall_status = "[GREEN] EXCELLENT"
     elif suite_success_rate >= 60:
-        overall_status = "🟡 GOOD"
+        overall_status = "[YELLOW] GOOD"
     elif suite_success_rate >= 40:
-        overall_status = "🟠 NEEDS IMPROVEMENT"
+        overall_status = "[ORANGE] NEEDS IMPROVEMENT"
     else:
-        overall_status = "🔴 CRITICAL ISSUES"
+        overall_status = "[RED] CRITICAL ISSUES"
     
     print(f"   Overall Status:   {overall_status}")
     
     # Detailed failure analysis
     failed_results = [r for r in results if r["status"] in ["FAIL", "TIMEOUT", "ERROR"]]
     if failed_results:
-        print(f"\n⚠️  FAILED TEST SUITES:")
+        print(f"\n[WARN]  FAILED TEST SUITES:")
         for result in failed_results:
-            print(f"\n   📁 {result['description']} ({result['status']}):")
+            print(f"\n   [FOLDER] {result['description']} ({result['status']}):")
             if "reason" in result:
                 print(f"      Reason: {result['reason']}")
             if result.get("error_output"):
@@ -234,7 +234,7 @@ def main():
                     print(f"      {line}")
     
     # Recommendations
-    print(f"\n💡 RECOMMENDATIONS:")
+    print(f"\n[IDEA] RECOMMENDATIONS:")
     
     if total_failures > 0:
         print(f"   - Fix {total_failures} failing test cases")
@@ -256,7 +256,7 @@ def main():
         print(f"   - Consider running performance benchmarks")
         print(f"   - Review code coverage reports")
     
-    print(f"\n🕐 Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"\n[TIME1] Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Return appropriate exit code
     if suite_success_rate >= 80 and total_errors == 0:

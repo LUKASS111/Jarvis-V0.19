@@ -23,13 +23,13 @@ def load_memory():
                     return {}
                 return json.loads(content)
         except (json.JSONDecodeError, FileNotFoundError, PermissionError) as e:
-            print(f"⚠️ Memory file corrupted, creating backup and new file: {e}")
+            print(f"[WARN] Memory file corrupted, creating backup and new file: {e}")
             # Backup corrupted file
             if os.path.exists(MEMORY_FILE):
                 backup_name = f"{MEMORY_FILE}.corrupt_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
                 try:
                     os.rename(MEMORY_FILE, backup_name)
-                    print(f"📁 Corrupted memory backed up to: {backup_name}")
+                    print(f"[FOLDER] Corrupted memory backed up to: {backup_name}")
                 except:
                     pass
             return {}
@@ -49,7 +49,7 @@ def save_memory(memory):
         # If we get here, the JSON is valid, so replace the original
         os.replace(temp_file, MEMORY_FILE)
     except Exception as e:
-        print(f"❌ Error saving memory: {e}")
+        print(f"[FAIL] Error saving memory: {e}")
         # Clean up temp file if it exists
         if os.path.exists(temp_file):
             try:
@@ -62,7 +62,7 @@ def remember_fact(fact: str):
     with _memory_lock:
         memory = load_memory()
         if " to " not in fact:
-            return "❌ Niepoprawny format. Użyj: X to Y"
+            return "[FAIL] Niepoprawny format. Użyj: X to Y"
         key, value = fact.split(" to ", 1)
         memory[key.strip()] = value.strip()
         save_memory(memory)
@@ -79,7 +79,7 @@ def forget_fact(key: str):
         if key.strip() in memory:
             del memory[key.strip()]
             save_memory(memory)
-            return f"🗑️ Zapomniano: {key.strip()}"
+            return f"[TRASH] Zapomniano: {key.strip()}"
         return "❓ Nie znam tej informacji."
 
 def export_memory():
@@ -88,7 +88,7 @@ def export_memory():
     memory = load_memory()
     with open(export_file, "w", encoding="utf-8") as f:
         json.dump(memory, f, indent=2, ensure_ascii=False)
-    return f"📁 Eksportowano pamięć do: {export_file}"
+    return f"[FOLDER] Eksportowano pamięć do: {export_file}"
 
 def process_memory_prompt(prompt: str):
     prompt = prompt.strip().lower()

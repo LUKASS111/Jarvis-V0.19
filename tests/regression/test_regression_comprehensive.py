@@ -407,12 +407,12 @@ if __name__ == "__main__":
     print(f"Success rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")
     
     if result.failures:
-        print(f"\n⚠️  REGRESSIONS DETECTED:")
+        print(f"\n[WARN]  REGRESSIONS DETECTED:")
         for test, traceback in result.failures:
             print(f"   - {test}: {traceback.split(chr(10))[-2] if chr(10) in traceback else traceback}")
     
     if result.errors:
-        print(f"\n❌ ERRORS DETECTED:")
+        print(f"\n[FAIL] ERRORS DETECTED:")
         for test, traceback in result.errors:
             print(f"   - {test}: {traceback.split(chr(10))[-2] if chr(10) in traceback else traceback}")
     

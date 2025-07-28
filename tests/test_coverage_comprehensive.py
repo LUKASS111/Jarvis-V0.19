@@ -97,7 +97,7 @@ class TestCodeCoverage(unittest.TestCase):
             )
             
             if report_result.returncode == 0:
-                print(f"\n📊 UNIT TEST COVERAGE REPORT:")
+                print(f"\n[CHART] UNIT TEST COVERAGE REPORT:")
                 print(report_result.stdout)
             
         except subprocess.TimeoutExpired:
@@ -147,7 +147,7 @@ class TestCodeCoverage(unittest.TestCase):
             )
             
             if report_result.returncode == 0:
-                print(f"\n📊 INTEGRATION TEST COVERAGE REPORT:")
+                print(f"\n[CHART] INTEGRATION TEST COVERAGE REPORT:")
                 print(report_result.stdout)
                 
         except subprocess.TimeoutExpired:
@@ -194,7 +194,7 @@ class TestCodeCoverage(unittest.TestCase):
                     
                     # Continue even if one test fails
                     if result.returncode != 0:
-                        print(f"⚠️  {test_file} coverage failed: {result.stderr}")
+                        print(f"[WARN]  {test_file} coverage failed: {result.stderr}")
             
             # Generate combined coverage report
             report_cmd = [
@@ -210,7 +210,7 @@ class TestCodeCoverage(unittest.TestCase):
             )
             
             if report_result.returncode == 0:
-                print(f"\n📊 COMBINED COVERAGE REPORT:")
+                print(f"\n[CHART] COMBINED COVERAGE REPORT:")
                 print(report_result.stdout)
                 
                 # Try to generate HTML report
@@ -228,7 +228,7 @@ class TestCodeCoverage(unittest.TestCase):
                 )
                 
                 if html_result.returncode == 0:
-                    print(f"📄 HTML coverage report generated in {os.path.join(self.temp_dir, 'htmlcov')}")
+                    print(f"[FILE] HTML coverage report generated in {os.path.join(self.temp_dir, 'htmlcov')}")
                 
         except subprocess.TimeoutExpired:
             self.skipTest("Combined coverage timed out")
@@ -299,9 +299,9 @@ class TestCodeCoverage(unittest.TestCase):
                 coverage_results[module] = f"Error: {e}"
         
         # Print module coverage summary
-        print(f"\n📊 MODULE COVERAGE ANALYSIS:")
+        print(f"\n[CHART] MODULE COVERAGE ANALYSIS:")
         for module, result in coverage_results.items():
-            print(f"\n🔍 {module}:")
+            print(f"\n[SEARCH] {module}:")
             if isinstance(result, str) and len(result) > 100:
                 # Extract coverage percentage if available
                 lines = result.split('\n')
@@ -352,7 +352,7 @@ class TestCodeCoverage(unittest.TestCase):
                 )
                 
                 if report_result.returncode == 0:
-                    print(f"\n📊 UNCOVERED LINES ANALYSIS:")
+                    print(f"\n[CHART] UNCOVERED LINES ANALYSIS:")
                     print(report_result.stdout)
                     
                     # Analyze the report for missing coverage
@@ -370,17 +370,17 @@ class TestCodeCoverage(unittest.TestCase):
                     
                     if total_coverage:
                         coverage_percent = float(total_coverage.replace('%', ''))
-                        print(f"\n🎯 COVERAGE SUMMARY:")
+                        print(f"\n[TARGET] COVERAGE SUMMARY:")
                         print(f"   Total Coverage: {total_coverage}")
                         
                         if coverage_percent >= 90:
-                            print("   Status: 🟢 EXCELLENT")
+                            print("   Status: [GREEN] EXCELLENT")
                         elif coverage_percent >= 80:
-                            print("   Status: 🟡 GOOD")
+                            print("   Status: [YELLOW] GOOD")
                         elif coverage_percent >= 70:
-                            print("   Status: 🟠 NEEDS IMPROVEMENT")
+                            print("   Status: [ORANGE] NEEDS IMPROVEMENT")
                         else:
-                            print("   Status: 🔴 POOR")
+                            print("   Status: [RED] POOR")
                         
                         # Assert minimum coverage requirement
                         self.assertGreater(coverage_percent, 50, 

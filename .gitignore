@@ -71,6 +71,7 @@ Thumbs.db
 *.corrupt_*
 data/memory_exports/
 data/jarvis_mem.json.backup
+memory_export_*.json
 
 # Test generated files and reports
 data/test_reports/

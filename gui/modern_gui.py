@@ -30,7 +30,7 @@ try:
     PYQT_AVAILABLE = True
 except ImportError:
     PYQT_AVAILABLE = False
-    print("❌ PyQt5 not available. GUI cannot start.")
+    print("[FAIL] PyQt5 not available. GUI cannot start.")
     
     # Create stub classes for testing when PyQt5 is not available
     class QWidget:
@@ -206,7 +206,7 @@ class SimplifiedJarvisGUI(QWidget):
     
     def create_system_status_section(self):
         """Create system status section at top"""
-        group = QGroupBox("📊 System Status")
+        group = QGroupBox("[CHART] System Status")
         layout = QFormLayout(group)
         
         # Status indicators
@@ -233,14 +233,14 @@ class SimplifiedJarvisGUI(QWidget):
         layout = QVBoxLayout(panel)
         
         # Model configuration
-        model_group = QGroupBox("🤖 Model Configuration")
+        model_group = QGroupBox("[ROBOT] Model Configuration")
         model_layout = QFormLayout(model_group)
         
         # Model selector with refresh
         model_row = QHBoxLayout()
         self.model_combo = QComboBox()
         self.model_combo.setMinimumWidth(150)
-        self.refresh_btn = QPushButton("🔄")
+        self.refresh_btn = QPushButton("[REFRESH]")
         self.refresh_btn.setMaximumWidth(30)
         self.refresh_btn.clicked.connect(self.refresh_models)
         
@@ -254,7 +254,7 @@ class SimplifiedJarvisGUI(QWidget):
         layout.addWidget(model_group)
         
         # LLM parameters
-        params_group = QGroupBox("⚙️ LLM Parameters")
+        params_group = QGroupBox("[SETTINGS] LLM Parameters")
         params_layout = QFormLayout(params_group)
         
         # Temperature
@@ -280,7 +280,7 @@ class SimplifiedJarvisGUI(QWidget):
         layout.addWidget(params_group)
         
         # System actions
-        actions_group = QGroupBox("🚀 System Actions")
+        actions_group = QGroupBox("[LAUNCH] System Actions")
         actions_layout = QVBoxLayout(actions_group)
         
 
@@ -296,7 +296,7 @@ class SimplifiedJarvisGUI(QWidget):
         layout = QVBoxLayout(panel)
         
         # AI Interaction
-        chat_group = QGroupBox("💬 AI Interaction")
+        chat_group = QGroupBox("[MESSAGE] AI Interaction")
         chat_layout = QVBoxLayout(chat_group)
         
         # Input area
@@ -305,7 +305,7 @@ class SimplifiedJarvisGUI(QWidget):
         self.prompt_input.setPlaceholderText("Ask AutoGPT anything...")
         self.prompt_input.returnPressed.connect(self.process_input)
         
-        self.send_btn = QPushButton("📤 Send")
+        self.send_btn = QPushButton("[SEND] Send")
         self.send_btn.clicked.connect(self.process_input)
         self.send_btn.setMaximumWidth(80)
         
@@ -329,7 +329,7 @@ class SimplifiedJarvisGUI(QWidget):
         layout = QVBoxLayout(panel)
         
         # Analysis & Reasoning section
-        analysis_group = QGroupBox("🔍 Analysis & Reasoning")
+        analysis_group = QGroupBox("[SEARCH] Analysis & Reasoning")
         analysis_layout = QVBoxLayout(analysis_group)
         
         # Chain of thought area
@@ -341,7 +341,7 @@ class SimplifiedJarvisGUI(QWidget):
         layout.addWidget(analysis_group)
         
         # Communication area
-        comm_group = QGroupBox("💬 Communication")
+        comm_group = QGroupBox("[MESSAGE] Communication")
         comm_layout = QVBoxLayout(comm_group)
         
         self.comm_area = QTextEdit()
@@ -351,7 +351,7 @@ class SimplifiedJarvisGUI(QWidget):
         comm_layout.addWidget(self.comm_area)
         
         # Clear button
-        self.clear_btn = QPushButton("🗑️ Clear")
+        self.clear_btn = QPushButton("[TRASH] Clear")
         self.clear_btn.setMaximumWidth(60)
         self.clear_btn.clicked.connect(self.clear_communication)
         comm_layout.addWidget(self.clear_btn)
@@ -386,9 +386,9 @@ class SimplifiedJarvisGUI(QWidget):
                 
                 self.model_status.setText("✅ Ready")
             else:
-                self.model_status.setText("❌ LLM Unavailable")
+                self.model_status.setText("[FAIL] LLM Unavailable")
         except Exception as e:
-            self.model_status.setText("❌ Error")
+            self.model_status.setText("[FAIL] Error")
             error_handler.log_error(e, "Model refresh", ErrorLevel.ERROR)
     
     def process_input(self):
@@ -398,8 +398,8 @@ class SimplifiedJarvisGUI(QWidget):
             return
         
         self.prompt_input.clear()
-        self.response_area.append(f"\n🗨️ **You:** {prompt}\n")
-        self.response_area.append("🤔 **AutoGPT:** Thinking...\n")
+        self.response_area.append(f"\n[CHAT] **You:** {prompt}\n")
+        self.response_area.append("[THINK] **AutoGPT:** Thinking...\n")
         
         # Process in background
         thread = threading.Thread(target=self._process_background, args=(prompt,))
@@ -427,11 +427,11 @@ class SimplifiedJarvisGUI(QWidget):
                 self.update_analysis(analysis)
                 
             else:
-                self.response_update_signal.emit("❌ LLM not available")
+                self.response_update_signal.emit("[FAIL] LLM not available")
                 
         except Exception as e:
             error_handler.log_error(e, "LLM processing", ErrorLevel.ERROR)
-            self.response_update_signal.emit(f"❌ Error: {str(e)}")
+            self.response_update_signal.emit(f"[FAIL] Error: {str(e)}")
     
     def update_response_safe(self, response):
         """Thread-safe response update"""
@@ -442,15 +442,15 @@ class SimplifiedJarvisGUI(QWidget):
             lines = [line for line in lines if "Thinking..." not in line]
             self.response_area.setPlainText('\n'.join(lines))
         
-        self.response_area.append(f"🤖 **AutoGPT:** {response}\n")
+        self.response_area.append(f"[ROBOT] **AutoGPT:** {response}\n")
     
     def update_status_safe(self, status):
         """Thread-safe status update"""
-        self.comm_area.append(f"📢 {time.strftime('%H:%M:%S')} - {status}")
+        self.comm_area.append(f"[LOUD] {time.strftime('%H:%M:%S')} - {status}")
     
     def update_analysis(self, analysis):
         """Update analysis area"""
-        self.analysis_area.append(f"🧠 {time.strftime('%H:%M:%S')} - {analysis}")
+        self.analysis_area.append(f"[BRAIN] {time.strftime('%H:%M:%S')} - {analysis}")
     
     def update_system_status(self):
         """Update system status display"""
@@ -500,7 +500,7 @@ def main():
         
     except Exception as e:
         error_handler.log_error(e, "GUI startup", ErrorLevel.CRITICAL)
-        print(f"❌ Critical error starting GUI: {e}")
+        print(f"[FAIL] Critical error starting GUI: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

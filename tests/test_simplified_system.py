@@ -24,7 +24,7 @@ def test_core_imports():
         print("✅ Core imports: PASS")
         return True
     except ImportError as e:
-        print(f"❌ Core imports: FAIL - {e}")
+        print(f"[FAIL] Core imports: FAIL - {e}")
         return False
 
 def test_error_handler():
@@ -42,7 +42,7 @@ def test_error_handler():
         print("✅ Error handler: PASS")
         return True
     except Exception as e:
-        print(f"❌ Error handler: FAIL - {e}")
+        print(f"[FAIL] Error handler: FAIL - {e}")
         return False
 
 def test_llm_interface():
@@ -57,7 +57,7 @@ def test_llm_interface():
         print(f"✅ LLM interface: PASS (Current model: {current_model})")
         return True
     except Exception as e:
-        print(f"❌ LLM interface: FAIL - {e}")
+        print(f"[FAIL] LLM interface: FAIL - {e}")
         return False
 
 def test_memory_system():
@@ -71,7 +71,7 @@ def test_memory_system():
         print("✅ Memory system: PASS")
         return True
     except Exception as e:
-        print(f"❌ Memory system: FAIL - {e}")
+        print(f"[FAIL] Memory system: FAIL - {e}")
         return False
 
 def test_logging_system():
@@ -85,7 +85,7 @@ def test_logging_system():
         print("✅ Logging system: PASS")
         return True
     except Exception as e:
-        print(f"❌ Logging system: FAIL - {e}")
+        print(f"[FAIL] Logging system: FAIL - {e}")
         return False
 
 def test_gui_imports():
@@ -96,7 +96,7 @@ def test_gui_imports():
         print("✅ GUI imports: PASS")
         return True
     except Exception as e:
-        print(f"❌ GUI imports: FAIL - {e}")
+        print(f"[FAIL] GUI imports: FAIL - {e}")
         return False
 
 def test_main_processing():
@@ -116,14 +116,14 @@ def test_main_processing():
         print("✅ Main processing: PASS")
         return True
     except Exception as e:
-        print(f"❌ Main processing: FAIL - {e}")
+        print(f"[FAIL] Main processing: FAIL - {e}")
         return False
 
 def run_all_tests():
     """Run all test cases"""
-    print("🧪 SIMPLIFIED SYSTEM TEST SUITE")
+    print("[TEST] SIMPLIFIED SYSTEM TEST SUITE")
     print("=" * 50)
-    print(f"🕐 Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"[TIME1] Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
     
     test_functions = [
@@ -140,7 +140,7 @@ def run_all_tests():
     total_start_time = time.time()
     
     for test_func in test_functions:
-        print(f"🔍 Running {test_func.__name__}...")
+        print(f"[SEARCH] Running {test_func.__name__}...")
         start_time = time.time()
         
         try:
@@ -159,7 +159,7 @@ def run_all_tests():
                 'execution_time': execution_time,
                 'error': str(e)
             })
-            print(f"💥 {test_func.__name__}: ERROR - {str(e)}")
+            print(f"[BOOM] {test_func.__name__}: ERROR - {str(e)}")
         
         print()
     
@@ -169,14 +169,14 @@ def run_all_tests():
     total = len(results)
     success_rate = (passed / total * 100) if total > 0 else 0
     
-    print("📊 TEST RESULTS SUMMARY")
+    print("[CHART] TEST RESULTS SUMMARY")
     print("=" * 50)
     
     for result in results:
-        status = "✅ PASS" if result['success'] else "❌ FAIL"
+        status = "✅ PASS" if result['success'] else "[FAIL] FAIL"
         print(f"   {status} {result['name']} ({result['execution_time']:.2f}s)")
     
-    print(f"\n🎯 OVERALL SUMMARY:")
+    print(f"\n[TARGET] OVERALL SUMMARY:")
     print(f"   Total Tests: {total}")
     print(f"   Passed: {passed}")
     print(f"   Failed: {total - passed}")
@@ -184,16 +184,16 @@ def run_all_tests():
     print(f"   Total Execution Time: {total_execution_time:.2f}s")
     
     if success_rate >= 90:
-        status = "🟢 EXCELLENT"
+        status = "[GREEN] EXCELLENT"
     elif success_rate >= 80:
-        status = "🟡 GOOD"
+        status = "[YELLOW] GOOD"
     elif success_rate >= 60:
-        status = "🟠 NEEDS IMPROVEMENT"
+        status = "[ORANGE] NEEDS IMPROVEMENT"
     else:
-        status = "🔴 CRITICAL ISSUES"
+        status = "[RED] CRITICAL ISSUES"
     
     print(f"   System Status: {status}")
-    print(f"\n🕐 Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"\n[TIME1] Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     return success_rate >= 80
 

@@ -15,12 +15,12 @@ from pathlib import Path
 def print_banner(text):
     """Print a styled banner"""
     print(f"\n{'='*60}")
-    print(f"🧪 {text}")
+    print(f"[TEST] {text}")
     print('='*60)
 
 def run_test_suite(test_name, test_file, use_qt_offscreen=False):
     """Run a specific test suite and capture results"""
-    print(f"\n🔄 Running {test_name}...")
+    print(f"\n[REFRESH] Running {test_name}...")
     
     env = os.environ.copy()
     if use_qt_offscreen:
@@ -64,7 +64,7 @@ def run_test_suite(test_name, test_file, use_qt_offscreen=False):
                 if "Success rate:" in line:
                     success_rate = float(line.split("Success rate:")[1].split("%")[0].strip())
         
-        status = "✅ PASS" if result.returncode == 0 else "❌ FAIL"
+        status = "✅ PASS" if result.returncode == 0 else "[FAIL] FAIL"
         
         return {
             "name": test_name,
@@ -95,7 +95,7 @@ def run_test_suite(test_name, test_file, use_qt_offscreen=False):
     except Exception as e:
         return {
             "name": test_name,
-            "status": "💥 ERROR",
+            "status": "[BOOM] ERROR",
             "duration": 0,
             "total_tests": 0,
             "failures": 0,
@@ -108,7 +108,7 @@ def run_test_suite(test_name, test_file, use_qt_offscreen=False):
 
 def generate_coverage_report():
     """Generate test coverage report"""
-    print("\n📊 Analyzing test coverage...")
+    print("\n[CHART] Analyzing test coverage...")
     
     test_files = [
         "tests/unit/test_unit_comprehensive.py",
@@ -157,7 +157,7 @@ def generate_coverage_report():
 
 def generate_error_log_summary():
     """Generate summary of current error logs"""
-    print("\n📋 Analyzing error logs...")
+    print("\n[CLIPBOARD] Analyzing error logs...")
     
     error_log_file = "logs/error_log.jsonl"
     if not os.path.exists(error_log_file):
@@ -203,11 +203,11 @@ def generate_error_log_summary():
 def main():
     """Main test automation function"""
     print_banner("AUTOMATED TEST RUNNER & COVERAGE GENERATOR")
-    print(f"📅 Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"[CALENDAR] Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Ensure we're in the right directory
     if not os.path.exists("main.py"):
-        print("❌ Error: Run this script from the Jarvis root directory")
+        print("[FAIL] Error: Run this script from the Jarvis root directory")
         sys.exit(1)
     
     # Test suites to run
@@ -234,9 +234,9 @@ def main():
             print(f"      Tests: {result['total_tests']}, Success Rate: {result['success_rate']:.1f}%")
             
             if result['failures'] > 0 or result['errors'] > 0:
-                print(f"      ⚠️  Failures: {result['failures']}, Errors: {result['errors']}")
+                print(f"      [WARN]  Failures: {result['failures']}, Errors: {result['errors']}")
         else:
-            print(f"⚠️  {test_file} not found, skipping...")
+            print(f"[WARN]  {test_file} not found, skipping...")
     
     total_duration = time.time() - total_start_time
     
@@ -278,24 +278,24 @@ def main():
     
     # Print summary
     print_banner("TEST EXECUTION SUMMARY")
-    print(f"🕒 Total Duration: {total_duration:.2f} seconds")
-    print(f"📊 Test Suites: {report['summary']['passed_suites']}/{report['summary']['total_suites']} passed")
-    print(f"🎯 Overall Success Rate: {report['summary']['overall_success_rate']:.1f}%")
-    print(f"🔍 Total Tests: {report['summary']['total_tests']}")
+    print(f"[TIME3] Total Duration: {total_duration:.2f} seconds")
+    print(f"[CHART] Test Suites: {report['summary']['passed_suites']}/{report['summary']['total_suites']} passed")
+    print(f"[TARGET] Overall Success Rate: {report['summary']['overall_success_rate']:.1f}%")
+    print(f"[SEARCH] Total Tests: {report['summary']['total_tests']}")
     
     if error_summary.get("real_errors", 0) > 0:
-        print(f"⚠️  Real Errors Found: {error_summary['real_errors']}")
+        print(f"[WARN]  Real Errors Found: {error_summary['real_errors']}")
     else:
         print("✅ No real errors detected")
     
-    print(f"📄 Detailed report saved to: {report_file}")
+    print(f"[FILE] Detailed report saved to: {report_file}")
     
     # Return appropriate exit code
     if report["summary"]["passed_suites"] == report["summary"]["total_suites"]:
-        print("\n🎉 All tests passed successfully!")
+        print("\n[CELEBRATE] All tests passed successfully!")
         return 0
     else:
-        print(f"\n❌ {report['summary']['failed_suites']} test suite(s) failed")
+        print(f"\n[FAIL] {report['summary']['failed_suites']} test suite(s) failed")
         return 1
 
 if __name__ == "__main__":

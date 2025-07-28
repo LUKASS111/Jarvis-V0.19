@@ -231,7 +231,7 @@ class TestUserScenarios(unittest.TestCase):
         
         # Step 5: User cleans up some data
         forget_result = forget_fact("deadline")
-        self.assertIn("🗑️", forget_result)
+        self.assertIn("[TRASH]", forget_result)
         
         # Step 7: Verify final state
         logs = get_logs()
@@ -335,7 +335,7 @@ class TestEdgeCases(unittest.TestCase):
         
         # Test empty memory operations
         empty_remember = remember_fact("")
-        self.assertIn("❌", empty_remember)
+        self.assertIn("[FAIL]", empty_remember)
         
         empty_recall = recall_fact("")
         self.assertIn("❓", empty_recall)
