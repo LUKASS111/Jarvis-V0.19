@@ -101,15 +101,7 @@ QPushButton:pressed {
     background-color: #5a67d8;
 }
 
-QPushButton#self_modify_btn {
-    background-color: #e53e3e;
-    color: white;
-    font-weight: bold;
-}
 
-QPushButton#self_modify_btn:hover {
-    background-color: #f56565;
-}
 
 QTextEdit, QLineEdit {
     background-color: #2d3748;
