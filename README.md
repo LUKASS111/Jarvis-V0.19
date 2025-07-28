@@ -1,8 +1,8 @@
-# Jarvis v0.19 - AI Assistant with Task Management System
+# Jarvis v0.19 - AI Assistant with Modular Architecture
 
-🤖 Advanced AI assistant with autonomous agents, comprehensive testing, and modern GUI interface.
+🤖 Advanced AI assistant with modern modular architecture, comprehensive testing, and professional GUI interface.
 
-## Quick Start
+## 🚀 Quick Start
 
 ### CLI Mode
 ```bash
@@ -11,24 +11,64 @@ python main.py
 
 ### GUI Mode (requires PyQt5)
 ```bash
-python main.py --gui
+python start_gui.py
 ```
 
-### Windows Batch File
-```
-jarvis_gui - NEW.bat
+### Running Tests
+```bash
+python run_tests.py
 ```
 
-## 🚀 Features
+### Windows Users
+```batch
+# Start GUI
+scripts\start_gui.bat
+```
+
+## 📁 Project Structure
+
+```
+jarvis-v0.19/
+├── jarvis/                 # Core application modules
+│   ├── core/              # Main application logic
+│   │   ├── main.py        # Primary entry point
+│   │   └── error_handler.py # Error handling system
+│   ├── llm/               # LLM interface modules
+│   │   └── llm_interface.py # Ollama integration
+│   ├── memory/            # Memory management
+│   │   └── memory.py      # Persistent fact storage
+│   ├── utils/             # Utility modules
+│   │   └── logs.py        # Logging system
+│   └── plugins/           # Plugin system (extensible)
+├── gui/                   # GUI components
+│   └── modern_gui.py      # PyQt5 interface
+├── tests/                 # Comprehensive test suite
+│   ├── unit/              # Unit tests
+│   ├── integration/       # Integration tests
+│   ├── regression/        # Regression tests
+│   ├── performance/       # Performance tests
+│   └── functional/        # Functional tests
+├── scripts/               # Development tools
+│   ├── run_tests.py       # Test automation
+│   └── start_gui.bat      # Windows GUI launcher
+├── config/                # Configuration files
+├── data/                  # Application data
+│   ├── memory_exports/    # Memory backups
+│   └── test_reports/      # Test result reports
+├── docs/                  # Documentation
+└── logs/                  # Application logs
+```
+
+## 🔧 Features
 
 ### Core Functionality
 - 🤖 **Multi-Model LLM Support** - Compatible with Ollama (llama3, codellama)
-- 🧠 **Persistent Memory System** - JSON-based fact storage and retrieval
+- 🧠 **Persistent Memory System** - Thread-safe JSON-based fact storage
 - 📝 **Comprehensive Logging** - Error tracking, event logging, session management
-- 🔧 **Self-Modification** - Automated code analysis and improvement capabilities
 - 🛡️ **Robust Error Handling** - Multi-level error capture and recovery
+- 🏗️ **Modular Architecture** - Clean separation of concerns
 
-### GUI Interface (v0.4.1)
+### GUI Interface
 - 🎨 **Modern Dark Theme** - Professional interface with responsive design
 - ⚙️ **LLM Configuration** - Temperature, Top-P, tokens, timeout controls
 - 💬 **Interactive Chat** - Real-time conversation with AI models
@@ -36,11 +76,11 @@ jarvis_gui - NEW.bat
 - 🔍 **Thread-Safe Updates** - Proper signal handling for concurrent operations
 
 ### Testing & Quality Assurance
-- ✅ **Comprehensive Test Suite** - Unit, Integration, Functional, Regression, Performance
-- 📈 **Test Coverage Reports** - Automated coverage analysis
-- 🔄 **Automated Error Logging** - Real-time error tracking and analysis
-- 🎯 **100% Unit Test Success Rate**
-- 🎯 **84.6% Integration Test Success Rate**
+- ✅ **Comprehensive Test Suite** - 80+ tests across all categories
+- 📈 **Automated Test Reports** - JSON-based test result tracking
+- 🔄 **Continuous Error Monitoring** - Real-time error tracking and analysis
+- 🎯 **High Test Success Rates** - Robust and reliable codebase
+- 📊 **Coverage Analysis** - Detailed code coverage reporting
 
 ## 📋 Installation
 
@@ -59,24 +99,35 @@ ollama list
 - `codellama:34b` - Advanced code model
 - `llama3:70b` - High-capacity model
 
-## 🏗️ Project Structure
-
-```
-Jarvis-V0.19/
-├── main.py              # Main application entry point
-├── modern_gui.py        # PyQt5 GUI interface
-├── llm_interface.py     # Ollama LLM integration
-├── memory.py            # Persistent memory system
-├── error_handler.py     # Error management and logging
-├── logs.py              # Event and session logging
-├── self_modify.py       # Code analysis and improvement
-├── config/              # Configuration files
-├── data/                # Data storage
-├── logs/                # Application logs
-└── test/                # Comprehensive test suite
-```
-
 ## 🧪 Testing
+
+### Running All Tests
+```bash
+python run_tests.py
+```
+
+### Running Specific Test Categories
+```bash
+# Unit tests only
+python tests/unit/test_unit_comprehensive.py
+
+# Integration tests only  
+python tests/integration/test_integration_comprehensive.py
+
+# Performance tests only
+python tests/performance/test_performance_comprehensive.py
+```
+
+### Test Coverage
+Tests cover all core functionality:
+- ✅ **Error Handler** - Exception handling and logging
+- ✅ **LLM Interface** - Ollama communication and model management
+- ✅ **Memory System** - Data persistence and retrieval
+- ✅ **GUI Components** - Interface functionality and thread safety
+- ✅ **Integration** - Cross-module compatibility
+- ✅ **Performance** - Response times and resource usage
+
+## 🔧 Development
 
 ### Run All Tests
 ```bash

@@ -67,11 +67,16 @@ dmypy.json
 Thumbs.db
 
 # Application specific
-# Memory backups
+# Memory backups and exports
 *.corrupt_*
-memory_export_*.json
+data/memory_exports/
+data/jarvis_mem.json.backup
 
-# Test generated log files (keep only error_log.jsonl)
+# Test generated files and reports
+data/test_reports/
+test_report_*.json
+
+# Log files (keep only main error logs)
 logs/*_20*.json
 logs/concurrent_log_*.json
 logs/perf_event_*.json
