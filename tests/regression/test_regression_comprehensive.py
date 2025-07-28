@@ -14,7 +14,7 @@ import threading
 from unittest.mock import Mock, patch
 
 # Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 class TestHistoricalBugFixes(unittest.TestCase):
     """Test that previously fixed bugs don't reappear"""
@@ -30,7 +30,7 @@ class TestHistoricalBugFixes(unittest.TestCase):
     def test_no_qtextcursor_threading_errors(self):
         """Regression: QTextCursor threading errors should not occur"""
         try:
-            from modern_gui import SimplifiedJarvisGUI
+            from gui.modern_gui import SimplifiedJarvisGUI
             from PyQt5.QtWidgets import QApplication
             from PyQt5.QtCore import QThread
             
@@ -54,7 +54,7 @@ class TestHistoricalBugFixes(unittest.TestCase):
     def test_no_unknown_property_transform_errors(self):
         """Regression: 'Unknown property transform' CSS errors should not occur"""
         try:
-            from modern_gui import SimplifiedJarvisGUI, SIMPLE_STYLE
+            from gui.modern_gui import SimplifiedJarvisGUI, SIMPLE_STYLE
             
             # Verify CSS doesn't contain problematic 'transform' properties
             self.assertNotIn("transform:", SIMPLE_STYLE.lower())
@@ -127,7 +127,7 @@ class TestHistoricalBugFixes(unittest.TestCase):
             import os
             os.environ['QT_QPA_PLATFORM'] = 'offscreen'
             
-            from modern_gui import SimplifiedJarvisGUI
+            from gui.modern_gui import SimplifiedJarvisGUI
             from PyQt5.QtWidgets import QApplication
             
             app = QApplication.instance() or QApplication([])
@@ -288,7 +288,7 @@ class TestDataIntegrity(unittest.TestCase):
     
     def test_error_handling_data_integrity(self):
         """Test that error handling preserves data integrity"""
-        from jarvis.core.error_handler import jarvis.core.error_handler as error_handler, safe_execute, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, safe_execute, ErrorLevel
         
         # Test data through error conditions
         test_data = {"important": "data", "number": 42}

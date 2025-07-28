@@ -16,7 +16,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 def test_core_imports():
     """Test that core modules can be imported"""
     try:
-        import jarvis.core.error_handler as error_handler
+        import ErrorHandler
         import jarvis.llm.llm_interface as llm_interface  
         import jarvis.memory.memory as memory
         import jarvis.utils.logs as logs
@@ -30,7 +30,7 @@ def test_core_imports():
 def test_error_handler():
     """Test error handling functionality"""
     try:
-        from jarvis.core.error_handler import jarvis.core.error_handler as error_handler, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, ErrorLevel
         
         # Test logging
         error_handler.log_error(Exception("Test error"), "Test context", ErrorLevel.INFO, "Test message")
@@ -91,7 +91,7 @@ def test_logging_system():
 def test_gui_imports():
     """Test GUI module imports"""
     try:
-        from modern_gui import SimplifiedJarvisGUI
+        from gui.modern_gui import SimplifiedJarvisGUI
         
         print("✅ GUI imports: PASS")
         return True

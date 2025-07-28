@@ -14,7 +14,7 @@ import json
 from unittest.mock import Mock, patch, MagicMock
 
 # Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 class TestModuleIntegration(unittest.TestCase):
     """Test integration between core modules"""
@@ -29,7 +29,7 @@ class TestModuleIntegration(unittest.TestCase):
     
     def test_error_handler_llm_integration(self):
         """Test error handler integration with LLM interface"""
-        from jarvis.core.error_handler import jarvis.core.error_handler as error_handler, safe_execute, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, safe_execute, ErrorLevel
         from jarvis.llm.llm_interface import ask_local_llm
         
         # Test that LLM errors are properly handled by error handler
@@ -49,7 +49,9 @@ class TestModuleIntegration(unittest.TestCase):
             # If it's a dict, it should have error info
             self.assertIn("error", result)
         
-        # Verify error was logged
+        # Verify error was logged by creating a handler instance
+        test_log_path = os.path.join(self.temp_dir, "test_error.jsonl")
+        error_handler = ErrorHandler(test_log_path)
         summary = error_handler.get_session_summary()
         self.assertIsInstance(summary, dict)
     
@@ -175,7 +177,7 @@ class TestEndToEndWorkflows(unittest.TestCase):
     
     def test_error_handling_workflow(self):
         """Test complete error handling workflow"""
-        from jarvis.core.error_handler import jarvis.core.error_handler as error_handler, safe_execute, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, safe_execute, ErrorLevel
         
         # Step 1: Generate different types of errors
         @safe_execute(fallback_value="safe_fallback", context="test_context")
@@ -186,6 +188,8 @@ class TestEndToEndWorkflows(unittest.TestCase):
         self.assertEqual(result, "safe_fallback")
         
         # Step 2: Log manual error
+        test_log_path = os.path.join(tempfile.mkdtemp(), "test_workflow.jsonl")
+        error_handler = ErrorHandler(test_log_path)
         test_error = Exception("Manual test error")
         error_data = error_handler.log_error(
             test_error, 
@@ -235,17 +239,17 @@ class TestGUIIntegration(unittest.TestCase):
     def test_gui_imports(self):
         """Test that GUI can be imported without errors"""
         try:
-            from modern_gui import SimplifiedJarvisGUI
+            from gui.modern_gui import SimplifiedJarvisGUI
             self.assertTrue(True)  # Import successful
         except ImportError as e:
             self.skipTest(f"PyQt5 not available: {e}")
     
-    @patch('modern_gui.QApplication')
-    @patch('modern_gui.QWidget')
+    @patch('gui.modern_gui.QApplication')
+    @patch('gui.modern_gui.QWidget')
     def test_gui_initialization(self, mock_widget, mock_app):
         """Test GUI initialization without showing window"""
         try:
-            from modern_gui import SimplifiedJarvisGUI
+            from gui.modern_gui import SimplifiedJarvisGUI
             
             # Mock QApplication and QWidget
             mock_app.return_value = Mock()
@@ -273,11 +277,11 @@ class TestSystemIntegration(unittest.TestCase):
         """Test system startup sequence"""
         # Test that all modules can be imported in sequence
         modules_to_test = [
-            'error_handler',
-            'llm_interface', 
-            'memory',
-            'logs',
-            'main'
+            'jarvis.core.error_handler',
+            'jarvis.llm.llm_interface', 
+            'jarvis.memory.memory',
+            'jarvis.utils.logs',
+            'jarvis.core.main'
         ]
         
         for module_name in modules_to_test:
@@ -298,7 +302,7 @@ class TestSystemIntegration(unittest.TestCase):
         """Test data flow between modules"""
         from jarvis.memory.memory import remember_fact, recall_fact
         from jarvis.utils.logs import log_event, get_logs
-        from jarvis.core.error_handler import jarvis.core.error_handler as error_handler
+        from jarvis.core.error_handler import ErrorHandler
         
         # Test: Memory -> Logs -> Error Handler data flow
         
@@ -322,6 +326,8 @@ class TestSystemIntegration(unittest.TestCase):
         self.assertGreater(len(memory_logs), 0)
         
         # Step 5: Verify error handler is tracking
+        test_log_path = os.path.join(tempfile.mkdtemp(), "test_dataflow.jsonl")
+        error_handler = ErrorHandler(test_log_path)
         summary = error_handler.get_session_summary()
         self.assertIsInstance(summary, dict)
 

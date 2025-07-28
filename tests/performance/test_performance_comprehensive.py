@@ -14,8 +14,8 @@ import threading
 import concurrent.futures
 from unittest.mock import Mock, patch
 
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 class TestMemoryPerformance(unittest.TestCase):
     """Test memory system performance"""
@@ -362,10 +362,14 @@ class TestErrorHandlingPerformance(unittest.TestCase):
     
     def test_error_logging_performance(self):
         """Test error logging performance"""
-        from jarvis.core.error_handler import jarvis.core.error_handler as error_handler, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, ErrorLevel
         
         error_count = 200
         log_times = []
+        
+        # Create error handler instance
+        test_log_path = os.path.join(self.temp_dir, "performance_test.jsonl")
+        error_handler = ErrorHandler(test_log_path)
         
         for i in range(error_count):
             test_error = Exception(f"Performance test error {i}")

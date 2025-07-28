@@ -30,7 +30,7 @@ class TestErrorHandler(unittest.TestCase):
     
     def test_error_handler_init(self):
         """Test ErrorHandler initialization"""
-        from error_handler import ErrorHandler
+        from jarvis.core.error_handler import ErrorHandler
         handler = ErrorHandler(self.log_file)
         
         self.assertEqual(handler.log_file, self.log_file)
@@ -41,7 +41,7 @@ class TestErrorHandler(unittest.TestCase):
     
     def test_log_error(self):
         """Test error logging functionality"""
-        from error_handler import ErrorHandler, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, ErrorLevel
         handler = ErrorHandler(self.log_file)
         
         test_error = Exception("Test error")
@@ -57,7 +57,7 @@ class TestErrorHandler(unittest.TestCase):
     
     def test_error_levels(self):
         """Test all error levels"""
-        from error_handler import ErrorLevel
+        from jarvis.core.error_handler import ErrorLevel
         
         levels = [ErrorLevel.INFO, ErrorLevel.WARNING, ErrorLevel.ERROR, ErrorLevel.CRITICAL]
         expected_values = ["info", "warning", "error", "critical"]
@@ -67,7 +67,7 @@ class TestErrorHandler(unittest.TestCase):
     
     def test_safe_execute_decorator(self):
         """Test safe_execute decorator"""
-        from error_handler import safe_execute
+        from jarvis.core.error_handler import safe_execute
         
         @safe_execute(fallback_value="fallback", context="test")
         def test_function():
@@ -95,14 +95,14 @@ class TestLLMInterface(unittest.TestCase):
     
     def test_available_models(self):
         """Test available models list"""
-        from llm_interface import AVAILABLE_MODELS
+        from jarvis.llm.llm_interface import AVAILABLE_MODELS
         
         expected_models = ["llama3:8b", "codellama:13b", "codellama:34b", "llama3:70b"]
         self.assertEqual(AVAILABLE_MODELS, expected_models)
     
     def test_model_operations(self):
         """Test model get/set operations"""
-        from llm_interface import set_ollama_model, get_ollama_model, get_available_models
+        from jarvis.llm.llm_interface import set_ollama_model, get_ollama_model, get_available_models
         
         # Test getting available models
         models = get_available_models()
@@ -123,7 +123,7 @@ class TestLLMInterface(unittest.TestCase):
     
     def test_dynamic_timeout(self):
         """Test dynamic timeout calculation"""
-        from llm_interface import get_dynamic_timeout
+        from jarvis.llm.llm_interface import get_dynamic_timeout
         
         # Test different model sizes
         self.assertEqual(get_dynamic_timeout("llama3:70b"), 220)
@@ -132,7 +132,7 @@ class TestLLMInterface(unittest.TestCase):
         self.assertEqual(get_dynamic_timeout("llama3:8b"), 45)
         self.assertEqual(get_dynamic_timeout("unknown"), 40)
     
-    @patch('llm_interface.requests.post')
+    @patch('jarvis.llm.llm_interface.requests.post')
     def test_ask_local_llm(self, mock_post):
         """Test LLM interaction (mocked)"""
         from jarvis.llm.llm_interface import ask_local_llm
@@ -186,7 +186,7 @@ class TestMemory(unittest.TestCase):
     
     def test_remember_fact(self):
         """Test fact remembering"""
-        from memory import remember_fact
+        from jarvis.memory.memory import remember_fact
         
         # Test valid fact format
         result = remember_fact("name to John")
@@ -200,7 +200,7 @@ class TestMemory(unittest.TestCase):
     
     def test_recall_fact(self):
         """Test fact recall"""
-        from memory import remember_fact, recall_fact
+        from jarvis.memory.memory import remember_fact, recall_fact
         
         # Remember a fact
         remember_fact("test_key to test_value")
@@ -215,7 +215,7 @@ class TestMemory(unittest.TestCase):
     
     def test_forget_fact(self):
         """Test fact forgetting"""
-        from memory import remember_fact, forget_fact, recall_fact
+        from jarvis.memory.memory import remember_fact, forget_fact, recall_fact
         
         # Remember a fact
         remember_fact("forget_test to forget_value")
@@ -267,10 +267,10 @@ class TestLogs(unittest.TestCase):
         """Clean up test environment"""
         shutil.rmtree(self.temp_dir, ignore_errors=True)
     
-    @patch('logs.log_event')
+    @patch('jarvis.utils.logs.log_event')
     def test_log_event(self, mock_log_event):
         """Test event logging"""
-        from logs import log_event
+        from jarvis.utils.logs import log_event
         
         mock_log_event.return_value = True
         
@@ -283,7 +283,7 @@ class TestLogs(unittest.TestCase):
     
     def test_log_formatting(self):
         """Test log formatting function"""
-        from logs import format_log_text
+        from jarvis.utils.logs import format_log_text
         
         test_data = {"action": "test", "data": "value"}
         result = format_log_text("test_event", test_data)
@@ -295,7 +295,7 @@ class TestLogs(unittest.TestCase):
     
     def test_available_models_constant(self):
         """Test available models constant in logs"""
-        from logs import AVAILABLE_MODELS
+        from jarvis.utils.logs import AVAILABLE_MODELS
         
         self.assertIsInstance(AVAILABLE_MODELS, list)
         self.assertGreater(len(AVAILABLE_MODELS), 0)
