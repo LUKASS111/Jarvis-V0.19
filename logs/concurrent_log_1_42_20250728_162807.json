@@ -1,0 +1,6 @@
+{
+  "worker_id": 1,
+  "event_index": 42,
+  "timestamp": 1753720087.0092783,
+  "data": "Worker 1 event 42"
+}
