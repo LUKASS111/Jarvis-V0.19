@@ -202,6 +202,34 @@ Wygenerowano: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
     
     return report
 
+def validate_file_path(file_path):
+    """Validate file path format"""
+    try:
+        return isinstance(file_path, str) and len(file_path) > 0
+    except Exception:
+        return False
+
+def validate_json_data(data):
+    """Validate JSON data format"""
+    try:
+        import json
+        if isinstance(data, str):
+            json.loads(data)
+        elif isinstance(data, dict):
+            json.dumps(data)
+        else:
+            return False
+        return True
+    except Exception:
+        return False
+
+def validate_model_name(model_name):
+    """Validate model name format"""
+    try:
+        return isinstance(model_name, str) and ":" in model_name and len(model_name) > 3
+    except Exception:
+        return False
+
 if __name__ == "__main__":
     # Test error handling
     @safe_execute(fallback_value="Fallback result", context="Test function")

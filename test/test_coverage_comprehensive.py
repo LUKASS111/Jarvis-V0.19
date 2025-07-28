@@ -247,8 +247,7 @@ class TestCodeCoverage(unittest.TestCase):
             "error_handler.py",
             "llm_interface.py",
             "memory.py",
-            "logs.py",
-            "self_modify.py"
+            "logs.py"
         ]
         
         coverage_results = {}

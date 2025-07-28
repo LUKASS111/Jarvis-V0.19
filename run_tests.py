@@ -124,8 +124,7 @@ def generate_coverage_report():
         "llm_interface.py",
         "memory.py",
         "error_handler.py",
-        "logs.py",
-        "self_modify.py"
+        "logs.py"
     ]
     
     coverage_data = {

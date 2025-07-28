@@ -291,10 +291,7 @@ class SimplifiedJarvisGUI(QWidget):
         actions_group = QGroupBox("🚀 System Actions")
         actions_layout = QVBoxLayout(actions_group)
         
-        self.modify_btn = QPushButton("🔧 Self Modify")
-        self.modify_btn.setObjectName("self_modify_btn")
-        self.modify_btn.clicked.connect(self.self_modify)
-        actions_layout.addWidget(self.modify_btn)
+
         
         layout.addWidget(actions_group)
         layout.addStretch()
@@ -484,18 +481,7 @@ class SimplifiedJarvisGUI(QWidget):
         except Exception as e:
             error_handler.log_error(e, "Status update", ErrorLevel.WARNING)
     
-    def self_modify(self):
-        """Self modification action"""
-        try:
-            import self_modify
-            self.comm_area.append("🔧 Starting self-modification process...")
-            thread = threading.Thread(target=self_modify.self_modify_all)
-            thread.daemon = True
-            thread.start()
-        except ImportError:
-            self.comm_area.append("❌ Self-modification module not available")
-        except Exception as e:
-            self.comm_area.append(f"❌ Error in self-modification: {str(e)}")
+
     
     def clear_communication(self):
         """Clear communication area"""

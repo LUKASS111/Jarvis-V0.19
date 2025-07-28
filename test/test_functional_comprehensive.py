@@ -190,7 +190,6 @@ class TestUserScenarios(unittest.TestCase):
         """Test scenario: Power user with complex workflow"""
         from main import simple_llm_process
         from memory import remember_fact, recall_fact, forget_fact, process_memory_prompt
-        from self_modify import process_self_modify_request
         from logs import log_event, get_logs, clear_logs
         
         # Mock LLM responses
@@ -230,11 +229,7 @@ class TestUserScenarios(unittest.TestCase):
         for i, (key, value) in enumerate(all_facts.items()):
             log_event(f"fact_verification_{i}", {"key": key, "value": value})
         
-        # Step 5: User attempts self-modification
-        modify_result = process_self_modify_request("Add better error handling")
-        self.assertIsInstance(modify_result, dict)
-        
-        # Step 6: User cleans up some data
+        # Step 5: User cleans up some data
         forget_result = forget_fact("deadline")
         self.assertIn("🗑️", forget_result)
         

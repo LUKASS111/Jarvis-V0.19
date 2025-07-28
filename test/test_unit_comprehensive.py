@@ -301,29 +301,6 @@ class TestLogs(unittest.TestCase):
         self.assertGreater(len(AVAILABLE_MODELS), 0)
         self.assertIn("llama3:8b", AVAILABLE_MODELS)
 
-class TestSelfModify(unittest.TestCase):
-    """Unit tests for self_modify.py module"""
-    
-    def test_self_modify_function_exists(self):
-        """Test that self-modification function exists"""
-        from self_modify import self_modify_all
-        
-        # Test function exists and is callable
-        self.assertTrue(callable(self_modify_all))
-    
-    def test_self_modify_execution(self):
-        """Test self-modification execution (basic test)"""
-        from self_modify import self_modify_all
-        
-        # Should run without crashing
-        try:
-            self_modify_all()
-            success = True
-        except Exception:
-            success = False
-        
-        # Even if it fails, it shouldn't crash the test
-        self.assertIsInstance(success, bool)
 
 class TestMainModule(unittest.TestCase):
     """Unit tests for main.py module"""
@@ -405,7 +382,6 @@ if __name__ == "__main__":
         TestLLMInterface, 
         TestMemory,
         TestLogs,
-        TestSelfModify,
         TestMainModule
     ]
     

@@ -69,7 +69,7 @@ class TestHistoricalBugFixes(unittest.TestCase):
         # Test that langchain is not imported anywhere
         modules_to_check = [
             'main', 'modern_gui', 'error_handler', 
-            'llm_interface', 'memory', 'logs', 'self_modify'
+            'llm_interface', 'memory', 'logs'
         ]
         
         for module_name in modules_to_check:

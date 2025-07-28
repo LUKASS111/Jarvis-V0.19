@@ -98,18 +98,7 @@ class TestModuleIntegration(unittest.TestCase):
             self.assertIn("result", interactive_result)
             self.assertIsInstance(interactive_result["result"], dict)
     
-    def test_self_modify_error_handling_integration(self):
-        """Test self-modify integration with error handling"""
-        from self_modify import process_self_modify_request
-        from error_handler import error_handler
-        
-        # This will likely fail without LLM, testing error handling
-        result = process_self_modify_request("Test modification")
-        self.assertIsInstance(result, dict)
-        
-        # Check that errors were handled gracefully
-        summary = error_handler.get_session_summary()
-        self.assertIsInstance(summary, dict)
+
 
 class TestEndToEndWorkflows(unittest.TestCase):
     """Test complete user workflows"""
@@ -288,7 +277,6 @@ class TestSystemIntegration(unittest.TestCase):
             'llm_interface', 
             'memory',
             'logs',
-            'self_modify',
             'main'
         ]
         
@@ -302,11 +290,9 @@ class TestSystemIntegration(unittest.TestCase):
         """Test that configuration is consistent across modules"""
         from llm_interface import AVAILABLE_MODELS as llm_models
         from memory import AVAILABLE_MODELS as memory_models
-        from self_modify import AVAILABLE_MODELS as self_modify_models
         
         # Verify model lists are consistent
         self.assertEqual(llm_models, memory_models)
-        self.assertEqual(llm_models, self_modify_models)
     
     def test_cross_module_data_flow(self):
         """Test data flow between modules"""
