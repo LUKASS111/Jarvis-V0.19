@@ -64,12 +64,21 @@ class ErrorHandler:
             
         self.session_errors.append(error_data)
         
-        # Write to log file
-        try:
-            with open(self.log_file, "a", encoding="utf-8") as f:
-                f.write(json.dumps(error_data, ensure_ascii=False) + "\n")
-        except Exception as log_error:
-            print(f"[WARN] Failed to write error log: {log_error}")
+        # Write to log file (skip intentional test errors to keep production logs clean)
+        is_test_error = (
+            "Test error" in str(error) or 
+            "Simulated error" in str(error) or
+            "test_" in context.lower() or
+            "_test" in context.lower() or
+            "performance_test" in context.lower()
+        )
+        
+        if not is_test_error:
+            try:
+                with open(self.log_file, "a", encoding="utf-8") as f:
+                    f.write(json.dumps(error_data, ensure_ascii=False) + "\n")
+            except Exception as log_error:
+                print(f"[WARN] Failed to write error log: {log_error}")
         
         # Console output
         emoji = self._get_error_emoji(level)
