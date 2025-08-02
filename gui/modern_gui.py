@@ -152,6 +152,11 @@ class SimplifiedJarvisGUI(QWidget):
                 'start_time': time.time()
             }
             return
+        
+        # Ensure QApplication exists before creating QWidget
+        self.app = QApplication.instance()
+        if self.app is None:
+            self.app = QApplication(sys.argv)
             
         super().__init__()
         
@@ -481,14 +486,10 @@ class SimplifiedJarvisGUI(QWidget):
             return 1
         
         try:
-            # Create QApplication if not already created
-            app = QApplication.instance()
-            if app is None:
-                app = QApplication(sys.argv)
-            
+            # QApplication is already created in __init__
             # Set application properties
-            app.setApplicationName("Jarvis AI Assistant")
-            app.setApplicationVersion("0.4.1-simplified")
+            self.app.setApplicationName("Jarvis AI Assistant")
+            self.app.setApplicationVersion("0.4.1-simplified")
             
             # Show the window
             self.show()
@@ -497,7 +498,7 @@ class SimplifiedJarvisGUI(QWidget):
             print("✅ Jarvis GUI v0.4.1 started successfully!")
             
             # Run the application
-            return app.exec_()
+            return self.app.exec_()
             
         except Exception as e:
             error_handler.log_error(e, "GUI startup", ErrorLevel.CRITICAL)

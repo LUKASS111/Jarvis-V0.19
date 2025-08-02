@@ -61,7 +61,7 @@ def test_core_modules():
     
     # Test GUI (optional)
     try:
-        from gui.modern_gui import JarvisMainWindow
+        from gui.modern_gui import SimplifiedJarvisGUI
         results.append({"module": "gui.modern_gui", "status": "OK"})
     except Exception as e:
         results.append({"module": "gui", "status": "OK", "note": "PyQt5 not available in headless environment - expected behavior"})

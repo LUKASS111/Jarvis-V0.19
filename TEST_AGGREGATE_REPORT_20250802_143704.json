@@ -1,0 +1,526 @@
+{
+  "scan_timestamp": "2025-08-02T14:37:04.902861",
+  "file_stats": {
+    "function_tests": {
+      "count": 1,
+      "size_bytes": 2263,
+      "size_mb": 0.0
+    },
+    "performance_logs": {
+      "count": 1000,
+      "size_bytes": 265411,
+      "size_mb": 0.25
+    },
+    "concurrent_logs": {
+      "count": 400,
+      "size_bytes": 83785,
+      "size_mb": 0.08
+    },
+    "large_event_logs": {
+      "count": 4,
+      "size_bytes": 36912,
+      "size_mb": 0.04
+    },
+    "workflow_logs": {
+      "count": 10,
+      "size_bytes": 1370,
+      "size_mb": 0.0
+    },
+    "test_events": {
+      "count": 1,
+      "size_bytes": 108,
+      "size_mb": 0.0
+    },
+    "agent_reports": {
+      "count": 1,
+      "size_bytes": 362,
+      "size_mb": 0.0
+    },
+    "error_logs": {
+      "count": 1,
+      "size_bytes": 0,
+      "size_mb": 0.0
+    },
+    "archive_data": {
+      "count": 1,
+      "size_bytes": 5681152,
+      "size_mb": 5.42
+    },
+    "totals": {
+      "total_files": 1419,
+      "total_size_bytes": 6071363,
+      "total_size_mb": 5.79
+    }
+  },
+  "test_results": {
+    "total_tests": 22,
+    "successful_tests": 22,
+    "failed_tests": 0,
+    "success_rates": [
+      100.0
+    ],
+    "latest_results": {
+      "timestamp": "20250802_143704",
+      "summary": {
+        "total": 22,
+        "successful": 22,
+        "failed": 0,
+        "errors": 0,
+        "success_rate": 100.0,
+        "status": "[GREEN] EXCELLENT"
+      },
+      "detailed_results": {
+        "Core Modules": [
+          {
+            "module": "core.main",
+            "status": "OK"
+          },
+          {
+            "module": "core.error_handler",
+            "status": "OK"
+          },
+          {
+            "module": "utils.logs",
+            "status": "OK"
+          },
+          {
+            "module": "memory.memory",
+            "status": "OK"
+          },
+          {
+            "module": "llm.llm_interface",
+            "status": "OK"
+          },
+          {
+            "module": "core.data_archiver",
+            "status": "OK"
+          },
+          {
+            "module": "gui.modern_gui",
+            "status": "OK"
+          }
+        ],
+        "Memory Functions": [
+          {
+            "function": "remember_fact",
+            "status": "OK"
+          },
+          {
+            "function": "recall_fact",
+            "status": "OK"
+          },
+          {
+            "function": "forget_fact",
+            "status": "OK"
+          }
+        ],
+        "LLM Functions": [
+          {
+            "function": "get_ollama_model",
+            "status": "OK",
+            "model": "llama3:8b"
+          },
+          {
+            "function": "get_available_models",
+            "status": "OK",
+            "count": 4
+          },
+          {
+            "function": "ask_local_llm",
+            "status": "OK"
+          }
+        ],
+        "Archiving Functions": [
+          {
+            "function": "archive_input",
+            "status": "OK",
+            "id": 5409
+          },
+          {
+            "function": "archive_output",
+            "status": "OK",
+            "id": 5410
+          },
+          {
+            "function": "get_archive_stats",
+            "status": "OK",
+            "entries": 5410
+          }
+        ],
+        "Logging Functions": [
+          {
+            "function": "log_event",
+            "status": "OK"
+          },
+          {
+            "function": "log_error",
+            "status": "OK"
+          }
+        ],
+        "Main Workflow": [
+          {
+            "function": "simple_llm_process",
+            "status": "OK"
+          },
+          {
+            "function": "process_interactive_input",
+            "status": "OK"
+          }
+        ],
+        "System Utilities": [
+          {
+            "function": "system_dashboard",
+            "status": "OK"
+          },
+          {
+            "function": "agent_launcher",
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    "test_categories": {
+      "Core Modules": 7,
+      "Memory Functions": 3,
+      "LLM Functions": 3,
+      "Archiving Functions": 3,
+      "Logging Functions": 2,
+      "Main Workflow": 2,
+      "System Utilities": 2
+    },
+    "status_distribution": {
+      "OK": 22
+    },
+    "average_success_rate": 100.0,
+    "min_success_rate": 100.0,
+    "max_success_rate": 100.0
+  },
+  "performance_metrics": {
+    "total_events": 100,
+    "time_range": {
+      "start": "2025-08-02T14:36:47.051993",
+      "end": "2025-08-02T14:36:47.144447"
+    },
+    "event_types": {
+      "perf_event_200": 1,
+      "perf_event_846": 1,
+      "perf_event_654": 1,
+      "perf_event_327": 1,
+      "perf_event_482": 1,
+      "perf_event_850": 1,
+      "perf_event_922": 1,
+      "perf_event_665": 1,
+      "perf_event_534": 1,
+      "perf_event_178": 1,
+      "perf_event_739": 1,
+      "perf_event_450": 1,
+      "perf_event_989": 1,
+      "perf_event_361": 1,
+      "perf_event_165": 1,
+      "perf_event_776": 1,
+      "perf_event_300": 1,
+      "perf_event_561": 1,
+      "perf_event_798": 1,
+      "perf_event_742": 1,
+      "perf_event_514": 1,
+      "perf_event_304": 1,
+      "perf_event_273": 1,
+      "perf_event_735": 1,
+      "perf_event_348": 1,
+      "perf_event_420": 1,
+      "perf_event_343": 1,
+      "perf_event_623": 1,
+      "perf_event_258": 1,
+      "perf_event_250": 1,
+      "perf_event_220": 1,
+      "perf_event_262": 1,
+      "perf_event_577": 1,
+      "perf_event_831": 1,
+      "perf_event_309": 1,
+      "perf_event_33": 1,
+      "perf_event_786": 1,
+      "perf_event_718": 1,
+      "perf_event_202": 1,
+      "perf_event_414": 1,
+      "perf_event_956": 1,
+      "perf_event_318": 1,
+      "perf_event_29": 1,
+      "perf_event_495": 1,
+      "perf_event_58": 1,
+      "perf_event_488": 1,
+      "perf_event_871": 1,
+      "perf_event_643": 1,
+      "perf_event_425": 1,
+      "perf_event_487": 1,
+      "perf_event_805": 1,
+      "perf_event_551": 1,
+      "perf_event_970": 1,
+      "perf_event_856": 1,
+      "perf_event_430": 1,
+      "perf_event_228": 1,
+      "perf_event_729": 1,
+      "perf_event_351": 1,
+      "perf_event_275": 1,
+      "perf_event_578": 1,
+      "perf_event_780": 1,
+      "perf_event_950": 1,
+      "perf_event_124": 1,
+      "perf_event_224": 1,
+      "perf_event_446": 1,
+      "perf_event_510": 1,
+      "perf_event_896": 1,
+      "perf_event_997": 1,
+      "perf_event_942": 1,
+      "perf_event_905": 1,
+      "perf_event_213": 1,
+      "perf_event_45": 1,
+      "perf_event_110": 1,
+      "perf_event_471": 1,
+      "perf_event_22": 1,
+      "perf_event_185": 1,
+      "perf_event_174": 1,
+      "perf_event_641": 1,
+      "perf_event_217": 1,
+      "perf_event_245": 1,
+      "perf_event_190": 1,
+      "perf_event_508": 1,
+      "perf_event_383": 1,
+      "perf_event_232": 1,
+      "perf_event_313": 1,
+      "perf_event_77": 1,
+      "perf_event_725": 1,
+      "perf_event_204": 1,
+      "perf_event_385": 1,
+      "perf_event_81": 1,
+      "perf_event_991": 1,
+      "perf_event_976": 1,
+      "perf_event_635": 1,
+      "perf_event_345": 1,
+      "perf_event_829": 1,
+      "perf_event_459": 1,
+      "perf_event_580": 1,
+      "perf_event_705": 1,
+      "perf_event_586": 1,
+      "perf_event_691": 1
+    },
+    "performance_data": [
+      1754145407.0676365,
+      1754145407.130807,
+      1754145407.1076841,
+      1754145407.078712,
+      1754145407.092498,
+      1754145407.131173,
+      1754145407.1377878,
+      1754145407.1086774,
+      1754145407.0969996,
+      1754145407.0656102,
+      1754145407.1153603,
+      1754145407.0895286,
+      1754145407.1437824,
+      1754145407.0817583,
+      1754145407.0643845,
+      1754145407.1245668,
+      1754145407.0762746,
+      1754145407.099352,
+      1754145407.1265044,
+      1754145407.115603,
+      1754145407.0952537,
+      1754145407.0766044,
+      1754145407.0739412,
+      1754145407.1150444,
+      1754145407.0805676,
+      1754145407.086957,
+      1754145407.0801697,
+      1754145407.1048844,
+      1754145407.0725765,
+      1754145407.071935,
+      1754145407.0693462,
+      1754145407.0730162,
+      1754145407.1008253,
+      1754145407.129524,
+      1754145407.077122,
+      1754145407.052888,
+      1754145407.125487,
+      1754145407.1134186,
+      1754145407.0678158,
+      1754145407.086348,
+      1754145407.1407883,
+      1754145407.0778759,
+      1754145407.0525193,
+      1754145407.0935907,
+      1754145407.0549784,
+      1754145407.0930116,
+      1754145407.1331108,
+      1754145407.1067126,
+      1754145407.087363,
+      1754145407.0929303,
+      1754145407.1271002,
+      1754145407.0985172,
+      1754145407.1420286,
+      1754145407.131794,
+      1754145407.0877974,
+      1754145407.0700223,
+      1754145407.1145296,
+      1754145407.080916,
+      1754145407.0741212,
+      1754145407.1009092,
+      1754145407.1249154,
+      1754145407.1402817,
+      1754145407.060838,
+      1754145407.0696964,
+      1754145407.0892,
+      1754145407.0949311,
+      1754145407.1354294,
+      1754145407.144436,
+      1754145407.1395917,
+      1754145407.1361892,
+      1754145407.0687087,
+      1754145407.053919,
+      1754145407.0596344,
+      1754145407.0915065,
+      1754145407.0519807,
+      1754145407.0662158,
+      1754145407.0652416,
+      1754145407.1065247,
+      1754145407.0691032,
+      1754145407.0714955,
+      1754145407.066617,
+      1754145407.0947607,
+      1754145407.0837214,
+      1754145407.07034,
+      1754145407.077444,
+      1754145407.0566173,
+      1754145407.1142051,
+      1754145407.0679712,
+      1754145407.0838885,
+      1754145407.057001,
+      1754145407.143949,
+      1754145407.1425152,
+      1754145407.105997,
+      1754145407.0803301,
+      1754145407.1292396,
+      1754145407.0904386,
+      1754145407.1011229,
+      1754145407.112222,
+      1754145407.1016247,
+      1754145407.1109405
+    ],
+    "latency_stats": {
+      "min": Infinity,
+      "max": 0,
+      "avg": 0
+    },
+    "throughput_estimate": 10816.19
+  },
+  "error_analysis": {
+    "total_log_files": 1,
+    "error_categories": {},
+    "error_levels": {},
+    "recent_errors": [],
+    "error_trends": {}
+  },
+  "archive_stats": {
+    "total_entries": 5416,
+    "entry_types": {},
+    "status_distribution": {},
+    "verification_stats": {},
+    "temporal_analysis": {},
+    "error": "no such column: entry_type"
+  },
+  "agent_activity": {
+    "total_reports": 1,
+    "agent_performance": {
+      "test_agent_validation": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0
+        ],
+        "compliance_rates": [
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      }
+    },
+    "success_trends": [],
+    "critical_issues": [],
+    "recommendations": [
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms"
+    ]
+  },
+  "recommendations": [
+    "REVIEW: Agent test_agent_validation compliance rate below 80%"
+  ],
+  "summary": {
+    "overall_status": "EXCELLENT",
+    "key_metrics": {
+      "test_success_rate": "100.0%",
+      "archive_entries": 5416,
+      "performance_events": 100,
+      "throughput": "10816.19 events/sec",
+      "total_errors": 0
+    },
+    "health_score": 100,
+    "critical_issues": 0,
+    "total_data_points": 1419
+  },
+  "concurrent_analysis": {
+    "total_concurrent_events": 400,
+    "worker_distribution": {
+      "3": 15,
+      "2": 12,
+      "1": 9,
+      "0": 14
+    },
+    "event_distribution": {
+      "24": 1,
+      "6": 1,
+      "78": 1,
+      "56": 1,
+      "31": 1,
+      "61": 2,
+      "41": 1,
+      "19": 1,
+      "36": 2,
+      "50": 1,
+      "13": 1,
+      "89": 2,
+      "67": 1,
+      "99": 1,
+      "32": 1,
+      "29": 1,
+      "84": 3,
+      "59": 1,
+      "16": 2,
+      "45": 1,
+      "8": 2,
+      "87": 1,
+      "71": 1,
+      "12": 1,
+      "74": 2,
+      "60": 2,
+      "30": 2,
+      "26": 1,
+      "5": 1,
+      "49": 1,
+      "77": 1,
+      "11": 1,
+      "72": 1,
+      "85": 1,
+      "38": 1,
+      "2": 1,
+      "4": 1,
+      "90": 1,
+      "68": 1,
+      "66": 1
+    },
+    "concurrency_patterns": {
+      "max_worker_events": 15,
+      "min_worker_events": 9,
+      "avg_worker_events": 12.5,
+      "total_workers": 4
+    }
+  }
+}
