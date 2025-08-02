@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simplified Modern GUI for AutoGPT v0.4.1
+Simplified Modern GUI for Jarvis v0.2
 Clean, maintainable interface focused on essential functionality
 """
 
@@ -173,7 +173,7 @@ class SimplifiedJarvisGUI(QWidget):
     
     def init_ui(self):
         """Initialize simplified user interface"""
-        self.setWindowTitle("Jarvis ver. 0.4.1 - Simplified Modern Interface")
+        self.setWindowTitle("Jarvis ver. 0.2 - Simplified Modern Interface")
         self.setGeometry(100, 100, 1200, 700)
         
         # Main layout
@@ -489,13 +489,13 @@ class SimplifiedJarvisGUI(QWidget):
             # QApplication is already created in __init__
             # Set application properties
             self.app.setApplicationName("Jarvis AI Assistant")
-            self.app.setApplicationVersion("0.4.1-simplified")
+            self.app.setApplicationVersion("0.2")
             
             # Show the window
             self.show()
             
-            print("✅ Jarvis GUI v0.4.1 initialized successfully!")
-            print("✅ Jarvis GUI v0.4.1 started successfully!")
+            print("✅ Jarvis GUI v0.2 initialized successfully!")
+            print("✅ Jarvis GUI v0.2 started successfully!")
             
             # Run the application
             return self.app.exec_()
@@ -515,7 +515,7 @@ def main():
     
     # Set application properties
     app.setApplicationName("AutoGPT")
-    app.setApplicationVersion("0.4.1-simplified")
+    app.setApplicationVersion("0.2")
     
     try:
         # Create and show the main window

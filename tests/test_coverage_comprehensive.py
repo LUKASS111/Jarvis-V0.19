@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Code Coverage Test Suite for V0.41-black-ui
+Code Coverage Test Suite for V0.2
 Measures and reports code coverage for the entire project
 """
 

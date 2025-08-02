@@ -59,10 +59,10 @@ Every application start now follows this unified sequence:
 
 ### Example Startup Output
 ```
-[LAUNCH] Jarvis 0.4.1-simplified - CLI Mode
+[LAUNCH] Jarvis 0.2 - CLI Mode
 ============================================================
 [STARTUP] Initializing automatic version-based archive cleanup...
-[PURGE] Current version: 0.4.1-simplified
+[PURGE] Current version: 0.2
 [PURGE] Archive is clean - no old version data found
 [ARCHIVE] Health Score: 100/100, Size: 0.0MB, Entries: 4
 [BRAIN] Jarvis CLI uruchomiony. Zadaj pytanie...

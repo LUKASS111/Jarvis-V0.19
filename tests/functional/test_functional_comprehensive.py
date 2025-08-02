@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Functional Test Suite for V0.41-black-ui
+Functional Test Suite for V0.2
 Tests end-user scenarios and complete application workflows
 """
 

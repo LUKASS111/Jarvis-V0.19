@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Regression Test Suite for V0.41-black-ui
+Regression Test Suite for V0.2
 Prevents return of known issues and bugs from previous versions
 """
 

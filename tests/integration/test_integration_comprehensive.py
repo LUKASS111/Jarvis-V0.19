@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Integration Test Suite for V0.41-black-ui
+Integration Test Suite for V0.2
 Tests interaction between modules and end-to-end functionality
 """
 
@@ -215,7 +215,7 @@ class TestEndToEndWorkflows(unittest.TestCase):
         # Step 2: Log various events
         events = [
             ("user_action", {"action": "login", "user": "test_user"}),
-            ("system_event", {"event": "startup", "version": "0.4.1"}),
+            ("system_event", {"event": "startup", "version": "0.2"}),
             ("error_event", {"error": "test_error", "context": "test"})
         ]
         

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive Unit Test Suite for V0.41-black-ui
+Comprehensive Unit Test Suite for V0.2
 Tests every function, class, and method in the project
 """
 
@@ -318,7 +318,7 @@ class TestMainModule(unittest.TestCase):
         from main import VERSION_STRING
         
         self.assertIsInstance(VERSION_STRING, str)
-        self.assertIn("0.4", VERSION_STRING)
+        self.assertIn("0.2", VERSION_STRING)
     
     def test_available_models(self):
         """Test available models constant"""

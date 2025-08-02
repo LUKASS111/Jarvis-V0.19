@@ -1,6 +1,6 @@
-# Comprehensive Test Suite for V0.41-black-ui
+# Comprehensive Test Suite for V0.2
 
-This directory contains a complete test suite covering all aspects of the V0.41-black-ui project.
+This directory contains a complete test suite covering all aspects of the V0.2 project.
 
 ## Test Structure
 
@@ -252,4 +252,4 @@ The test suite is designed for CI/CD integration:
 
 *Last Updated: December 2024*
 *Test Suite Version: 1.0.0*
-*Compatible with: V0.41-black-ui*
+*Compatible with: V0.2*

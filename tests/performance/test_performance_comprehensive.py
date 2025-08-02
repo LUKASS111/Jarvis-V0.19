@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Performance Test Suite for V0.41-black-ui
+Performance Test Suite for V0.2
 Tests performance characteristics and benchmarks critical functions
 """
 

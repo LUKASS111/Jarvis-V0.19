@@ -15,7 +15,7 @@ import sys
 import os
 
 # Version information
-VERSION_STRING = "0.4.1-simplified"
+VERSION_STRING = "0.2"
 
 print(f"[LAUNCH] AutoGPT {VERSION_STRING} - Simplified AI Assistant")
 print("=" * 60)

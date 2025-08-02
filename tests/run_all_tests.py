@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Master Test Runner for V0.41-black-ui
+Master Test Runner for V0.2
 Executes all test suites and provides comprehensive reporting
 """
 
@@ -162,7 +162,7 @@ def run_test_file(test_file, description):
 
 def main():
     """Main test runner function"""
-    print("[LAUNCH] V0.41-black-ui COMPREHENSIVE TEST SUITE")
+    print("[LAUNCH] V0.2 COMPREHENSIVE TEST SUITE")
     print("=" * 80)
     print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()

@@ -104,7 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced JSON validation before file replacement
 - Improved error logging with contextual information
 
-## [0.4.1] - Previous Release
+## [0.2] - Current Release
 
 ### Features
 - Modern PyQt5 GUI interface with dark theme
