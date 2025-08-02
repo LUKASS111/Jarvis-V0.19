@@ -12,7 +12,7 @@ import subprocess
 from datetime import datetime
 
 # Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def run_test_file(test_file, description):
     """Run a specific test file and capture results"""
@@ -131,11 +131,11 @@ def main():
     
     # Define test suites
     test_suites = [
-        ("test_unit_comprehensive.py", "Unit Tests - Core functionality"),
-        ("test_integration_comprehensive.py", "Integration Tests - Module interactions"),
-        ("test_functional_comprehensive.py", "Functional Tests - End-user scenarios"),
-        ("test_regression_comprehensive.py", "Regression Tests - Prevent old bugs"),
-        ("test_performance_comprehensive.py", "Performance Tests - Speed and efficiency"),
+        ("unit/test_unit_comprehensive.py", "Unit Tests - Core functionality"),
+        ("integration/test_integration_comprehensive.py", "Integration Tests - Module interactions"),
+        ("functional/test_functional_comprehensive.py", "Functional Tests - End-user scenarios"),
+        ("regression/test_regression_comprehensive.py", "Regression Tests - Prevent old bugs"),
+        ("performance/test_performance_comprehensive.py", "Performance Tests - Speed and efficiency"),
         ("test_coverage_comprehensive.py", "Coverage Tests - Code coverage analysis")
     ]
     
