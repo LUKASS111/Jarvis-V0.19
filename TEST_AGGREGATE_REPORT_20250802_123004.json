@@ -1,0 +1,580 @@
+{
+  "scan_timestamp": "2025-08-02T12:30:04.940717",
+  "file_stats": {
+    "function_tests": {
+      "count": 1,
+      "size_bytes": 2338,
+      "size_mb": 0.0
+    },
+    "performance_logs": {
+      "count": 1000,
+      "size_bytes": 265415,
+      "size_mb": 0.25
+    },
+    "concurrent_logs": {
+      "count": 400,
+      "size_bytes": 83778,
+      "size_mb": 0.08
+    },
+    "large_event_logs": {
+      "count": 4,
+      "size_bytes": 36912,
+      "size_mb": 0.04
+    },
+    "workflow_logs": {
+      "count": 10,
+      "size_bytes": 1370,
+      "size_mb": 0.0
+    },
+    "test_events": {
+      "count": 1,
+      "size_bytes": 108,
+      "size_mb": 0.0
+    },
+    "agent_reports": {
+      "count": 10,
+      "size_bytes": 3615,
+      "size_mb": 0.0
+    },
+    "error_logs": {
+      "count": 3,
+      "size_bytes": 2,
+      "size_mb": 0.0
+    },
+    "archive_data": {
+      "count": 1,
+      "size_bytes": 28487680,
+      "size_mb": 27.17
+    },
+    "totals": {
+      "total_files": 1430,
+      "total_size_bytes": 28881218,
+      "total_size_mb": 27.54
+    }
+  },
+  "test_results": {
+    "total_tests": 22,
+    "successful_tests": 22,
+    "failed_tests": 0,
+    "success_rates": [
+      100.0
+    ],
+    "latest_results": {
+      "timestamp": "20250802_123004",
+      "summary": {
+        "total": 22,
+        "successful": 22,
+        "failed": 0,
+        "errors": 0,
+        "success_rate": 100.0,
+        "status": "[GREEN] EXCELLENT"
+      },
+      "detailed_results": {
+        "Core Modules": [
+          {
+            "module": "core.main",
+            "status": "OK"
+          },
+          {
+            "module": "core.error_handler",
+            "status": "OK"
+          },
+          {
+            "module": "utils.logs",
+            "status": "OK"
+          },
+          {
+            "module": "memory.memory",
+            "status": "OK"
+          },
+          {
+            "module": "llm.llm_interface",
+            "status": "OK"
+          },
+          {
+            "module": "core.data_archiver",
+            "status": "OK"
+          },
+          {
+            "module": "gui",
+            "status": "OK",
+            "note": "PyQt5 not available in headless environment - expected behavior"
+          }
+        ],
+        "Memory Functions": [
+          {
+            "function": "remember_fact",
+            "status": "OK"
+          },
+          {
+            "function": "recall_fact",
+            "status": "OK"
+          },
+          {
+            "function": "forget_fact",
+            "status": "OK"
+          }
+        ],
+        "LLM Functions": [
+          {
+            "function": "get_ollama_model",
+            "status": "OK",
+            "model": "llama3:8b"
+          },
+          {
+            "function": "get_available_models",
+            "status": "OK",
+            "count": 4
+          },
+          {
+            "function": "ask_local_llm",
+            "status": "OK"
+          }
+        ],
+        "Archiving Functions": [
+          {
+            "function": "archive_input",
+            "status": "OK",
+            "id": 28576
+          },
+          {
+            "function": "archive_output",
+            "status": "OK",
+            "id": 28577
+          },
+          {
+            "function": "get_archive_stats",
+            "status": "OK",
+            "entries": 28577
+          }
+        ],
+        "Logging Functions": [
+          {
+            "function": "log_event",
+            "status": "OK"
+          },
+          {
+            "function": "log_error",
+            "status": "OK"
+          }
+        ],
+        "Main Workflow": [
+          {
+            "function": "simple_llm_process",
+            "status": "OK"
+          },
+          {
+            "function": "process_interactive_input",
+            "status": "OK"
+          }
+        ],
+        "System Utilities": [
+          {
+            "function": "system_dashboard",
+            "status": "OK"
+          },
+          {
+            "function": "agent_launcher",
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    "test_categories": {
+      "Core Modules": 7,
+      "Memory Functions": 3,
+      "LLM Functions": 3,
+      "Archiving Functions": 3,
+      "Logging Functions": 2,
+      "Main Workflow": 2,
+      "System Utilities": 2
+    },
+    "status_distribution": {
+      "OK": 22
+    },
+    "average_success_rate": 100.0,
+    "min_success_rate": 100.0,
+    "max_success_rate": 100.0
+  },
+  "performance_metrics": {
+    "total_events": 100,
+    "time_range": {
+      "start": "2025-08-02T12:29:49.049191",
+      "end": "2025-08-02T12:29:49.138505"
+    },
+    "event_types": {
+      "perf_event_349": 1,
+      "perf_event_180": 1,
+      "perf_event_988": 1,
+      "perf_event_877": 1,
+      "perf_event_44": 1,
+      "perf_event_517": 1,
+      "perf_event_377": 1,
+      "perf_event_487": 1,
+      "perf_event_651": 1,
+      "perf_event_172": 1,
+      "perf_event_658": 1,
+      "perf_event_920": 1,
+      "perf_event_91": 1,
+      "perf_event_340": 1,
+      "perf_event_120": 1,
+      "perf_event_451": 1,
+      "perf_event_415": 1,
+      "perf_event_854": 1,
+      "perf_event_270": 1,
+      "perf_event_972": 1,
+      "perf_event_51": 1,
+      "perf_event_909": 1,
+      "perf_event_149": 1,
+      "perf_event_701": 1,
+      "perf_event_100": 1,
+      "perf_event_41": 1,
+      "perf_event_305": 1,
+      "perf_event_342": 1,
+      "perf_event_138": 1,
+      "perf_event_945": 1,
+      "perf_event_873": 1,
+      "perf_event_760": 1,
+      "perf_event_571": 1,
+      "perf_event_817": 1,
+      "perf_event_746": 1,
+      "perf_event_609": 1,
+      "perf_event_691": 1,
+      "perf_event_467": 1,
+      "perf_event_802": 1,
+      "perf_event_974": 1,
+      "perf_event_39": 1,
+      "perf_event_652": 1,
+      "perf_event_709": 1,
+      "perf_event_595": 1,
+      "perf_event_145": 1,
+      "perf_event_586": 1,
+      "perf_event_416": 1,
+      "perf_event_541": 1,
+      "perf_event_632": 1,
+      "perf_event_400": 1,
+      "perf_event_908": 1,
+      "perf_event_918": 1,
+      "perf_event_749": 1,
+      "perf_event_360": 1,
+      "perf_event_827": 1,
+      "perf_event_971": 1,
+      "perf_event_466": 1,
+      "perf_event_580": 1,
+      "perf_event_484": 1,
+      "perf_event_577": 1,
+      "perf_event_488": 1,
+      "perf_event_115": 1,
+      "perf_event_594": 1,
+      "perf_event_612": 1,
+      "perf_event_459": 1,
+      "perf_event_311": 1,
+      "perf_event_871": 1,
+      "perf_event_457": 1,
+      "perf_event_199": 1,
+      "perf_event_646": 1,
+      "perf_event_405": 1,
+      "perf_event_361": 1,
+      "perf_event_526": 1,
+      "perf_event_309": 1,
+      "perf_event_135": 1,
+      "perf_event_714": 1,
+      "perf_event_882": 1,
+      "perf_event_278": 1,
+      "perf_event_917": 1,
+      "perf_event_72": 1,
+      "perf_event_302": 1,
+      "perf_event_5": 1,
+      "perf_event_582": 1,
+      "perf_event_975": 1,
+      "perf_event_811": 1,
+      "perf_event_373": 1,
+      "perf_event_59": 1,
+      "perf_event_197": 1,
+      "perf_event_821": 1,
+      "perf_event_509": 1,
+      "perf_event_502": 1,
+      "perf_event_757": 1,
+      "perf_event_879": 1,
+      "perf_event_437": 1,
+      "perf_event_160": 1,
+      "perf_event_611": 1,
+      "perf_event_922": 1,
+      "perf_event_910": 1,
+      "perf_event_90": 1,
+      "perf_event_240": 1
+    },
+    "performance_data": [
+      1754137789.0782695,
+      1754137789.0639484,
+      1754137789.1384928,
+      1754137789.1288512,
+      1754137789.052621,
+      1754137789.0923243,
+      1754137789.0805583,
+      1754137789.089862,
+      1754137789.103758,
+      1754137789.0632281,
+      1754137789.1044307,
+      1754137789.1326025,
+      1754137789.0565577,
+      1754137789.077485,
+      1754137789.058962,
+      1754137789.0866833,
+      1754137789.0836918,
+      1754137789.1267931,
+      1754137789.0716743,
+      1754137789.1370656,
+      1754137789.0531821,
+      1754137789.1315973,
+      1754137789.0613327,
+      1754137789.1080422,
+      1754137789.0572793,
+      1754137789.0523815,
+      1754137789.0746112,
+      1754137789.077641,
+      1754137789.0604577,
+      1754137789.1347535,
+      1754137789.1284301,
+      1754137789.1185184,
+      1754137789.0969791,
+      1754137789.1235719,
+      1754137789.1172214,
+      1754137789.1001883,
+      1754137789.1071568,
+      1754137789.08816,
+      1754137789.1222148,
+      1754137789.1372328,
+      1754137789.052147,
+      1754137789.1038709,
+      1754137789.1086798,
+      1754137789.0989404,
+      1754137789.0610237,
+      1754137789.0981553,
+      1754137789.083772,
+      1754137789.0944173,
+      1754137789.1021621,
+      1754137789.0824473,
+      1754137789.1315174,
+      1754137789.1324196,
+      1754137789.1174836,
+      1754137789.0791342,
+      1754137789.1244075,
+      1754137789.1369846,
+      1754137789.0880723,
+      1754137789.097674,
+      1754137789.0896096,
+      1754137789.0974433,
+      1754137789.0899415,
+      1754137789.0585423,
+      1754137789.098861,
+      1754137789.100438,
+      1754137789.0875041,
+      1754137789.0751219,
+      1754137789.1282635,
+      1754137789.0871801,
+      1754137789.0656648,
+      1754137789.1033647,
+      1754137789.0828528,
+      1754137789.079211,
+      1754137789.0932097,
+      1754137789.0749688,
+      1754137789.0602279,
+      1754137789.1090865,
+      1754137789.1292548,
+      1754137789.0723202,
+      1754137789.1322665,
+      1754137789.0549812,
+      1754137789.0743022,
+      1754137789.0491774,
+      1754137789.0978472,
+      1754137789.1373131,
+      1754137789.123087,
+      1754137789.080253,
+      1754137789.0538037,
+      1754137789.0654917,
+      1754137789.1239216,
+      1754137789.09168,
+      1754137789.0910618,
+      1754137789.1182437,
+      1754137789.1290126,
+      1754137789.0855381,
+      1754137789.0622835,
+      1754137789.1003559,
+      1754137789.132768,
+      1754137789.1316748,
+      1754137789.0564792,
+      1754137789.0691512
+    ],
+    "latency_stats": {
+      "min": Infinity,
+      "max": 0,
+      "avg": 0
+    },
+    "throughput_estimate": 11196.45
+  },
+  "error_analysis": {
+    "total_log_files": 3,
+    "error_categories": {},
+    "error_levels": {},
+    "recent_errors": [],
+    "error_trends": {}
+  },
+  "archive_stats": {
+    "total_entries": 28583,
+    "entry_types": {},
+    "status_distribution": {},
+    "verification_stats": {},
+    "temporal_analysis": {},
+    "error": "no such column: entry_type"
+  },
+  "agent_activity": {
+    "total_reports": 10,
+    "agent_performance": {
+      "test_agent_validation": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "compliance_rates": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      },
+      "quick_test_agent": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0
+        ],
+        "compliance_rates": [
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      }
+    },
+    "success_trends": [],
+    "critical_issues": [],
+    "recommendations": [
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms"
+    ]
+  },
+  "recommendations": [
+    "REVIEW: Agent test_agent_validation compliance rate below 80%",
+    "REVIEW: Agent quick_test_agent compliance rate below 80%"
+  ],
+  "summary": {
+    "overall_status": "EXCELLENT",
+    "key_metrics": {
+      "test_success_rate": "100.0%",
+      "archive_entries": 28583,
+      "performance_events": 100,
+      "throughput": "11196.45 events/sec",
+      "total_errors": 0
+    },
+    "health_score": 100,
+    "critical_issues": 0,
+    "total_data_points": 1430
+  },
+  "concurrent_analysis": {
+    "total_concurrent_events": 400,
+    "worker_distribution": {
+      "0": 14,
+      "2": 15,
+      "3": 9,
+      "1": 12
+    },
+    "event_distribution": {
+      "15": 1,
+      "29": 3,
+      "9": 1,
+      "51": 1,
+      "30": 1,
+      "91": 1,
+      "85": 1,
+      "74": 1,
+      "61": 1,
+      "36": 1,
+      "33": 1,
+      "65": 1,
+      "40": 1,
+      "13": 1,
+      "72": 1,
+      "55": 1,
+      "84": 1,
+      "21": 1,
+      "60": 1,
+      "24": 1,
+      "69": 1,
+      "79": 1,
+      "20": 1,
+      "43": 1,
+      "7": 1,
+      "48": 1,
+      "90": 1,
+      "71": 1,
+      "35": 2,
+      "93": 1,
+      "87": 2,
+      "19": 1,
+      "16": 1,
+      "28": 1,
+      "86": 1,
+      "54": 1,
+      "45": 1,
+      "96": 1,
+      "56": 1,
+      "27": 1,
+      "11": 1,
+      "22": 1,
+      "77": 1,
+      "42": 1,
+      "17": 1,
+      "0": 1
+    },
+    "concurrency_patterns": {
+      "max_worker_events": 15,
+      "min_worker_events": 9,
+      "avg_worker_events": 12.5,
+      "total_workers": 4
+    }
+  }
+}

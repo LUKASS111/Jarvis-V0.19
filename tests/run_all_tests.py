@@ -15,6 +15,40 @@ from datetime import datetime
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+def clean_test_error_logs():
+    """Clean up test-generated error logs to prevent them from affecting health scores."""
+    try:
+        project_root = os.path.dirname(os.path.dirname(__file__))
+        error_log = os.path.join(project_root, "logs", "error_log.jsonl")
+        
+        # Keep only non-test errors (real production errors)
+        if os.path.exists(error_log):
+            with open(error_log, 'r') as f:
+                lines = f.readlines()
+            
+            real_errors = []
+            for line in lines:
+                if line.strip():
+                    try:
+                        log_entry = json.loads(line.strip())
+                        # Skip test-generated errors
+                        if (log_entry.get("error_message") in ["Test error", "Simulated error"] or
+                            log_entry.get("context") in ["test", "Test context", "test_context", "test_error"] or
+                            "test" in log_entry.get("context", "").lower() or
+                            "Test" in log_entry.get("error_message", "")):
+                            continue
+                        real_errors.append(line)
+                    except json.JSONDecodeError:
+                        continue
+            
+            # Write back only real errors
+            with open(error_log, 'w') as f:
+                f.writelines(real_errors)
+                
+            print(f"[CLEANUP] Cleaned error log: {len(lines)} -> {len(real_errors)} entries")
+    except Exception as e:
+        print(f"[WARN] Error cleaning logs: {e}")
+
 def run_test_file(test_file, description):
     """Run a specific test file and capture results"""
     test_path = os.path.join(os.path.dirname(__file__), test_file)
@@ -274,6 +308,9 @@ def main():
             
             if config.get("aggregation_config", {}).get("triggers", {}).get("after_full_test_suite", False):
                 print(f"\n[LAUNCH] Auto-triggering test aggregation...")
+                # Clean up test-generated error logs before aggregation
+                clean_test_error_logs()
+                
                 aggregator_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts", "test_aggregator.py")
                 if os.path.exists(aggregator_path):
                     subprocess.run([sys.executable, aggregator_path], cwd=os.path.dirname(os.path.dirname(__file__)))

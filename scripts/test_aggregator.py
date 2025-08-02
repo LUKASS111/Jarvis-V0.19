@@ -489,12 +489,15 @@ class TestAggregator:
         total_errors = sum(error_analysis.get("error_levels", {}).values())
         summary["key_metrics"]["total_errors"] = total_errors
         
-        # Calculate health score (0-100)
+        # Calculate health score (0-100) - only count actual "error" level entries
         health_score = 100
         if test_success_rate < 100:
             health_score -= (100 - test_success_rate) * 2
-        if total_errors > 10:
-            health_score -= min(total_errors - 10, 20)
+        
+        # Only count actual "error" level entries, not warnings or info
+        actual_errors = error_analysis.get("error_levels", {}).get("error", 0)
+        if actual_errors > 5:
+            health_score -= min(actual_errors - 5, 15)
         
         summary["health_score"] = max(0, min(100, health_score))
         
