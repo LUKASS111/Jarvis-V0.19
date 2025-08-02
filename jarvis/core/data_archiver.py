@@ -56,12 +56,28 @@ class DataArchiver:
     
     def __init__(self, db_path: str = ARCHIVE_DB_PATH):
         self.db_path = db_path
+        self.current_version = self._get_current_version()
         self._ensure_db_directory()
         self._init_database()
     
     def _ensure_db_directory(self):
         """Ensure the data directory exists"""
         os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+    
+    def _get_current_version(self) -> str:
+        """Get current program version"""
+        try:
+            from jarvis.core.main import VERSION_STRING
+            return VERSION_STRING
+        except ImportError:
+            # Fallback to git commit hash if version string not available
+            import subprocess
+            try:
+                result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], 
+                                      capture_output=True, text=True, cwd=os.path.dirname(self.db_path))
+                return f"git-{result.stdout.strip()}" if result.returncode == 0 else "unknown"
+            except Exception:
+                return "unknown"
     
     def _init_database(self):
         """Initialize the SQLite database with required tables"""
@@ -85,6 +101,7 @@ class DataArchiver:
                     verification_model TEXT,
                     verification_timestamp TEXT,
                     verification_details TEXT,
+                    program_version TEXT DEFAULT 'unknown',
                     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                 )
             ''')
@@ -95,6 +112,13 @@ class DataArchiver:
             cursor.execute('CREATE INDEX IF NOT EXISTS idx_source ON archive_entries(source)')
             cursor.execute('CREATE INDEX IF NOT EXISTS idx_verification_status ON archive_entries(verification_status)')
             cursor.execute('CREATE INDEX IF NOT EXISTS idx_content_hash ON archive_entries(content_hash)')
+            cursor.execute('CREATE INDEX IF NOT EXISTS idx_program_version ON archive_entries(program_version)')
+            
+            # Ensure program_version column exists in existing tables
+            cursor.execute("PRAGMA table_info(archive_entries)")
+            columns = [row[1] for row in cursor.fetchall()]
+            if 'program_version' not in columns:
+                cursor.execute('ALTER TABLE archive_entries ADD COLUMN program_version TEXT DEFAULT ?', (self.current_version,))
             
             # Verification queue table
             cursor.execute('''
@@ -181,8 +205,8 @@ class DataArchiver:
             cursor.execute('''
                 INSERT INTO archive_entries (
                     timestamp, data_type, content, source, operation,
-                    content_hash, metadata, verification_status
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    content_hash, metadata, verification_status, program_version
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 entry.timestamp,
                 entry.data_type,
@@ -191,7 +215,8 @@ class DataArchiver:
                 entry.operation,
                 entry.content_hash,
                 json.dumps(entry.metadata),
-                entry.verification_status
+                entry.verification_status,
+                self.current_version
             ))
             
             entry_id = cursor.lastrowid

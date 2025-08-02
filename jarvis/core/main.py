@@ -112,6 +112,15 @@ def process_interactive_input(user_input: str) -> dict:
             error_handler.log_error(e, "Error report generation", ErrorLevel.WARNING)
             return {"action": "error", "message": "Cannot generate error report"}
     
+    if user_input.lower() in {"archiwum", "archive", "purge"}:
+        try:
+            from jarvis.core.archive_purge_manager import get_archive_health
+            health = get_archive_health()
+            return {"action": "archive_status", "health": health}
+        except Exception as e:
+            error_handler.log_error(e, "Archive status", ErrorLevel.WARNING)
+            return {"action": "error", "message": "Cannot get archive status"}
+    
     if user_input.lower().startswith("model "):
         new_model = user_input[6:].strip()
         if new_model in AVAILABLE_MODELS:
@@ -148,6 +157,22 @@ def main():
     """Simplified main function with clean interface"""
     
     global chat_history
+    
+    # Initialize archive purge system on startup
+    print("[STARTUP] Initializing archive purge system...")
+    try:
+        from jarvis.core.archive_purge_manager import auto_purge_startup, get_archive_health
+        purge_result = auto_purge_startup()
+        if purge_result and purge_result.get('purge_result', {}).get('purged_count', 0) > 0:
+            print(f"[PURGE] Cleaned {purge_result['purge_result']['purged_count']} old archive entries")
+        
+        # Show archive health
+        health = get_archive_health()
+        print(f"[ARCHIVE] Health Score: {health['health_score']}/100, Size: {health['archive_size_mb']}MB, Entries: {health['total_entries']:,}")
+    except Exception as e:
+        error_handler.log_error(e, "Archive purge startup", ErrorLevel.WARNING,
+                               "Could not initialize archive purge system")
+        print("[WARN] Archive purge system initialization failed")
     
     print("[BRAIN] Jarvis CLI uruchomiony. Zadaj pytanie (lub wpisz 'exit' by zakończyć).\n"
           "Dostępne modele: " + ", ".join(AVAILABLE_MODELS) + "\n"
@@ -204,7 +229,23 @@ def main():
                                        "Problem z wyborem modelu")
             continue
 
-        # Session management
+        # Archive status with management options
+        if prompt.lower() in {"archiwum", "archive", "purge"}:
+            try:
+                from jarvis.core.archive_purge_manager import get_archive_health
+                health = get_archive_health()
+                print(f"[ARCHIVE] Health Score: {health['health_score']}/100")
+                print(f"[ARCHIVE] Size: {health['archive_size_mb']}MB, Entries: {health['total_entries']:,}")
+                print(f"[ARCHIVE] Current Version: {health['current_version']}")
+                if health['purgeable_entries'] > 0:
+                    print(f"[ARCHIVE] Purgeable entries: {health['purgeable_entries']}")
+                    print("[ARCHIVE] Run 'python archive_purge_cli.py status' for details")
+                else:
+                    print("[ARCHIVE] No entries need purging")
+                log_event("archive_status", health)
+            except Exception as e:
+                error_handler.log_error(e, "Archive status", ErrorLevel.WARNING)
+            continue
         if prompt.lower() in {"nowa", "new"}:
             try:
                 chat_history.clear()

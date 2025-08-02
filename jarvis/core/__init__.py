@@ -25,6 +25,11 @@ from .backup_recovery import (
     BackupRecoveryManager, BackupInfo, RecoveryPoint
 )
 
+from .archive_purge_manager import (
+    get_purge_manager, auto_purge_startup, get_archive_health,
+    DataArchivePurgeManager, PurgePolicy
+)
+
 # Main components for easy access
 __all__ = [
     # Data Archiving
@@ -43,5 +48,9 @@ __all__ = [
     # Backup & Recovery
     'get_backup_manager', 'create_backup', 'create_pre_change_backup',
     'restore_from_backup', 'list_available_backups', 'get_backup_stats',
-    'BackupRecoveryManager', 'BackupInfo', 'RecoveryPoint'
+    'BackupRecoveryManager', 'BackupInfo', 'RecoveryPoint',
+    
+    # Archive Purge Management
+    'get_purge_manager', 'auto_purge_startup', 'get_archive_health',
+    'DataArchivePurgeManager', 'PurgePolicy'
 ]
