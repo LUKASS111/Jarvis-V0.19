@@ -6,6 +6,7 @@ Executes all test suites and provides comprehensive reporting
 
 import sys
 import os
+import json
 import unittest
 import time
 import subprocess
@@ -263,6 +264,24 @@ def main():
         print(f"   - Review code coverage reports")
     
     print(f"\n[TIME1] Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    # Auto-trigger test aggregation if configured
+    try:
+        config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config", "aggregation_config.json")
+        if os.path.exists(config_path):
+            with open(config_path, 'r') as f:
+                config = json.load(f)
+            
+            if config.get("aggregation_config", {}).get("triggers", {}).get("after_full_test_suite", False):
+                print(f"\n[LAUNCH] Auto-triggering test aggregation...")
+                aggregator_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts", "test_aggregator.py")
+                if os.path.exists(aggregator_path):
+                    subprocess.run([sys.executable, aggregator_path], cwd=os.path.dirname(os.path.dirname(__file__)))
+                    print(f"[COMPLETE] Test aggregation finished")
+                else:
+                    print(f"[WARN] Test aggregator not found at {aggregator_path}")
+    except Exception as e:
+        print(f"[WARN] Could not trigger test aggregation: {e}")
     
     # Return appropriate exit code
     if suite_success_rate >= 80 and total_errors == 0:

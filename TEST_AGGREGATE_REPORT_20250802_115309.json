@@ -1,0 +1,615 @@
+{
+  "scan_timestamp": "2025-08-02T11:53:09.482325",
+  "file_stats": {
+    "function_tests": {
+      "count": 1,
+      "size_bytes": 2353,
+      "size_mb": 0.0
+    },
+    "performance_logs": {
+      "count": 1000,
+      "size_bytes": 265401,
+      "size_mb": 0.25
+    },
+    "concurrent_logs": {
+      "count": 400,
+      "size_bytes": 83762,
+      "size_mb": 0.08
+    },
+    "large_event_logs": {
+      "count": 4,
+      "size_bytes": 36910,
+      "size_mb": 0.04
+    },
+    "workflow_logs": {
+      "count": 10,
+      "size_bytes": 1370,
+      "size_mb": 0.0
+    },
+    "test_events": {
+      "count": 1,
+      "size_bytes": 108,
+      "size_mb": 0.0
+    },
+    "agent_reports": {
+      "count": 6,
+      "size_bytes": 2167,
+      "size_mb": 0.0
+    },
+    "error_logs": {
+      "count": 2,
+      "size_bytes": 2070213,
+      "size_mb": 1.97
+    },
+    "archive_data": {
+      "count": 1,
+      "size_bytes": 16400384,
+      "size_mb": 15.64
+    },
+    "totals": {
+      "total_files": 1425,
+      "total_size_bytes": 18862668,
+      "total_size_mb": 17.99
+    }
+  },
+  "test_results": {
+    "total_tests": 22,
+    "successful_tests": 21,
+    "failed_tests": 0,
+    "success_rates": [
+      95.45454545454545
+    ],
+    "latest_results": {
+      "timestamp": "20250802_115309",
+      "summary": {
+        "total": 22,
+        "successful": 21,
+        "failed": 0,
+        "errors": 0,
+        "success_rate": 95.45454545454545,
+        "status": "[GREEN] EXCELLENT"
+      },
+      "detailed_results": {
+        "Core Modules": [
+          {
+            "module": "core.main",
+            "status": "OK"
+          },
+          {
+            "module": "core.error_handler",
+            "status": "OK"
+          },
+          {
+            "module": "utils.logs",
+            "status": "OK"
+          },
+          {
+            "module": "memory.memory",
+            "status": "OK"
+          },
+          {
+            "module": "llm.llm_interface",
+            "status": "OK"
+          },
+          {
+            "module": "core.data_archiver",
+            "status": "OK"
+          },
+          {
+            "module": "gui",
+            "status": "NOT_AVAILABLE",
+            "error": "PyQt5 not available (expected in headless environment)"
+          }
+        ],
+        "Memory Functions": [
+          {
+            "function": "remember_fact",
+            "status": "OK"
+          },
+          {
+            "function": "recall_fact",
+            "status": "OK"
+          },
+          {
+            "function": "forget_fact",
+            "status": "OK"
+          }
+        ],
+        "LLM Functions": [
+          {
+            "function": "get_ollama_model",
+            "status": "OK",
+            "model": "llama3:8b"
+          },
+          {
+            "function": "get_available_models",
+            "status": "OK",
+            "count": 4
+          },
+          {
+            "function": "ask_local_llm",
+            "status": "OK"
+          }
+        ],
+        "Archiving Functions": [
+          {
+            "function": "archive_input",
+            "status": "OK",
+            "id": 16889
+          },
+          {
+            "function": "archive_output",
+            "status": "OK",
+            "id": 16890
+          },
+          {
+            "function": "get_archive_stats",
+            "status": "OK",
+            "entries": 16890
+          }
+        ],
+        "Logging Functions": [
+          {
+            "function": "log_event",
+            "status": "OK"
+          },
+          {
+            "function": "log_error",
+            "status": "OK"
+          }
+        ],
+        "Main Workflow": [
+          {
+            "function": "simple_llm_process",
+            "status": "OK"
+          },
+          {
+            "function": "process_interactive_input",
+            "status": "OK"
+          }
+        ],
+        "System Utilities": [
+          {
+            "function": "system_dashboard",
+            "status": "OK"
+          },
+          {
+            "function": "agent_launcher",
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    "test_categories": {
+      "Core Modules": 7,
+      "Memory Functions": 3,
+      "LLM Functions": 3,
+      "Archiving Functions": 3,
+      "Logging Functions": 2,
+      "Main Workflow": 2,
+      "System Utilities": 2
+    },
+    "status_distribution": {
+      "OK": 21,
+      "NOT_AVAILABLE": 1
+    },
+    "average_success_rate": 95.45454545454545,
+    "min_success_rate": 95.45454545454545,
+    "max_success_rate": 95.45454545454545
+  },
+  "performance_metrics": {
+    "total_events": 100,
+    "time_range": {
+      "start": "2025-08-02T11:52:54.341520",
+      "end": "2025-08-02T11:52:54.429315"
+    },
+    "event_types": {
+      "perf_event_476": 1,
+      "perf_event_442": 1,
+      "perf_event_348": 1,
+      "perf_event_102": 1,
+      "perf_event_86": 1,
+      "perf_event_759": 1,
+      "perf_event_403": 1,
+      "perf_event_641": 1,
+      "perf_event_87": 1,
+      "perf_event_986": 1,
+      "perf_event_595": 1,
+      "perf_event_843": 1,
+      "perf_event_263": 1,
+      "perf_event_714": 1,
+      "perf_event_530": 1,
+      "perf_event_32": 1,
+      "perf_event_734": 1,
+      "perf_event_42": 1,
+      "perf_event_279": 1,
+      "perf_event_722": 1,
+      "perf_event_758": 1,
+      "perf_event_957": 1,
+      "perf_event_592": 1,
+      "perf_event_57": 1,
+      "perf_event_470": 1,
+      "perf_event_147": 1,
+      "perf_event_267": 1,
+      "perf_event_5": 1,
+      "perf_event_549": 1,
+      "perf_event_43": 1,
+      "perf_event_611": 1,
+      "perf_event_51": 1,
+      "perf_event_751": 1,
+      "perf_event_303": 1,
+      "perf_event_952": 1,
+      "perf_event_987": 1,
+      "perf_event_373": 1,
+      "perf_event_414": 1,
+      "perf_event_395": 1,
+      "perf_event_124": 1,
+      "perf_event_334": 1,
+      "perf_event_684": 1,
+      "perf_event_941": 1,
+      "perf_event_215": 1,
+      "perf_event_343": 1,
+      "perf_event_548": 1,
+      "perf_event_943": 1,
+      "perf_event_593": 1,
+      "perf_event_338": 1,
+      "perf_event_114": 1,
+      "perf_event_639": 1,
+      "perf_event_15": 1,
+      "perf_event_381": 1,
+      "perf_event_576": 1,
+      "perf_event_642": 1,
+      "perf_event_618": 1,
+      "perf_event_667": 1,
+      "perf_event_981": 1,
+      "perf_event_342": 1,
+      "perf_event_171": 1,
+      "perf_event_652": 1,
+      "perf_event_108": 1,
+      "perf_event_827": 1,
+      "perf_event_420": 1,
+      "perf_event_88": 1,
+      "perf_event_689": 1,
+      "perf_event_654": 1,
+      "perf_event_126": 1,
+      "perf_event_289": 1,
+      "perf_event_747": 1,
+      "perf_event_597": 1,
+      "perf_event_763": 1,
+      "perf_event_269": 1,
+      "perf_event_379": 1,
+      "perf_event_777": 1,
+      "perf_event_388": 1,
+      "perf_event_27": 1,
+      "perf_event_201": 1,
+      "perf_event_884": 1,
+      "perf_event_401": 1,
+      "perf_event_237": 1,
+      "perf_event_607": 1,
+      "perf_event_156": 1,
+      "perf_event_235": 1,
+      "perf_event_866": 1,
+      "perf_event_806": 1,
+      "perf_event_883": 1,
+      "perf_event_547": 1,
+      "perf_event_601": 1,
+      "perf_event_700": 1,
+      "perf_event_994": 1,
+      "perf_event_807": 1,
+      "perf_event_405": 1,
+      "perf_event_492": 1,
+      "perf_event_879": 1,
+      "perf_event_466": 1,
+      "perf_event_481": 1,
+      "perf_event_874": 1,
+      "perf_event_797": 1,
+      "perf_event_258": 1
+    },
+    "performance_data": [
+      1754135574.3805668,
+      1754135574.377736,
+      1754135574.3700016,
+      1754135574.349741,
+      1754135574.3484697,
+      1754135574.4094272,
+      1754135574.3745513,
+      1754135574.3941355,
+      1754135574.3485458,
+      1754135574.4286497,
+      1754135574.3903477,
+      1754135574.4165716,
+      1754135574.3631372,
+      1754135574.400248,
+      1754135574.3850396,
+      1754135574.3438206,
+      1754135574.401982,
+      1754135574.3446956,
+      1754135574.3643856,
+      1754135574.4008853,
+      1754135574.4093504,
+      1754135574.4261265,
+      1754135574.3901145,
+      1754135574.3460066,
+      1754135574.380103,
+      1754135574.3534272,
+      1754135574.363435,
+      1754135574.3415067,
+      1754135574.3866086,
+      1754135574.3447742,
+      1754135574.391632,
+      1754135574.3454514,
+      1754135574.4087856,
+      1754135574.366326,
+      1754135574.4257433,
+      1754135574.4287302,
+      1754135574.3721292,
+      1754135574.3754027,
+      1754135574.373921,
+      1754135574.3515284,
+      1754135574.368903,
+      1754135574.3977938,
+      1754135574.424853,
+      1754135574.3591816,
+      1754135574.3696158,
+      1754135574.3865163,
+      1754135574.4250176,
+      1754135574.3901956,
+      1754135574.3692074,
+      1754135574.3507605,
+      1754135574.3939815,
+      1754135574.3423254,
+      1754135574.372754,
+      1754135574.3887856,
+      1754135574.3942134,
+      1754135574.3922434,
+      1754135574.3963432,
+      1754135574.4281502,
+      1754135574.3695138,
+      1754135574.355373,
+      1754135574.395092,
+      1754135574.350271,
+      1754135574.415208,
+      1754135574.3759615,
+      1754135574.3486474,
+      1754135574.398182,
+      1754135574.3952472,
+      1754135574.3517265,
+      1754135574.365224,
+      1754135574.4084344,
+      1754135574.3905008,
+      1754135574.4097726,
+      1754135574.3636189,
+      1754135574.3725996,
+      1754135574.4109688,
+      1754135574.3732865,
+      1754135574.343373,
+      1754135574.3580155,
+      1754135574.420016,
+      1754135574.3743806,
+      1754135574.3609636,
+      1754135574.3912864,
+      1754135574.3542154,
+      1754135574.360812,
+      1754135574.418485,
+      1754135574.413431,
+      1754135574.4199338,
+      1754135574.3864393,
+      1754135574.39082,
+      1754135574.3990707,
+      1754135574.4293022,
+      1754135574.4135125,
+      1754135574.3747287,
+      1754135574.3819313,
+      1754135574.4196193,
+      1754135574.3797982,
+      1754135574.3810406,
+      1754135574.4192111,
+      1754135574.4126992,
+      1754135574.3626869
+    ],
+    "latency_stats": {
+      "min": Infinity,
+      "max": 0,
+      "avg": 0
+    },
+    "throughput_estimate": 11390.17
+  },
+  "error_analysis": {
+    "total_log_files": 2,
+    "error_categories": {},
+    "error_levels": {
+      "error": 2368,
+      "info": 36,
+      "warning": 2018
+    },
+    "recent_errors": [
+      {
+        "timestamp": "2025-07-28T17:23:18.374628",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.375420",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.434926",
+        "level": "info",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.579551",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.580058",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170204",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170405",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170569",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170727",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170870",
+        "level": "warning",
+        "message": ""
+      }
+    ],
+    "error_trends": {}
+  },
+  "archive_stats": {
+    "total_entries": 16896,
+    "entry_types": {},
+    "status_distribution": {},
+    "verification_stats": {},
+    "temporal_analysis": {},
+    "error": "no such column: entry_type"
+  },
+  "agent_activity": {
+    "total_reports": 6,
+    "agent_performance": {
+      "test_agent_validation": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "compliance_rates": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      },
+      "quick_test_agent": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0
+        ],
+        "compliance_rates": [
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      }
+    },
+    "success_trends": [],
+    "critical_issues": [],
+    "recommendations": [
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms"
+    ]
+  },
+  "recommendations": [
+    "REVIEW: Agent test_agent_validation compliance rate below 80%",
+    "REVIEW: Agent quick_test_agent compliance rate below 80%"
+  ],
+  "summary": {
+    "overall_status": "WARNING",
+    "key_metrics": {
+      "test_success_rate": "95.5%",
+      "archive_entries": 16896,
+      "performance_events": 100,
+      "throughput": "11390.17 events/sec",
+      "total_errors": 4422
+    },
+    "health_score": 70.9090909090909,
+    "critical_issues": 0,
+    "total_data_points": 1425
+  },
+  "concurrent_analysis": {
+    "total_concurrent_events": 400,
+    "worker_distribution": {
+      "0": 11,
+      "3": 12,
+      "1": 18,
+      "2": 9
+    },
+    "event_distribution": {
+      "38": 1,
+      "68": 2,
+      "19": 1,
+      "40": 1,
+      "93": 1,
+      "73": 2,
+      "54": 1,
+      "76": 2,
+      "90": 2,
+      "22": 1,
+      "96": 1,
+      "0": 1,
+      "10": 1,
+      "53": 1,
+      "5": 1,
+      "32": 3,
+      "29": 1,
+      "92": 1,
+      "13": 1,
+      "59": 2,
+      "44": 1,
+      "78": 3,
+      "84": 1,
+      "98": 1,
+      "56": 1,
+      "63": 1,
+      "23": 1,
+      "33": 1,
+      "69": 1,
+      "2": 1,
+      "94": 1,
+      "24": 1,
+      "80": 1,
+      "39": 1,
+      "43": 1,
+      "62": 1,
+      "89": 1,
+      "35": 1,
+      "21": 1,
+      "34": 1,
+      "26": 1
+    },
+    "concurrency_patterns": {
+      "max_worker_events": 18,
+      "min_worker_events": 9,
+      "avg_worker_events": 12.5,
+      "total_workers": 4
+    }
+  }
+}

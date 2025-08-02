@@ -1,0 +1,610 @@
+{
+  "scan_timestamp": "2025-08-02T11:51:37.701663",
+  "file_stats": {
+    "function_tests": {
+      "count": 1,
+      "size_bytes": 2353,
+      "size_mb": 0.0
+    },
+    "performance_logs": {
+      "count": 1000,
+      "size_bytes": 265407,
+      "size_mb": 0.25
+    },
+    "concurrent_logs": {
+      "count": 400,
+      "size_bytes": 83770,
+      "size_mb": 0.08
+    },
+    "large_event_logs": {
+      "count": 4,
+      "size_bytes": 36910,
+      "size_mb": 0.04
+    },
+    "workflow_logs": {
+      "count": 10,
+      "size_bytes": 1370,
+      "size_mb": 0.0
+    },
+    "test_events": {
+      "count": 1,
+      "size_bytes": 108,
+      "size_mb": 0.0
+    },
+    "agent_reports": {
+      "count": 5,
+      "size_bytes": 1805,
+      "size_mb": 0.0
+    },
+    "error_logs": {
+      "count": 2,
+      "size_bytes": 2000865,
+      "size_mb": 1.91
+    },
+    "archive_data": {
+      "count": 1,
+      "size_bytes": 13332480,
+      "size_mb": 12.71
+    },
+    "totals": {
+      "total_files": 1424,
+      "total_size_bytes": 15725068,
+      "total_size_mb": 15.0
+    }
+  },
+  "test_results": {
+    "total_tests": 22,
+    "successful_tests": 21,
+    "failed_tests": 0,
+    "success_rates": [
+      95.45454545454545
+    ],
+    "latest_results": {
+      "timestamp": "20250802_114652",
+      "summary": {
+        "total": 22,
+        "successful": 21,
+        "failed": 0,
+        "errors": 0,
+        "success_rate": 95.45454545454545,
+        "status": "[GREEN] EXCELLENT"
+      },
+      "detailed_results": {
+        "Core Modules": [
+          {
+            "module": "core.main",
+            "status": "OK"
+          },
+          {
+            "module": "core.error_handler",
+            "status": "OK"
+          },
+          {
+            "module": "utils.logs",
+            "status": "OK"
+          },
+          {
+            "module": "memory.memory",
+            "status": "OK"
+          },
+          {
+            "module": "llm.llm_interface",
+            "status": "OK"
+          },
+          {
+            "module": "core.data_archiver",
+            "status": "OK"
+          },
+          {
+            "module": "gui",
+            "status": "NOT_AVAILABLE",
+            "error": "PyQt5 not available (expected in headless environment)"
+          }
+        ],
+        "Memory Functions": [
+          {
+            "function": "remember_fact",
+            "status": "OK"
+          },
+          {
+            "function": "recall_fact",
+            "status": "OK"
+          },
+          {
+            "function": "forget_fact",
+            "status": "OK"
+          }
+        ],
+        "LLM Functions": [
+          {
+            "function": "get_ollama_model",
+            "status": "OK",
+            "model": "llama3:8b"
+          },
+          {
+            "function": "get_available_models",
+            "status": "OK",
+            "count": 4
+          },
+          {
+            "function": "ask_local_llm",
+            "status": "OK"
+          }
+        ],
+        "Archiving Functions": [
+          {
+            "function": "archive_input",
+            "status": "OK",
+            "id": 13926
+          },
+          {
+            "function": "archive_output",
+            "status": "OK",
+            "id": 13927
+          },
+          {
+            "function": "get_archive_stats",
+            "status": "OK",
+            "entries": 13927
+          }
+        ],
+        "Logging Functions": [
+          {
+            "function": "log_event",
+            "status": "OK"
+          },
+          {
+            "function": "log_error",
+            "status": "OK"
+          }
+        ],
+        "Main Workflow": [
+          {
+            "function": "simple_llm_process",
+            "status": "OK"
+          },
+          {
+            "function": "process_interactive_input",
+            "status": "OK"
+          }
+        ],
+        "System Utilities": [
+          {
+            "function": "system_dashboard",
+            "status": "OK"
+          },
+          {
+            "function": "agent_launcher",
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    "test_categories": {
+      "Core Modules": 7,
+      "Memory Functions": 3,
+      "LLM Functions": 3,
+      "Archiving Functions": 3,
+      "Logging Functions": 2,
+      "Main Workflow": 2,
+      "System Utilities": 2
+    },
+    "status_distribution": {
+      "OK": 21,
+      "NOT_AVAILABLE": 1
+    },
+    "average_success_rate": 95.45454545454545,
+    "min_success_rate": 95.45454545454545,
+    "max_success_rate": 95.45454545454545
+  },
+  "performance_metrics": {
+    "total_events": 100,
+    "time_range": {
+      "start": "2025-08-02T11:46:34.999786",
+      "end": "2025-08-02T11:46:35.092054"
+    },
+    "event_types": {
+      "perf_event_477": 1,
+      "perf_event_623": 1,
+      "perf_event_463": 1,
+      "perf_event_5": 1,
+      "perf_event_966": 1,
+      "perf_event_320": 1,
+      "perf_event_390": 1,
+      "perf_event_816": 1,
+      "perf_event_605": 1,
+      "perf_event_618": 1,
+      "perf_event_768": 1,
+      "perf_event_358": 1,
+      "perf_event_415": 1,
+      "perf_event_773": 1,
+      "perf_event_654": 1,
+      "perf_event_220": 1,
+      "perf_event_30": 1,
+      "perf_event_936": 1,
+      "perf_event_740": 1,
+      "perf_event_204": 1,
+      "perf_event_510": 1,
+      "perf_event_546": 1,
+      "perf_event_38": 1,
+      "perf_event_411": 1,
+      "perf_event_764": 1,
+      "perf_event_351": 1,
+      "perf_event_732": 1,
+      "perf_event_195": 1,
+      "perf_event_580": 1,
+      "perf_event_953": 1,
+      "perf_event_238": 1,
+      "perf_event_804": 1,
+      "perf_event_402": 1,
+      "perf_event_202": 1,
+      "perf_event_645": 1,
+      "perf_event_984": 1,
+      "perf_event_265": 1,
+      "perf_event_475": 1,
+      "perf_event_951": 1,
+      "perf_event_18": 1,
+      "perf_event_247": 1,
+      "perf_event_113": 1,
+      "perf_event_671": 1,
+      "perf_event_522": 1,
+      "perf_event_529": 1,
+      "perf_event_727": 1,
+      "perf_event_375": 1,
+      "perf_event_664": 1,
+      "perf_event_758": 1,
+      "perf_event_810": 1,
+      "perf_event_626": 1,
+      "perf_event_757": 1,
+      "perf_event_930": 1,
+      "perf_event_403": 1,
+      "perf_event_369": 1,
+      "perf_event_878": 1,
+      "perf_event_675": 1,
+      "perf_event_173": 1,
+      "perf_event_784": 1,
+      "perf_event_134": 1,
+      "perf_event_56": 1,
+      "perf_event_0": 1,
+      "perf_event_453": 1,
+      "perf_event_401": 1,
+      "perf_event_540": 1,
+      "perf_event_102": 1,
+      "perf_event_302": 1,
+      "perf_event_895": 1,
+      "perf_event_806": 1,
+      "perf_event_836": 1,
+      "perf_event_74": 1,
+      "perf_event_781": 1,
+      "perf_event_324": 1,
+      "perf_event_643": 1,
+      "perf_event_301": 1,
+      "perf_event_57": 1,
+      "perf_event_728": 1,
+      "perf_event_250": 1,
+      "perf_event_423": 1,
+      "perf_event_558": 1,
+      "perf_event_35": 1,
+      "perf_event_563": 1,
+      "perf_event_98": 1,
+      "perf_event_562": 1,
+      "perf_event_752": 1,
+      "perf_event_218": 1,
+      "perf_event_718": 1,
+      "perf_event_647": 1,
+      "perf_event_912": 1,
+      "perf_event_778": 1,
+      "perf_event_982": 1,
+      "perf_event_989": 1,
+      "perf_event_449": 1,
+      "perf_event_636": 1,
+      "perf_event_274": 1,
+      "perf_event_987": 1,
+      "perf_event_311": 1,
+      "perf_event_656": 1,
+      "perf_event_685": 1,
+      "perf_event_894": 1
+    },
+    "performance_data": [
+      1754135195.042287,
+      1754135195.0550663,
+      1754135195.0411313,
+      1754135195.0002317,
+      1754135195.0900505,
+      1754135195.0283108,
+      1754135195.0344722,
+      1754135195.0770216,
+      1754135195.0534914,
+      1754135195.0546591,
+      1754135195.0728824,
+      1754135195.0317254,
+      1754135195.0368946,
+      1754135195.0733023,
+      1754135195.0578218,
+      1754135195.0192804,
+      1754135195.0024207,
+      1754135195.0874257,
+      1754135195.065526,
+      1754135195.0179074,
+      1754135195.045187,
+      1754135195.048356,
+      1754135195.0030642,
+      1754135195.0364902,
+      1754135195.0725327,
+      1754135195.0311265,
+      1754135195.064871,
+      1754135195.0171535,
+      1754135195.0513403,
+      1754135195.088913,
+      1754135195.0207796,
+      1754135195.0759587,
+      1754135195.0357528,
+      1754135195.0177503,
+      1754135195.0570304,
+      1754135195.0916355,
+      1754135195.0231645,
+      1754135195.042127,
+      1754135195.0887537,
+      1754135195.0013237,
+      1754135195.0215735,
+      1754135195.0097616,
+      1754135195.0593407,
+      1754135195.046213,
+      1754135195.046961,
+      1754135195.064454,
+      1754135195.0332358,
+      1754135195.0587807,
+      1754135195.071926,
+      1754135195.0765204,
+      1754135195.0553224,
+      1754135195.0718439,
+      1754135195.0868962,
+      1754135195.0358381,
+      1754135195.0326703,
+      1754135195.0824642,
+      1754135195.0596967,
+      1754135195.0150688,
+      1754135195.0742157,
+      1754135195.0116706,
+      1754135195.0046246,
+      1754135194.9997475,
+      1754135195.0401495,
+      1754135195.035656,
+      1754135195.0478716,
+      1754135195.0087488,
+      1754135195.0267522,
+      1754135195.0838637,
+      1754135195.0761185,
+      1754135195.078865,
+      1754135195.0062456,
+      1754135195.073972,
+      1754135195.0286574,
+      1754135195.0568666,
+      1754135195.0266628,
+      1754135195.004707,
+      1754135195.0645323,
+      1754135195.021843,
+      1754135195.0375402,
+      1754135195.0494246,
+      1754135195.0028327,
+      1754135195.0498521,
+      1754135195.008403,
+      1754135195.0497694,
+      1754135195.0714173,
+      1754135195.0191221,
+      1754135195.0635624,
+      1754135195.0571918,
+      1754135195.0853202,
+      1754135195.073727,
+      1754135195.0913866,
+      1754135195.0920417,
+      1754135195.0397503,
+      1754135195.0562305,
+      1754135195.0239108,
+      1754135195.0918787,
+      1754135195.027562,
+      1754135195.057984,
+      1754135195.060593,
+      1754135195.0837831
+    ],
+    "latency_stats": {
+      "min": Infinity,
+      "max": 0,
+      "avg": 0
+    },
+    "throughput_estimate": 10837.99
+  },
+  "error_analysis": {
+    "total_log_files": 2,
+    "error_categories": {},
+    "error_levels": {
+      "error": 2263,
+      "info": 34,
+      "warning": 2018
+    },
+    "recent_errors": [
+      {
+        "timestamp": "2025-07-28T17:23:18.374628",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.375420",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.434926",
+        "level": "info",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.579551",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:18.580058",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170204",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170405",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170569",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170727",
+        "level": "warning",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-07-28T17:23:30.170870",
+        "level": "warning",
+        "message": ""
+      }
+    ],
+    "error_trends": {}
+  },
+  "archive_stats": {
+    "total_entries": 13934,
+    "entry_types": {},
+    "status_distribution": {},
+    "verification_stats": {},
+    "temporal_analysis": {},
+    "error": "no such column: entry_type"
+  },
+  "agent_activity": {
+    "total_reports": 5,
+    "agent_performance": {
+      "test_agent_validation": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "compliance_rates": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      },
+      "quick_test_agent": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0
+        ],
+        "compliance_rates": [
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      }
+    },
+    "success_trends": [],
+    "critical_issues": [],
+    "recommendations": [
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms"
+    ]
+  },
+  "recommendations": [
+    "REVIEW: Agent test_agent_validation compliance rate below 80%",
+    "REVIEW: Agent quick_test_agent compliance rate below 80%"
+  ],
+  "summary": {
+    "overall_status": "WARNING",
+    "key_metrics": {
+      "test_success_rate": "95.5%",
+      "archive_entries": 13934,
+      "performance_events": 100,
+      "throughput": "10837.99 events/sec",
+      "total_errors": 4315
+    },
+    "health_score": 70.9090909090909,
+    "critical_issues": 0,
+    "total_data_points": 1424
+  },
+  "concurrent_analysis": {
+    "total_concurrent_events": 400,
+    "worker_distribution": {
+      "1": 18,
+      "2": 11,
+      "0": 10,
+      "3": 11
+    },
+    "event_distribution": {
+      "37": 1,
+      "6": 1,
+      "79": 1,
+      "28": 1,
+      "31": 1,
+      "98": 1,
+      "54": 1,
+      "3": 1,
+      "64": 1,
+      "91": 2,
+      "60": 1,
+      "30": 2,
+      "17": 3,
+      "85": 1,
+      "8": 1,
+      "35": 2,
+      "73": 2,
+      "52": 1,
+      "11": 1,
+      "2": 2,
+      "63": 2,
+      "14": 2,
+      "71": 1,
+      "27": 2,
+      "82": 1,
+      "47": 1,
+      "67": 1,
+      "65": 1,
+      "4": 1,
+      "62": 1,
+      "18": 1,
+      "32": 1,
+      "44": 1,
+      "24": 1,
+      "23": 1,
+      "38": 1,
+      "15": 1,
+      "80": 1,
+      "92": 1,
+      "5": 1
+    },
+    "concurrency_patterns": {
+      "max_worker_events": 18,
+      "min_worker_events": 10,
+      "avg_worker_events": 12.5,
+      "total_workers": 4
+    }
+  }
+}
