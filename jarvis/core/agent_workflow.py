@@ -180,6 +180,16 @@ class AgentWorkflowManager:
         
         cycle_id = f"{agent_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         
+        # Add to active_cycles BEFORE starting the thread to avoid race condition
+        self.active_cycles[cycle_id] = {
+            'agent_id': agent_id,
+            'target_cycles': cycle_count,
+            'target_compliance': target_compliance,
+            'start_time': datetime.now().isoformat(),
+            'thread': None,  # Will be set after thread creation
+            'status': 'running'
+        }
+        
         # Start workflow in background thread
         workflow_thread = threading.Thread(
             target=self._execute_workflow_cycle,
@@ -188,14 +198,8 @@ class AgentWorkflowManager:
         )
         workflow_thread.start()
         
-        self.active_cycles[cycle_id] = {
-            'agent_id': agent_id,
-            'target_cycles': cycle_count,
-            'target_compliance': target_compliance,
-            'start_time': datetime.now().isoformat(),
-            'thread': workflow_thread,
-            'status': 'running'
-        }
+        # Update the thread reference
+        self.active_cycles[cycle_id]['thread'] = workflow_thread
         
         return cycle_id
     
