@@ -585,5 +585,8 @@
   "workflow_test_6": "value_6",
   "workflow_test_7": "value_7",
   "workflow_test_8": "value_8",
-  "workflow_test_9": "value_9"
+  "workflow_test_9": "value_9",
+  "my_name": "John",
+  "test_cli": "cli_mode_test",
+  "test_final": "verification_complete"
 }

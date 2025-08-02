@@ -105,7 +105,7 @@ def process_interactive_input(user_input: str) -> dict:
     
     if user_input.lower() in {"błędy", "errors", "raport"}:
         try:
-            from error_handler import create_error_report
+            from jarvis.core.error_handler import create_error_report
             report = create_error_report()
             return {"action": "error_report", "report": report}
         except Exception as e:
@@ -226,7 +226,7 @@ def main(skip_startup_init=False):
         # Error report command
         if prompt.lower() in {"błędy", "errors", "raport"}:
             try:
-                from error_handler import create_error_report
+                from jarvis.core.error_handler import create_error_report
                 report = create_error_report()
                 print("\n" + "="*50)
                 print(report)
@@ -333,7 +333,7 @@ if __name__ == "__main__":
     finally:
         # Generate final error report
         try:
-            from error_handler import create_error_report
+            from jarvis.core.error_handler import create_error_report
             summary = error_handler.get_session_summary()
             if summary['total_errors'] > 0 or summary['total_warnings'] > 0:
                 print(f"\n[CHART] Podsumowanie sesji: {summary['total_errors']} błędów, "
