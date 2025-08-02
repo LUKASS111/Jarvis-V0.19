@@ -1,0 +1,163 @@
+[
+  {
+    "id": "data_archiving_001",
+    "name": "Basic Data Archiving",
+    "description": "Test basic data archiving functionality with verification queue",
+    "input_data": {
+      "content": "Test data for archiving system validation",
+      "source": "test_agent"
+    },
+    "expected_outcomes": [
+      "data_archived",
+      "verification_queued"
+    ],
+    "validation_criteria": {
+      "min_confidence": 0.7,
+      "verification_required": true
+    },
+    "priority": 1,
+    "category": "functional"
+  },
+  {
+    "id": "verification_001",
+    "name": "Data Verification Process",
+    "description": "Test dual-model data verification with confidence scoring",
+    "input_data": {
+      "content": "Python is a high-level programming language",
+      "data_type": "fact"
+    },
+    "expected_outcomes": [
+      "verified_successfully",
+      "confidence_above_threshold"
+    ],
+    "validation_criteria": {
+      "min_confidence": 0.8,
+      "verification_model_different": true
+    },
+    "priority": 1,
+    "category": "functional"
+  },
+  {
+    "id": "memory_integration_001",
+    "name": "Memory System Integration",
+    "description": "Test integration between archiving system and existing memory system",
+    "input_data": {
+      "fact": "AI model configuration: llama3:8b with temperature 0.7",
+      "operation": "remember"
+    },
+    "expected_outcomes": [
+      "memory_updated",
+      "data_archived",
+      "verification_completed"
+    ],
+    "validation_criteria": {
+      "memory_consistency": true,
+      "archive_integrity": true
+    },
+    "priority": 2,
+    "category": "integration"
+  },
+  {
+    "id": "error_handling_001",
+    "name": "Error Resilience Testing",
+    "description": "Test system behavior under error conditions and malformed data",
+    "input_data": {
+      "content": "Invalid JSON data: {broken_json: missing_quotes",
+      "data_type": "json"
+    },
+    "expected_outcomes": [
+      "error_handled_gracefully",
+      "fallback_activated"
+    ],
+    "validation_criteria": {
+      "no_system_crash": true,
+      "error_logged": true
+    },
+    "priority": 2,
+    "category": "resilience"
+  },
+  {
+    "id": "performance_001",
+    "name": "High Volume Data Processing",
+    "description": "Test system performance with concurrent high-volume data operations",
+    "input_data": {
+      "data_count": 100,
+      "concurrent_operations": 5
+    },
+    "expected_outcomes": [
+      "all_data_processed",
+      "performance_acceptable"
+    ],
+    "validation_criteria": {
+      "max_processing_time": 30,
+      "success_rate": 0.95
+    },
+    "priority": 3,
+    "category": "performance"
+  },
+  {
+    "id": "backup_recovery_001",
+    "name": "Backup and Recovery Testing",
+    "description": "Test backup creation and recovery operations",
+    "input_data": {
+      "backup_type": "test",
+      "test_data": "Sample data for backup testing"
+    },
+    "expected_outcomes": [
+      "backup_created",
+      "integrity_verified",
+      "recovery_successful"
+    ],
+    "validation_criteria": {
+      "backup_size_reasonable": true,
+      "checksum_valid": true
+    },
+    "priority": 2,
+    "category": "functional"
+  },
+  {
+    "id": "verification_accuracy_001",
+    "name": "Verification Accuracy Assessment",
+    "description": "Test verification system accuracy with known true/false statements",
+    "input_data": {
+      "true_statements": [
+        "Water boils at 100 degrees Celsius at sea level",
+        "Python is an interpreted programming language"
+      ],
+      "false_statements": [
+        "The Earth is flat",
+        "Python was created in the 1970s"
+      ]
+    },
+    "expected_outcomes": [
+      "true_statements_verified",
+      "false_statements_rejected"
+    ],
+    "validation_criteria": {
+      "accuracy_rate": 0.9,
+      "false_positive_rate": 0.1
+    },
+    "priority": 1,
+    "category": "functional"
+  },
+  {
+    "id": "agent_correction_001",
+    "name": "Agent Auto-Correction Testing",
+    "description": "Test agent auto-correction mechanisms with deliberate failures",
+    "input_data": {
+      "deliberate_failure_type": "timeout",
+      "correction_expected": "increase_timeout"
+    },
+    "expected_outcomes": [
+      "failure_detected",
+      "correction_applied",
+      "retry_successful"
+    ],
+    "validation_criteria": {
+      "correction_effectiveness": true,
+      "learning_demonstrated": true
+    },
+    "priority": 2,
+    "category": "integration"
+  }
+]
