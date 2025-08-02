@@ -139,7 +139,10 @@ def main():
         ("functional/test_functional_comprehensive.py", "Functional Tests - End-user scenarios"),
         ("regression/test_regression_comprehensive.py", "Regression Tests - Prevent old bugs"),
         ("performance/test_performance_comprehensive.py", "Performance Tests - Speed and efficiency"),
-        ("test_coverage_comprehensive.py", "Coverage Tests - Code coverage analysis")
+        ("test_coverage_comprehensive.py", "Coverage Tests - Code coverage analysis"),
+        ("test_archiving_system.py", "Archiving System Tests - Data verification and backup"),
+        ("comprehensive_function_test.py", "Function Tests - All program functions"),
+        ("test_simplified_system.py", "Simplified System Tests - Basic functionality")
     ]
     
     # Run all test suites

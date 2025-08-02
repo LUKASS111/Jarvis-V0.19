@@ -11,7 +11,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # Import and run the test suite
-from scripts.run_tests import main
+from tests.run_tests import main
 
 if __name__ == "__main__":
     main()

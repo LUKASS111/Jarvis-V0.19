@@ -16,11 +16,11 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 def test_core_imports():
     """Test that core modules can be imported"""
     try:
-        import ErrorHandler
+        from jarvis.core.error_handler import ErrorHandler
         import jarvis.llm.llm_interface as llm_interface  
         import jarvis.memory.memory as memory
         import jarvis.utils.logs as logs
-        import modern_gui
+        # Don't try to import GUI class as it requires PyQt5
         print("✅ Core imports: PASS")
         return True
     except ImportError as e:
@@ -30,13 +30,14 @@ def test_core_imports():
 def test_error_handler():
     """Test error handling functionality"""
     try:
-        from jarvis.core.error_handler import ErrorHandler, ErrorLevel
+        from jarvis.core.error_handler import ErrorHandler, ErrorLevel, log_error
         
-        # Test logging
-        error_handler.log_error(Exception("Test error"), "Test context", ErrorLevel.INFO, "Test message")
+        # Test logging with correct signature
+        log_error(Exception("Test error"), "Test context", ErrorLevel.INFO)
         
-        # Test session summary
-        summary = error_handler.get_session_summary()
+        # Test creating an error handler instance
+        handler = ErrorHandler()
+        summary = handler.get_session_summary()
         assert isinstance(summary, dict)
         
         print("✅ Error handler: PASS")
