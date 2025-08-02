@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 CRDT Implementation Tests
 =========================
@@ -9,6 +10,11 @@ Validates convergence, commutativity, and architectural correctness.
 import unittest
 import tempfile
 import os
+import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from jarvis.core.crdt import GCounter, GSet, LWWRegister, ORSet, PNCounter
 from jarvis.core.crdt_manager import CRDTManager
 

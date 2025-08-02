@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Test suite for CRDT Phase 4 - Integration features
 Network synchronization and conflict resolution testing
@@ -7,8 +8,13 @@ import unittest
 import time
 import threading
 import json
+import sys
+import os
 from datetime import datetime, timedelta
 from unittest.mock import Mock, patch
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from jarvis.core.crdt.crdt_network import (
     CRDTNetworkManager, CRDTSynchronizer, PeerInfo, SyncMessage

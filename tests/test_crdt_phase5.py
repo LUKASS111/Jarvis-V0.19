@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Test suite for CRDT Phase 5 - Advanced Features
 Performance optimization, monitoring, and enterprise features testing
@@ -7,8 +8,13 @@ import unittest
 import time
 import json
 import threading
+import sys
+import os
 from unittest.mock import Mock, patch, MagicMock
 from datetime import datetime, timedelta
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from jarvis.core.crdt.crdt_performance_optimizer import (
     CRDTPerformanceOptimizer, DeltaCompressor, LazySynchronizer, 

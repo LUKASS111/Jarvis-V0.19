@@ -177,7 +177,12 @@ def main():
         ("test_coverage_comprehensive.py", "Coverage Tests - Code coverage analysis"),
         ("test_archiving_system.py", "Archiving System Tests - Data verification and backup"),
         ("comprehensive_function_test.py", "Function Tests - All program functions"),
-        ("test_simplified_system.py", "Simplified System Tests - Basic functionality")
+        ("test_simplified_system.py", "Simplified System Tests - Basic functionality"),
+        # CRDT Implementation Tests - According to CRDT Plan Phases 1-5
+        ("test_crdt_implementation.py", "CRDT Phase 1-3 - Foundation and Basic/Advanced Types"),
+        ("test_crdt_comprehensive.py", "CRDT Comprehensive - Mathematical properties validation"),
+        ("test_crdt_phase4.py", "CRDT Phase 4 - Network synchronization and conflict resolution"),
+        ("test_crdt_phase5.py", "CRDT Phase 5 - Performance optimization and enterprise monitoring")
     ]
     
     # Run all test suites
