@@ -110,5 +110,69 @@
     "checksum": "8240f9cf4b07b15298341ddcd59fc460e7819d340a72ca60bbffb94cf3bc41be",
     "description": "Dashboard test backup",
     "created_by": "user"
+  },
+  "backup_20250802_173126_daily": {
+    "backup_id": "backup_20250802_173126_daily",
+    "timestamp": "2025-08-02T17:31:26.722335",
+    "backup_type": "daily",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/daily/backup_20250802_173126_daily.tar.gz",
+    "size_bytes": 2315968,
+    "checksum": "6fa22bd1d50bd94662ebe0ccb5bfdccd625f19b18ea434c85d73c71ab4f8bb9b",
+    "description": "Automated daily backup",
+    "created_by": "scheduler"
+  },
+  "backup_20250802_173127_manual": {
+    "backup_id": "backup_20250802_173127_manual",
+    "timestamp": "2025-08-02T17:31:27.967483",
+    "backup_type": "manual",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/manual/backup_20250802_173127_manual.tar.gz",
+    "size_bytes": 2320913,
+    "checksum": "79d197f096b3c11b70a204c54fc97020cc416dfde419d47e015b6d297647ca04",
+    "description": "Dashboard test backup",
+    "created_by": "user"
+  },
+  "backup_20250802_174720_daily": {
+    "backup_id": "backup_20250802_174720_daily",
+    "timestamp": "2025-08-02T17:47:20.433759",
+    "backup_type": "daily",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/daily/backup_20250802_174720_daily.tar.gz",
+    "size_bytes": 2383162,
+    "checksum": "ae7cf924eae86482194fd4ad3c10ba81a7da1ab53b7b84f5121d897b17a2e017",
+    "description": "Automated daily backup",
+    "created_by": "scheduler"
+  },
+  "backup_20250802_174721_manual": {
+    "backup_id": "backup_20250802_174721_manual",
+    "timestamp": "2025-08-02T17:47:21.710227",
+    "backup_type": "manual",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/manual/backup_20250802_174721_manual.tar.gz",
+    "size_bytes": 2388339,
+    "checksum": "4b0991b21574a024fa3710db1cbada6e3db45e021c06737beeebdaa555c07540",
+    "description": "Dashboard test backup",
+    "created_by": "user"
   }
 }

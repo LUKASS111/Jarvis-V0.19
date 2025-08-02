@@ -12,7 +12,7 @@ import json
 import sqlite3
 import threading
 from typing import Dict, Any, Optional, List
-from .crdt import GCounter, GSet, LWWRegister
+from .crdt import GCounter, GSet, LWWRegister, ORSet, PNCounter
 
 
 class CRDTManager:
@@ -116,6 +116,10 @@ class CRDTManager:
             elif crdt_type == "LWWRegister":
                 initial_value = kwargs.get("initial_value")
                 crdt = LWWRegister(self.node_id, initial_value)
+            elif crdt_type == "ORSet":
+                crdt = ORSet(self.node_id)
+            elif crdt_type == "PNCounter":
+                crdt = PNCounter(self.node_id)
             else:
                 raise ValueError(f"Unknown CRDT type: {crdt_type}")
             
@@ -223,3 +227,69 @@ class CRDTManager:
             "crdt_types": {name: crdt.__class__.__name__ for name, crdt in self.crdts.items()},
             "system_status": "operational"
         }
+    
+    # Advanced CRDT Operations (Phase 3)
+    
+    def add_to_or_set(self, name: str, element: Any) -> str:
+        """Add element to OR-Set."""
+        or_set = self.get_or_create_crdt(name, "ORSet")
+        tag = or_set.add(element)
+        self._persist_crdt_state(name, or_set)
+        return tag
+    
+    def remove_from_or_set(self, name: str, element: Any) -> bool:
+        """Remove element from OR-Set."""
+        if name not in self.crdts:
+            return False
+        or_set = self.crdts[name]
+        removed = or_set.remove(element)
+        if removed:
+            self._persist_crdt_state(name, or_set)
+        return removed
+    
+    def or_set_contains(self, name: str, element: Any) -> bool:
+        """Check if OR-Set contains element."""
+        if name in self.crdts:
+            return self.crdts[name].contains(element)
+        return False
+    
+    def get_or_set_elements(self, name: str) -> set:
+        """Get all elements in OR-Set."""
+        if name in self.crdts:
+            return self.crdts[name].elements()
+        return set()
+    
+    def increment_pn_counter(self, name: str, amount: int = 1) -> int:
+        """Increment PN-Counter."""
+        counter = self.get_or_create_crdt(name, "PNCounter")
+        counter.increment(amount)
+        self._persist_crdt_state(name, counter)
+        return counter.value()
+    
+    def decrement_pn_counter(self, name: str, amount: int = 1) -> int:
+        """Decrement PN-Counter."""
+        counter = self.get_or_create_crdt(name, "PNCounter")
+        counter.decrement(amount)
+        self._persist_crdt_state(name, counter)
+        return counter.value()
+    
+    def get_pn_counter_value(self, name: str) -> int:
+        """Get current value of PN-Counter."""
+        if name in self.crdts:
+            return self.crdts[name].value()
+        return 0
+    
+    def get_pn_counter_breakdown(self, name: str) -> Dict:
+        """Get breakdown of PN-Counter operations."""
+        if name in self.crdts:
+            return self.crdts[name].get_node_breakdown()
+        return {}
+    
+    def cleanup_or_set_tombstones(self, name: str, cutoff_time: float = None) -> int:
+        """Clean up old tombstones in OR-Set."""
+        if name in self.crdts and isinstance(self.crdts[name], ORSet):
+            removed = self.crdts[name].cleanup_tombstones(cutoff_time)
+            if removed > 0:
+                self._persist_crdt_state(name, self.crdts[name])
+            return removed
+        return 0

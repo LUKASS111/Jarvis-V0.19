@@ -17,6 +17,8 @@ from .crdt_base import BaseCRDT
 from .g_counter import GCounter
 from .g_set import GSet
 from .lww_register import LWWRegister
+from .or_set import ORSet
+from .pn_counter import PNCounter
 
 __version__ = "0.2.0"
-__all__ = ["BaseCRDT", "GCounter", "GSet", "LWWRegister"]
+__all__ = ["BaseCRDT", "GCounter", "GSet", "LWWRegister", "ORSet", "PNCounter"]

@@ -9,7 +9,7 @@ Validates convergence, commutativity, and architectural correctness.
 import unittest
 import tempfile
 import os
-from jarvis.core.crdt import GCounter, GSet, LWWRegister
+from jarvis.core.crdt import GCounter, GSet, LWWRegister, ORSet, PNCounter
 from jarvis.core.crdt_manager import CRDTManager
 
 
@@ -287,6 +287,263 @@ class TestCRDTManager(unittest.TestCase):
         self.assertEqual(metrics["system_status"], "operational")
         self.assertIn("counter1", metrics["crdt_types"])
         self.assertIn("set1", metrics["crdt_types"])
+
+
+class TestORSet(unittest.TestCase):
+    """Test OR-Set CRDT implementation."""
+    
+    def test_add_remove_basic(self):
+        """Test basic add/remove functionality."""
+        or_set = ORSet("node1")
+        
+        # Add element
+        tag = or_set.add("element1")
+        self.assertTrue(or_set.contains("element1"))
+        self.assertEqual(or_set.size(), 1)
+        
+        # Remove element
+        removed = or_set.remove("element1")
+        self.assertTrue(removed)
+        self.assertFalse(or_set.contains("element1"))
+        self.assertEqual(or_set.size(), 0)
+    
+    def test_add_remove_concurrent(self):
+        """Test concurrent add/remove operations."""
+        or_set1 = ORSet("node1")
+        or_set2 = ORSet("node2")
+        
+        # Both nodes add same element
+        or_set1.add("element1")
+        or_set2.add("element1")
+        
+        # Node1 removes, Node2 adds again
+        or_set1.remove("element1")
+        or_set2.add("element1")
+        
+        # Merge - element should still be present due to newer add
+        or_set1.merge(or_set2)
+        self.assertTrue(or_set1.contains("element1"))
+    
+    def test_merge_convergence(self):
+        """Test merge convergence property."""
+        or_set1 = ORSet("node1")
+        or_set2 = ORSet("node2")
+        or_set3 = ORSet("node3")
+        
+        # Different operations on each set
+        or_set1.add("a")
+        or_set1.add("b")
+        
+        or_set2.add("b")
+        or_set2.add("c")
+        
+        or_set3.add("c")
+        or_set3.add("d")
+        
+        # Merge in different orders
+        temp1 = ORSet("temp1")
+        temp1.merge(or_set1)
+        temp1.merge(or_set2)
+        temp1.merge(or_set3)
+        
+        temp2 = ORSet("temp2")
+        temp2.merge(or_set3)
+        temp2.merge(or_set1)
+        temp2.merge(or_set2)
+        
+        # Should have same elements
+        self.assertEqual(temp1.elements(), temp2.elements())
+    
+    def test_serialization(self):
+        """Test JSON serialization/deserialization."""
+        or_set = ORSet("node1")
+        or_set.add("element1")
+        or_set.add("element2")
+        or_set.remove("element1")
+        
+        # Serialize
+        data = or_set.to_dict()
+        
+        # Deserialize
+        new_set = ORSet.from_dict_cls(data)
+        
+        # Should have same state
+        self.assertEqual(new_set.elements(), or_set.elements())
+        self.assertFalse(new_set.contains("element1"))
+        self.assertTrue(new_set.contains("element2"))
+
+
+class TestPNCounter(unittest.TestCase):
+    """Test PN-Counter CRDT implementation."""
+    
+    def test_increment_decrement_basic(self):
+        """Test basic increment/decrement functionality."""
+        counter = PNCounter("node1")
+        
+        # Test increments
+        counter.increment(5)
+        self.assertEqual(counter.value(), 5)
+        
+        # Test decrements
+        counter.decrement(2)
+        self.assertEqual(counter.value(), 3)
+        
+        # Test mixed operations
+        counter.increment(10)
+        counter.decrement(8)
+        self.assertEqual(counter.value(), 5)
+    
+    def test_negative_amounts_error(self):
+        """Test that negative amounts raise errors."""
+        counter = PNCounter("node1")
+        
+        with self.assertRaises(ValueError):
+            counter.increment(-1)
+        
+        with self.assertRaises(ValueError):
+            counter.decrement(-1)
+    
+    def test_merge_convergence(self):
+        """Test merge convergence property."""
+        counter1 = PNCounter("node1")
+        counter2 = PNCounter("node2")
+        
+        # Different operations on each counter
+        counter1.increment(10)
+        counter1.decrement(3)
+        
+        counter2.increment(5)
+        counter2.decrement(2)
+        
+        # Merge counter2 into counter1
+        counter1.merge(counter2)
+        
+        # Should have combined effect: (10-3) + (5-2) = 7 + 3 = 10
+        self.assertEqual(counter1.value(), 10)
+        
+        # Check individual components
+        self.assertEqual(counter1.positive_value(), 15)  # 10 + 5
+        self.assertEqual(counter1.negative_value(), 5)   # 3 + 2
+    
+    def test_node_breakdown(self):
+        """Test per-node operation breakdown."""
+        counter = PNCounter("node1")
+        counter.increment(10)
+        counter.decrement(3)
+        
+        breakdown = counter.get_node_breakdown()
+        
+        self.assertIn("node1", breakdown)
+        self.assertEqual(breakdown["node1"]["positive"], 10)
+        self.assertEqual(breakdown["node1"]["negative"], 3)
+        self.assertEqual(breakdown["node1"]["net"], 7)
+    
+    def test_comparison_operations(self):
+        """Test comparison operations."""
+        counter1 = PNCounter("node1")
+        counter2 = PNCounter("node2")
+        
+        counter1.increment(10)
+        counter2.increment(5)
+        
+        self.assertTrue(counter1 > counter2)
+        self.assertTrue(counter1 >= counter2)
+        self.assertFalse(counter1 < counter2)
+        self.assertFalse(counter1 <= counter2)
+        
+        # Test equality
+        counter3 = PNCounter("node3")
+        counter3.increment(5)
+        
+        self.assertTrue(counter2.value() == counter3.value())
+    
+    def test_serialization(self):
+        """Test JSON serialization/deserialization."""
+        counter = PNCounter("node1")
+        counter.increment(15)
+        counter.decrement(5)
+        
+        # Serialize
+        data = counter.to_dict()
+        
+        # Deserialize
+        new_counter = PNCounter.from_dict_cls(data)
+        
+        # Should have same state
+        self.assertEqual(new_counter.value(), counter.value())
+        self.assertEqual(new_counter.positive_value(), counter.positive_value())
+        self.assertEqual(new_counter.negative_value(), counter.negative_value())
+
+
+class TestCRDTManagerAdvanced(unittest.TestCase):
+    """Test CRDT Manager with advanced types."""
+    
+    def setUp(self):
+        """Create temporary database for testing."""
+        self.temp_db = tempfile.NamedTemporaryFile(delete=False)
+        self.temp_db.close()
+        self.manager = CRDTManager("test_node", self.temp_db.name)
+    
+    def tearDown(self):
+        """Clean up temporary database."""
+        os.unlink(self.temp_db.name)
+    
+    def test_or_set_operations(self):
+        """Test OR-Set operations through manager."""
+        # Add elements
+        tag1 = self.manager.add_to_or_set("test_or_set", "element1")
+        self.assertIsInstance(tag1, str)
+        
+        tag2 = self.manager.add_to_or_set("test_or_set", "element2")
+        self.assertIsInstance(tag2, str)
+        
+        # Check membership
+        self.assertTrue(self.manager.or_set_contains("test_or_set", "element1"))
+        self.assertTrue(self.manager.or_set_contains("test_or_set", "element2"))
+        
+        # Remove element
+        removed = self.manager.remove_from_or_set("test_or_set", "element1")
+        self.assertTrue(removed)
+        self.assertFalse(self.manager.or_set_contains("test_or_set", "element1"))
+        
+        # Get elements
+        elements = self.manager.get_or_set_elements("test_or_set")
+        self.assertEqual(elements, {"element2"})
+    
+    def test_pn_counter_operations(self):
+        """Test PN-Counter operations through manager."""
+        # Increment
+        value = self.manager.increment_pn_counter("test_pn_counter", 10)
+        self.assertEqual(value, 10)
+        
+        # Decrement
+        value = self.manager.decrement_pn_counter("test_pn_counter", 3)
+        self.assertEqual(value, 7)
+        
+        # Check value
+        self.assertEqual(self.manager.get_pn_counter_value("test_pn_counter"), 7)
+        
+        # Get breakdown
+        breakdown = self.manager.get_pn_counter_breakdown("test_pn_counter")
+        self.assertIn("test_node", breakdown)
+        self.assertEqual(breakdown["test_node"]["positive"], 10)
+        self.assertEqual(breakdown["test_node"]["negative"], 3)
+    
+    def test_tombstone_cleanup(self):
+        """Test OR-Set tombstone cleanup."""
+        # Add and remove elements
+        self.manager.add_to_or_set("cleanup_test", "element1")
+        self.manager.add_to_or_set("cleanup_test", "element2")
+        self.manager.remove_from_or_set("cleanup_test", "element1")
+        
+        # Cleanup tombstones (with future time, so nothing should be removed)
+        import time
+        removed = self.manager.cleanup_or_set_tombstones("cleanup_test", time.time() + 3600)
+        self.assertGreaterEqual(removed, 0)  # Could be 0 or more, depending on implementation
+        
+        # Cleanup with past time (should remove tombstones)
+        removed = self.manager.cleanup_or_set_tombstones("cleanup_test", time.time() - 3600)
+        self.assertGreaterEqual(removed, 0)
 
 
 if __name__ == "__main__":

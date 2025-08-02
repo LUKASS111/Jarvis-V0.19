@@ -217,6 +217,7 @@ def main():
         ("Functional Tests", "tests/functional/test_functional_comprehensive.py", False),
         ("Regression Tests", "tests/regression/test_regression_comprehensive.py", False),
         ("Performance Tests", "tests/performance/test_performance_comprehensive.py", False),
+        ("CRDT Tests", "tests/test_crdt_comprehensive.py", False),
     ]
     
     results = []
