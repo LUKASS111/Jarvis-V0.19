@@ -69,19 +69,51 @@ class DataArchivePurgeManager:
         self._ensure_version_column()
     
     def _get_current_version(self) -> str:
-        """Get current program version"""
+        """Get current program version - universal detection"""
+        # Priority 1: Try VERSION_STRING from main module
         try:
             from jarvis.core.main import VERSION_STRING
-            return VERSION_STRING
+            if VERSION_STRING and VERSION_STRING.strip():
+                return VERSION_STRING.strip()
         except ImportError:
-            # Fallback to git commit hash if version string not available
+            pass
+        
+        # Priority 2: Try reading from package info
+        try:
+            import pkg_resources
+            version = pkg_resources.get_distribution("jarvis").version
+            if version:
+                return version
+        except Exception:
+            pass
+        
+        # Priority 3: Try git commit hash
+        try:
             import subprocess
-            try:
-                result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], 
-                                      capture_output=True, text=True, cwd=os.path.dirname(self.db_path))
-                return f"git-{result.stdout.strip()}" if result.returncode == 0 else "unknown"
-            except Exception:
-                return "unknown"
+            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(self.db_path)))
+            result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], 
+                                  capture_output=True, text=True, cwd=base_dir)
+            if result.returncode == 0 and result.stdout.strip():
+                return f"git-{result.stdout.strip()}"
+        except Exception:
+            pass
+        
+        # Priority 4: Try reading from VERSION file
+        try:
+            base_dir = os.path.dirname(os.path.dirname(os.path.dirname(self.db_path)))
+            version_file = os.path.join(base_dir, "VERSION")
+            if os.path.exists(version_file):
+                with open(version_file, 'r') as f:
+                    version = f.read().strip()
+                    if version:
+                        return version
+        except Exception:
+            pass
+        
+        # Fallback: Generate timestamp-based version
+        from datetime import datetime
+        timestamp = datetime.now().strftime("%Y%m%d")
+        return f"auto-{timestamp}"
     
     def _load_policies(self) -> Dict[str, PurgePolicy]:
         """Load purge policies from config file"""
@@ -389,27 +421,175 @@ class DataArchivePurgeManager:
         
         return purge_stats
     
-    def auto_purge_on_startup(self):
-        """Automatically purge old data on system startup"""
-        print(f"[PURGE] Starting automatic purge on startup for version {self.current_version}")
+    def auto_purge_by_version_only(self):
+        """Automatically purge ALL data from older versions - version-based cleanup only"""
+        print(f"[PURGE] Starting automatic version-based cleanup for current version: {self.current_version}")
         
-        # Tag current entries
-        self.tag_current_version_entries()
+        # Tag current entries first
+        tagged_count = self.tag_current_version_entries()
         
-        # Analyze current state
+        # Analyze current state before cleanup
         analysis = self.analyze_archive_data()
-        print(f"[PURGE] Archive analysis: {analysis['total_entries']} entries, {len(analysis['version_stats'])} versions")
+        total_before = analysis['total_entries']
+        versions_before = len(analysis['version_stats'])
         
-        # Execute purge for old test data (least critical)
-        purge_result = self.execute_purge(dry_run=False, policy_name="test_data")
+        print(f"[PURGE] Pre-cleanup analysis: {total_before} entries across {versions_before} versions")
         
-        if purge_result['purged_count'] > 0:
-            print(f"[PURGE] Purged {purge_result['purged_count']} old test data entries")
+        # Identify all entries NOT from current version
+        old_version_entries = []
+        with self._lock:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            cursor.execute('''
+                SELECT id, program_version, data_type, source, operation, created_at
+                FROM archive_entries 
+                WHERE program_version != ? AND program_version IS NOT NULL
+            ''', (self.current_version,))
+            
+            old_version_entries = cursor.fetchall()
+            conn.close()
+        
+        if not old_version_entries:
+            print("[PURGE] No old version entries found - archive is clean!")
+            return {
+                'current_version': self.current_version,
+                'analysis': analysis,
+                'purge_result': {
+                    'total_identified': 0,
+                    'purged_count': 0,
+                    'errors': [],
+                    'timestamp': datetime.now().isoformat()
+                },
+                'backup_cleanup': {'cleaned_backups': 0}
+            }
+        
+        print(f"[PURGE] Found {len(old_version_entries)} entries from old versions to remove")
+        
+        # Create backup before major cleanup
+        try:
+            archiver = get_archiver()
+            backup_path = archiver.create_backup()
+            print(f"[PURGE] Created safety backup: {backup_path}")
+        except Exception as e:
+            print(f"[PURGE] Warning: Could not create backup: {e}")
+        
+        # Execute version-based purge
+        purge_stats = {
+            'total_identified': len(old_version_entries),
+            'purged_count': 0,
+            'errors': [],
+            'timestamp': datetime.now().isoformat(),
+            'versions_removed': set()
+        }
+        
+        with self._lock:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            try:
+                # Remove entries in batches for performance
+                entry_ids = [entry[0] for entry in old_version_entries]
+                versions_being_removed = set(entry[1] for entry in old_version_entries)
+                purge_stats['versions_removed'] = list(versions_being_removed)
+                
+                batch_size = 100
+                for i in range(0, len(entry_ids), batch_size):
+                    batch = entry_ids[i:i + batch_size]
+                    placeholders = ','.join(['?'] * len(batch))
+                    
+                    # Remove from verification queue first
+                    cursor.execute(f'''
+                        DELETE FROM verification_queue 
+                        WHERE archive_entry_id IN ({placeholders})
+                    ''', batch)
+                    
+                    # Remove from archive entries
+                    cursor.execute(f'''
+                        DELETE FROM archive_entries 
+                        WHERE id IN ({placeholders})
+                    ''', batch)
+                    
+                    purge_stats['purged_count'] += cursor.rowcount
+                
+                conn.commit()
+                print(f"[PURGE] Successfully removed {purge_stats['purged_count']} entries from {len(versions_being_removed)} old versions")
+                
+            except Exception as e:
+                conn.rollback()
+                error_msg = f"Error during version-based purge: {e}"
+                purge_stats['errors'].append(error_msg)
+                print(f"[PURGE] {error_msg}")
+            finally:
+                conn.close()
+        
+        # Clean up old version backups
+        backup_cleanup = self._cleanup_old_version_backups()
+        
+        # Final analysis
+        final_analysis = self.analyze_archive_data()
+        total_after = final_analysis['total_entries']
+        versions_after = len(final_analysis['version_stats'])
+        
+        print(f"[PURGE] Cleanup complete: {total_after} entries remaining ({total_before - total_after} removed)")
+        print(f"[PURGE] Versions reduced: {versions_before} → {versions_after}")
         
         return {
-            'analysis': analysis,
-            'purge_result': purge_result
+            'current_version': self.current_version,
+            'analysis': final_analysis,
+            'purge_result': purge_stats,
+            'backup_cleanup': backup_cleanup,
+            'summary': {
+                'entries_before': total_before,
+                'entries_after': total_after,
+                'entries_removed': total_before - total_after,
+                'versions_before': versions_before,
+                'versions_after': versions_after
+            }
         }
+    
+    def _cleanup_old_version_backups(self):
+        """Clean up backup files from older versions"""
+        cleaned_count = 0
+        errors = []
+        
+        try:
+            # Default backup directory structure
+            backup_dir = "data/backups"
+            
+            if not os.path.exists(backup_dir):
+                return {'cleaned_backups': 0, 'errors': []}
+            
+            # Find backup files that might contain version info
+            for filename in os.listdir(backup_dir):
+                if filename.startswith('archive_backup_') and filename.endswith('.db'):
+                    file_path = os.path.join(backup_dir, filename)
+                    
+                    try:
+                        # Get file modification time
+                        file_mtime = os.path.getmtime(file_path)
+                        days_old = (datetime.now().timestamp() - file_mtime) / (24 * 3600)
+                        
+                        # Remove backups older than 7 days (likely from older versions)
+                        if days_old > 7:
+                            os.remove(file_path)
+                            cleaned_count += 1
+                            print(f"[PURGE] Removed old backup: {filename}")
+                            
+                    except Exception as e:
+                        errors.append(f"Error removing {filename}: {e}")
+                        
+        except Exception as e:
+            errors.append(f"Error accessing backup directory: {e}")
+        
+        return {
+            'cleaned_backups': cleaned_count,
+            'errors': errors
+        }
+
+    def auto_purge_on_startup(self):
+        """Automatically purge old data on system startup - now uses version-only cleanup"""
+        return self.auto_purge_by_version_only()
     
     def get_archive_health_report(self) -> Dict[str, Any]:
         """Generate health report for archive management"""
@@ -465,8 +645,12 @@ def get_purge_manager() -> DataArchivePurgeManager:
     return _purge_manager
 
 def auto_purge_startup():
-    """Run automatic purge on startup"""
-    return get_purge_manager().auto_purge_on_startup()
+    """Run automatic purge on startup - version-based cleanup only"""
+    return get_purge_manager().auto_purge_by_version_only()
+
+def auto_purge_version_only():
+    """Run version-only cleanup - removes all data from older versions"""
+    return get_purge_manager().auto_purge_by_version_only()
 
 def get_archive_health():
     """Get archive health report"""

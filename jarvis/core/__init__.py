@@ -26,7 +26,7 @@ from .backup_recovery import (
 )
 
 from .archive_purge_manager import (
-    get_purge_manager, auto_purge_startup, get_archive_health,
+    get_purge_manager, auto_purge_startup, auto_purge_version_only, get_archive_health,
     DataArchivePurgeManager, PurgePolicy
 )
 
@@ -51,6 +51,6 @@ __all__ = [
     'BackupRecoveryManager', 'BackupInfo', 'RecoveryPoint',
     
     # Archive Purge Management
-    'get_purge_manager', 'auto_purge_startup', 'get_archive_health',
+    'get_purge_manager', 'auto_purge_startup', 'auto_purge_version_only', 'get_archive_health',
     'DataArchivePurgeManager', 'PurgePolicy'
 ]

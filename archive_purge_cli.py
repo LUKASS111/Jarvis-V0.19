@@ -14,7 +14,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from jarvis.core.archive_purge_manager import (
-    get_purge_manager, get_archive_health, auto_purge_startup
+    get_purge_manager, get_archive_health, auto_purge_startup, auto_purge_version_only
 )
 
 def cmd_status():
@@ -161,25 +161,81 @@ def cmd_purge(policy=None, force=False):
     
     return True
 
+def cmd_version_cleanup():
+    """Run version-only cleanup - removes all data from older versions"""
+    print("Version-Only Cleanup")
+    print("=" * 50)
+    print("WARNING: This will remove ALL data from older program versions!")
+    print("Only current version data will be preserved.")
+    print()
+    
+    try:
+        result = auto_purge_version_only()
+        
+        if result:
+            summary = result.get('summary', {})
+            purge_result = result.get('purge_result', {})
+            backup_cleanup = result.get('backup_cleanup', {})
+            
+            print("Version Cleanup Results:")
+            print(f"  Current Version: {result.get('current_version', 'unknown')}")
+            print(f"  Entries Before: {summary.get('entries_before', 0):,}")
+            print(f"  Entries After: {summary.get('entries_after', 0):,}")
+            print(f"  Entries Removed: {summary.get('entries_removed', 0):,}")
+            print(f"  Versions Before: {summary.get('versions_before', 0)}")
+            print(f"  Versions After: {summary.get('versions_after', 0)}")
+            print()
+            
+            if purge_result.get('versions_removed'):
+                print("Removed Versions:")
+                for version in purge_result['versions_removed']:
+                    print(f"  • {version}")
+                print()
+            
+            print("Backup Cleanup:")
+            print(f"  Old Backups Removed: {backup_cleanup.get('cleaned_backups', 0)}")
+            
+            if backup_cleanup.get('errors'):
+                print("  Cleanup Errors:")
+                for error in backup_cleanup['errors']:
+                    print(f"    • {error}")
+            
+            if purge_result.get('errors'):
+                print(f"\nPurge Errors: {len(purge_result['errors'])}")
+                for error in purge_result['errors']:
+                    print(f"  • {error}")
+        else:
+            print("Version cleanup completed with no results.")
+            
+    except Exception as e:
+        print(f"Error during version cleanup: {e}")
+        return False
+    
+    return True
+
 def cmd_startup():
-    """Run startup purge routine"""
-    print("Startup Purge Routine")
+    """Run startup purge routine (version-based cleanup)"""
+    print("Startup Purge Routine - Version-Based Cleanup")
     print("=" * 50)
     
     try:
         result = auto_purge_startup()
         
         if result:
-            analysis = result.get('analysis', {})
+            summary = result.get('summary', {})
             purge_result = result.get('purge_result', {})
+            backup_cleanup = result.get('backup_cleanup', {})
             
             print("Startup Analysis:")
-            print(f"  Total Entries: {analysis.get('total_entries', 'unknown'):,}")
-            print(f"  Versions: {len(analysis.get('version_stats', []))}")
+            print(f"  Current Version: {result.get('current_version', 'unknown')}")
+            print(f"  Entries Before: {summary.get('entries_before', 0):,}")
+            print(f"  Entries After: {summary.get('entries_after', 0):,}")
+            print(f"  Entries Removed: {summary.get('entries_removed', 0):,}")
             print()
             
             print("Purge Results:")
             print(f"  Entries Purged: {purge_result.get('purged_count', 0):,}")
+            print(f"  Old Backups Cleaned: {backup_cleanup.get('cleaned_backups', 0)}")
             
             if purge_result.get('errors'):
                 print(f"  Errors: {len(purge_result['errors'])}")
@@ -246,7 +302,10 @@ def main():
     purge_parser.add_argument('--force', action='store_true', help='Confirm purge operation')
     
     # Startup command
-    subparsers.add_parser('startup', help='Run startup purge routine')
+    subparsers.add_parser('startup', help='Run startup purge routine (version-based)')
+    
+    # Version cleanup command  
+    subparsers.add_parser('version-cleanup', help='Remove ALL data from older versions')
     
     # Config command
     subparsers.add_parser('config', help='Show current configuration')
@@ -268,6 +327,8 @@ def main():
         return cmd_purge(args.policy, args.force)
     elif args.command == 'startup':
         return cmd_startup()
+    elif args.command == 'version-cleanup':
+        return cmd_version_cleanup()
     elif args.command == 'config':
         return cmd_config()
     else:
