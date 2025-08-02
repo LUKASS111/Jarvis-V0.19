@@ -1,5 +1,5 @@
 @echo off
-echo Starting Jarvis GUI...
+echo Starting Jarvis GUI via unified entry point...
 cd /d "%~dp0\.."
-python -m gui.modern_gui
+python main.py --gui
 pause

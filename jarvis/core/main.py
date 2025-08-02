@@ -153,42 +153,47 @@ def process_interactive_input(user_input: str) -> dict:
         return {"action": "error", "message": f"Processing error: {str(e)}"}
 
 @safe_execute(fallback_value=False, context="Main application")
-def main():
-    """Simplified main function with clean interface"""
+def main(skip_startup_init=False):
+    """Simplified main function with clean interface
+    
+    Args:
+        skip_startup_init (bool): Skip startup initialization if already done by unified entry point
+    """
     
     global chat_history
     
-    # Initialize archive purge system on startup
-    print("[STARTUP] Initializing automatic version-based archive cleanup...")
-    try:
-        from jarvis.core.archive_purge_manager import auto_purge_startup, get_archive_health
-        purge_result = auto_purge_startup()
-        
-        if purge_result:
-            summary = purge_result.get('summary', {})
-            purge_stats = purge_result.get('purge_result', {})
-            backup_cleanup = purge_result.get('backup_cleanup', {})
+    # Initialize archive purge system on startup (only if not already done)
+    if not skip_startup_init:
+        print("[STARTUP] Initializing automatic version-based archive cleanup...")
+        try:
+            from jarvis.core.archive_purge_manager import auto_purge_startup, get_archive_health
+            purge_result = auto_purge_startup()
             
-            entries_removed = summary.get('entries_removed', 0)
-            backups_cleaned = backup_cleanup.get('cleaned_backups', 0)
-            
-            if entries_removed > 0 or backups_cleaned > 0:
-                print(f"[PURGE] Version cleanup: {entries_removed} old entries removed, {backups_cleaned} old backups cleaned")
-                print(f"[PURGE] Current version: {purge_result.get('current_version', 'unknown')}")
+            if purge_result:
+                summary = purge_result.get('summary', {})
+                purge_stats = purge_result.get('purge_result', {})
+                backup_cleanup = purge_result.get('backup_cleanup', {})
                 
-                if purge_stats.get('versions_removed'):
-                    print(f"[PURGE] Removed versions: {', '.join(purge_stats['versions_removed'])}")
-            else:
-                print("[PURGE] Archive is clean - no old version data found")
-        
-        # Show archive health
-        health = get_archive_health()
-        print(f"[ARCHIVE] Health Score: {health['health_score']}/100, Size: {health['archive_size_mb']}MB, Entries: {health['total_entries']:,}")
-        
-    except Exception as e:
-        error_handler.log_error(e, "Archive purge startup", ErrorLevel.WARNING,
-                               "Could not initialize archive purge system")
-        print("[WARN] Archive purge system initialization failed")
+                entries_removed = summary.get('entries_removed', 0)
+                backups_cleaned = backup_cleanup.get('cleaned_backups', 0)
+                
+                if entries_removed > 0 or backups_cleaned > 0:
+                    print(f"[PURGE] Version cleanup: {entries_removed} old entries removed, {backups_cleaned} old backups cleaned")
+                    print(f"[PURGE] Current version: {purge_result.get('current_version', 'unknown')}")
+                    
+                    if purge_stats.get('versions_removed'):
+                        print(f"[PURGE] Removed versions: {', '.join(purge_stats['versions_removed'])}")
+                else:
+                    print("[PURGE] Archive is clean - no old version data found")
+            
+            # Show archive health
+            health = get_archive_health()
+            print(f"[ARCHIVE] Health Score: {health['health_score']}/100, Size: {health['archive_size_mb']}MB, Entries: {health['total_entries']:,}")
+            
+        except Exception as e:
+            error_handler.log_error(e, "Archive purge startup", ErrorLevel.WARNING,
+                                   "Could not initialize archive purge system")
+            print("[WARN] Archive purge system initialization failed")
     
     print("[BRAIN] Jarvis CLI uruchomiony. Zadaj pytanie (lub wpisz 'exit' by zakończyć).\n"
           "Dostępne modele: " + ", ".join(AVAILABLE_MODELS) + "\n"

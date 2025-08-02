@@ -473,8 +473,37 @@ class SimplifiedJarvisGUI(QWidget):
         except Exception as e:
             error_handler.log_error(e, "Status update", ErrorLevel.WARNING)
     
+    def run(self):
+        """Run the GUI application with proper initialization"""
+        if not PYQT_AVAILABLE:
+            print("[FAIL] PyQt5 not available. GUI cannot start.")
+            print("[INFO] Install PyQt5 with: pip install PyQt5")
+            return 1
+        
+        try:
+            # Create QApplication if not already created
+            app = QApplication.instance()
+            if app is None:
+                app = QApplication(sys.argv)
+            
+            # Set application properties
+            app.setApplicationName("Jarvis AI Assistant")
+            app.setApplicationVersion("0.4.1-simplified")
+            
+            # Show the window
+            self.show()
+            
+            print("✅ Jarvis GUI v0.4.1 initialized successfully!")
+            print("✅ Jarvis GUI v0.4.1 started successfully!")
+            
+            # Run the application
+            return app.exec_()
+            
+        except Exception as e:
+            error_handler.log_error(e, "GUI startup", ErrorLevel.CRITICAL)
+            print(f"[FAIL] Critical error starting GUI: {e}")
+            return 1
 
-    
     def clear_communication(self):
         """Clear communication area"""
         self.comm_area.clear()
@@ -504,4 +533,10 @@ def main():
         sys.exit(1)
 
 if __name__ == "__main__":
-    main()
+    print("[REDIRECT] GUI module called directly - using unified entry point...")
+    # Import and use the unified entry point instead
+    import sys
+    import os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+    from main import main_gui
+    sys.exit(main_gui())

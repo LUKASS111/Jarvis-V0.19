@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-GUI Entry Point for Jarvis AI Assistant
-This file serves as the entry point for starting the GUI application.
+GUI Entry Point for Jarvis AI Assistant (LEGACY)
+This file now redirects to the unified entry point with GUI mode.
+For new installations, use: python main.py --gui
 """
 
 import sys
@@ -10,9 +11,7 @@ import os
 # Add the current directory to the Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# Import and start the GUI
-from gui.modern_gui import SimplifiedJarvisGUI
-
 if __name__ == "__main__":
-    gui = SimplifiedJarvisGUI()
-    gui.run()
+    print("[REDIRECT] Using unified entry point for GUI mode...")
+    from main import main_gui
+    sys.exit(main_gui())
