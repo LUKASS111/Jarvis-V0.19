@@ -3,6 +3,13 @@ import os
 import threading
 from datetime import datetime
 
+# Import archiving system
+try:
+    from ..core.data_archiver import archive_input, archive_output, archive_system
+    ARCHIVING_ENABLED = True
+except ImportError:
+    ARCHIVING_ENABLED = False
+
 MEMORY_FILE = "data/jarvis_mem.json"
 _memory_lock = threading.Lock()  # Prevent concurrent access
 
@@ -66,21 +73,62 @@ def remember_fact(fact: str):
         key, value = fact.split(" to ", 1)
         memory[key.strip()] = value.strip()
         save_memory(memory)
-        return f"✅ Zapamiętano: {key.strip()} → {value.strip()}"
+        
+        # Archive the memory operation
+        if ARCHIVING_ENABLED:
+            try:
+                archive_input(
+                    content=fact,
+                    source="memory_system",
+                    operation="remember_fact",
+                    metadata={"key": key.strip(), "value": value.strip()}
+                )
+            except Exception as e:
+                print(f"[WARN] Failed to archive memory operation: {e}")
+        
+        return f"[OK] Zapamiętano: {key.strip()} → {value.strip()}"
 
 def recall_fact(key: str):
     with _memory_lock:
         memory = load_memory()
-        return memory.get(key.strip(), "❓ Nie znam tej informacji.")
+        result = memory.get(key.strip(), "[QUESTION] Nie znam tej informacji.")
+        
+        # Archive the recall operation
+        if ARCHIVING_ENABLED:
+            try:
+                archive_output(
+                    content=f"Recall '{key}': {result}",
+                    source="memory_system", 
+                    operation="recall_fact",
+                    metadata={"query_key": key.strip(), "found": key.strip() in memory}
+                )
+            except Exception as e:
+                print(f"[WARN] Failed to archive recall operation: {e}")
+        
+        return result
 
 def forget_fact(key: str):
     with _memory_lock:
         memory = load_memory()
         if key.strip() in memory:
+            deleted_value = memory[key.strip()]
             del memory[key.strip()]
             save_memory(memory)
+            
+            # Archive the forget operation
+            if ARCHIVING_ENABLED:
+                try:
+                    archive_system(
+                        content=f"Forgot '{key}': {deleted_value}",
+                        source="memory_system",
+                        operation="forget_fact",
+                        metadata={"key": key.strip(), "deleted_value": deleted_value}
+                    )
+                except Exception as e:
+                    print(f"[WARN] Failed to archive forget operation: {e}")
+            
             return f"[TRASH] Zapomniano: {key.strip()}"
-        return "❓ Nie znam tej informacji."
+        return "[QUESTION] Nie znam tej informacji."
 
 def export_memory():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

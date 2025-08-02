@@ -1,6 +1,13 @@
 import requests
 import os
 
+# Import archiving system
+try:
+    from ..core.data_archiver import archive_input, archive_output
+    ARCHIVING_ENABLED = True
+except ImportError:
+    ARCHIVING_ENABLED = False
+
 # Poprawiona lista dostępnych modeli zgodna z ollama list
 AVAILABLE_MODELS = [
     "llama3:8b",
@@ -107,7 +114,26 @@ def ask_local_llm(prompt, temperature=None, top_p=None, max_tokens=None, repetit
     if not validate_llm_params(temperature=temperature, top_p=top_p, max_tokens=max_tokens, repetition_penalty=repetition_penalty, system_prompt=system_prompt, timeout=timeout):
         print("[LLM][ERROR] Nieobsługiwane parametry w ask_local_llm!")
         return "[LLM ERROR: invalid params]"
-    return query_llm(
+    
+    # Archive the input prompt
+    if ARCHIVING_ENABLED:
+        try:
+            archive_input(
+                content=prompt,
+                source="llm_interface",
+                operation="ask_local_llm",
+                metadata={
+                    "model": model or CURRENT_OLLAMA_MODEL,
+                    "temperature": temperature,
+                    "max_tokens": max_tokens,
+                    "timeout": timeout
+                }
+            )
+        except Exception as e:
+            print(f"[WARN] Failed to archive LLM input: {e}")
+    
+    # Get LLM response
+    response = query_llm(
         prompt,
         model=model,
         temperature=temperature,
@@ -117,6 +143,25 @@ def ask_local_llm(prompt, temperature=None, top_p=None, max_tokens=None, repetit
         system_prompt=system_prompt,
         timeout=timeout
     )
+    
+    # Archive the output response
+    if ARCHIVING_ENABLED:
+        try:
+            archive_output(
+                content=response,
+                source="llm_interface",
+                operation="llm_response",
+                metadata={
+                    "model": model or CURRENT_OLLAMA_MODEL,
+                    "prompt_length": len(prompt),
+                    "response_length": len(response),
+                    "is_error": response.startswith("[LLM ERROR:")
+                }
+            )
+        except Exception as e:
+            print(f"[WARN] Failed to archive LLM output: {e}")
+    
+    return response
 
 
 
