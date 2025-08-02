@@ -522,8 +522,8 @@ def main():
         window = SimplifiedJarvisGUI()
         window.show()
         
-        print("✅ Simplified Modern AutoGPT GUI v0.4.1 initialized successfully!")
-        print("✅ Simplified Modern AutoGPT GUI v0.4.1 started successfully!")
+        print("✅ Simplified Modern AutoGPT GUI v0.2 initialized successfully!")
+        print("✅ Simplified Modern AutoGPT GUI v0.2 started successfully!")
         
         # Run the application
         sys.exit(app.exec_())
