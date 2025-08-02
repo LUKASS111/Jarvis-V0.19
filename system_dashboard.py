@@ -294,6 +294,55 @@ def show_usage_examples():
     print("   print('Archive:', get_archive_stats())")
     print("   print('Backup:', get_backup_stats())")
 
+def get_system_status():
+    """Get overall system status for external tools"""
+    status = {
+        'archive': False,
+        'verification': False,
+        'backup': False,
+        'agent_workflow': False,
+        'overall_health': False
+    }
+    
+    # Test archive system
+    try:
+        from jarvis.core.data_archiver import get_archive_stats
+        stats = get_archive_stats()
+        status['archive'] = stats.get('total_entries', 0) >= 0
+    except Exception:
+        status['archive'] = False
+    
+    # Test verification system
+    try:
+        from jarvis.core.data_verifier import get_verifier
+        verifier = get_verifier()
+        status['verification'] = verifier.verification_active
+    except Exception:
+        status['verification'] = False
+    
+    # Test backup system
+    try:
+        from jarvis.core.backup_recovery import get_backup_stats
+        stats = get_backup_stats()
+        status['backup'] = stats['total_backups'] >= 0
+    except Exception:
+        status['backup'] = False
+    
+    # Test agent workflow system
+    try:
+        from jarvis.core.agent_workflow import get_workflow_manager
+        manager = get_workflow_manager()
+        status['agent_workflow'] = len(manager.test_scenarios) > 0
+    except Exception:
+        status['agent_workflow'] = False
+    
+    # Calculate overall health
+    active_systems = sum(status.values())
+    status['overall_health'] = active_systems >= 3  # At least 3 systems working
+    status['health_percentage'] = (active_systems / 4) * 100
+    
+    return status
+
 def main():
     """Main dashboard function"""
     print("Jarvis-V0.19 Data Archiving & Verification System Dashboard")

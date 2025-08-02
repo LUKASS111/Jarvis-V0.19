@@ -121,10 +121,10 @@ class TestEndToEndWorkflows(unittest.TestCase):
         
         # Step 1: Remember facts
         result1 = remember_fact("user_name to Alice")
-        self.assertIn("✅", result1)
+        self.assertIn("[OK]", result1)
         
         result2 = remember_fact("user_age to 25")
-        self.assertIn("✅", result2)
+        self.assertIn("[OK]", result2)
         
         # Step 2: Recall facts
         name = recall_fact("user_name")
@@ -143,7 +143,7 @@ class TestEndToEndWorkflows(unittest.TestCase):
         
         # Step 5: Verify forgotten
         forgotten_result = recall_fact("user_age")
-        self.assertIn("❓", forgotten_result)
+        self.assertIn("[QUESTION]", forgotten_result)
     
     @patch('jarvis.llm.llm_interface.ask_local_llm')
     def test_llm_interaction_workflow(self, mock_llm):

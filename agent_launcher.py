@@ -191,6 +191,35 @@ def run_quick_test():
         print(f"❌ Quick test failed: {e}")
         return None
 
+def get_workflow_status(cycle_id=None):
+    """Get workflow status for external tools"""
+    try:
+        from jarvis.core.agent_workflow import get_workflow_manager
+        manager = get_workflow_manager()
+        
+        if cycle_id:
+            # Get status for specific workflow
+            for workflow_id, workflow_data in manager.active_workflows.items():
+                if workflow_id == cycle_id:
+                    return {
+                        'cycle_id': cycle_id,
+                        'status': 'active',
+                        'cycles_completed': workflow_data.get('cycles_completed', 0),
+                        'target_cycles': workflow_data.get('target_cycles', 0),
+                        'compliance_target': workflow_data.get('compliance_target', 0.95),
+                        'found': True
+                    }
+            return {'cycle_id': cycle_id, 'status': 'not_found', 'found': False}
+        else:
+            # Get general workflow system status
+            return {
+                'active_workflows': len(manager.active_workflows),
+                'total_scenarios': len(manager.test_scenarios),
+                'system_active': True
+            }
+    except Exception as e:
+        return {'error': str(e), 'system_active': False}
+
 def main():
     """Main function with command line interface"""
     parser = argparse.ArgumentParser(description="Jarvis-V0.19 Agent Workflow Launcher")

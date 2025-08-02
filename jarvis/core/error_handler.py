@@ -230,6 +230,13 @@ def validate_model_name(model_name):
     except Exception:
         return False
 
+# Global error handler instance
+_global_error_handler = ErrorHandler()
+
+def log_error(error: Exception, context: str = "", level: ErrorLevel = ErrorLevel.ERROR):
+    """Global function to log errors using the global error handler"""
+    return _global_error_handler.log_error(error, context, level)
+
 if __name__ == "__main__":
     # Test error handling
     @safe_execute(fallback_value="Fallback result", context="Test function")

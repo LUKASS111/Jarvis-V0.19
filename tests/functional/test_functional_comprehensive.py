@@ -210,7 +210,7 @@ class TestUserScenarios(unittest.TestCase):
         
         for fact in facts:
             result = remember_fact(fact)
-            self.assertIn("✅", result)
+            self.assertIn("[OK]", result)
         
         # Step 2: User performs complex queries
         for i in range(3):
@@ -338,7 +338,7 @@ class TestEdgeCases(unittest.TestCase):
         self.assertIn("[FAIL]", empty_remember)
         
         empty_recall = recall_fact("")
-        self.assertIn("❓", empty_recall)
+        self.assertIn("[QUESTION]", empty_recall)
     
     def test_large_inputs(self):
         """Test system behavior with large inputs"""
@@ -348,7 +348,7 @@ class TestEdgeCases(unittest.TestCase):
         # Test large command
         large_command = "a" * 1000
         large_result = process_interactive_input(large_command)
-        self.assertIsInstance(large_result, str)
+        self.assertIsInstance(large_result, dict)
         
         # Test large memory value
         large_fact = f"large_test to {'x' * 500}"

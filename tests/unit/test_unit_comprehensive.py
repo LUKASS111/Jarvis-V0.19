@@ -190,7 +190,7 @@ class TestMemory(unittest.TestCase):
         
         # Test valid fact format
         result = remember_fact("name to John")
-        self.assertIn("✅", result)
+        self.assertIn("[OK]", result)
         self.assertIn("name", result)
         self.assertIn("John", result)
         
@@ -211,7 +211,7 @@ class TestMemory(unittest.TestCase):
         
         # Recall non-existent fact
         result = recall_fact("non_existent")
-        self.assertIn("❓", result)
+        self.assertIn("[QUESTION]", result)
     
     def test_forget_fact(self):
         """Test fact forgetting"""
@@ -226,11 +226,11 @@ class TestMemory(unittest.TestCase):
         
         # Verify fact is forgotten
         recall_result = recall_fact("forget_test")
-        self.assertIn("❓", recall_result)
+        self.assertIn("[QUESTION]", recall_result)
         
         # Forget non-existent fact
         result = forget_fact("non_existent")
-        self.assertIn("❓", result)
+        self.assertIn("[QUESTION]", result)
     
     def test_process_memory_prompt(self):
         """Test memory prompt processing"""

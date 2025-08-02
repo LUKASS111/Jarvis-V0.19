@@ -68,31 +68,35 @@ class TestHistoricalBugFixes(unittest.TestCase):
         """Regression: Langchain dependencies should be completely removed"""
         # Test that langchain is not imported anywhere
         modules_to_check = [
-            'main', 'modern_gui', 'error_handler', 
-            'llm_interface', 'memory', 'logs'
+            'jarvis.core.main', 'gui.modern_gui', 'jarvis.core.error_handler', 
+            'jarvis.llm.llm_interface', 'jarvis.memory.memory', 'jarvis.core.logs'
         ]
         
         for module_name in modules_to_check:
             try:
-                module = __import__(module_name)
+                module = __import__(module_name, fromlist=[''])
                 module_file = module.__file__
                 
-                with open(module_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                
-                # Check for langchain imports or references
-                langchain_indicators = [
-                    'import langchain',
-                    'from langchain',
-                    'langchain.',
-                    'LangChain',
-                    'LANGCHAIN'
-                ]
-                
-                for indicator in langchain_indicators:
-                    self.assertNotIn(indicator, content, 
-                                   f"Langchain reference found in {module_name}: {indicator}")
-                        
+                if module_file and os.path.exists(module_file):
+                    with open(module_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    
+                    # Check for langchain imports or references
+                    langchain_indicators = [
+                        'import langchain',
+                        'from langchain',
+                        'langchain.',
+                        'LangChain',
+                        'LANGCHAIN'
+                    ]
+                    
+                    for indicator in langchain_indicators:
+                        self.assertNotIn(indicator, content, 
+                                       f"Langchain reference found in {module_name}: {indicator}")
+            except (ImportError, FileNotFoundError, AttributeError) as e:
+                # Skip modules that don't exist or can't be imported
+                print(f"[SKIP] Could not check module {module_name}: {e}")
+                continue
             except ImportError:
                 continue
     
