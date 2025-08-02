@@ -11,6 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass
 import os
+import uuid
 
 # Archive database path
 ARCHIVE_DB_PATH = "data/jarvis_archive.db"
@@ -52,13 +53,35 @@ class ArchiveEntry:
         }
 
 class DataArchiver:
-    """Main data archiving system with SQLite backend"""
+    """Main data archiving system with SQLite backend and CRDT integration"""
     
-    def __init__(self, db_path: str = ARCHIVE_DB_PATH):
+    def __init__(self, db_path: str = ARCHIVE_DB_PATH, enable_crdt: bool = True):
         self.db_path = db_path
         self.current_version = self._get_current_version()
+        self.enable_crdt = enable_crdt
         self._ensure_db_directory()
         self._init_database()
+        
+        # Initialize CRDT manager if enabled
+        self.crdt_manager = None
+        if self.enable_crdt:
+            self._init_crdt_integration()
+    
+    def _init_crdt_integration(self):
+        """Initialize CRDT manager integration"""
+        try:
+            from .crdt_manager import CRDTManager
+            node_id = self._generate_node_id()
+            self.crdt_manager = CRDTManager(node_id, self.db_path)
+        except ImportError:
+            self.enable_crdt = False
+    
+    def _generate_node_id(self) -> str:
+        """Generate unique node ID for this instance"""
+        import socket
+        hostname = socket.gethostname()
+        process_id = os.getpid()
+        return f"jarvis_node_{hostname}_{process_id}"
     
     def _ensure_db_directory(self):
         """Ensure the data directory exists"""
@@ -231,7 +254,35 @@ class DataArchiver:
             conn.commit()
             conn.close()
             
+        # Update CRDT metrics if enabled
+        if self.enable_crdt and self.crdt_manager:
+            self._update_crdt_metrics(operation, data_type, entry_id)
+            
         return entry_id
+    
+    def _update_crdt_metrics(self, operation: str, data_type: str, entry_id: int):
+        """Update CRDT metrics based on archive operation"""
+        try:
+            # Increment operation counter
+            self.crdt_manager.increment_counter(f"operations_{operation}", 1)
+            self.crdt_manager.increment_counter(f"data_type_{data_type}", 1)
+            self.crdt_manager.increment_counter("total_operations", 1)
+            
+            # Add to operation set (for tracking unique operations)
+            self.crdt_manager.add_to_set("operation_types", operation)
+            self.crdt_manager.add_to_set("data_types", data_type)
+            
+            # Update system status register
+            status_data = {
+                "last_operation": operation,
+                "last_entry_id": entry_id,
+                "timestamp": datetime.now().isoformat()
+            }
+            self.crdt_manager.write_register("system_status", json.dumps(status_data))
+            
+        except Exception as e:
+            # Don't fail archiving if CRDT update fails
+            pass
     
     def update_verification(self,
                           entry_id: int,

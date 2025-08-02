@@ -11,6 +11,46 @@ from datetime import datetime, timedelta
 # Add the current directory to Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+def display_crdt_status():
+    """Display CRDT system status"""
+    try:
+        from jarvis.core.data_archiver import DataArchiver
+        
+        archiver = DataArchiver()
+        if not archiver.enable_crdt or not archiver.crdt_manager:
+            print("\n📊 CRDT SYSTEM STATUS")
+            print("=" * 50)
+            print("CRDT: Disabled (local-only mode)")
+            return True
+        
+        metrics = archiver.crdt_manager.get_health_metrics()
+        
+        print("\n📊 CRDT SYSTEM STATUS")
+        print("=" * 50)
+        print(f"CRDT Status: {metrics['system_status']}")
+        print(f"Node ID: {metrics['node_id']}")
+        print(f"Total CRDTs: {metrics['total_crdts']}")
+        
+        if metrics['total_crdts'] > 0:
+            print("\nCRDT Instance Types:")
+            for name, crdt_type in metrics['crdt_types'].items():
+                if crdt_type == "GCounter":
+                    value = archiver.crdt_manager.get_counter_value(name)
+                    print(f"  {name} ({crdt_type}): {value}")
+                elif crdt_type == "GSet":
+                    size = archiver.crdt_manager.get_set_size(name)
+                    print(f"  {name} ({crdt_type}): {size} elements")
+                elif crdt_type == "LWWRegister":
+                    value = archiver.crdt_manager.read_register(name, "empty")
+                    if isinstance(value, str) and len(value) > 50:
+                        value = value[:47] + "..."
+                    print(f"  {name} ({crdt_type}): {value}")
+        
+        return True
+    except Exception as e:
+        print(f"❌ CRDT status error: {e}")
+        return False
+
 def display_archive_status():
     """Display archive system status"""
     try:
@@ -336,10 +376,18 @@ def get_system_status():
     except Exception:
         status['agent_workflow'] = False
     
-    # Calculate overall health
+    # Test CRDT system
+    try:
+        from jarvis.core.data_archiver import DataArchiver
+        archiver = DataArchiver()
+        status['crdt'] = archiver.enable_crdt
+    except Exception:
+        status['crdt'] = False
+    
+    # Calculate overall health (5 systems now)
     active_systems = sum(status.values())
-    status['overall_health'] = active_systems >= 3  # At least 3 systems working
-    status['health_percentage'] = (active_systems / 4) * 100
+    status['overall_health'] = active_systems >= 4  # At least 4 systems working
+    status['health_percentage'] = (active_systems / 5) * 100
     
     return status
 
@@ -355,6 +403,7 @@ def main():
         display_verification_status, 
         display_backup_status,
         display_agent_workflow_status,
+        display_crdt_status,
         display_system_health
     ]
     
