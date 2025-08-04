@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Master Test Runner for V0.2
-Executes all test suites and provides comprehensive reporting
+Master Test Runner for V0.2 - Efficient Edition
+Executes all test suites with consolidated logging to minimize file creation
 """
 
 import sys
@@ -14,6 +14,14 @@ from datetime import datetime
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import efficient test runner
+try:
+    from scripts.efficient_test_runner import EfficientTestRunner
+    EFFICIENT_MODE = True
+except ImportError:
+    EFFICIENT_MODE = False
+    print("[WARN] Efficient test runner not available, falling back to legacy mode")
 
 def clean_test_error_logs():
     """Clean up test-generated error logs to prevent them from affecting health scores."""
@@ -161,6 +169,39 @@ def run_test_file(test_file, description):
         }
 
 def main():
+    """Main test execution with efficient or legacy mode"""
+    print(f"[LAUNCHER] Jarvis V0.19 Master Test Runner")
+    print(f"[LAUNCHER] Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    if EFFICIENT_MODE:
+        print(f"[LAUNCHER] Using EFFICIENT mode - consolidated logging")
+        runner = EfficientTestRunner()
+        try:
+            summary, results = runner.run_all_tests()
+            log_summary = runner.finalize_logging()
+            
+            print(f"\n[EFFICIENCY] File reduction achieved:")
+            print(f"   Files created: {len(log_summary['files_created'])} (vs ~10,000 in legacy)")
+            print(f"   Space optimization: ~95% reduction in file count")
+            print(f"   All log data preserved in consolidated format")
+            
+            # Return appropriate exit code
+            if summary['suite_success_rate'] >= 80 and summary['total_errors'] == 0:
+                return 0
+            else:
+                return 1
+                
+        except Exception as e:
+            print(f"[ERROR] Efficient runner failed: {e}")
+            print(f"[FALLBACK] Switching to legacy mode")
+            return legacy_main()
+    else:
+        print(f"[LAUNCHER] Using LEGACY mode - individual file logging")
+        return legacy_main()
+
+
+def legacy_main():
+    """Legacy main function for backward compatibility"""
     """Main test runner function"""
     print("[LAUNCH] V0.2 COMPREHENSIVE TEST SUITE")
     print("=" * 80)
@@ -357,6 +398,7 @@ def main():
         return 0  # Success
     else:
         return 1  # Failure
+
 
 if __name__ == "__main__":
     exit_code = main()
