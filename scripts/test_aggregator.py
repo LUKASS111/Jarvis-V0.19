@@ -305,9 +305,10 @@ class TestAggregator:
             archive_stats["total_entries"] = cursor.fetchone()[0]
             
             # Entry types
-            cursor.execute("SELECT entry_type, COUNT(*) FROM archive_entries GROUP BY entry_type")
-            for entry_type, count in cursor.fetchall():
-                archive_stats["entry_types"][entry_type] = count
+            # Use data_type instead of entry_type (column doesn't exist)
+            cursor.execute("SELECT data_type, COUNT(*) FROM archive_entries GROUP BY data_type")
+            for data_type, count in cursor.fetchall():
+                archive_stats["entry_types"][data_type] = count
             
             # Status distribution
             cursor.execute("SELECT status, COUNT(*) FROM archive_entries GROUP BY status")

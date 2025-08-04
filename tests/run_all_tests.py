@@ -319,7 +319,7 @@ def main():
     
     print(f"\n[TIME1] Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
-    # Auto-trigger test aggregation if configured
+    # Auto-trigger test aggregation and log upload if configured
     try:
         config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config", "aggregation_config.json")
         if os.path.exists(config_path):
@@ -337,8 +337,18 @@ def main():
                     print(f"[COMPLETE] Test aggregation finished")
                 else:
                     print(f"[WARN] Test aggregator not found at {aggregator_path}")
+        
+        # Auto-trigger log upload after tests complete
+        print(f"\n[LAUNCH] Auto-triggering log upload to repository...")
+        upload_script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts", "upload_logs_to_repository.py")
+        if os.path.exists(upload_script_path):
+            subprocess.run([sys.executable, upload_script_path], cwd=os.path.dirname(os.path.dirname(__file__)))
+            print(f"[COMPLETE] Log upload finished - all logs are now available in repository")
+        else:
+            print(f"[WARN] Log upload script not found at {upload_script_path}")
+            
     except Exception as e:
-        print(f"[WARN] Could not trigger test aggregation: {e}")
+        print(f"[WARN] Could not trigger post-test automation: {e}")
     
     # Return appropriate exit code
     if suite_success_rate >= 80 and total_errors == 0:
