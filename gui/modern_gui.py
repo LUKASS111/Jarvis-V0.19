@@ -30,7 +30,9 @@ try:
     PYQT_AVAILABLE = True
 except ImportError:
     PYQT_AVAILABLE = False
-    print("[FAIL] PyQt5 not available. GUI cannot start.")
+    # Only show PyQt5 error if not in testing mode
+    if not any('test' in arg.lower() for arg in sys.argv) and 'pytest' not in sys.modules:
+        print("[FAIL] PyQt5 not available. GUI cannot start.")
     
     # Create stub classes for testing when PyQt5 is not available
     class QWidget:
@@ -481,8 +483,10 @@ class SimplifiedJarvisGUI(QWidget):
     def run(self):
         """Run the GUI application with proper initialization"""
         if not PYQT_AVAILABLE:
-            print("[FAIL] PyQt5 not available. GUI cannot start.")
-            print("[INFO] Install PyQt5 with: pip install PyQt5")
+            # Only show PyQt5 error if not in testing mode
+            if not any('test' in arg.lower() for arg in sys.argv) and 'pytest' not in sys.modules:
+                print("[FAIL] PyQt5 not available. GUI cannot start.")
+                print("[INFO] Install PyQt5 with: pip install PyQt5")
             return 1
         
         try:

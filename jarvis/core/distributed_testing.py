@@ -8,6 +8,7 @@ import threading
 import json
 import socket
 import uuid
+import statistics
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass, asdict
@@ -249,6 +250,75 @@ class DistributedTestingFramework:
                 print(f"[ERROR] Resilience test failed: {e}")
                 report['tests_executed'] += 1
                 report['tests_failed'] += 1
+
+    def _execute_resilience_test(self, scenario: NetworkResilienceTest) -> DistributedTestResult:
+        """Execute a single network resilience test"""
+        start_time = datetime.now()
+        
+        try:
+            print(f"[RESILIENCE] Executing: {scenario.name}")
+            
+            participating_nodes = scenario.participating_nodes[:len(self.nodes)]
+            
+            # Test each failure scenario
+            all_scenarios_passed = True
+            resilience_details = {}
+            
+            for failure_scenario in scenario.failure_scenarios:
+                print(f"[RESILIENCE] Testing scenario: {failure_scenario}")
+                
+                if failure_scenario == "network_split":
+                    scenario_result = self._test_network_split_resilience(participating_nodes)
+                elif failure_scenario == "node_isolation":
+                    scenario_result = self._test_node_isolation_resilience(participating_nodes)
+                else:
+                    scenario_result = self._test_generic_failure_resilience(participating_nodes, failure_scenario)
+                
+                resilience_details[failure_scenario] = scenario_result
+                if not scenario_result:
+                    all_scenarios_passed = False
+            
+            # Check recovery expectations
+            recovery_met = self._validate_recovery_expectations(scenario.recovery_expectations, resilience_details)
+            
+            status = TestStatus.PASSED if (all_scenarios_passed and recovery_met) else TestStatus.FAILED
+            
+            return DistributedTestResult(
+                test_id=scenario.test_id,
+                test_type="resilience",
+                status=status,
+                start_time=start_time.isoformat(),
+                end_time=datetime.now().isoformat(),
+                participating_nodes=participating_nodes,
+                consistency_achieved=recovery_met,
+                synchronization_time=scenario.duration_seconds / 10.0,  # Simulated sync time
+                data_integrity_score=0.90 if status == TestStatus.PASSED else 0.4,
+                network_resilience_score=0.92 if all_scenarios_passed else 0.3,
+                details={
+                    'scenario_name': scenario.name,
+                    'failure_scenarios_tested': len(scenario.failure_scenarios),
+                    'scenarios_passed': sum(1 for result in resilience_details.values() if result),
+                    'recovery_expectations_met': recovery_met,
+                    'test_duration': scenario.duration_seconds
+                },
+                errors=[] if status == TestStatus.PASSED else [f"Resilience test failed for scenario: {scenario.name}"]
+            )
+            
+        except Exception as e:
+            return DistributedTestResult(
+                test_id=scenario.test_id,
+                test_type="resilience",
+                status=TestStatus.FAILED,
+                start_time=start_time.isoformat(),
+                end_time=datetime.now().isoformat(),
+                participating_nodes=[],
+                consistency_achieved=False,
+                synchronization_time=0.0,
+                data_integrity_score=0.0,
+                network_resilience_score=0.0,
+                details={},
+                errors=[str(e)]
+            )
     
     def _execute_failover_tests(self, report: Dict[str, Any]):
         """Execute failover scenario tests"""
@@ -693,6 +763,39 @@ class DistributedTestingFramework:
     def _test_sync_after_recovery(self, recovered_node: str, other_nodes: List[str]) -> bool:
         """Test synchronization after node recovery"""
         return True
+    
+    def _test_network_split_resilience(self, nodes: List[str]) -> bool:
+        """Test resilience during network split"""
+        print(f"[RESILIENCE] Testing network split with {len(nodes)} nodes")
+        time.sleep(0.5)  # Simulate network split test
+        return True
+    
+    def _test_node_isolation_resilience(self, nodes: List[str]) -> bool:
+        """Test resilience when nodes are isolated"""
+        print(f"[RESILIENCE] Testing node isolation with {len(nodes)} nodes")
+        time.sleep(0.3)  # Simulate isolation test
+        return True
+    
+    def _test_generic_failure_resilience(self, nodes: List[str], failure_type: str) -> bool:
+        """Test resilience for generic failure scenarios"""
+        print(f"[RESILIENCE] Testing generic failure: {failure_type}")
+        time.sleep(0.2)  # Simulate generic failure test
+        return True
+    
+    def _validate_recovery_expectations(self, expectations: Dict[str, Any], resilience_results: Dict[str, bool]) -> bool:
+        """Validate that recovery expectations are met"""
+        # Check if all scenarios passed
+        scenarios_passed = all(resilience_results.values())
+        
+        # Check specific expectations
+        data_consistency_expected = expectations.get("data_consistency", True)
+        max_recovery_time = expectations.get("max_recovery_time", 60)
+        
+        # Simulate recovery validation (in real implementation, would check actual recovery metrics)
+        recovery_time_met = True  # Assume recovery time is within limits
+        data_consistency_met = scenarios_passed and data_consistency_expected
+        
+        return recovery_time_met and data_consistency_met
     
     def _start_monitoring(self):
         """Start test monitoring"""

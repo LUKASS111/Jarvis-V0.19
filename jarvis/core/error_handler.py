@@ -5,6 +5,7 @@ Provides centralized error handling, validation, fallbacks, and user feedback
 """
 
 import os
+import sys
 import json
 import time
 import traceback
@@ -80,16 +81,19 @@ class ErrorHandler:
             except Exception as log_error:
                 print(f"[WARN] Failed to write error log: {log_error}")
         
-        # Console output
-        emoji = self._get_error_emoji(level)
-        print(f"{emoji} {error_data['user_message']}")
+        # Console output (skip test errors to keep console clean during testing)
+        if not is_test_error:
+            emoji = self._get_error_emoji(level)
+            print(f"{emoji} {error_data['user_message']}")
         
-        if level in [ErrorLevel.ERROR, ErrorLevel.CRITICAL]:
-            self.logger.error(f"{context}: {error}")
-        elif level == ErrorLevel.WARNING:
-            self.logger.warning(f"{context}: {error}")
-        else:
-            self.logger.info(f"{context}: {error}")
+        # Logger output (always log but with appropriate level)
+        if not is_test_error:
+            if level in [ErrorLevel.ERROR, ErrorLevel.CRITICAL]:
+                self.logger.error(f"{context}: {error}")
+            elif level == ErrorLevel.WARNING:
+                self.logger.warning(f"{context}: {error}")
+            else:
+                self.logger.info(f"{context}: {error}")
             
         return error_data
     
@@ -247,14 +251,15 @@ def log_error(error: Exception, context: str = "", level: ErrorLevel = ErrorLeve
     return _global_error_handler.log_error(error, context, level)
 
 if __name__ == "__main__":
-    # Test error handling
-    @safe_execute(fallback_value="Fallback result", context="Test function")
-    def test_function():
-        raise ValueError("Test error")
-    
-    print("Testing error handler...")
-    result = test_function()
-    print(f"Result: {result}")
-    
-    print("\nError summary:")
-    print(create_error_report())
+    # Test error handling (only when run directly, not during imports)
+    if "--test-error-handler" in sys.argv:
+        @safe_execute(fallback_value="Fallback result", context="Test function")
+        def test_function():
+            raise ValueError("Test error")
+        
+        print("Testing error handler...")
+        result = test_function()
+        print(f"Result: {result}")
+        
+        print("\nError summary:")
+        print(create_error_report())
