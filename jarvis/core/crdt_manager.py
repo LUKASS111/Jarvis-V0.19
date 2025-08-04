@@ -293,3 +293,27 @@ class CRDTManager:
                 self._persist_crdt_state(name, self.crdts[name])
             return removed
         return 0
+
+    def register_crdt(self, name: str, crdt_instance: Any) -> None:
+        """Register a CRDT instance with the manager"""
+        with self.lock:
+            self.crdts[name] = crdt_instance
+            self._persist_crdt_state(name, crdt_instance)
+
+    def get_health_metrics(self) -> Dict[str, Any]:
+        """Get health metrics for the CRDT system"""
+        return {
+            "total_crdts": len(self.crdts),
+            "node_id": self.node_id,
+            "status": "operational"
+        }
+
+# Global CRDT manager instance
+_crdt_manager = None
+
+def get_crdt_manager(node_id: str = "node_0") -> CRDTManager:
+    """Get the global CRDT manager instance"""
+    global _crdt_manager
+    if _crdt_manager is None:
+        _crdt_manager = CRDTManager(node_id)
+    return _crdt_manager
