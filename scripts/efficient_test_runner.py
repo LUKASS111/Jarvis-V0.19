@@ -208,7 +208,8 @@ class EfficientTestRunner:
                 ("test_cli_interfaces.py", "CLI Interfaces - Command-line interface functionality"),
                 ("test_distributed_coordination.py", "Distributed Coordination - Phase 6 Advanced distributed intelligence"),
                 ("test_phase7_distributed_memory.py", "Phase 7 Memory - Advanced distributed memory architecture"),
-                ("test_phase8_advanced_network_topology.py", "Phase 8 Network - Advanced network topologies and enterprise features")
+                ("test_phase8_advanced_network_topology.py", "Phase 8 Network - Advanced network topologies and enterprise features"),
+                ("test_phase9_ml_integration.py", "Phase 9 ML - Machine Learning Integration with predictive conflict resolution")
             ]
             
             overall_start_time = time.time()
