@@ -1,0 +1,7 @@
+{
+  "timestamp": "2025-08-04T20:37:06.555350",
+  "event": "integration_test",
+  "data": {
+    "status": "error_logged"
+  }
+}

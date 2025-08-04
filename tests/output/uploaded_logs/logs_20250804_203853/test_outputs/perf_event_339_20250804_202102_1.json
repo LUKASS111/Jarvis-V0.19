@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-04T20:21:02.315708",
+  "event": "perf_event_339",
+  "data": {
+    "index": 339,
+    "message": "Performance test event 339",
+    "timestamp": 1754338862.3156927,
+    "metadata": {
+      "test": true,
+      "batch": "performance"
+    }
+  }
+}

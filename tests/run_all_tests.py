@@ -197,7 +197,9 @@ def main():
         ("test_crdt_comprehensive.py", "CRDT Comprehensive - Mathematical properties validation"),
         ("test_crdt_phase4.py", "CRDT Phase 4 - Network synchronization and conflict resolution"),
         ("test_crdt_phase5.py", "CRDT Phase 5 - Performance optimization and enterprise monitoring"),
-        ("test_distributed_coordination.py", "Distributed Coordination - Phase 6 Advanced distributed intelligence")
+        ("test_distributed_coordination.py", "Distributed Coordination - Phase 6 Advanced distributed intelligence"),
+        ("test_phase7_distributed_memory.py", "Phase 7 Memory - Advanced distributed memory architecture"),
+        ("test_phase8_advanced_network_topology.py", "Phase 8 Network - Advanced network topologies and enterprise features")
     ]
     
     # Run all test suites
