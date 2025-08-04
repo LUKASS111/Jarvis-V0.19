@@ -218,6 +218,7 @@ def main():
         ("Regression Tests", "tests/regression/test_regression_comprehensive.py", False),
         ("Performance Tests", "tests/performance/test_performance_comprehensive.py", False),
         ("CRDT Tests", "tests/test_crdt_comprehensive.py", False),
+        ("Phase 7 Memory Tests", "tests/test_phase7_distributed_memory.py", False),
     ]
     
     results = []

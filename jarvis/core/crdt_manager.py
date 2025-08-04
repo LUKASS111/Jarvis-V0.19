@@ -305,7 +305,8 @@ class CRDTManager:
         return {
             "total_crdts": len(self.crdts),
             "node_id": self.node_id,
-            "status": "operational"
+            "crdt_types": {name: crdt.__class__.__name__ for name, crdt in self.crdts.items()},
+            "system_status": "operational"
         }
 
 # Global CRDT manager instance
