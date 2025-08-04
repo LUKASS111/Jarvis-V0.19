@@ -488,6 +488,77 @@ class DataArchiver:
             restore_conn.close()
             
             print(f"[RESTORE] Database restored from: {backup_path}")
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get archive statistics"""
+        with _archive_lock:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            
+            # Total entries
+            cursor.execute("SELECT COUNT(*) FROM archive_entries")
+            total_entries = cursor.fetchone()[0]
+            
+            # Pending verification
+            cursor.execute("SELECT COUNT(*) FROM archive_entries WHERE verification_status = 'pending'")
+            pending_verification = cursor.fetchone()[0]
+            
+            # Verified entries
+            cursor.execute("SELECT COUNT(*) FROM archive_entries WHERE verification_status = 'verified'")
+            verified_entries = cursor.fetchone()[0]
+            
+            # Rejected entries
+            cursor.execute("SELECT COUNT(*) FROM archive_entries WHERE verification_status = 'rejected'")
+            rejected_entries = cursor.fetchone()[0]
+            
+            # Data type breakdown
+            cursor.execute("SELECT data_type, COUNT(*) FROM archive_entries GROUP BY data_type")
+            data_types = dict(cursor.fetchall())
+            
+            conn.close()
+            
+            return {
+                'total_entries': total_entries,
+                'pending_verification': pending_verification,
+                'verified_entries': verified_entries,
+                'rejected_entries': rejected_entries,
+                'verification_rate': (verified_entries / max(1, total_entries)) * 100,
+                'data_types': data_types,
+                'health_score': self._calculate_health_score(total_entries, pending_verification)
+            }
+    
+    def execute_query(self, query: str, params: tuple = ()) -> List[tuple]:
+        """Execute a SQL query and return results"""
+        with _archive_lock:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            
+            if query.strip().upper().startswith('SELECT'):
+                results = cursor.fetchall()
+            else:
+                conn.commit()
+                results = []
+            
+            conn.close()
+            return results
+    
+    def _calculate_health_score(self, total_entries: int, pending_verification: int) -> float:
+        """Calculate archive health score"""
+        if total_entries == 0:
+            return 100.0
+        
+        pending_ratio = pending_verification / total_entries
+        
+        # Health score decreases as pending ratio increases
+        if pending_ratio < 0.1:  # Less than 10% pending
+            return 100.0
+        elif pending_ratio < 0.3:  # 10-30% pending
+            return 85.0
+        elif pending_ratio < 0.5:  # 30-50% pending
+            return 70.0
+        else:  # More than 50% pending
+            return 50.0
 
 # Global archiver instance
 _archiver = None

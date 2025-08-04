@@ -77,19 +77,30 @@ def format_log_text(event_type: str, data: dict) -> str:
 
 def get_logs(limit: int = 100) -> list:
     """
-    Retrieve recent log entries from log files
+    Retrieve recent log entries from log files (including test logs)
     """
     init_log_folder()
     logs = []
     
     try:
-        # Get all log files, sorted by modification time (newest first)
+        # Get all log files from both directories, sorted by modification time (newest first)
         log_files = []
-        for filename in os.listdir(LOG_DIR):
-            if filename.endswith('.json'):
-                filepath = os.path.join(LOG_DIR, filename)
-                mtime = os.path.getmtime(filepath)
-                log_files.append((mtime, filepath, filename))
+        
+        # Check main logs directory
+        if os.path.exists(LOG_DIR):
+            for filename in os.listdir(LOG_DIR):
+                if filename.endswith('.json'):
+                    filepath = os.path.join(LOG_DIR, filename)
+                    mtime = os.path.getmtime(filepath)
+                    log_files.append((mtime, filepath, filename))
+        
+        # Check test logs directory
+        if os.path.exists(TEST_LOG_DIR):
+            for filename in os.listdir(TEST_LOG_DIR):
+                if filename.endswith('.json'):
+                    filepath = os.path.join(TEST_LOG_DIR, filename)
+                    mtime = os.path.getmtime(filepath)
+                    log_files.append((mtime, filepath, filename))
         
         log_files.sort(reverse=True)  # Newest first
         
