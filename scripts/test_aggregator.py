@@ -24,6 +24,18 @@ class TestAggregator:
         self.agent_reports_dir = self.data_dir / "agent_reports"
         self.archive_db = self.data_dir / "jarvis_archive.db"
         
+        # Unified test output directory
+        self.test_output_dir = self.base_path / "tests" / "output"
+        self.test_reports_dir = self.test_output_dir / "reports"
+        self.test_logs_dir = self.test_output_dir / "logs"
+        self.test_agent_reports_dir = self.test_output_dir / "agent_reports"
+        
+        # Ensure output directories exist
+        self.test_output_dir.mkdir(parents=True, exist_ok=True)
+        self.test_reports_dir.mkdir(parents=True, exist_ok=True)
+        self.test_logs_dir.mkdir(parents=True, exist_ok=True)
+        self.test_agent_reports_dir.mkdir(parents=True, exist_ok=True)
+        
         # Initialize aggregated data structure
         self.aggregated_data = {
             "scan_timestamp": datetime.now().isoformat(),
@@ -53,7 +65,21 @@ class TestAggregator:
             "archive_data": []
         }
         
-        # Scan logs directory
+        # Scan unified test output directories (new location)
+        test_logs_dir = self.base_path / "tests" / "output" / "logs"
+        if test_logs_dir.exists():
+            for pattern, category in [
+                ("function_test_results_*.json", "function_tests"),
+                ("perf_event_*.json", "performance_logs"),
+                ("concurrent_log_*.json", "concurrent_logs"),
+                ("large_event_*.json", "large_event_logs"),
+                ("workflow_event_*.json", "workflow_logs"),
+                ("test_event_*.json", "test_events")
+            ]:
+                files = list(test_logs_dir.glob(pattern))
+                file_categories[category].extend([str(f) for f in files])
+        
+        # Scan original logs directory (for compatibility)
         if self.logs_dir.exists():
             for pattern, category in [
                 ("function_test_results_*.json", "function_tests"),
@@ -67,7 +93,13 @@ class TestAggregator:
                 files = list(self.logs_dir.glob(pattern))
                 file_categories[category].extend([str(f) for f in files])
         
-        # Scan agent reports
+        # Scan unified test agent reports (new location)
+        test_agent_reports_dir = self.base_path / "tests" / "output" / "agent_reports"
+        if test_agent_reports_dir.exists():
+            agent_files = list(test_agent_reports_dir.glob("*.json"))
+            file_categories["agent_reports"].extend([str(f) for f in agent_files])
+        
+        # Scan original agent reports (for compatibility)
         if self.agent_reports_dir.exists():
             agent_files = list(self.agent_reports_dir.glob("*.json"))
             file_categories["agent_reports"].extend([str(f) for f in agent_files])
@@ -553,10 +585,10 @@ class TestAggregator:
         return self.aggregated_data
     
     def save_json_report(self, output_path: str = None) -> str:
-        """Save detailed JSON report."""
+        """Save detailed JSON report to unified test output directory."""
         if not output_path:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_path = self.base_path / f"TEST_AGGREGATE_REPORT_{timestamp}.json"
+            output_path = self.test_reports_dir / f"TEST_AGGREGATE_REPORT_{timestamp}.json"
         
         with open(output_path, 'w') as f:
             json.dump(self.aggregated_data, f, indent=2, default=str)
@@ -564,10 +596,10 @@ class TestAggregator:
         return str(output_path)
     
     def save_markdown_report(self, output_path: str = None) -> str:
-        """Save human-readable markdown report."""
+        """Save human-readable markdown report to unified test output directory."""
         if not output_path:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            output_path = self.base_path / f"TEST_AGGREGATE_REPORT_{timestamp}.md"
+            output_path = self.test_reports_dir / f"TEST_AGGREGATE_REPORT_{timestamp}.md"
         
         summary = self.aggregated_data["summary"]
         file_stats = self.aggregated_data["file_stats"]

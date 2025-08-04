@@ -32,6 +32,20 @@ python run_tests.py
 python system_dashboard.py
 ```
 
+### Test Output Management
+```bash
+# View test output summary
+python scripts/collect_test_outputs.py
+
+# Create transferable archive of all test outputs
+python scripts/collect_test_outputs.py collect
+```
+**Unified Test Output Directory**: `tests/output/` centralizes all test files for easy transfer
+- `reports/` - Test aggregation reports (JSON/Markdown)
+- `logs/` - Test execution logs and function test results
+- `agent_reports/` - Agent activity reports
+- `performance/` - Performance test outputs
+
 ### Agent Testing
 ```bash
 python agent_launcher.py --quick-test

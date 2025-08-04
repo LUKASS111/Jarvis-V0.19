@@ -357,12 +357,16 @@ def main():
     # Generate comprehensive report
     summary = generate_comprehensive_report(all_results)
     
-    # Save detailed results to file
+    # Save detailed results to unified test output directory
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    results_file = f"logs/function_test_results_{timestamp}.json"
+    
+    # Create unified test output directory
+    test_output_dir = os.path.join(os.path.dirname(__file__), "output", "logs")
+    os.makedirs(test_output_dir, exist_ok=True)
+    
+    results_file = os.path.join(test_output_dir, f"function_test_results_{timestamp}.json")
     
     try:
-        os.makedirs("logs", exist_ok=True)
         with open(results_file, 'w', encoding='utf-8') as f:
             json.dump({
                 "timestamp": timestamp,

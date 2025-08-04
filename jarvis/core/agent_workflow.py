@@ -884,17 +884,29 @@ class AgentWorkflowManager:
         )
     
     def _save_agent_report(self, report: AgentReport):
-        """Save agent report to file"""
-        reports_dir = "data/agent_reports"
-        os.makedirs(reports_dir, exist_ok=True)
+        """Save agent report to unified test output directory"""
+        # First try unified test output directory
+        test_reports_dir = "tests/output/agent_reports"
+        os.makedirs(test_reports_dir, exist_ok=True)
         
-        report_file = f"{reports_dir}/agent_report_{report.agent_id}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        # Keep original location as fallback for compatibility
+        original_reports_dir = "data/agent_reports"
+        os.makedirs(original_reports_dir, exist_ok=True)
+        
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Save to unified location (primary)
+        test_report_file = f"{test_reports_dir}/agent_report_{report.agent_id}_{timestamp}.json"
+        # Save to original location (compatibility)
+        original_report_file = f"{original_reports_dir}/agent_report_{report.agent_id}_{timestamp}.json"
         
         try:
-            with open(report_file, 'w', encoding='utf-8') as f:
-                json.dump(asdict(report), f, indent=2)
+            # Save to both locations for now to ensure compatibility
+            for report_file in [test_report_file, original_report_file]:
+                with open(report_file, 'w', encoding='utf-8') as f:
+                    json.dump(asdict(report), f, indent=2)
             
-            print(f"[INFO] Agent report saved: {report_file}")
+            print(f"[INFO] Agent report saved: {test_report_file}")
             
         except Exception as e:
             print(f"[ERROR] Failed to save agent report: {e}")

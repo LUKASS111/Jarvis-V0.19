@@ -3,6 +3,8 @@ import json
 from datetime import datetime
 
 LOG_DIR = "logs"
+# Unified test output directory for test-related logs
+TEST_LOG_DIR = "tests/output/logs"
 
 # Poprawne dostępne modele zgodnie z ollama list (możesz użyć do walidacji logów/modelu)
 AVAILABLE_MODELS = [
@@ -15,17 +17,29 @@ AVAILABLE_MODELS = [
 def init_log_folder():
     if not os.path.exists(LOG_DIR):
         os.makedirs(LOG_DIR)
+    if not os.path.exists(TEST_LOG_DIR):
+        os.makedirs(TEST_LOG_DIR, exist_ok=True)
 
 def log_event(event_type: str, data: dict, to_txt: bool = False):
     """
     Zapisuje zdarzenie do pliku JSON (i opcjonalnie .txt).
     Dodaje chain_of_thought do loga jeśli występuje w analizie.
+    Test-related events are saved to unified test output directory.
     """
     try:
         init_log_folder()
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"{event_type}_{timestamp}.json"
-        filepath = os.path.join(LOG_DIR, filename)
+        
+        # Determine if this is a test-related event and choose appropriate directory
+        is_test_event = any(keyword in event_type.lower() for keyword in [
+            'test', 'perf_event', 'concurrent_log', 'workflow_event', 'large_event'
+        ])
+        
+        if is_test_event:
+            filepath = os.path.join(TEST_LOG_DIR, filename)
+        else:
+            filepath = os.path.join(LOG_DIR, filename)
 
         # Create proper log structure
         log_entry = {

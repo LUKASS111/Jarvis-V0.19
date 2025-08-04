@@ -77,6 +77,14 @@ memory_export_*.json
 data/test_reports/
 test_report_*.json
 
+# Unified test output directory (keep structure but ignore generated files)
+tests/output/logs/*.json
+tests/output/agent_reports/*.json
+tests/output/reports/*.json
+tests/output/reports/*.md
+tests/output/performance/*.json
+tests/output/temp/*
+
 # Log files (keep only main error logs)
 logs/*_20*.json
 logs/concurrent_log_*.json
