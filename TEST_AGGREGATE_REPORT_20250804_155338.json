@@ -1,0 +1,757 @@
+{
+  "scan_timestamp": "2025-08-04T15:53:38.965024",
+  "file_stats": {
+    "function_tests": {
+      "count": 1,
+      "size_bytes": 2266,
+      "size_mb": 0.0
+    },
+    "performance_logs": {
+      "count": 1000,
+      "size_bytes": 265430,
+      "size_mb": 0.25
+    },
+    "concurrent_logs": {
+      "count": 400,
+      "size_bytes": 83776,
+      "size_mb": 0.08
+    },
+    "large_event_logs": {
+      "count": 4,
+      "size_bytes": 36911,
+      "size_mb": 0.04
+    },
+    "workflow_logs": {
+      "count": 10,
+      "size_bytes": 1370,
+      "size_mb": 0.0
+    },
+    "test_events": {
+      "count": 1,
+      "size_bytes": 108,
+      "size_mb": 0.0
+    },
+    "agent_reports": {
+      "count": 16,
+      "size_bytes": 11433,
+      "size_mb": 0.01
+    },
+    "error_logs": {
+      "count": 2,
+      "size_bytes": 495813,
+      "size_mb": 0.47
+    },
+    "archive_data": {
+      "count": 1,
+      "size_bytes": 42315776,
+      "size_mb": 40.36
+    },
+    "totals": {
+      "total_files": 1435,
+      "total_size_bytes": 43212883,
+      "total_size_mb": 41.21
+    }
+  },
+  "test_results": {
+    "total_tests": 22,
+    "successful_tests": 22,
+    "failed_tests": 0,
+    "success_rates": [
+      100.0
+    ],
+    "latest_results": {
+      "timestamp": "20250804_155218",
+      "summary": {
+        "total": 22,
+        "successful": 22,
+        "failed": 0,
+        "errors": 0,
+        "success_rate": 100.0,
+        "status": "[GREEN] EXCELLENT"
+      },
+      "detailed_results": {
+        "Core Modules": [
+          {
+            "module": "core.main",
+            "status": "OK"
+          },
+          {
+            "module": "core.error_handler",
+            "status": "OK"
+          },
+          {
+            "module": "utils.logs",
+            "status": "OK"
+          },
+          {
+            "module": "memory.memory",
+            "status": "OK"
+          },
+          {
+            "module": "llm.llm_interface",
+            "status": "OK"
+          },
+          {
+            "module": "core.data_archiver",
+            "status": "OK"
+          },
+          {
+            "module": "gui.modern_gui",
+            "status": "OK"
+          }
+        ],
+        "Memory Functions": [
+          {
+            "function": "remember_fact",
+            "status": "OK"
+          },
+          {
+            "function": "recall_fact",
+            "status": "OK"
+          },
+          {
+            "function": "forget_fact",
+            "status": "OK"
+          }
+        ],
+        "LLM Functions": [
+          {
+            "function": "get_ollama_model",
+            "status": "OK",
+            "model": "llama3:8b"
+          },
+          {
+            "function": "get_available_models",
+            "status": "OK",
+            "count": 4
+          },
+          {
+            "function": "ask_local_llm",
+            "status": "OK"
+          }
+        ],
+        "Archiving Functions": [
+          {
+            "function": "archive_input",
+            "status": "OK",
+            "id": 50863
+          },
+          {
+            "function": "archive_output",
+            "status": "OK",
+            "id": 50864
+          },
+          {
+            "function": "get_archive_stats",
+            "status": "OK",
+            "entries": 43669
+          }
+        ],
+        "Logging Functions": [
+          {
+            "function": "log_event",
+            "status": "OK"
+          },
+          {
+            "function": "log_error",
+            "status": "OK"
+          }
+        ],
+        "Main Workflow": [
+          {
+            "function": "simple_llm_process",
+            "status": "OK"
+          },
+          {
+            "function": "process_interactive_input",
+            "status": "OK"
+          }
+        ],
+        "System Utilities": [
+          {
+            "function": "system_dashboard",
+            "status": "OK"
+          },
+          {
+            "function": "agent_launcher",
+            "status": "OK"
+          }
+        ]
+      }
+    },
+    "test_categories": {
+      "Core Modules": 7,
+      "Memory Functions": 3,
+      "LLM Functions": 3,
+      "Archiving Functions": 3,
+      "Logging Functions": 2,
+      "Main Workflow": 2,
+      "System Utilities": 2
+    },
+    "status_distribution": {
+      "OK": 22
+    },
+    "average_success_rate": 100.0,
+    "min_success_rate": 100.0,
+    "max_success_rate": 100.0
+  },
+  "performance_metrics": {
+    "total_events": 100,
+    "time_range": {
+      "start": "2025-08-04T15:51:57.491290",
+      "end": "2025-08-04T15:51:57.584779"
+    },
+    "event_types": {
+      "perf_event_981": 1,
+      "perf_event_295": 1,
+      "perf_event_861": 1,
+      "perf_event_1": 1,
+      "perf_event_597": 1,
+      "perf_event_679": 1,
+      "perf_event_118": 1,
+      "perf_event_167": 1,
+      "perf_event_622": 1,
+      "perf_event_740": 1,
+      "perf_event_84": 1,
+      "perf_event_778": 1,
+      "perf_event_569": 1,
+      "perf_event_748": 1,
+      "perf_event_199": 1,
+      "perf_event_218": 1,
+      "perf_event_980": 1,
+      "perf_event_210": 1,
+      "perf_event_879": 1,
+      "perf_event_347": 1,
+      "perf_event_284": 1,
+      "perf_event_288": 1,
+      "perf_event_885": 1,
+      "perf_event_649": 1,
+      "perf_event_925": 1,
+      "perf_event_236": 1,
+      "perf_event_923": 1,
+      "perf_event_916": 1,
+      "perf_event_356": 1,
+      "perf_event_418": 1,
+      "perf_event_814": 1,
+      "perf_event_908": 1,
+      "perf_event_451": 1,
+      "perf_event_745": 1,
+      "perf_event_338": 1,
+      "perf_event_617": 1,
+      "perf_event_530": 1,
+      "perf_event_92": 1,
+      "perf_event_930": 1,
+      "perf_event_534": 1,
+      "perf_event_374": 1,
+      "perf_event_246": 1,
+      "perf_event_446": 1,
+      "perf_event_805": 1,
+      "perf_event_237": 1,
+      "perf_event_133": 1,
+      "perf_event_283": 1,
+      "perf_event_533": 1,
+      "perf_event_318": 1,
+      "perf_event_526": 1,
+      "perf_event_505": 1,
+      "perf_event_886": 1,
+      "perf_event_780": 1,
+      "perf_event_713": 1,
+      "perf_event_166": 1,
+      "perf_event_589": 1,
+      "perf_event_791": 1,
+      "perf_event_581": 1,
+      "perf_event_806": 1,
+      "perf_event_858": 1,
+      "perf_event_524": 1,
+      "perf_event_874": 1,
+      "perf_event_906": 1,
+      "perf_event_727": 1,
+      "perf_event_711": 1,
+      "perf_event_337": 1,
+      "perf_event_927": 1,
+      "perf_event_988": 1,
+      "perf_event_129": 1,
+      "perf_event_851": 1,
+      "perf_event_243": 1,
+      "perf_event_623": 1,
+      "perf_event_93": 1,
+      "perf_event_684": 1,
+      "perf_event_741": 1,
+      "perf_event_22": 1,
+      "perf_event_78": 1,
+      "perf_event_739": 1,
+      "perf_event_342": 1,
+      "perf_event_578": 1,
+      "perf_event_762": 1,
+      "perf_event_435": 1,
+      "perf_event_681": 1,
+      "perf_event_267": 1,
+      "perf_event_837": 1,
+      "perf_event_162": 1,
+      "perf_event_769": 1,
+      "perf_event_971": 1,
+      "perf_event_613": 1,
+      "perf_event_864": 1,
+      "perf_event_543": 1,
+      "perf_event_604": 1,
+      "perf_event_590": 1,
+      "perf_event_483": 1,
+      "perf_event_946": 1,
+      "perf_event_77": 1,
+      "perf_event_934": 1,
+      "perf_event_47": 1,
+      "perf_event_975": 1,
+      "perf_event_423": 1
+    },
+    "performance_data": [
+      1754322717.5841632,
+      1754322717.5173793,
+      1754322717.5735278,
+      1754322717.4912727,
+      1754322717.5439336,
+      1754322717.5512688,
+      1754322717.50163,
+      1754322717.5059724,
+      1754322717.546169,
+      1754322717.5626824,
+      1754322717.4985313,
+      1754322717.5661097,
+      1754322717.5414855,
+      1754322717.5633698,
+      1754322717.5089037,
+      1754322717.510603,
+      1754322717.5840812,
+      1754322717.509959,
+      1754322717.5752304,
+      1754322717.5219193,
+      1754322717.5163512,
+      1754322717.516699,
+      1754322717.575807,
+      1754322717.5485961,
+      1754322717.5792272,
+      1754322717.5121722,
+      1754322717.5790594,
+      1754322717.5784605,
+      1754322717.5226576,
+      1754322717.5281851,
+      1754322717.5693789,
+      1754322717.5778093,
+      1754322717.5311728,
+      1754322717.563114,
+      1754322717.5211687,
+      1754322717.5457554,
+      1754322717.5380473,
+      1754322717.499313,
+      1754322717.5797155,
+      1754322717.5383718,
+      1754322717.5243013,
+      1754322717.513002,
+      1754322717.5306005,
+      1754322717.5685327,
+      1754322717.5122573,
+      1754322717.502918,
+      1754322717.516269,
+      1754322717.5382905,
+      1754322717.5194228,
+      1754322717.537711,
+      1754322717.5358782,
+      1754322717.5758913,
+      1754322717.566284,
+      1754322717.5543861,
+      1754322717.5058901,
+      1754322717.543251,
+      1754322717.5672364,
+      1754322717.5425715,
+      1754322717.5686128,
+      1754322717.5732758,
+      1754322717.537542,
+      1754322717.574809,
+      1754322717.5776258,
+      1754322717.5556078,
+      1754322717.5542114,
+      1754322717.5210888,
+      1754322717.5793905,
+      1754322717.5847654,
+      1754322717.5025506,
+      1754322717.572687,
+      1754322717.5127592,
+      1754322717.5463202,
+      1754322717.4994028,
+      1754322717.5516746,
+      1754322717.5627842,
+      1754322717.493124,
+      1754322717.4979873,
+      1754322717.5625958,
+      1754322717.5214868,
+      1754322717.5422533,
+      1754322717.5646727,
+      1754322717.5296614,
+      1754322717.551431,
+      1754322717.5148513,
+      1754322717.5714257,
+      1754322717.5055246,
+      1754322717.5652845,
+      1754322717.583237,
+      1754322717.5453482,
+      1754322717.5739172,
+      1754322717.5392275,
+      1754322717.5445812,
+      1754322717.5433357,
+      1754322717.533965,
+      1754322717.5810688,
+      1754322717.4979038,
+      1754322717.5800643,
+      1754322717.495241,
+      1754322717.5836487,
+      1754322717.5285845
+    ],
+    "latency_stats": {
+      "min": Infinity,
+      "max": 0,
+      "avg": 0
+    },
+    "throughput_estimate": 10696.45
+  },
+  "error_analysis": {
+    "total_log_files": 2,
+    "error_categories": {},
+    "error_levels": {
+      "error": 754,
+      "warning": 16,
+      "info": 3,
+      "critical": 3
+    },
+    "recent_errors": [
+      {
+        "timestamp": "2025-08-02T14:56:41.334038",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:41.334904",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:41.551270",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:41.821057",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:42.104769",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:44.525413",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:44.526056",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:44.526332",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:44.526591",
+        "level": "error",
+        "message": ""
+      },
+      {
+        "timestamp": "2025-08-02T14:56:44.526849",
+        "level": "error",
+        "message": ""
+      }
+    ],
+    "error_trends": {}
+  },
+  "archive_stats": {
+    "total_entries": 43676,
+    "entry_types": {},
+    "status_distribution": {},
+    "verification_stats": {},
+    "temporal_analysis": {},
+    "error": "no such column: entry_type"
+  },
+  "agent_activity": {
+    "total_reports": 16,
+    "agent_performance": {
+      "test_agent_validation": {
+        "total_cycles": 30,
+        "successful_cycles": 9,
+        "average_scores": [
+          0.2,
+          0.33999999999999997,
+          0.0,
+          0.0,
+          0.4,
+          0.33999999999999997,
+          0.4
+        ],
+        "compliance_rates": [
+          0.2,
+          0.4,
+          0.0,
+          0.0,
+          0.4,
+          0.4,
+          0.4
+        ],
+        "overall_avg_score": 0.24,
+        "overall_compliance": 0.2571428571428572
+      },
+      "quick_test_agent": {
+        "total_cycles": 60,
+        "successful_cycles": 13,
+        "average_scores": [
+          0.27,
+          0.3,
+          0.3,
+          0.3333333333333333,
+          0.33666666666666667,
+          0.3
+        ],
+        "compliance_rates": [
+          0.3,
+          0.3,
+          0.1,
+          0.2,
+          0.3,
+          0.1
+        ],
+        "overall_avg_score": 0.30666666666666664,
+        "overall_compliance": 0.21666666666666667
+      },
+      "debug_test_agent": {
+        "total_cycles": 0,
+        "successful_cycles": 0,
+        "average_scores": [
+          0.0
+        ],
+        "compliance_rates": [
+          0.0
+        ],
+        "overall_avg_score": 0.0,
+        "overall_compliance": 0.0
+      },
+      "fixed_test_agent": {
+        "total_cycles": 5,
+        "successful_cycles": 1,
+        "average_scores": [
+          0.2
+        ],
+        "compliance_rates": [
+          0.2
+        ],
+        "overall_avg_score": 0.2,
+        "overall_compliance": 0.2
+      },
+      "production_test": {
+        "total_cycles": 20,
+        "successful_cycles": 7,
+        "average_scores": [
+          0.38333333333333336
+        ],
+        "compliance_rates": [
+          0.35
+        ],
+        "overall_avg_score": 0.38333333333333336,
+        "overall_compliance": 0.35
+      }
+    },
+    "success_trends": [],
+    "critical_issues": [
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 1 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 1 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 1 times)",
+      "Frequent error: 'content' (occurred 3 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: 'content' (occurred 1 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: 'content' (occurred 5 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: 'content' (occurred 1 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 3 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 3 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 3 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: 'content' (occurred 1 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 2 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 2 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 2 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 1 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 1 times)",
+      "Frequent error: 'content' (occurred 2 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 1 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 1 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 1 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 1 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 1 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 3 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 3 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 3 times)",
+      "Frequent error: 'content' (occurred 5 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 4 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 4 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 2 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 2 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 2 times)",
+      "Frequent error: 'content' (occurred 3 times)",
+      "Frequent error: 'content' (occurred 1 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 1 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 1 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)",
+      "Frequent error: Expected outcome not met: verified_successfully (occurred 3 times)",
+      "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 3 times)",
+      "Frequent error: Expected outcome not met: backup_created (occurred 1 times)",
+      "Frequent error: Expected outcome not met: integrity_verified (occurred 1 times)",
+      "Frequent error: Expected outcome not met: recovery_successful (occurred 1 times)",
+      "Frequent error: 'content' (occurred 1 times)"
+    ],
+    "recommendations": [
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis",
+      "Focus on improving basic functionality compliance",
+      "Review and optimize core algorithms",
+      "Address critical issues identified in error analysis"
+    ]
+  },
+  "recommendations": [
+    "REVIEW: Agent test_agent_validation compliance rate below 80%",
+    "REVIEW: Agent quick_test_agent compliance rate below 80%",
+    "REVIEW: Agent debug_test_agent compliance rate below 80%",
+    "REVIEW: Agent fixed_test_agent compliance rate below 80%",
+    "REVIEW: Agent production_test compliance rate below 80%"
+  ],
+  "summary": {
+    "overall_status": "GOOD",
+    "key_metrics": {
+      "test_success_rate": "100.0%",
+      "archive_entries": 43676,
+      "performance_events": 100,
+      "throughput": "10696.45 events/sec",
+      "total_errors": 776
+    },
+    "health_score": 85,
+    "critical_issues": 0,
+    "total_data_points": 1435
+  },
+  "concurrent_analysis": {
+    "total_concurrent_events": 400,
+    "worker_distribution": {
+      "2": 14,
+      "1": 15,
+      "0": 10,
+      "3": 11
+    },
+    "event_distribution": {
+      "72": 3,
+      "36": 1,
+      "67": 2,
+      "96": 1,
+      "24": 1,
+      "84": 2,
+      "5": 2,
+      "46": 1,
+      "47": 1,
+      "63": 1,
+      "77": 2,
+      "53": 2,
+      "48": 1,
+      "89": 1,
+      "11": 1,
+      "97": 2,
+      "12": 1,
+      "27": 1,
+      "3": 1,
+      "60": 2,
+      "13": 1,
+      "26": 1,
+      "33": 1,
+      "86": 1,
+      "30": 1,
+      "94": 1,
+      "93": 1,
+      "88": 1,
+      "22": 1,
+      "71": 1,
+      "82": 1,
+      "69": 1,
+      "61": 3,
+      "50": 1,
+      "66": 1,
+      "29": 1,
+      "18": 1,
+      "70": 1,
+      "81": 1
+    },
+    "concurrency_patterns": {
+      "max_worker_events": 15,
+      "min_worker_events": 10,
+      "avg_worker_events": 12.5,
+      "total_workers": 4
+    }
+  }
+}

@@ -167,18 +167,32 @@ def main():
     print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
     
-    # Define test suites
+    # Define test suites - Complete coverage of ALL program elements
     test_suites = [
+        # Core Functionality Tests
         ("unit/test_unit_comprehensive.py", "Unit Tests - Core functionality"),
         ("integration/test_integration_comprehensive.py", "Integration Tests - Module interactions"),
         ("functional/test_functional_comprehensive.py", "Functional Tests - End-user scenarios"),
         ("regression/test_regression_comprehensive.py", "Regression Tests - Prevent old bugs"),
         ("performance/test_performance_comprehensive.py", "Performance Tests - Speed and efficiency"),
         ("test_coverage_comprehensive.py", "Coverage Tests - Code coverage analysis"),
-        ("test_archiving_system.py", "Archiving System Tests - Data verification and backup"),
         ("comprehensive_function_test.py", "Function Tests - All program functions"),
         ("test_simplified_system.py", "Simplified System Tests - Basic functionality"),
-        # CRDT Implementation Tests - According to CRDT Plan Phases 1-5
+        ("test_error_handling_comprehensive.py", "Error Handling Tests - Comprehensive error scenarios"),
+        
+        # Data Management System Tests
+        ("test_archiving_system.py", "Archiving System Tests - Data verification and backup"),
+        ("test_agent_workflow.py", "Agent Workflow Tests - Autonomous testing cycles"),
+        ("test_backup_recovery.py", "Backup Recovery Tests - Data protection systems"),
+        ("test_archive_purge.py", "Archive Purge Tests - Data lifecycle management"),
+        ("test_verification_optimizer.py", "Verification Optimizer Tests - Performance optimization"),
+        
+        # Interface and Dashboard Tests
+        ("test_system_dashboard.py", "System Dashboard Tests - Main monitoring interface"),
+        ("test_gui_components.py", "GUI Component Tests - User interface elements"),
+        ("test_cli_interfaces.py", "CLI Interface Tests - Command-line functionality"),
+        
+        # CRDT Implementation Tests - Complete distributed system coverage
         ("test_crdt_implementation.py", "CRDT Phase 1-3 - Foundation and Basic/Advanced Types"),
         ("test_crdt_comprehensive.py", "CRDT Comprehensive - Mathematical properties validation"),
         ("test_crdt_phase4.py", "CRDT Phase 4 - Network synchronization and conflict resolution"),
