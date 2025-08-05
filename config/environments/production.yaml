@@ -1,0 +1,50 @@
+# Production Environment Configuration for Jarvis V0.19
+
+system:
+  debug: false
+  log_level: "INFO"
+
+plugins:
+  enabled: true
+  auto_load: true
+  directories:
+    - "jarvis/plugins"
+
+llm:
+  default_provider: "ollama"
+  timeout: 60
+  max_retries: 5
+  fallback_enabled: true
+
+database:
+  path: "data/jarvis_archive.db"
+  backup_enabled: true
+  backup_interval: 3600  # 1 hour
+  connection_pool_size: 10
+
+logging:
+  level: "INFO"
+  file: "logs/jarvis.log"
+  console: false
+  rotation: true
+  max_size: 52428800  # 50MB
+  backup_count: 10
+
+security:
+  encryption_enabled: true
+  api_key_required: true
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 60
+    burst_limit: 100
+
+monitoring:
+  enabled: true
+  metrics_collection: true
+  health_checks: true
+  alerting: true
+
+performance:
+  cache_enabled: true
+  connection_pooling: true
+  async_processing: true
