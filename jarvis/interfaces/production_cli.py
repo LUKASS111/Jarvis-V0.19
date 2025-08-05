@@ -13,7 +13,7 @@ import argparse
 import threading
 
 # Add the project root to the Python path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from jarvis.backend import get_jarvis_backend, shutdown_jarvis_backend
 from jarvis.core.error_handler import error_handler, ErrorLevel
