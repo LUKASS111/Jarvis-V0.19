@@ -58,18 +58,19 @@ except ImportError:
 class SessionManager(QObject):
     """Manages backend session and communication"""
     
+    # Define signals as class attributes (required for PyQt5)
+    if PYQT_AVAILABLE:
+        session_created = pyqtSignal(str)
+        response_received = pyqtSignal(dict)
+        error_occurred = pyqtSignal(str)
+    
     def __init__(self):
         super().__init__()
         self.backend = get_jarvis_backend()
         self.session_id = None
         
-        # Initialize signals properly
-        if PYQT_AVAILABLE:
-            self.session_created = pyqtSignal(str)
-            self.response_received = pyqtSignal(dict)
-            self.error_occurred = pyqtSignal(str)
-        else:
-            # Mock signals for testing
+        # Initialize mock signals if PyQt5 not available
+        if not PYQT_AVAILABLE:
             try:
                 from unittest.mock import Mock
                 self.session_created = Mock()
