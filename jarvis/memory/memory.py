@@ -155,3 +155,48 @@ def process_memory_prompt(prompt: str):
     elif "eksportuj pamięć" in prompt or "zapisz pamięć" in prompt or "export memory" in prompt:
         return export_memory()
     return None
+
+def get_memory_stats():
+    """Get memory statistics for backward compatibility"""
+    try:
+        from .production_memory import get_memory_stats as production_stats
+        return production_stats()
+    except:
+        # Basic stats from current memory
+        memory = load_memory()
+        return {
+            "total_memories": len(memory),
+            "total_categories": 1,
+            "average_access_count": 1.0,
+            "most_accessed": [],
+            "recent_memories_7_days": 0,
+            "categories": {"general": len(memory)},
+            "storage_files": {
+                "json_size": os.path.getsize(MEMORY_FILE) if os.path.exists(MEMORY_FILE) else 0
+            }
+        }
+
+def search_memory(query: str, limit: int = 10):
+    """Search memory for backward compatibility"""
+    try:
+        from .production_memory import search_memory as production_search
+        return production_search(query, limit=limit)
+    except:
+        # Basic search in current memory
+        memory = load_memory()
+        results = []
+        
+        query_lower = query.lower()
+        for key, value in memory.items():
+            if query_lower in key.lower() or query_lower in value.lower():
+                results.append({
+                    "key": key,
+                    "value": value,
+                    "category": "general",
+                    "tags": [],
+                    "created_at": "unknown",
+                    "access_count": 1,
+                    "version": 1
+                })
+        
+        return results[:limit]

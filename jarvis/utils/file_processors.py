@@ -488,3 +488,18 @@ def get_supported_formats() -> List[str]:
         List[str]: List of supported file extensions
     """
     return FileProcessorFactory.get_supported_formats()
+
+def get_file_processor_manager():
+    """Get file processor manager for backward compatibility"""
+    class FileProcessorManager:
+        def process_file(self, file_path: str, output_format: str = "agent"):
+            return process_file(file_path, output_format)
+        
+        def is_supported(self, file_path: str):
+            return is_supported_file(file_path)
+        
+        def get_supported_formats(self):
+            return get_supported_formats()
+    
+    return FileProcessorManager()
+    return FileProcessorFactory.get_supported_formats()
