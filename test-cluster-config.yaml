@@ -1,0 +1,27 @@
+deployment:
+  auto_scaling:
+    enabled: true
+    max_replicas: 10
+    min_replicas: 3
+    target_cpu_utilization: 70
+  environment: production
+  replicas: 3
+infrastructure:
+  availability_zones:
+  - us-west1-a
+  - us-west1-b
+  - us-west1-c
+  instance_type: medium
+  node_count: 3
+  storage_class: fast-ssd
+  storage_size: 100Gi
+  vpc_cidr: 10.0.0.0/16
+monitoring:
+  alerting_enabled: true
+  grafana_enabled: true
+  prometheus_enabled: true
+production_config: config/environments/production.yaml
+security:
+  enable_rbac: true
+  enable_tls: true
+  network_policies: true
