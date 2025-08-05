@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-08-05T05:19:42.503909",
+  "event": "test_event",
+  "data": {
+    "test": "data",
+    "value": 123
+  }
+}

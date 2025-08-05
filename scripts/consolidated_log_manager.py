@@ -133,10 +133,25 @@ class ConsolidatedLogManager:
     def flush_all(self):
         """Flush all buffered entries to disk"""
         with self.lock:
+            categories_flushed = 0
+            total_entries_flushed = 0
+            
             for category in list(self.log_buffers.keys()):
-                self._flush_category(category)
+                if self.log_buffers[category]:  # Only flush if there are entries
+                    entries_before = len(self.log_buffers[category])
+                    self._flush_category(category)
+                    categories_flushed += 1
+                    total_entries_flushed += entries_before
         
         print(f"[LOG_MANAGER] Flushed all log buffers for session {self.session_id}")
+        print(f"[LOG_MANAGER] Categories flushed: {categories_flushed}, Total entries: {total_entries_flushed}")
+        
+        # Ensure all pending data is written
+        import os
+        try:
+            os.sync()  # Force filesystem sync on Unix-like systems
+        except AttributeError:
+            pass  # Windows doesn't have os.sync
     
     def create_session_summary(self):
         """Create a comprehensive summary of the current session"""

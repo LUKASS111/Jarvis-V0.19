@@ -23,6 +23,7 @@ class LogUploadSystem:
     def collect_all_logs(self):
         """Collect all log files from various locations"""
         log_sources = {
+            "consolidated_logs": self.project_root / "tests" / "output" / "consolidated_logs",
             "test_outputs": self.project_root / "tests" / "output",
             "logs": self.project_root / "logs",
             "agent_reports": self.project_root / "data" / "agent_reports",
@@ -42,9 +43,11 @@ class LogUploadSystem:
                 if source.exists():
                     if source.is_dir():
                         for file_path in source.rglob("*"):
-                            if file_path.is_file():
-                                collected_files[category].append(file_path)
-                                total_size += file_path.stat().st_size
+                            if file_path.is_file() and not file_path.name.startswith('.'):
+                                # Skip already uploaded files to avoid duplicates
+                                if "uploaded_logs" not in str(file_path):
+                                    collected_files[category].append(file_path)
+                                    total_size += file_path.stat().st_size
                     else:
                         collected_files[category].append(source)
                         total_size += source.stat().st_size

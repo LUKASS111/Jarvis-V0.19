@@ -185,6 +185,20 @@ def main():
             print(f"   Space optimization: ~95% reduction in file count")
             print(f"   All log data preserved in consolidated format")
             
+            # Force comprehensive log upload to ensure logs are available
+            try:
+                upload_script_path = os.path.join(os.path.dirname(__file__), "..", "scripts", "upload_logs_to_repository.py")
+                if os.path.exists(upload_script_path):
+                    print(f"\n[LAUNCH] Force-triggering comprehensive log upload...")
+                    subprocess.run([sys.executable, upload_script_path], 
+                                 cwd=os.path.dirname(os.path.dirname(__file__)),
+                                 timeout=60)
+                    print(f"[COMPLETE] Comprehensive log upload finished")
+                else:
+                    print(f"[INFO] Upload script not found, logs available in consolidated format")
+            except Exception as e:
+                print(f"[WARN] Could not trigger log upload: {e}")
+            
             # Return appropriate exit code
             if summary['suite_success_rate'] >= 80 and summary['total_errors'] == 0:
                 return 0
@@ -193,6 +207,8 @@ def main():
                 
         except Exception as e:
             print(f"[ERROR] Efficient runner failed: {e}")
+            import traceback
+            traceback.print_exc()
             print(f"[FALLBACK] Switching to legacy mode")
             return legacy_main()
     else:

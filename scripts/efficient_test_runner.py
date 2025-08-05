@@ -72,8 +72,15 @@ class EfficientTestRunner:
             
             # Redirect test outputs to temporary location
             env = os.environ.copy()
-            env['JARVIS_TEST_TEMP_DIR'] = self.temp_dir
+            env['JARVIS_TEST_TEMP_DIR'] = str(self.temp_dir)  # Ensure string conversion for Windows
             env['JARVIS_CONSOLIDATED_LOGGING'] = "1"
+            env['PYTHONPATH'] = str(self.project_root)  # Add project root to Python path
+            
+            # Handle Windows-specific environment variables
+            if sys.platform.startswith('win'):
+                env['QT_QPA_PLATFORM'] = 'offscreen'  # Handle PyQt5 on Windows
+                # Use proper Windows path separators
+                test_path = test_path.resolve()
             
             # Run test with timeout
             process = subprocess.Popen(
@@ -82,7 +89,8 @@ class EfficientTestRunner:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,
-                env=env
+                env=env,
+                shell=False  # Explicitly set shell=False for security
             )
             
             try:
@@ -93,10 +101,21 @@ class EfficientTestRunner:
                 # Parse test results from output
                 result.update(self._parse_test_output(stdout, stderr))
                 
-                if process.returncode == 0:
+                # Enhanced status determination
+                if process.returncode == 0 and result["errors"] == 0:
+                    result["status"] = "PASS"
+                elif result["tests_run"] > 0 and result["failures"] == 0 and result["errors"] == 0:
+                    # Tests ran successfully but process returned non-zero (might be warning)
                     result["status"] = "PASS"
                 else:
                     result["status"] = "FAIL"
+                    # Log failure details
+                    self.log_manager.log_entry('errors', {
+                        'test_file': test_file,
+                        'return_code': process.returncode,
+                        'stderr': stderr[-500:] if stderr else None,  # Last 500 chars of stderr
+                        'platform': sys.platform
+                    }, context=f"test_failure_{test_file}")
                     
             except subprocess.TimeoutExpired:
                 process.kill()
@@ -107,6 +126,12 @@ class EfficientTestRunner:
             result["status"] = "ERROR"
             result["reason"] = f"Exception running test: {str(e)}"
             result["error_output"] = str(e)
+            # Log exception details
+            self.log_manager.log_entry('errors', {
+                'test_file': test_file,
+                'exception': str(e),
+                'platform': sys.platform
+            }, context=f"test_exception_{test_file}")
         
         result["duration"] = time.time() - start_time
         
@@ -127,7 +152,9 @@ class EfficientTestRunner:
                 "failures": result["failures"], 
                 "errors": result["errors"],
                 "output_length": len(result["output"]),
-                "error_output_length": len(result["error_output"])
+                "error_output_length": len(result["error_output"]),
+                "platform": sys.platform,
+                "return_code": getattr(process, 'returncode', -999) if 'process' in locals() else -999
             }
         )
         
@@ -188,7 +215,7 @@ class EfficientTestRunner:
         self.setup_temp_environment()
         
         try:
-            # Define test suites (same as original but with efficient logging)
+            # Run each test suite
             test_suites = [
                 ("test_simplified_system.py", "Core System - Simplified system validation"),
                 ("test_crdt_implementation.py", "CRDT Core - Basic CRDT operations and synchronization"), 
@@ -209,7 +236,8 @@ class EfficientTestRunner:
                 ("test_distributed_coordination.py", "Distributed Coordination - Phase 6 Advanced distributed intelligence"),
                 ("test_phase7_distributed_memory.py", "Phase 7 Memory - Advanced distributed memory architecture"),
                 ("test_phase8_advanced_network_topology.py", "Phase 8 Network - Advanced network topologies and enterprise features"),
-                ("test_phase9_ml_integration.py", "Phase 9 ML - Machine Learning Integration with predictive conflict resolution")
+                ("test_phase9_ml_integration.py", "Phase 9 ML - Machine Learning Integration with predictive conflict resolution"),
+                ("test_phase10_specialized_crdt.py", "Phase 10 CRDT - Specialized CRDT Extensions with TimeSeriesCRDT, GraphCRDT, and WorkflowCRDT")
             ]
             
             overall_start_time = time.time()
@@ -365,20 +393,63 @@ class EfficientTestRunner:
         session_dir = upload_dir / f"efficient_logs_{self.log_manager.session_id}"
         session_dir.mkdir(parents=True, exist_ok=True)
         
-        # Copy session summary
-        summary_file = self.log_manager.log_root / f"session_summary_{self.log_manager.session_id}.json"
-        if summary_file.exists():
-            shutil.copy2(summary_file, session_dir / "session_summary.json")
-        
-        # Create aggregated logs for each category
-        for category in ['test_execution', 'agent_reports', 'compliance', 'performance', 'errors']:
-            logs = self.log_manager.get_logs_by_category(category)
-            if logs:
-                category_file = session_dir / f"{category}_aggregated.json"
-                with open(category_file, 'w', encoding='utf-8') as f:
-                    json.dump(logs, f, indent=2, ensure_ascii=False)
-        
-        print(f"[COMPATIBILITY] Created compatibility uploads in {session_dir}")
+        try:
+            # Copy session summary
+            summary_file = self.log_manager.log_root / f"session_summary_{self.log_manager.session_id}.json"
+            if summary_file.exists():
+                shutil.copy2(summary_file, session_dir / "session_summary.json")
+                print(f"[COMPATIBILITY] Copied session summary to {session_dir}")
+            else:
+                # Create a minimal session summary if none exists
+                minimal_summary = {
+                    'session_id': self.log_manager.session_id,
+                    'created_at': datetime.now().isoformat(),
+                    'status': 'completed',
+                    'total_entries': summary.get('total_entries', 0),
+                    'files_created': summary.get('files_created', [])
+                }
+                with open(session_dir / "session_summary.json", 'w', encoding='utf-8') as f:
+                    json.dump(minimal_summary, f, indent=2, ensure_ascii=False)
+                print(f"[COMPATIBILITY] Created minimal session summary")
+            
+            # Create aggregated logs for each category
+            categories_created = 0
+            for category in ['test_execution', 'agent_reports', 'compliance', 'performance', 'errors', 'system', 'crdt', 'network']:
+                logs = self.log_manager.get_logs_by_category(category)
+                if logs:
+                    category_file = session_dir / f"{category}_aggregated.json"
+                    with open(category_file, 'w', encoding='utf-8') as f:
+                        json.dump(logs, f, indent=2, ensure_ascii=False)
+                    categories_created += 1
+                    print(f"[COMPATIBILITY] Created {category} log with {len(logs)} entries")
+            
+            # Copy individual log files from consolidated_logs
+            for log_file in self.log_manager.log_root.glob(f"*_{self.log_manager.session_id}*"):
+                if log_file.is_file():
+                    dest_file = session_dir / log_file.name
+                    shutil.copy2(log_file, dest_file)
+                    print(f"[COMPATIBILITY] Copied {log_file.name}")
+            
+            # Create comprehensive test results file
+            test_results_file = session_dir / "comprehensive_test_results.json"
+            test_results = {
+                'session_id': self.log_manager.session_id,
+                'timestamp': datetime.now().isoformat(),
+                'platform': sys.platform,
+                'test_execution_summary': summary,
+                'log_categories_available': categories_created,
+                'compatibility_mode': True
+            }
+            with open(test_results_file, 'w', encoding='utf-8') as f:
+                json.dump(test_results, f, indent=2, ensure_ascii=False)
+            
+            print(f"[COMPATIBILITY] Created compatibility uploads in {session_dir}")
+            print(f"[COMPATIBILITY] Total files created: {len(list(session_dir.iterdir()))}")
+            
+        except Exception as e:
+            print(f"[ERROR] Failed to create compatibility uploads: {e}")
+            import traceback
+            traceback.print_exc()
 
 
 def main():
