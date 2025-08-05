@@ -17,8 +17,7 @@ import os
 # Version information
 VERSION_STRING = "0.2"
 
-print(f"[LAUNCH] AutoGPT {VERSION_STRING} - Simplified AI Assistant")
-print("=" * 60)
+# Print messages moved to main() function to avoid printing on import
 from jarvis.core.error_handler import (
     error_handler, safe_execute, ErrorLevel
 )
@@ -161,6 +160,10 @@ def main(skip_startup_init=False):
     """
     
     global chat_history
+    
+    # Print legacy system banner when actually using it
+    print(f"[LAUNCH] AutoGPT {VERSION_STRING} - Simplified AI Assistant")
+    print("=" * 60)
     
     # Initialize archive purge system on startup (only if not already done)
     if not skip_startup_init:
