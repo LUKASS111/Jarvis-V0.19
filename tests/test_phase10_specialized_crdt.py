@@ -95,7 +95,7 @@ class TestTimeSeriesCRDT(unittest.TestCase):
             self.ts1.append_data_point(base_time + i, value)
         
         # Check aggregations
-        agg = self.ts1.aggregation_cache.value
+        agg = self.ts1.aggregation_cache.value()
         self.assertEqual(agg['count'], 5)
         self.assertEqual(agg['sum'], 150)
         self.assertEqual(agg['avg'], 30)
@@ -252,19 +252,19 @@ class TestGraphCRDT(unittest.TestCase):
         self.graph1.add_edge("A", "B")
         self.graph1.add_edge("B", "C")
         
-        initial_edges = len(self.graph1.edges.elements)
+        initial_edges = len(self.graph1.edges.elements())
         
         # Remove vertex B
         self.assertTrue(self.graph1.remove_vertex("B"))
         
         # Should remove vertex and all connected edges
-        self.assertNotIn("B", self.graph1.vertices.elements)
-        self.assertNotIn(("A", "B"), self.graph1.edges.elements)
-        self.assertNotIn(("B", "C"), self.graph1.edges.elements)
+        self.assertNotIn("B", self.graph1.vertices.elements())
+        self.assertNotIn(("A", "B"), self.graph1.edges.elements())
+        self.assertNotIn(("B", "C"), self.graph1.edges.elements())
         
         # Only A and C should remain
-        self.assertEqual(len(self.graph1.vertices.elements), 2)
-        self.assertEqual(len(self.graph1.edges.elements), 0)
+        self.assertEqual(len(self.graph1.vertices.elements()), 2)
+        self.assertEqual(len(self.graph1.edges.elements()), 0)
     
     def test_subgraph_extraction(self):
         """Test subgraph extraction."""
@@ -309,11 +309,11 @@ class TestGraphCRDT(unittest.TestCase):
         self.graph1.merge(self.graph2)
         
         # Should have all vertices and edges
-        self.assertEqual(len(self.graph1.vertices.elements), 3)
-        self.assertEqual(len(self.graph1.edges.elements), 2)
+        self.assertEqual(len(self.graph1.vertices.elements()), 3)
+        self.assertEqual(len(self.graph1.edges.elements()), 2)
         
         # Overlapping vertex should have latest data (LWW semantics)
-        self.assertIn("source", self.graph1.vertex_data["B"].value)
+        self.assertIn("source", self.graph1.vertex_data["B"].value())
     
     def test_factory_function(self):
         """Test convenience factory function."""
@@ -515,8 +515,8 @@ class TestWorkflowCRDT(unittest.TestCase):
         self.workflow1.merge(self.workflow2)
         
         # Should have all states and transitions
-        self.assertEqual(len(self.workflow1.states.elements), 3)  # A, B, C
-        self.assertEqual(len(self.workflow1.transitions.elements), 2)  # A->B, B->C
+        self.assertEqual(len(self.workflow1.states.elements()), 3)  # A, B, C
+        self.assertEqual(len(self.workflow1.transitions.elements()), 2)  # A->B, B->C
         
         # History should be combined
         history = self.workflow1.get_history()
@@ -683,7 +683,7 @@ class TestSpecializedCRDTIntegration(unittest.TestCase):
             merged_graph.merge(graph)
         
         # Should have vertices from all nodes
-        self.assertEqual(len(merged_graph.vertices.elements), 6)  # v0-v5
+        self.assertEqual(len(merged_graph.vertices.elements()), 6)  # v0-v5
         
         # Workflow convergence
         workflow_instances = [WorkflowCRDT(node) for node in nodes]
@@ -701,7 +701,7 @@ class TestSpecializedCRDTIntegration(unittest.TestCase):
             merged_workflow.merge(workflow)
         
         # Should have states from all nodes
-        self.assertEqual(len(merged_workflow.states.elements), 6)  # state0-state5
+        self.assertEqual(len(merged_workflow.states.elements()), 6)  # state0-state5
 
 
 def run_performance_benchmark():

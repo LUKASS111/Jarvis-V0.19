@@ -139,7 +139,7 @@ class TimeSeriesCRDT(BaseCRDT):
                 )
             
             # Merge aggregation cache
-            self.aggregation_cache = self.aggregation_cache.merge(other.aggregation_cache)
+            self.aggregation_cache.merge(other.aggregation_cache)
             
             # Maintain size limit
             if len(self.data_points) > self.max_size:
@@ -374,7 +374,7 @@ class GraphCRDT(BaseCRDT):
                     if from_v in vertex_ids and to_v in vertex_ids:
                         edge_id = f"{from_v}-{to_v}"
                         edge_data = (
-                            self.edge_data[edge_id].value
+                            self.edge_data[edge_id].value()
                             if edge_id in self.edge_data
                             else {}
                         )
@@ -390,20 +390,20 @@ class GraphCRDT(BaseCRDT):
         """Merge with another GraphCRDT."""
         with self.lock:
             # Merge vertices and edges
-            self.vertices = self.vertices.merge(other.vertices)
-            self.edges = self.edges.merge(other.edges)
+            self.vertices.merge(other.vertices)
+            self.edges.merge(other.edges)
             
             # Merge vertex data
             for vertex_id, lww_register in other.vertex_data.items():
                 if vertex_id not in self.vertex_data:
                     self.vertex_data[vertex_id] = LWWRegister(self.node_id)
-                self.vertex_data[vertex_id] = self.vertex_data[vertex_id].merge(lww_register)
+                self.vertex_data[vertex_id].merge(lww_register)
             
             # Merge edge data
             for edge_id, lww_register in other.edge_data.items():
                 if edge_id not in self.edge_data:
                     self.edge_data[edge_id] = LWWRegister(self.node_id)
-                self.edge_data[edge_id] = self.edge_data[edge_id].merge(lww_register)
+                self.edge_data[edge_id].merge(lww_register)
             
             self.update_metadata()
             return self
@@ -636,17 +636,17 @@ class WorkflowCRDT(BaseCRDT):
         """Merge with another WorkflowCRDT."""
         with self.lock:
             # Merge basic CRDT components
-            self.states = self.states.merge(other.states)
-            self.transitions = self.transitions.merge(other.transitions)
-            self.current_state = self.current_state.merge(other.current_state)
-            self.transition_history = self.transition_history.merge(other.transition_history)
-            self.step_counters = self.step_counters.merge(other.step_counters)
+            self.states.merge(other.states)
+            self.transitions.merge(other.transitions)
+            self.current_state.merge(other.current_state)
+            self.transition_history.merge(other.transition_history)
+            self.step_counters.merge(other.step_counters)
             
             # Merge state data
             for state_id, lww_register in other.state_data.items():
                 if state_id not in self.state_data:
                     self.state_data[state_id] = LWWRegister(self.node_id)
-                self.state_data[state_id] = self.state_data[state_id].merge(lww_register)
+                self.state_data[state_id].merge(lww_register)
             
             self.update_metadata()
             return self
