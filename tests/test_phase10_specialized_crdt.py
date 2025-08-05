@@ -163,11 +163,11 @@ class TestGraphCRDT(unittest.TestCase):
         self.assertTrue(self.graph1.add_vertex("B", {"name": "Bob"}))
         
         # Check vertex existence
-        self.assertIn("A", self.graph1.vertices.elements)
-        self.assertIn("B", self.graph1.vertices.elements)
+        self.assertIn("A", self.graph1.vertices.elements())
+        self.assertIn("B", self.graph1.vertices.elements())
         
         # Check vertex data
-        self.assertEqual(self.graph1.vertex_data["A"].value["name"], "Alice")
+        self.assertEqual(self.graph1.vertex_data["A"].value()["name"], "Alice")
     
     def test_edge_operations(self):
         """Test edge addition and removal."""
@@ -181,11 +181,11 @@ class TestGraphCRDT(unittest.TestCase):
         self.assertTrue(self.graph1.add_edge("B", "C", {"type": "colleague"}))
         
         # Check edge existence
-        self.assertIn(("A", "B"), self.graph1.edges.elements)
-        self.assertIn(("B", "C"), self.graph1.edges.elements)
+        self.assertIn(("A", "B"), self.graph1.edges.elements())
+        self.assertIn(("B", "C"), self.graph1.edges.elements())
         
         # Check edge data
-        self.assertEqual(self.graph1.edge_data["A-B"].value["type"], "friend")
+        self.assertEqual(self.graph1.edge_data["A-B"].value()["type"], "friend")
     
     def test_undirected_edges(self):
         """Test undirected edge handling."""
@@ -196,8 +196,8 @@ class TestGraphCRDT(unittest.TestCase):
         self.assertTrue(self.graph1.add_edge("B", "A", {"weight": 5}, directed=False))
         
         # Should be stored in consistent order
-        self.assertIn(("A", "B"), self.graph1.edges.elements)
-        self.assertEqual(self.graph1.edge_data["A-B"].value["weight"], 5)
+        self.assertIn(("A", "B"), self.graph1.edges.elements())
+        self.assertEqual(self.graph1.edge_data["A-B"].value()["weight"], 5)
     
     def test_neighbor_queries(self):
         """Test neighbor relationship queries."""
@@ -337,12 +337,12 @@ class TestWorkflowCRDT(unittest.TestCase):
         self.assertTrue(self.workflow1.add_state("complete", {"type": "final"}))
         
         # Check state existence
-        self.assertIn("start", self.workflow1.states.elements)
-        self.assertIn("processing", self.workflow1.states.elements)
-        self.assertIn("complete", self.workflow1.states.elements)
+        self.assertIn("start", self.workflow1.states.elements())
+        self.assertIn("processing", self.workflow1.states.elements())
+        self.assertIn("complete", self.workflow1.states.elements())
         
         # Check state data
-        self.assertEqual(self.workflow1.state_data["start"].value["type"], "initial")
+        self.assertEqual(self.workflow1.state_data["start"].value()["type"], "initial")
     
     def test_transition_management(self):
         """Test transition definition and validation."""
@@ -376,19 +376,19 @@ class TestWorkflowCRDT(unittest.TestCase):
         
         # Initial transition
         self.assertTrue(self.workflow1.transition_to("start", {"user": "test"}))
-        self.assertEqual(self.workflow1.current_state.value, "start")
+        self.assertEqual(self.workflow1.current_state.value(), "start")
         
         # Valid transition
         self.assertTrue(self.workflow1.transition_to("processing"))
-        self.assertEqual(self.workflow1.current_state.value, "processing")
+        self.assertEqual(self.workflow1.current_state.value(), "processing")
         
         # Another valid transition
         self.assertTrue(self.workflow1.transition_to("complete"))
-        self.assertEqual(self.workflow1.current_state.value, "complete")
+        self.assertEqual(self.workflow1.current_state.value(), "complete")
         
         # Invalid transition (no path from complete to start)
         self.assertFalse(self.workflow1.transition_to("start"))
-        self.assertEqual(self.workflow1.current_state.value, "complete")  # Unchanged
+        self.assertEqual(self.workflow1.current_state.value(), "complete")  # Unchanged
     
     def test_available_transitions(self):
         """Test available transitions query."""
@@ -490,7 +490,7 @@ class TestWorkflowCRDT(unittest.TestCase):
         
         # Reset to initial state
         self.assertTrue(self.workflow1.reset_workflow("init"))
-        self.assertEqual(self.workflow1.current_state.value, "init")
+        self.assertEqual(self.workflow1.current_state.value(), "init")
         
         # History should contain reset record
         history = self.workflow1.get_history()
@@ -555,7 +555,7 @@ class TestWorkflowCRDT(unittest.TestCase):
             self.assertTrue(self.workflow1.transition_to(state))
         
         # Verify final state
-        self.assertEqual(self.workflow1.current_state.value, "published")
+        self.assertEqual(self.workflow1.current_state.value(), "published")
         
         # Check available next steps
         available = self.workflow1.get_available_transitions()
@@ -710,84 +710,86 @@ def run_performance_benchmark():
     print("PERFORMANCE BENCHMARK - SPECIALIZED CRDT TYPES")
     print("="*60)
     
-    # TimeSeriesCRDT benchmark
+    # TimeSeriesCRDT benchmark (reduced scale for faster execution)
     print("\n[TIMESERIES] Performance Benchmark:")
-    ts = TimeSeriesCRDT("benchmark_node", max_size=10000)
+    ts = TimeSeriesCRDT("benchmark_node", max_size=1000)
     
     start_time = time.time()
     base_ts = time.time()
     
-    # Insert 1000 data points
-    for i in range(1000):
+    # Insert 100 data points (reduced from 1000)
+    for i in range(100):
         ts.append_data_point(base_ts + i, random.uniform(0, 100))
     
     insert_time = time.time() - start_time
-    print(f"  Insert 1000 points: {insert_time:.3f}s ({1000/insert_time:.0f} ops/sec)")
+    print(f"  Insert 100 points: {insert_time:.3f}s ({100/insert_time:.0f} ops/sec)")
     
     # Range query benchmark
     start_time = time.time()
-    range_data = ts.get_range(base_ts + 100, base_ts + 200)
+    range_data = ts.get_range(base_ts + 10, base_ts + 20)
     query_time = time.time() - start_time
-    print(f"  Range query (100 results): {query_time:.3f}s")
+    print(f"  Range query ({len(range_data)} results): {query_time:.3f}s")
     
-    # GraphCRDT benchmark
+    # GraphCRDT benchmark (reduced scale)
     print("\n[GRAPH] Performance Benchmark:")
     graph = GraphCRDT("benchmark_node")
     
-    # Add 100 vertices
+    # Add 20 vertices (reduced from 100)
     start_time = time.time()
-    for i in range(100):
+    for i in range(20):
         graph.add_vertex(f"v{i}", {"id": i, "type": "vertex"})
     vertex_time = time.time() - start_time
-    print(f"  Add 100 vertices: {vertex_time:.3f}s ({100/vertex_time:.0f} ops/sec)")
+    print(f"  Add 20 vertices: {vertex_time:.3f}s ({20/vertex_time:.0f} ops/sec)")
     
-    # Add 500 edges (random connections)
+    # Add 50 edges (reduced from 500)
     start_time = time.time()
-    for i in range(500):
-        from_v = f"v{random.randint(0, 99)}"
-        to_v = f"v{random.randint(0, 99)}"
+    for i in range(50):
+        from_v = f"v{random.randint(0, 19)}"
+        to_v = f"v{random.randint(0, 19)}"
         if from_v != to_v:
             graph.add_edge(from_v, to_v, {"weight": random.random()})
     edge_time = time.time() - start_time
-    print(f"  Add 500 edges: {edge_time:.3f}s ({500/edge_time:.0f} ops/sec)")
+    print(f"  Add 50 edges: {edge_time:.3f}s ({50/edge_time:.0f} ops/sec)")
     
     # Path finding benchmark
     start_time = time.time()
-    path = graph.get_path("v0", "v99", max_depth=10)
+    path = graph.get_path("v0", "v19", max_depth=5)  # Reduced depth
     path_time = time.time() - start_time
     print(f"  Path finding: {path_time:.3f}s (path length: {len(path)})")
     
-    # WorkflowCRDT benchmark
+    # WorkflowCRDT benchmark (reduced scale)
     print("\n[WORKFLOW] Performance Benchmark:")
     workflow = WorkflowCRDT("benchmark_node")
     
-    # Add 50 states
+    # Add 10 states (reduced from 50)
     start_time = time.time()
-    for i in range(50):
+    for i in range(10):
         workflow.add_state(f"state{i}", {"id": i, "type": "process"})
     state_time = time.time() - start_time
-    print(f"  Add 50 states: {state_time:.3f}s ({50/state_time:.0f} ops/sec)")
+    print(f"  Add 10 states: {state_time:.3f}s ({10/state_time:.0f} ops/sec)")
     
-    # Add 100 transitions
+    # Add 20 transitions (reduced from 100)
     start_time = time.time()
-    for i in range(100):
-        from_s = f"state{random.randint(0, 49)}"
-        to_s = f"state{random.randint(0, 49)}"
+    for i in range(20):
+        from_s = f"state{random.randint(0, 9)}"
+        to_s = f"state{random.randint(0, 9)}"
         if from_s != to_s:
             workflow.add_transition(from_s, to_s, f"condition{i}")
     transition_time = time.time() - start_time
-    print(f"  Add 100 transitions: {transition_time:.3f}s ({100/transition_time:.0f} ops/sec)")
+    print(f"  Add 20 transitions: {transition_time:.3f}s ({20/transition_time:.0f} ops/sec)")
     
-    # Execute 100 state transitions
+    # Execute 20 state transitions (reduced from 100)
     workflow.transition_to("state0")
     start_time = time.time()
-    for i in range(100):
+    transition_count = 0
+    for i in range(20):
         available = workflow.get_available_transitions()
-        if available:
+        if available and transition_count < 20:
             next_state = available[0]['to']
-            workflow.transition_to(next_state)
+            if workflow.transition_to(next_state):
+                transition_count += 1
     execution_time = time.time() - start_time
-    print(f"  Execute 100 transitions: {execution_time:.3f}s ({100/execution_time:.0f} ops/sec)")
+    print(f"  Execute {transition_count} transitions: {execution_time:.3f}s ({transition_count/execution_time:.0f} ops/sec)")
 
 
 def main():

@@ -1,0 +1,21 @@
+{
+  "agent_id": "quick_test_agent",
+  "total_cycles": 10,
+  "successful_cycles": 1,
+  "average_score": 0.3,
+  "compliance_rate": 0.1,
+  "improvement_trend": [],
+  "critical_issues": [
+    "Frequent error: Expected outcome not met: backup_created (occurred 3 times)",
+    "Frequent error: Expected outcome not met: integrity_verified (occurred 3 times)",
+    "Frequent error: Expected outcome not met: recovery_successful (occurred 3 times)",
+    "Frequent error: Expected outcome not met: verified_successfully (occurred 2 times)",
+    "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 2 times)"
+  ],
+  "recommendations": [
+    "Focus on improving basic functionality compliance",
+    "Review and optimize core algorithms",
+    "Address critical issues identified in error analysis"
+  ],
+  "timestamp": "2025-08-02T20:08:05.954337"
+}
