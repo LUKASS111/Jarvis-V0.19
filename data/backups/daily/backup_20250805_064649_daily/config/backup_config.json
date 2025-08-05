@@ -1,0 +1,35 @@
+{
+  "retention_policy": {
+    "daily_backups_days": 7,
+    "weekly_backups_weeks": 4,
+    "monthly_backups_months": 12,
+    "emergency_backups_keep_indefinitely": true,
+    "pre_change_backups_keep_indefinitely": true
+  },
+  "compression": true,
+  "integrity_check": true,
+  "backup_schedule": {
+    "daily": {
+      "enabled": true,
+      "time": "02:00"
+    },
+    "weekly": {
+      "enabled": true,
+      "day": "sunday",
+      "time": "03:00"
+    }
+  },
+  "include_paths": [
+    "data/jarvis_archive.db",
+    "data/jarvis_mem.json",
+    "config/",
+    "data/test_reports/",
+    "logs/"
+  ],
+  "exclude_patterns": [
+    "*.tmp",
+    "*.log.old",
+    "__pycache__",
+    "*.pyc"
+  ]
+}

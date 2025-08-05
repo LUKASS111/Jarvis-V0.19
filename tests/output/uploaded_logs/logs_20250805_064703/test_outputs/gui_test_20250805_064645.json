@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-08-05T06:46:45.504370",
+  "event": "gui_test",
+  "data": {
+    "mode": "test",
+    "component": "logging"
+  }
+}

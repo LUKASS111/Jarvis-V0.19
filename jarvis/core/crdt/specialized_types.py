@@ -233,7 +233,7 @@ class GraphCRDT(BaseCRDT):
     def remove_vertex(self, vertex_id: str) -> bool:
         """Remove vertex and all its edges."""
         with self.lock:
-            if vertex_id not in self.vertices.elements()():
+            if vertex_id not in self.vertices.elements():
                 return False
             
             # Remove vertex
@@ -241,7 +241,7 @@ class GraphCRDT(BaseCRDT):
             
             # Remove all edges connected to this vertex
             edges_to_remove = []
-            for edge in self.edges.elements()():
+            for edge in self.edges.elements():
                 if isinstance(edge, tuple) and (edge[0] == vertex_id or edge[1] == vertex_id):
                     edges_to_remove.append(edge)
             
@@ -261,7 +261,7 @@ class GraphCRDT(BaseCRDT):
         """Add edge between vertices."""
         with self.lock:
             # Ensure vertices exist
-            if from_vertex not in self.vertices.elements()() or to_vertex not in self.vertices.elements()():
+            if from_vertex not in self.vertices.elements() or to_vertex not in self.vertices.elements():
                 return False
             
             # Create edge tuple
@@ -290,7 +290,7 @@ class GraphCRDT(BaseCRDT):
             if not directed:
                 edge = tuple(sorted([from_vertex, to_vertex]))
             
-            if edge in self.edges.elements()():
+            if edge in self.edges.elements():
                 self.edges.remove(edge)
                 edge_id = f"{edge[0]}-{edge[1]}"
                 if edge_id in self.edge_data:
@@ -310,7 +310,7 @@ class GraphCRDT(BaseCRDT):
         with self.lock:
             neighbors = set()
             
-            for edge in self.edges.elements()():
+            for edge in self.edges.elements():
                 if isinstance(edge, tuple) and len(edge) == 2:
                     from_v, to_v = edge
                     
@@ -325,7 +325,7 @@ class GraphCRDT(BaseCRDT):
     def get_path(self, start: str, end: str, max_depth: int = 10) -> List[str]:
         """Find shortest path between vertices using BFS."""
         with self.lock:
-            if start not in self.vertices.elements()() or end not in self.vertices.elements()():
+            if start not in self.vertices.elements() or end not in self.vertices.elements():
                 return []
             
             if start == end:
@@ -360,7 +360,7 @@ class GraphCRDT(BaseCRDT):
             
             # Get vertex data
             for vertex_id in vertex_ids:
-                if vertex_id in self.vertices.elements()():
+                if vertex_id in self.vertices.elements():
                     subgraph['vertices'][vertex_id] = (
                         self.vertex_data[vertex_id].value() 
                         if vertex_id in self.vertex_data 
@@ -368,7 +368,7 @@ class GraphCRDT(BaseCRDT):
                     )
             
             # Get edges within subgraph
-            for edge in self.edges.elements()():
+            for edge in self.edges.elements():
                 if isinstance(edge, tuple) and len(edge) == 2:
                     from_v, to_v = edge
                     if from_v in vertex_ids and to_v in vertex_ids:
@@ -412,10 +412,10 @@ class GraphCRDT(BaseCRDT):
         """Get current value as graph representation."""
         with self.lock:
             return {
-                'vertices': list(self.vertices.elements()()),
-                'edges': [list(edge) for edge in self.edges.elements()() if isinstance(edge, tuple)],
-                'vertex_count': len(self.vertices.elements()()),
-                'edge_count': len(self.edges.elements()())
+                'vertices': list(self.vertices.elements()),
+                'edges': [list(edge) for edge in self.edges.elements() if isinstance(edge, tuple)],
+                'vertex_count': len(self.vertices.elements()),
+                'edge_count': len(self.edges.elements())
             }
     
     def from_dict(self, data: Dict[str, Any]) -> None:
@@ -488,7 +488,7 @@ class WorkflowCRDT(BaseCRDT):
         """Add a valid transition between states."""
         with self.lock:
             # Ensure states exist
-            if from_state not in self.states.elements()() or to_state not in self.states.elements()():
+            if from_state not in self.states.elements() or to_state not in self.states.elements():
                 return False
             
             transition = {
@@ -533,7 +533,7 @@ class WorkflowCRDT(BaseCRDT):
     
     def _is_valid_transition(self, from_state: str, to_state: str) -> bool:
         """Check if transition is valid based on defined transitions."""
-        for transition_json in self.transitions.elements()():
+        for transition_json in self.transitions.elements():
             try:
                 transition = json.loads(transition_json)
                 if transition['from'] == from_state and transition['to'] == to_state:
@@ -551,7 +551,7 @@ class WorkflowCRDT(BaseCRDT):
                 return []
             
             available = []
-            for transition_json in self.transitions.elements()():
+            for transition_json in self.transitions.elements():
                 try:
                     transition = json.loads(transition_json)
                     if transition['from'] == current:
@@ -565,7 +565,7 @@ class WorkflowCRDT(BaseCRDT):
         """Get transition history."""
         with self.lock:
             history = []
-            for record_json in self.transition_history.elements()():
+            for record_json in self.transition_history.elements():
                 try:
                     record = json.loads(record_json)
                     history.append(record)
@@ -602,14 +602,14 @@ class WorkflowCRDT(BaseCRDT):
                 'state_visits': dict(state_visits),
                 'transition_counts': dict(transition_counts),
                 'total_transitions': len(history),
-                'available_states': len(self.states.elements()()),
-                'defined_transitions': len(self.transitions.elements()())
+                'available_states': len(self.states.elements()),
+                'defined_transitions': len(self.transitions.elements())
             }
     
     def reset_workflow(self, initial_state: str = None) -> bool:
         """Reset workflow to initial state."""
         with self.lock:
-            if initial_state and initial_state not in self.states.elements()():
+            if initial_state and initial_state not in self.states.elements():
                 return False
             
             # Clear current state or set to initial
@@ -657,11 +657,11 @@ class WorkflowCRDT(BaseCRDT):
             return {
                 'workflow_id': self.workflow_id,
                 'current_state': self.current_state.value(),
-                'states': list(self.states.elements()()),
+                'states': list(self.states.elements()),
                 'total_steps': self.step_counters.value(),
-                'state_count': len(self.states.elements()()),
-                'transition_count': len(self.transitions.elements()()),
-                'history_length': len(self.transition_history.elements()())
+                'state_count': len(self.states.elements()),
+                'transition_count': len(self.transitions.elements()),
+                'history_length': len(self.transition_history.elements())
             }
     
     def from_dict(self, data: Dict[str, Any]) -> None:

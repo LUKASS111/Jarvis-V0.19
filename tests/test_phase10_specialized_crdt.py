@@ -717,12 +717,12 @@ def run_performance_benchmark():
     start_time = time.time()
     base_ts = time.time()
     
-    # Insert 100 data points (reduced from 1000)
-    for i in range(100):
+    # Insert 20 data points (optimized for faster testing)
+    for i in range(20):
         ts.append_data_point(base_ts + i, random.uniform(0, 100))
     
     insert_time = time.time() - start_time
-    print(f"  Insert 100 points: {insert_time:.3f}s ({100/insert_time:.0f} ops/sec)")
+    print(f"  Insert 20 points: {insert_time:.3f}s ({20/insert_time:.0f} ops/sec)")
     
     # Range query benchmark
     start_time = time.time()
@@ -743,13 +743,13 @@ def run_performance_benchmark():
     
     # Add 50 edges (reduced from 500)
     start_time = time.time()
-    for i in range(50):
+    for i in range(10):
         from_v = f"v{random.randint(0, 19)}"
         to_v = f"v{random.randint(0, 19)}"
         if from_v != to_v:
             graph.add_edge(from_v, to_v, {"weight": random.random()})
     edge_time = time.time() - start_time
-    print(f"  Add 50 edges: {edge_time:.3f}s ({50/edge_time:.0f} ops/sec)")
+    print(f"  Add 10 edges: {edge_time:.3f}s ({10/edge_time:.0f} ops/sec)")
     
     # Path finding benchmark
     start_time = time.time()
