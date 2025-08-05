@@ -588,5 +588,6 @@
   "workflow_test_9": "value_9",
   "my_name": "John",
   "test_cli": "cli_mode_test",
-  "test_final": "verification_complete"
+  "test_final": "verification_complete",
+  "document_sample_document.txt": "Processed document: Text file with 139 words, 30 lines, 1008 characters"
 }
