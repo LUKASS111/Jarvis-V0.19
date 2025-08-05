@@ -97,7 +97,7 @@ def get_logs(limit: int = 100) -> list:
         # Check test logs directory
         if os.path.exists(TEST_LOG_DIR):
             for filename in os.listdir(TEST_LOG_DIR):
-                if filename.endswith('.json'):
+                if filename.endswith('.json') and not filename.startswith('function_test_results'):
                     filepath = os.path.join(TEST_LOG_DIR, filename)
                     mtime = os.path.getmtime(filepath)
                     log_files.append((mtime, filepath, filename))
