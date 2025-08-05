@@ -333,12 +333,15 @@ class GraphCRDT(BaseCRDT):
             
             queue = [(start, [start])]
             visited = {start}
+            iterations = 0
             
-            for _ in range(max_depth):
-                if not queue:
-                    break
-                
+            while queue and iterations < max_depth * 100:  # Safety limit
+                iterations += 1
                 current, path = queue.pop(0)
+                
+                # Check if path is too long
+                if len(path) > max_depth:
+                    continue
                 
                 for neighbor in self.get_neighbors(current, "both"):
                     if neighbor == end:
@@ -346,7 +349,9 @@ class GraphCRDT(BaseCRDT):
                     
                     if neighbor not in visited:
                         visited.add(neighbor)
-                        queue.append((neighbor, path + [neighbor]))
+                        new_path = path + [neighbor]
+                        if len(new_path) <= max_depth:
+                            queue.append((neighbor, new_path))
             
             return []  # No path found
     
