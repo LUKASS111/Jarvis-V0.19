@@ -109,9 +109,13 @@ dist/
 build/
 
 # Data and logs generated during execution
-data/jarvis_archive.db*
+# Note: Database files are tracked with Git LFS via .gitattributes
 data/session_log.json
 data/backup_index.json
 data/agent_reports/
 data/backups/
 logs/error_log.jsonl
+
+# Large files handled by Git LFS
+# (These patterns are defined in .gitattributes for LFS tracking)
+# *.db files are now tracked with LFS instead of being ignored
