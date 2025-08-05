@@ -1,0 +1,16 @@
+{
+  "agent_id": "test_agent_validation",
+  "total_cycles": 5,
+  "successful_cycles": 4,
+  "average_score": 0.74,
+  "compliance_rate": 0.8,
+  "improvement_trend": [],
+  "critical_issues": [
+    "Frequent error: Expected outcome not met: verified_successfully (occurred 1 times)",
+    "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 1 times)"
+  ],
+  "recommendations": [
+    "Address critical issues identified in error analysis"
+  ],
+  "timestamp": "2025-08-05T05:27:10.409875"
+}

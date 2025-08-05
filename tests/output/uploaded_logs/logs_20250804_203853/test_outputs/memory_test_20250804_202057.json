@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-08-04T20:20:57.858796",
+  "event": "memory_test",
+  "data": {
+    "fact": "integration_test",
+    "value": "successful"
+  }
+}

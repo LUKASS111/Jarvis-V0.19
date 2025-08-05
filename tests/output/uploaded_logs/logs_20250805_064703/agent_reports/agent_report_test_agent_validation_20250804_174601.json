@@ -1,0 +1,19 @@
+{
+  "agent_id": "test_agent_validation",
+  "total_cycles": 5,
+  "successful_cycles": 1,
+  "average_score": 0.2,
+  "compliance_rate": 0.2,
+  "improvement_trend": [],
+  "critical_issues": [
+    "Frequent error: Expected outcome not met: verified_successfully (occurred 1 times)",
+    "Frequent error: Expected outcome not met: confidence_above_threshold (occurred 1 times)",
+    "Frequent error: 'content' (occurred 1 times)"
+  ],
+  "recommendations": [
+    "Focus on improving basic functionality compliance",
+    "Review and optimize core algorithms",
+    "Address critical issues identified in error analysis"
+  ],
+  "timestamp": "2025-08-04T17:46:01.112732"
+}

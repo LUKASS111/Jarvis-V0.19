@@ -1,0 +1,98 @@
+[
+  {
+    "id": "data_archiving_001",
+    "name": "Basic Data Archiving",
+    "description": "Test basic data archiving functionality",
+    "input_data": {
+      "content": "Test data for archiving",
+      "source": "test_agent"
+    },
+    "expected_outcomes": [
+      "data_archived",
+      "verification_queued"
+    ],
+    "validation_criteria": {
+      "min_confidence": 0.7,
+      "verification_required": true
+    },
+    "priority": 1,
+    "category": "functional"
+  },
+  {
+    "id": "verification_001",
+    "name": "Data Verification Process",
+    "description": "Test data verification with dual models",
+    "input_data": {
+      "content": "Python is a programming language",
+      "data_type": "fact"
+    },
+    "expected_outcomes": [
+      "verified_successfully",
+      "confidence_above_threshold"
+    ],
+    "validation_criteria": {
+      "min_confidence": 0.8,
+      "verification_model_different": true
+    },
+    "priority": 1,
+    "category": "functional"
+  },
+  {
+    "id": "memory_integration_001",
+    "name": "Memory System Integration",
+    "description": "Test integration with existing memory system",
+    "input_data": {
+      "fact": "AI model: llama3:8b",
+      "operation": "remember"
+    },
+    "expected_outcomes": [
+      "memory_updated",
+      "data_archived",
+      "verification_completed"
+    ],
+    "validation_criteria": {
+      "memory_consistency": true,
+      "archive_integrity": true
+    },
+    "priority": 2,
+    "category": "integration"
+  },
+  {
+    "id": "error_handling_001",
+    "name": "Error Resilience Testing",
+    "description": "Test system behavior under error conditions",
+    "input_data": {
+      "content": "Invalid JSON: {broken",
+      "data_type": "json"
+    },
+    "expected_outcomes": [
+      "error_handled_gracefully",
+      "fallback_activated"
+    ],
+    "validation_criteria": {
+      "no_system_crash": true,
+      "error_logged": true
+    },
+    "priority": 2,
+    "category": "resilience"
+  },
+  {
+    "id": "performance_001",
+    "name": "High Volume Data Processing",
+    "description": "Test system performance with high data volume",
+    "input_data": {
+      "data_count": 100,
+      "concurrent_operations": 5
+    },
+    "expected_outcomes": [
+      "all_data_processed",
+      "performance_acceptable"
+    ],
+    "validation_criteria": {
+      "max_processing_time": 30,
+      "success_rate": 0.95
+    },
+    "priority": 3,
+    "category": "performance"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-04T20:37:03.369046",
+  "event": "perf_event_803",
+  "data": {
+    "index": 803,
+    "message": "Performance test event 803",
+    "timestamp": 1754339823.3690312,
+    "metadata": {
+      "test": true,
+      "batch": "performance"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+# Development Environment Configuration for Jarvis V0.19
+
+system:
+  debug: true
+  log_level: "DEBUG"
+
+plugins:
+  enabled: true
+  auto_load: true
+  directories:
+    - "jarvis/plugins"
+
+llm:
+  default_provider: "ollama"
+  providers:
+    ollama:
+      base_url: "http://localhost:11434"
+      timeout: 30
+      models:
+        - "llama3:8b"
+        - "codellama:13b"
+        - "codellama:34b"
+        - "llama3:70b"
+
+database:
+  path: "data/jarvis_archive.db"
+  backup_enabled: true
+  backup_interval: 1800  # 30 minutes for development
+
+logging:
+  level: "DEBUG"
+  file: "logs/jarvis_dev.log"
+  console: true
+  detailed: true
+
+security:
+  encryption_enabled: false
+  api_key_required: false
+  rate_limiting:
+    enabled: false
+
+testing:
+  enabled: true
+  auto_test: true
+  test_data_cleanup: true
+
+development:
+  hot_reload: true
+  profiling: true
+  test_mode: true

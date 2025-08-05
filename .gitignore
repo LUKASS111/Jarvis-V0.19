@@ -1,0 +1,121 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Application specific
+# Memory backups and exports
+*.corrupt_*
+data/memory_exports/
+data/jarvis_mem.json.backup
+memory_export_*.json
+
+# Test generated files and reports
+data/test_reports/
+test_report_*.json
+
+# Unified test output directory (keep structure but ignore generated files)
+tests/output/logs/*.json
+tests/output/agent_reports/*.json
+tests/output/reports/*.json
+tests/output/reports/*.md
+tests/output/performance/*.json
+tests/output/temp/*
+
+# Log files (keep only main error logs)
+logs/*_20*.json
+logs/concurrent_log_*.json
+logs/perf_event_*.json
+logs/test_*.json
+
+# Temporary files
+*.tmp
+*.temp
+
+# Project specific
+tests/output/
+tests/logs/
+*.log
+
+# User preferences
+*.local
+settings.local
+
+# Build artifacts
+dist/
+build/
+
+# Data and logs generated during execution
+# Note: Database files are tracked with Git LFS via .gitattributes
+data/session_log.json
+data/backup_index.json
+data/agent_reports/
+data/backups/
+logs/error_log.jsonl
+
+# Large files handled by Git LFS
+# (These patterns are defined in .gitattributes for LFS tracking)
+# *.db files are now tracked with LFS instead of being ignored
