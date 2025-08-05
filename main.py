@@ -160,18 +160,16 @@ def main_gui():
         if PRODUCTION_BACKEND_AVAILABLE:
             # Use production GUI when available
             try:
-                from jarvis.interfaces.production_gui import ProductionGUI
+                from jarvis.interfaces.production_gui import main as production_gui_main
                 print("[GUI] Starting Production GUI interface...")
-                gui = ProductionGUI()
-                return gui.run()
+                return production_gui_main()
             except ImportError:
                 print("[GUI] Production GUI not available, using legacy GUI")
         
         # Fallback to legacy GUI
-        from gui.modern_gui import SimplifiedJarvisGUI
+        from legacy.legacy_gui import main as legacy_gui_main
         print("[GUI] Starting Legacy GUI interface...")
-        gui = SimplifiedJarvisGUI()
-        return gui.run()
+        return legacy_gui_main()
         
     except ImportError as e:
         print(f"[FAIL] Cannot start GUI: {e}")
