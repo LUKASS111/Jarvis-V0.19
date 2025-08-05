@@ -94,3 +94,24 @@ logs/test_*.json
 # Temporary files
 *.tmp
 *.temp
+
+# Project specific
+tests/output/
+tests/logs/
+*.log
+
+# User preferences
+*.local
+settings.local
+
+# Build artifacts
+dist/
+build/
+
+# Data and logs generated during execution
+data/jarvis_archive.db*
+data/session_log.json
+data/backup_index.json
+data/agent_reports/
+data/backups/
+logs/error_log.jsonl
