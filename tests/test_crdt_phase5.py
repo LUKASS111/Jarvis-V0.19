@@ -251,24 +251,27 @@ class TestConflictBatcher(unittest.TestCase):
         self.assertEqual(len(self.batcher.pending_conflicts), 0)
     
     def test_conflict_batching_by_timeout(self):
-        """Test conflict batching by timeout with proper verification"""
+        """Test conflict batching by timeout with optimized verification"""
         import threading
         
-        # Use a shorter timeout for faster testing
-        fast_batcher = ConflictBatcher(batch_size=10, timeout_seconds=0.1)
+        # Use optimized timeout for faster testing
+        fast_batcher = ConflictBatcher(batch_size=10, timeout_seconds=0.05)
         mock_conflict = Mock()
         
-        # Track when batch processing occurs
+        # Track when batch processing occurs with detailed metrics
         process_event = threading.Event()
+        process_count = [0]
         original_process = fast_batcher._process_batch
         
         def tracked_process():
             original_process()
+            process_count[0] += 1
             process_event.set()
         
         fast_batcher._process_batch = tracked_process
         
         # Add single conflict (below batch_size threshold)
+        start_time = time.time()
         fast_batcher.add_conflict(mock_conflict)
         self.assertEqual(len(fast_batcher.pending_conflicts), 1)
         
@@ -276,12 +279,18 @@ class TestConflictBatcher(unittest.TestCase):
         self.assertIsNotNone(fast_batcher.batch_timer)
         self.assertTrue(fast_batcher.batch_timer.is_alive())
         
-        # Wait for timeout with proper verification
-        timeout_occurred = process_event.wait(timeout=0.3)  # 3x the batch timeout
+        # Wait for timeout with deterministic verification
+        timeout_occurred = process_event.wait(timeout=0.15)  # 3x the batch timeout
+        processing_time = time.time() - start_time
         
         # Verify timeout triggered processing
         self.assertTrue(timeout_occurred, "Timeout should have triggered batch processing")
         self.assertEqual(len(fast_batcher.pending_conflicts), 0)
+        self.assertEqual(process_count[0], 1, "Batch should have been processed exactly once")
+        
+        # Verify timing is reasonable
+        self.assertGreaterEqual(processing_time, 0.04, "Processing occurred too early")
+        self.assertLessEqual(processing_time, 0.12, "Processing occurred too late")
         
         # Verify timer was cleaned up
         self.assertTrue(fast_batcher.batch_timer is None or not fast_batcher.batch_timer.is_alive())
@@ -331,34 +340,52 @@ class TestConflictBatcher(unittest.TestCase):
         )
     
     def test_conflict_batching_concurrent_timeout_and_size(self):
-        """Test edge case where timeout and size threshold could race"""
+        """Test edge case where timeout and size threshold could race with optimized timing"""
         import threading
-        import time
         
-        # Use very short timeout to create race condition
-        batcher = ConflictBatcher(batch_size=3, timeout_seconds=0.05)
+        # Use optimized timeout to create controlled race condition
+        batcher = ConflictBatcher(batch_size=3, timeout_seconds=0.03)
         mock_conflicts = [Mock() for _ in range(3)]
         
         process_count = [0]  # Use list for mutable counter
-        process_event = threading.Event()
+        process_events = []  # Track multiple processing events
         original_process = batcher._process_batch
         
         def counted_process():
             process_count[0] += 1
             original_process()
-            process_event.set()
+            event = threading.Event()
+            event.set()
+            process_events.append(event)
         
         batcher._process_batch = counted_process
         
-        # Add conflicts rapidly to potentially race with timeout
+        # Add conflicts with controlled timing to test race conditions
+        start_time = time.time()
+        
         for i, conflict in enumerate(mock_conflicts[:2]):
             batcher.add_conflict(conflict)
-            time.sleep(0.01)  # Small delay but less than timeout
+            if i == 0:
+                time.sleep(0.005)  # Small delay, much less than timeout
         
-        # Wait for potential timeout
-        time.sleep(0.1)  # Wait longer than timeout
+        # Wait for potential timeout processing
+        time.sleep(0.05)  # Wait longer than timeout for first potential processing
         
         # Add final conflict to trigger size-based processing if timeout didn't fire
+        batcher.add_conflict(mock_conflicts[2])
+        
+        # Wait for all processing to complete
+        time.sleep(0.05)
+        elapsed_time = time.time() - start_time
+        
+        # Verify exactly one batch processing occurred (no double processing)
+        self.assertEqual(process_count[0], 1, 
+                        f"Expected exactly 1 batch processing, got {process_count[0]}")
+        self.assertEqual(len(batcher.pending_conflicts), 0, 
+                        "All conflicts should be processed")
+        
+        # Verify timing constraints
+        self.assertLessEqual(elapsed_time, 0.15, "Test took too long, timing verification failed")
         if len(batcher.pending_conflicts) > 0:
             batcher.add_conflict(mock_conflicts[2])
         

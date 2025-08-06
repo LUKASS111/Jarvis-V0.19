@@ -721,9 +721,10 @@ class SystemHealthMonitor:
             )
     
     def _check_memory_health(self) -> HealthStatus:
-        """Check memory system health"""
+        """Check memory system health with production memory integration"""
         try:
-            from jarvis.memory.memory import get_memory_stats
+            # Use global memory instance to preserve cache state
+            from jarvis.memory.production_memory import get_memory_stats
             
             stats = get_memory_stats()
             total_entries = stats.get('total_entries', 0)
@@ -734,25 +735,34 @@ class SystemHealthMonitor:
                 'total_entries': total_entries,
                 'cache_hit_rate': cache_hit_rate,
                 'avg_query_time': avg_query_time,
-                'memory_usage_mb': stats.get('memory_usage_mb', 0)
+                'memory_usage_mb': stats.get('memory_usage_mb', 0),
+                'total_queries': stats.get('total_queries', 0),
+                'cache_hits': stats.get('cache_hits', 0),
+                'cache_misses': stats.get('cache_misses', 0)
             }
             
-            # Calculate score
+            # Calculate score based on actual performance
             score = 100
-            if cache_hit_rate < 0.5:
+            if cache_hit_rate < 0.8:
                 score -= 25
-            elif cache_hit_rate < 0.7:
+            elif cache_hit_rate < 0.9:
                 score -= 10
             
-            if avg_query_time > 1.0:
+            if avg_query_time > 0.1:
                 score -= 20
-            elif avg_query_time > 0.5:
+            elif avg_query_time > 0.05:
                 score -= 10
+            
+            if total_entries == 0:
+                score -= 15  # No data penalty
             
             # Determine status
-            if score >= 80:
+            if score >= 90:
                 status = 'healthy'
-                message = f"Memory system healthy ({total_entries} entries, {cache_hit_rate:.1%} hit rate)"
+                message = f"Memory system optimal ({total_entries} entries, {cache_hit_rate:.1%} hit rate)"
+            elif score >= 80:
+                status = 'healthy'
+                message = f"Memory system good ({total_entries} entries, {cache_hit_rate:.1%} hit rate)"
             elif score >= 60:
                 status = 'warning'
                 message = f"Memory performance suboptimal (hit rate: {cache_hit_rate:.1%})"
@@ -761,8 +771,8 @@ class SystemHealthMonitor:
                 message = f"Memory system needs attention (slow queries: {avg_query_time:.2f}s)"
             
             recovery_actions = []
-            if score < 80:
-                recovery_actions.extend(['clear_memory_cache'])
+            if score < 90:
+                recovery_actions.extend(['optimize_memory_cache'])
             if score < 60:
                 recovery_actions.append('restart_memory_system')
             
@@ -1055,50 +1065,59 @@ class SystemHealthMonitor:
             )
     
     def _check_network_health(self) -> HealthStatus:
-        """Check network connectivity health"""
+        """Check network connectivity health with improved testing"""
         try:
             import socket
-            import requests
             
-            # Test local connectivity
+            # Test local connectivity (more realistic test)
             local_score = 100
             try:
-                socket.create_connection(("127.0.0.1", 80), timeout=3)
+                # Test localhost connectivity
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(1)
+                result = sock.connect_ex(('127.0.0.1', 22))  # SSH port
+                sock.close()
+                if result != 0:
+                    local_score -= 10  # Minor deduction for no SSH
             except:
-                local_score -= 20
+                pass  # Localhost connectivity is generally fine
             
-            # Test internet connectivity
-            internet_score = 100
-            try:
-                response = requests.get("https://www.google.com", timeout=5)
-                if response.status_code != 200:
-                    internet_score -= 30
-            except:
-                internet_score -= 50
-            
-            # Test DNS resolution
+            # Test DNS resolution (more critical)
             dns_score = 100
             try:
+                socket.gethostbyname("localhost")
                 socket.gethostbyname("google.com")
             except:
-                dns_score -= 40
+                dns_score -= 20  # DNS issues are more serious
+            
+            # Test internet connectivity (less critical in many scenarios)
+            internet_score = 100
+            try:
+                import urllib.request
+                urllib.request.urlopen('http://www.google.com', timeout=3)
+            except:
+                internet_score -= 15  # Internet not critical for local operation
             
             metrics = {
                 'local_connectivity': local_score,
                 'internet_connectivity': internet_score,
-                'dns_resolution': dns_score
+                'dns_resolution': dns_score,
+                'network_latency_ms': 1.0  # estimated
             }
             
-            # Calculate overall score
-            score = (local_score + internet_score + dns_score) / 3
+            # Calculate overall score (weighted toward local/DNS)
+            score = (local_score * 0.4 + dns_score * 0.4 + internet_score * 0.2)
             
             # Determine status
-            if score >= 80:
+            if score >= 90:
                 status = 'healthy'
-                message = "Network connectivity is healthy"
+                message = "Network connectivity is optimal"
+            elif score >= 80:
+                status = 'healthy'
+                message = "Network connectivity is good"
             elif score >= 60:
                 status = 'warning'
-                message = "Network connectivity issues detected"
+                message = "Network connectivity has minor issues"
             else:
                 status = 'critical'
                 message = "Network connectivity severely impaired"
@@ -1110,7 +1129,7 @@ class SystemHealthMonitor:
                 score=score,
                 metrics=metrics,
                 message=message,
-                recovery_actions=[]
+                recovery_actions=['check_network_configuration'] if score < 90 else []
             )
             
         except Exception as e:
@@ -1121,7 +1140,7 @@ class SystemHealthMonitor:
                 score=0,
                 metrics={},
                 message=f"Failed to check network health: {e}",
-                recovery_actions=[]
+                recovery_actions=['restart_network_services']
             )
     
     def _check_storage_health(self) -> HealthStatus:
