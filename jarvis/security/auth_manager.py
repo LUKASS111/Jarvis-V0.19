@@ -300,15 +300,55 @@ class AuthenticationManager:
             }
     
     def _verify_mfa_token(self, mfa_secret: str, token: str) -> bool:
-        """Verify MFA token (simplified TOTP implementation)"""
-        # In real implementation, use proper TOTP library like pyotp
-        # For now, simulate MFA verification
-        if not mfa_secret or not token:
+        """Verify MFA token using TOTP (Time-based One-Time Password)"""
+        try:
+            import hmac
+            import struct
+            
+            if not mfa_secret or not token:
+                return False
+            
+            # TOTP implementation based on RFC 6238
+            # Convert secret to bytes
+            if isinstance(mfa_secret, str):
+                secret_bytes = mfa_secret.encode('utf-8')
+            else:
+                secret_bytes = mfa_secret
+            
+            # Get current time window (30-second periods)
+            current_time = int(datetime.now().timestamp() // 30)
+            
+            # Try current window and adjacent windows (clock skew tolerance)
+            for time_window in [current_time - 1, current_time, current_time + 1]:
+                expected_token = self._generate_totp_token(secret_bytes, time_window)
+                if expected_token == token:
+                    return True
+            
             return False
+            
+        except Exception as e:
+            logger.error(f"MFA token verification failed: {e}")
+            return False
+    
+    def _generate_totp_token(self, secret_bytes: bytes, time_window: int) -> str:
+        """Generate TOTP token for given time window"""
+        import hmac
+        import struct
         
-        # Simple time-based verification (demo purposes)
-        current_time = int(datetime.now().timestamp() // 30)  # 30-second window
-        expected_token = str(abs(hash(f"{mfa_secret}{current_time}")) % 1000000).zfill(6)
+        # Convert time window to 8-byte big-endian
+        time_bytes = struct.pack('>Q', time_window)
+        
+        # Generate HMAC-SHA1 hash
+        hmac_hash = hmac.new(secret_bytes, time_bytes, hashlib.sha1).digest()
+        
+        # Dynamic truncation (RFC 4226)
+        offset = hmac_hash[-1] & 0x0f
+        truncated_hash = struct.unpack('>I', hmac_hash[offset:offset + 4])[0]
+        truncated_hash &= 0x7fffffff
+        
+        # Generate 6-digit token
+        token = str(truncated_hash % 1000000).zfill(6)
+        return token
         
         return token == expected_token
     

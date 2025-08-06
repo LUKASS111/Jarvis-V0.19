@@ -7,6 +7,7 @@ import asyncio
 import logging
 import secrets
 import hashlib
+import json
 from typing import Dict, List, Optional, Any, Union, Tuple
 from datetime import datetime, timedelta
 from dataclasses import dataclass
@@ -613,7 +614,6 @@ class EncryptionManager:
             File decryption result
         """
         try:
-            import json
             
             # Read encrypted file
             with open(encrypted_file_path, 'r') as f:

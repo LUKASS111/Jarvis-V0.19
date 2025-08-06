@@ -11,17 +11,25 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 # Import deployment modules
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../'))
-
-from jarvis.deployment import (
-    ProductionDeploymentManager,
-    InfrastructureProvisioner,
-    KubernetesOrchestrator,
-    ProductionConfigManager,
-    ProductionMonitoring
-)
+try:
+    from jarvis.deployment import (
+        ProductionDeploymentManager,
+        InfrastructureProvisioner,
+        KubernetesOrchestrator,
+        ProductionConfigManager,
+        ProductionMonitoring
+    )
+except ImportError:
+    import sys
+    import os
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../'))
+    from jarvis.deployment import (
+        ProductionDeploymentManager,
+        InfrastructureProvisioner,
+        KubernetesOrchestrator,
+        ProductionConfigManager,
+        ProductionMonitoring
+    )
 
 class TestProductionDeploymentManager:
     """Test Production Deployment Manager functionality"""
