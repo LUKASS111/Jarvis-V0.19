@@ -13,6 +13,7 @@ import argparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 VERSION_STRING = "1.0.0"
+AVAILABLE_MODELS = ["llama3:8b", "mistral:7b", "gemma:2b", "phi:latest"]
 
 def main():
     """Modern Jarvis entry point - Comprehensive 9-tab dashboard only"""
@@ -175,6 +176,23 @@ def start_backend_service():
     except Exception as e:
         print(f"[ERROR] Backend startup failed: {e}")
         return 1
+
+def simple_log_to_file(data, filename="logs/jarvis.log"):
+    """Simple file logging function for testing"""
+    import json
+    import os
+    
+    # Ensure log directory exists
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
+    try:
+        with open(filename, 'a') as f:
+            json.dump(data, f)
+            f.write('\n')
+        return True  # Return success indicator
+    except Exception as e:
+        print(f"[WARN] Failed to write log: {e}")
+        return False
 
 if __name__ == "__main__":
     sys.exit(main())

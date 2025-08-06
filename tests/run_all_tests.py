@@ -53,9 +53,42 @@ def clean_test_error_logs():
             with open(error_log, 'w') as f:
                 f.writelines(real_errors)
                 
-            print(f"[CLEANUP] Cleaned error log: {len(lines)} -> {len(real_errors)} entries")
+            print(f"[LOG] Filtered out test errors, kept {len(real_errors)} real errors")
+    
     except Exception as e:
-        print(f"[WARN] Error cleaning logs: {e}")
+        print(f"[WARN] Could not clean test error logs: {e}")
+
+
+def clean_test_output_files():
+    """Clean up excessive test output files to prevent repository bloat."""
+    try:
+        project_root = os.path.dirname(os.path.dirname(__file__))
+        test_output_dir = os.path.join(project_root, "tests", "output", "logs")
+        
+        if os.path.exists(test_output_dir):
+            # Count files before cleanup
+            file_count = len([f for f in os.listdir(test_output_dir) if f.endswith(('.json', '.log'))])
+            
+            # Remove all test log files
+            for filename in os.listdir(test_output_dir):
+                if filename.endswith(('.json', '.log')):
+                    file_path = os.path.join(test_output_dir, filename)
+                    os.remove(file_path)
+            
+            print(f"[CLEANUP] Removed {file_count} test output files")
+        
+        # Also clean up any concurrent_log files in the main logs directory
+        logs_dir = os.path.join(project_root, "logs")
+        if os.path.exists(logs_dir):
+            concurrent_files = [f for f in os.listdir(logs_dir) if f.startswith('concurrent_log')]
+            for filename in concurrent_files:
+                os.remove(os.path.join(logs_dir, filename))
+            if concurrent_files:
+                print(f"[CLEANUP] Removed {len(concurrent_files)} concurrent log files")
+                
+    except Exception as e:
+        print(f"[WARN] Failed to clean test output files: {e}")
+
 
 def run_test_file(test_file, description):
     """Run a specific test file and capture results"""
@@ -409,6 +442,10 @@ def legacy_main():
             
     except Exception as e:
         print(f"[WARN] Could not trigger post-test automation: {e}")
+    
+    # Clean up test output files at the end
+    print(f"\n[CLEANUP] Cleaning up test output files...")
+    clean_test_output_files()
     
     # Return appropriate exit code
     if suite_success_rate >= 80 and total_errors == 0:

@@ -116,19 +116,37 @@ class DataArchiver:
     def _init_database(self):
         """Initialize the SQLite database with required tables"""
         with _archive_lock:
-            # Handle database corruption gracefully
-            try:
-                # Test if database is valid
-                conn = sqlite3.connect(self.db_path)
-                cursor = conn.cursor()
-                cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-                cursor.fetchall()
-            except (sqlite3.DatabaseError, sqlite3.OperationalError) as e:
-                # Database is corrupted, backup and recreate
-                print(f"[WARN] Database corruption detected: {e}")
-                self._handle_corrupted_database()
-                conn = sqlite3.connect(self.db_path)
-                cursor = conn.cursor()
+            # Handle database corruption gracefully with multiple recovery attempts
+            max_attempts = 3
+            for attempt in range(max_attempts):
+                try:
+                    # Test if database is valid
+                    conn = sqlite3.connect(self.db_path)
+                    conn.execute("PRAGMA integrity_check")  # More thorough check
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+                    cursor.fetchall()
+                    break  # Database is valid, exit retry loop
+                    
+                except (sqlite3.DatabaseError, sqlite3.OperationalError) as e:
+                    print(f"[WARN] Database corruption detected (attempt {attempt + 1}/{max_attempts}): {e}")
+                    
+                    if attempt < max_attempts - 1:
+                        # Backup and recreate
+                        self._handle_corrupted_database()
+                        try:
+                            conn = sqlite3.connect(self.db_path)
+                            cursor = conn.cursor()
+                        except Exception as recreate_error:
+                            print(f"[ERROR] Failed to recreate database: {recreate_error}")
+                            continue
+                    else:
+                        # Final attempt failed, create in memory as fallback
+                        print(f"[WARN] Creating in-memory database as fallback")
+                        self.db_path = ":memory:"
+                        conn = sqlite3.connect(self.db_path)
+                        cursor = conn.cursor()
+                        break
             
             try:
                 # Main archive table
@@ -210,17 +228,26 @@ class DataArchiver:
                 raise
     
     def _handle_corrupted_database(self):
-        """Handle corrupted database by backing up and recreating"""
+        """Handle corrupted database by backing up and recreating with enhanced recovery"""
         try:
             # Create backup of corrupted file
             backup_path = f"{self.db_path}.corrupted.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             if os.path.exists(self.db_path):
+                # Try to create backup directory
+                backup_dir = os.path.join(os.path.dirname(self.db_path), "backups")
+                os.makedirs(backup_dir, exist_ok=True)
+                
+                # Move to backup directory
+                backup_path = os.path.join(backup_dir, f"corrupted_archive_{datetime.now().strftime('%Y%m%d_%H%M%S')}.db")
                 os.rename(self.db_path, backup_path)
                 print(f"[DB] Corrupted database backed up to: {backup_path}")
             
-            # Remove the file to force recreation
+            # Remove any remaining corrupted file
             if os.path.exists(self.db_path):
                 os.remove(self.db_path)
+            
+            # Ensure directory exists for new database
+            os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
                 
         except Exception as e:
             print(f"[WARN] Could not backup corrupted database: {e}")
@@ -228,8 +255,13 @@ class DataArchiver:
             try:
                 if os.path.exists(self.db_path):
                     os.remove(self.db_path)
-            except:
-                pass
+                # Ensure parent directory exists
+                os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
+            except Exception as cleanup_error:
+                print(f"[ERROR] Failed to clean corrupted database: {cleanup_error}")
+                # As last resort, use a temporary file
+                import tempfile
+                self.db_path = os.path.join(tempfile.gettempdir(), "jarvis_archive_fallback.db")
 
     def _calculate_content_hash(self, content: str) -> str:
         """Calculate SHA-256 hash of content for deduplication"""
