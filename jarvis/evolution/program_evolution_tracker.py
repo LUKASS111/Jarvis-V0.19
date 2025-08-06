@@ -13,22 +13,33 @@ from typing import Dict, Any, List, Optional, Tuple
 from dataclasses import dataclass, asdict
 from pathlib import Path
 import logging
-import structlog
 
-# Configure structured logging
-structlog.configure(
-    processors=[
-        structlog.stdlib.filter_by_level,
-        structlog.stdlib.add_logger_name,
-        structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
-        structlog.processors.JSONRenderer()
-    ],
-    context_class=dict,
-    logger_factory=structlog.stdlib.LoggerFactory(),
-    wrapper_class=structlog.stdlib.BoundLogger,
-    cache_logger_on_first_use=True,
-)
+# Handle structlog dependency gracefully
+try:
+    import structlog
+    STRUCTLOG_AVAILABLE = True
+    
+    # Configure structured logging
+    structlog.configure(
+        processors=[
+            structlog.stdlib.filter_by_level,
+            structlog.stdlib.add_logger_name,
+            structlog.stdlib.add_log_level,
+            structlog.stdlib.PositionalArgumentsFormatter(),
+            structlog.processors.JSONRenderer()
+        ],
+        context_class=dict,
+        logger_factory=structlog.stdlib.LoggerFactory(),
+        cache_logger_on_first_use=True,
+    )
+except ImportError:
+    STRUCTLOG_AVAILABLE = False
+    # Create a mock structlog for fallback
+    class MockStructLog:
+        def get_logger(self, name):
+            return logging.getLogger(name)
+    
+    structlog = MockStructLog()
 
 @dataclass
 class EvolutionMetric:

@@ -6,7 +6,61 @@ Professional logging with structured data, performance metrics, and integration 
 import json
 import time
 import logging
-import structlog
+from contextlib import contextmanager
+# Handle structlog dependency gracefully
+try:
+    import structlog
+    STRUCTLOG_AVAILABLE = True
+except ImportError:
+    STRUCTLOG_AVAILABLE = False
+    # Create a mock structlog for fallback
+    class MockStructLog:
+        def get_logger(self, name):
+            return logging.getLogger(name)
+        
+        class stdlib:
+            class ProcessorFormatter:
+                def __init__(self, *args, **kwargs):
+                    pass
+            
+            @staticmethod
+            def filter_by_level(*args):
+                return str
+            @staticmethod
+            def add_logger_name(*args):
+                return str
+            @staticmethod
+            def add_log_level(*args):
+                return str
+            
+            class PositionalArgumentsFormatter:
+                pass
+            
+            class LoggerFactory:
+                pass
+            
+            class BoundLogger:
+                pass
+        
+        class processors:
+            class TimeStamper:
+                def __init__(self, fmt=None):
+                    pass
+            
+            @staticmethod
+            def JSONRenderer():
+                return str
+        
+        class dev:
+            class ConsoleRenderer:
+                def __init__(self, colors=True):
+                    pass
+        
+        @staticmethod
+        def configure(*args, **kwargs):
+            pass
+    
+    structlog = MockStructLog()
 import sys
 import os
 import threading
@@ -224,11 +278,48 @@ class EnhancedLogger:
         start_time = time.time()
         start_memory = psutil.Process().memory_info().rss / 1024 / 1024 if psutil else 256.0
         
-        operation_logger = self.logger.bind(
-            operation=operation_name,
-            start_time=start_time,
-            **context
-        )
+        if STRUCTLOG_AVAILABLE:
+            operation_logger = self.logger.bind(
+                operation=operation_name,
+                start_time=start_time,
+                **context
+            )
+        else:
+            # For regular logging, create a wrapper that formats messages
+            class OperationLogger:
+                def __init__(self, logger, operation_name, context):
+                    self.logger = logger
+                    self.operation_name = operation_name
+                    self.context = context
+                
+                def info(self, message, **kwargs):
+                    all_context = {**self.context, **kwargs}
+                    if all_context:
+                        formatted_context = ', '.join(f"{k}={v}" for k, v in all_context.items())
+                        message = f"[{self.operation_name}] {message} [{formatted_context}]"
+                    else:
+                        message = f"[{self.operation_name}] {message}"
+                    self.logger.info(message)
+                
+                def warning(self, message, **kwargs):
+                    all_context = {**self.context, **kwargs}
+                    if all_context:
+                        formatted_context = ', '.join(f"{k}={v}" for k, v in all_context.items())
+                        message = f"[{self.operation_name}] {message} [{formatted_context}]"
+                    else:
+                        message = f"[{self.operation_name}] {message}"
+                    self.logger.warning(message)
+                
+                def error(self, message, **kwargs):
+                    all_context = {**self.context, **kwargs}
+                    if all_context:
+                        formatted_context = ', '.join(f"{k}={v}" for k, v in all_context.items())
+                        message = f"[{self.operation_name}] {message} [{formatted_context}]"
+                    else:
+                        message = f"[{self.operation_name}] {message}"
+                    self.logger.error(message)
+            
+            operation_logger = OperationLogger(self.logger, operation_name, context)
         
         try:
             operation_logger.info("Operation started", operation=operation_name)
@@ -280,17 +371,39 @@ class EnhancedLogger:
     
     def info(self, message: str, **kwargs):
         """Log info message with enhancement"""
-        self.logger.info(message, **kwargs)
+        if STRUCTLOG_AVAILABLE:
+            self.logger.info(message, **kwargs)
+        else:
+            # For regular logging, format kwargs into message
+            if kwargs:
+                formatted_kwargs = ', '.join(f"{k}={v}" for k, v in kwargs.items())
+                message = f"{message} [{formatted_kwargs}]"
+            self.logger.info(message)
         self.aggregator.add_entry('INFO', self.name, message, kwargs)
     
     def warning(self, message: str, **kwargs):
         """Log warning message with enhancement"""
-        self.logger.warning(message, **kwargs)
+        if STRUCTLOG_AVAILABLE:
+            self.logger.warning(message, **kwargs)
+        else:
+            # For regular logging, format kwargs into message
+            if kwargs:
+                formatted_kwargs = ', '.join(f"{k}={v}" for k, v in kwargs.items())
+                message = f"{message} [{formatted_kwargs}]"
+            self.logger.warning(message)
         self.aggregator.add_entry('WARNING', self.name, message, kwargs)
     
     def error(self, message: str, **kwargs):
         """Log error message with enhancement"""
-        self.logger.error(message, **kwargs)
+        if STRUCTLOG_AVAILABLE:
+            self.logger.error(message, **kwargs)
+        else:
+            # For regular logging, format kwargs into message
+            if kwargs:
+                formatted_kwargs = ', '.join(f"{k}={v}" for k, v in kwargs.items())
+                message = f"{message} [{formatted_kwargs}]"
+            self.logger.error(message)
+        self.aggregator.add_entry('ERROR', self.name, message, kwargs)
         self.aggregator.add_entry('ERROR', self.name, message, kwargs)
         
         # Track error in evolution system

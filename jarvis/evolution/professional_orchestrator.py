@@ -17,13 +17,23 @@ from .enhanced_logging import get_enhanced_logger, get_all_loggers_report
 from .functional_data_manager import get_functional_data_validator, get_functional_data_updater
 
 class ProfessionalEvolutionOrchestrator:
-    """Master orchestrator for professional program evolution"""
+    """
+    Master orchestrator for professional program evolution
+    
+    SAFETY NOTICE: This orchestrator now includes safety checks to prevent
+    autonomous system modifications without explicit user consent.
+    """
     
     def __init__(self):
         self.logger = get_enhanced_logger('evolution_orchestrator')
         self.evolution_tracker = get_evolution_tracker()
         self.data_validator = get_functional_data_validator()
         self.data_updater = get_functional_data_updater()
+        
+        # Safety controls
+        self.autonomous_mode_enabled = False  # DISABLED by default for safety
+        self.require_user_confirmation = True  # ENABLED by default for safety
+        self.safe_mode = True  # ENABLED by default - prevents file modifications
         
         # Current evolution state
         self.current_session_id: Optional[str] = None
@@ -40,7 +50,53 @@ class ProfessionalEvolutionOrchestrator:
             'validation_final': {'completed': False, 'start_time': None, 'duration': 0}
         }
         
-        self.logger.info("Professional Evolution Orchestrator initialized")
+        self.logger.info("Professional Evolution Orchestrator initialized with safety controls", 
+                        safe_mode=self.safe_mode, 
+                        autonomous_mode=self.autonomous_mode_enabled)
+    
+    def enable_autonomous_mode(self, user_confirmation: bool = False):
+        """
+        Enable autonomous mode with explicit user confirmation
+        
+        WARNING: This allows the system to make file modifications automatically.
+        Only enable this if you understand the risks.
+        """
+        if not user_confirmation:
+            self.logger.warning("Autonomous mode requires explicit user confirmation")
+            return False
+            
+        self.autonomous_mode_enabled = True
+        self.require_user_confirmation = False
+        self.safe_mode = False
+        
+        self.logger.warning("AUTONOMOUS MODE ENABLED - System can now modify files automatically")
+        return True
+    
+    def disable_safe_mode(self, reason: str = ""):
+        """
+        Disable safe mode (allows file modifications)
+        
+        This should only be used for maintenance operations with user oversight.
+        """
+        if not reason:
+            self.logger.error("Safe mode disable requires a reason")
+            return False
+            
+        self.safe_mode = False
+        self.logger.warning("SAFE MODE DISABLED", reason=reason)
+        return True
+    
+    def _check_safety_permissions(self, operation: str) -> bool:
+        """Check if operation is allowed based on safety settings"""
+        if self.safe_mode and operation in ['file_modification', 'database_update', 'system_change']:
+            self.logger.warning("Operation blocked by safe mode", operation=operation)
+            return False
+            
+        if self.require_user_confirmation and not self.autonomous_mode_enabled:
+            self.logger.info("Operation requires user confirmation", operation=operation)
+            return False
+            
+        return True
     
     def start_evolution_cycle(self, objectives: List[str]) -> str:
         """Start a complete evolution cycle"""
@@ -269,6 +325,16 @@ class ProfessionalEvolutionOrchestrator:
                 
                 for db_file in data_root.glob('*.db'):
                     try:
+                        # SAFETY CHECK: Verify database optimization is allowed
+                        if not self._check_safety_permissions('database_update'):
+                            optimized_dbs.append({
+                                'database': db_file.name,
+                                'success': False,
+                                'error': 'Database optimization blocked by safety controls',
+                                'safety_notice': 'Enable autonomous mode or disable safe mode to allow database modifications'
+                            })
+                            continue
+                            
                         optimization_result = self.data_updater.optimize_database(str(db_file))
                         optimized_dbs.append({
                             'database': db_file.name,
@@ -379,7 +445,23 @@ class ProfessionalEvolutionOrchestrator:
                 return results
     
     def execute_full_evolution_cycle(self, objectives: List[str] = None) -> Dict[str, Any]:
-        """Execute a complete evolution cycle"""
+        """
+        Execute a complete evolution cycle with safety controls
+        
+        SAFETY NOTICE: This method now includes safety checks to prevent
+        autonomous system modifications without explicit user consent.
+        """
+        # SAFETY CHECK: Prevent autonomous execution
+        if not self._check_safety_permissions('system_change'):
+            return {
+                'success': False,
+                'error': 'Evolution cycle blocked by safety controls',
+                'safety_notice': 'Autonomous evolution disabled for safety. Use intelligent monitoring instead.',
+                'recommendation': 'Use run_intelligent_monitoring_demo.py for safe system analysis',
+                'autonomous_mode_enabled': self.autonomous_mode_enabled,
+                'safe_mode': self.safe_mode
+            }
+        
         if objectives is None:
             objectives = [
                 "System initialization and baseline validation",
