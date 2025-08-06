@@ -93,11 +93,20 @@ class ChromaDBManager:
             # Create embedding function
             embedding_function = self._create_embedding_function(provider)
             
+            # Ensure metadata has required fields for ChromaDB
+            collection_metadata = metadata or {}
+            if not collection_metadata:
+                collection_metadata = {
+                    "created_at": datetime.now().isoformat(),
+                    "description": f"Collection {name}",
+                    "version": "1.0"
+                }
+            
             # Create collection
             collection = client.create_collection(
                 name=name,
                 embedding_function=embedding_function,
-                metadata=metadata or {}
+                metadata=collection_metadata
             )
             
             # Cache collection and provider
@@ -338,12 +347,12 @@ class ChromaDBManager:
             def __init__(self, embedding_provider):
                 self.provider = embedding_provider
             
-            def __call__(self, input_texts):
-                """Generate embeddings for input texts"""
-                if isinstance(input_texts, str):
-                    input_texts = [input_texts]
+            def __call__(self, input):
+                """Generate embeddings for input texts (ChromaDB v1.0+ interface)"""
+                if isinstance(input, str):
+                    input = [input]
                 
-                results = self.provider.embed_batch(input_texts)
+                results = self.provider.embed_batch(input)
                 return [result.embedding for result in results]
         
         return ProviderEmbeddingFunction(provider)
