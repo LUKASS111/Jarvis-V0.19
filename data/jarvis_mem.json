@@ -2,7 +2,7 @@
   "integration_test": "successful",
   "user_name": "Alice",
   "test_data_flow": "working",
-  "test": "production system",
+  "test": "functional_test",
   "recovery_test": "successful",
   "project_name": "Advanced_AI_System",
   "version": "2.1.3",

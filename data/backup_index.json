@@ -3422,5 +3422,21 @@
     "checksum": "1e2fbfe957da364f6cd1f1b36ba1b3a98b560a5d587892e439ce286e248206d5",
     "description": "Dashboard test backup",
     "created_by": "user"
+  },
+  "backup_20250806_054740_daily": {
+    "backup_id": "backup_20250806_054740_daily",
+    "timestamp": "2025-08-06T05:47:40.890037",
+    "backup_type": "daily",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/daily/backup_20250806_054740_daily.tar.gz",
+    "size_bytes": 6752494,
+    "checksum": "36ac70de6f2624dfb942e2da75c9243bcecd1347d25713fbf81417ede9e9b565",
+    "description": "Automated daily backup",
+    "created_by": "scheduler"
   }
 }
