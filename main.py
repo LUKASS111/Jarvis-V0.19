@@ -8,6 +8,7 @@ Supports CLI, GUI, and backend service modes with enterprise features.
 import sys
 import os
 import argparse
+import time
 
 # Add the current directory to the Python path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -16,80 +17,57 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 VERSION_STRING = "1.0.0"
 AVAILABLE_MODELS = ["llama3:8b", "codellama:13b", "llama3:70b", "auto"]
 
-# Production imports
-try:
-    from jarvis.backend import get_jarvis_backend, shutdown_jarvis_backend
-    from jarvis.interfaces.production_cli import ProductionCLI
-    from jarvis.api.api_router import quick_chat, quick_remember, quick_recall
-    PRODUCTION_BACKEND_AVAILABLE = True
-except ImportError as e:
-    print(f"[WARN] Production backend not available: {e}")
-    PRODUCTION_BACKEND_AVAILABLE = False
-    # Fallback to legacy system
-    from jarvis.core.main import (
-        main as legacy_main_cli, 
-        simple_llm_process,
-        simple_log_to_file,
-        process_interactive_input
-    )
+# Production imports - Required for modern system
+from jarvis.backend import get_jarvis_backend, shutdown_jarvis_backend
+from jarvis.interfaces.production_cli import ProductionCLI
+from jarvis.api.api_router import quick_chat, quick_remember, quick_recall
 
-# Expose functions for backward compatibility
+# Modern production functions for backward compatibility
 def simple_llm_process(prompt: str) -> dict:
-    """Backward compatible LLM processing"""
-    if PRODUCTION_BACKEND_AVAILABLE:
-        try:
-            response = quick_chat(prompt)
-            return {
-                "prompt": prompt,
-                "response": response,
-                "timestamp": time.time(),
-                "production": True
-            }
-        except:
-            pass
-    
-    # Fallback to legacy
+    """Modern LLM processing using production backend"""
     try:
-        from jarvis.core.main import simple_llm_process as legacy_llm
-        return legacy_llm(prompt)
-    except:
+        response = quick_chat(prompt)
         return {
             "prompt": prompt,
-            "response": "System not available",
+            "response": response,
+            "timestamp": time.time(),
+            "production": True
+        }
+    except Exception as e:
+        return {
+            "prompt": prompt,
+            "response": f"System error: {e}",
             "timestamp": time.time(),
             "error": True
         }
 
 def simple_log_to_file(log_data, log_file="session_log.json"):
-    """Backward compatible logging"""
+    """Modern logging using production backend"""
     try:
-        from jarvis.core.main import simple_log_to_file as legacy_log
-        return legacy_log(log_data, log_file)
-    except:
+        backend = get_jarvis_backend()
+        # Use production memory system for logging
+        return backend.memory.store_memory(
+            content=str(log_data),
+            memory_type="log",
+            metadata={"log_file": log_file}
+        )
+    except Exception:
         return None
 
 def process_interactive_input(user_input: str) -> dict:
-    """Backward compatible input processing"""
-    if PRODUCTION_BACKEND_AVAILABLE:
-        try:
-            response = quick_chat(user_input)
-            return {
-                "input": user_input,
-                "response": response,
-                "timestamp": time.time(),
-                "production": True
-            }
-        except:
-            pass
-    
-    # Fallback to legacy
+    """Modern input processing using production backend"""
     try:
-        from jarvis.core.main import process_interactive_input as legacy_input
-        return legacy_input(user_input)
-    except:
+        response = quick_chat(user_input)
         return {
             "input": user_input,
-            "response": "System not available",
+            "response": response,
+            "timestamp": time.time(),
+            "production": True
+        }
+    except Exception as e:
+        return {
+            "input": user_input,
+            "response": f"System error: {e}",
             "timestamp": time.time(),
             "error": True
         }
@@ -108,45 +86,20 @@ def run_startup_initialization():
     """Run startup initialization for production system"""
     print("[STARTUP] Initializing Jarvis v1.0 production system...")
     
-    if PRODUCTION_BACKEND_AVAILABLE:
-        try:
-            # Initialize production backend
-            backend = get_jarvis_backend()
-            status = backend.get_system_status()
-            
-            print(f"[STARTUP] Production backend initialized")
-            print(f"[STARTUP] System health: {status.get('system_metrics', {}).get('health_score', 'unknown')}")
-            print(f"[STARTUP] Available subsystems: {len(status.get('subsystems', {}))}")
-            
-            return True
-        except Exception as e:
-            print(f"[WARN] Production backend initialization failed: {e}")
-            print("[WARN] Falling back to legacy system")
-    
-    # Fallback to legacy initialization
     try:
-        from jarvis.core.archive_purge_manager import auto_purge_startup, get_archive_health
+        # Initialize production backend
+        backend = get_jarvis_backend()
+        status = backend.get_system_status()
         
-        purge_result = auto_purge_startup()
-        
-        if purge_result:
-            summary = purge_result.get('summary', {})
-            entries_removed = summary.get('entries_removed', 0)
-            
-            if entries_removed > 0:
-                print(f"[PURGE] Legacy cleanup: {entries_removed} old entries removed")
-            else:
-                print("[PURGE] Archive is clean")
-        
-        # Show archive health
-        health = get_archive_health()
-        print(f"[ARCHIVE] Health: {health['health_score']}/100, Size: {health['archive_size_mb']}MB")
+        print(f"[STARTUP] Production backend initialized")
+        print(f"[STARTUP] System health: {status.get('system_metrics', {}).get('health_score', 'unknown')}")
+        print(f"[STARTUP] Available subsystems: {len(status.get('subsystems', {}))}")
         
         return True
-        
     except Exception as e:
-        print(f"[WARN] Legacy system initialization failed: {e}")
-        return False
+        print(f"[FAIL] Production backend initialization failed: {e}")
+        print("[FAIL] Cannot start system without production backend")
+        raise
 
 def main_gui():
     """Start the GUI application"""
@@ -166,33 +119,28 @@ def main_gui():
             print("[INFO] Falling back to CLI mode...")
             return main_cli()
         
-        if PRODUCTION_BACKEND_AVAILABLE:
-            # Try comprehensive dashboard first
-            try:
-                from gui.enhanced.comprehensive_dashboard import launch_comprehensive_dashboard
-                print("[GUI] Launching Comprehensive Professional Dashboard with 9 tabs...")
-                result = launch_comprehensive_dashboard()
-                if result is not False:  # Success or app closed normally
-                    return 0
-                else:
-                    print("[WARN] Comprehensive dashboard failed to initialize")
-            except ImportError as e:
-                print(f"[WARN] Comprehensive dashboard not available: {e}")
-            except Exception as e:
-                print(f"[WARN] Comprehensive dashboard error: {e}")
-            
-            # Fallback to production GUI
-            try:
-                from jarvis.interfaces.production_gui import main as production_gui_main
-                print("[GUI] Starting Production GUI interface...")
-                return production_gui_main()
-            except ImportError as e:
-                print(f"[WARN] Production GUI not available: {e}")
+        # Try comprehensive dashboard first (Primary interface)
+        try:
+            from gui.enhanced.comprehensive_dashboard import launch_comprehensive_dashboard
+            print("[GUI] Launching Comprehensive Professional Dashboard with 9 tabs...")
+            result = launch_comprehensive_dashboard()
+            if result is not False:  # Success or app closed normally
+                return 0
+            else:
+                print("[WARN] Comprehensive dashboard failed to initialize")
+        except ImportError as e:
+            print(f"[WARN] Comprehensive dashboard not available: {e}")
+        except Exception as e:
+            print(f"[WARN] Comprehensive dashboard error: {e}")
         
-        # Fallback to archived legacy GUI
-        from archive.legacy_code.legacy_gui import main as legacy_gui_main
-        print("[GUI] Starting Archived Legacy GUI interface...")
-        return legacy_gui_main()
+        # Fallback to production GUI
+        try:
+            from jarvis.interfaces.production_gui import main as production_gui_main
+            print("[GUI] Starting Production GUI interface...")
+            return production_gui_main()
+        except ImportError as e:
+            print(f"[FAIL] Production GUI not available: {e}")
+            raise
         
     except ImportError as e:
         print(f"[FAIL] Cannot start GUI: {e}")
@@ -211,17 +159,11 @@ def main_cli():
     run_startup_initialization()
     
     try:
-        if PRODUCTION_BACKEND_AVAILABLE:
-            # Use production CLI
-            print("[CLI] Starting Production CLI interface...")
-            cli = ProductionCLI()
-            cli.run()
-            return 0
-        else:
-            # Fallback to legacy CLI
-            print("[CLI] Starting Legacy CLI interface...")
-            from jarvis.core.main import main as legacy_main
-            return legacy_main(skip_startup_init=True)
+        # Use production CLI
+        print("[CLI] Starting Production CLI interface...")
+        cli = ProductionCLI()
+        cli.run()
+        return 0
             
     except Exception as e:
         print(f"[FAIL] CLI startup error: {e}")
@@ -231,10 +173,6 @@ def main_backend():
     """Start backend service mode"""
     print(f"[LAUNCH] Jarvis {VERSION_STRING} - Backend Service Mode")
     print("=" * 60)
-    
-    if not PRODUCTION_BACKEND_AVAILABLE:
-        print("[FAIL] Production backend not available")
-        return 1
     
     try:
         # Initialize and run backend service
@@ -300,8 +238,6 @@ def detect_environment():
 
 def main():
     """Unified main entry point for Jarvis AI Assistant v1.0"""
-    # Handle global variable properly
-    global PRODUCTION_BACKEND_AVAILABLE
     
     parser = argparse.ArgumentParser(
         description='Jarvis AI Assistant v1.0 - Production System',
@@ -327,10 +263,6 @@ Examples:
                        help='Show version information and exit')
     parser.add_argument('--status', action='store_true',
                        help='Show system status and exit')
-    parser.add_argument('--production', action='store_true',
-                       help='Force production mode (default)')
-    parser.add_argument('--legacy', action='store_true',
-                       help='Force legacy mode')
     
     args = parser.parse_args()
     
@@ -338,49 +270,34 @@ Examples:
     if args.version:
         print(f"Jarvis AI Assistant {VERSION_STRING}")
         print(f"Available models: {', '.join(AVAILABLE_MODELS)}")
-        if PRODUCTION_BACKEND_AVAILABLE:
-            print("Production backend: Available")
-        else:
-            print("Production backend: Not available (using legacy)")
+        print("Production backend: Available")
         return 0
     
     # Handle status request
     if args.status:
-        if PRODUCTION_BACKEND_AVAILABLE and not args.legacy:
-            try:
-                run_startup_initialization()
-                backend = get_jarvis_backend()
-                status = backend.get_system_status()
-                
-                print("JARVIS SYSTEM STATUS")
-                print("=" * 40)
-                print(f"Version: {VERSION_STRING}")
-                print(f"Mode: Production")
-                print(f"Service ID: {status['service']['id'][:8]}")
-                print(f"Uptime: {status['service']['uptime']:.1f}s")
-                print(f"Health Score: {status.get('system_metrics', {}).get('health_score', 'unknown')}")
-                
-                subsystems = status.get('subsystems', {})
-                print(f"Memory entries: {subsystems.get('memory', {}).get('total_memories', 0)}")
-                print(f"Active sessions: {status.get('sessions', {}).get('active', 0)}")
-                print(f"Total requests: {status.get('requests', {}).get('total', 0)}")
-                
-                shutdown_jarvis_backend()
-                return 0
-            except Exception as e:
-                print(f"Status check failed: {e}")
-                return 1
-        else:
+        try:
+            run_startup_initialization()
+            backend = get_jarvis_backend()
+            status = backend.get_system_status()
+            
             print("JARVIS SYSTEM STATUS")
             print("=" * 40)
             print(f"Version: {VERSION_STRING}")
-            print(f"Mode: Legacy")
-            print("Production backend: Not available")
+            print(f"Mode: Production")
+            print(f"Service ID: {status['service']['id'][:8]}")
+            print(f"Uptime: {status['service']['uptime']:.1f}s")
+            print(f"Health Score: {status.get('system_metrics', {}).get('health_score', 'unknown')}")
+            
+            subsystems = status.get('subsystems', {})
+            print(f"Memory entries: {subsystems.get('memory', {}).get('total_memories', 0)}")
+            print(f"Active sessions: {status.get('sessions', {}).get('active', 0)}")
+            print(f"Total requests: {status.get('requests', {}).get('total', 0)}")
+            
+            shutdown_jarvis_backend()
             return 0
-    
-    # Force legacy mode if requested
-    if args.legacy:
-        PRODUCTION_BACKEND_AVAILABLE = False
+        except Exception as e:
+            print(f"Status check failed: {e}")
+            return 1
     
     # Determine mode
     exclusive_modes = [args.gui, args.cli, args.backend]
@@ -399,10 +316,7 @@ Examples:
     
     # Show system information
     print(f"[SYSTEM] Jarvis v{VERSION_STRING}")
-    if PRODUCTION_BACKEND_AVAILABLE and not args.legacy:
-        print("[SYSTEM] Production system active")
-    else:
-        print("[SYSTEM] Legacy system active")
+    print("[SYSTEM] Production system active")
     
     # Run appropriate mode
     try:
@@ -414,12 +328,10 @@ Examples:
             return main_cli()
     finally:
         # Ensure cleanup
-        if PRODUCTION_BACKEND_AVAILABLE:
-            try:
-                shutdown_jarvis_backend()
-            except:
-                pass
+        try:
+            shutdown_jarvis_backend()
+        except:
+            pass
 
 if __name__ == "__main__":
-    import time
     sys.exit(main())
