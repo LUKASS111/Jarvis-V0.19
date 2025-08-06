@@ -497,7 +497,7 @@ class SystemHealthMonitor:
         
         # Initialize subsystems
         self.database = HealthDatabase()
-        self.alerting = HealthAlertSystem(config.get('alerts', {}))
+        self.alerting = HealthAlertSystem(self.config.get('alerts', {}))
         self.recovery = HealthRecoverySystem()
         
         # Health status storage

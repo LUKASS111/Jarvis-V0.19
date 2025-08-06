@@ -17,8 +17,50 @@ from enum import Enum
 import statistics
 import math
 from collections import defaultdict, deque
-import numpy as np
 import concurrent.futures
+
+# Numpy fallback for statistical operations
+try:
+    import numpy as np
+    NUMPY_AVAILABLE = True
+except ImportError:
+    NUMPY_AVAILABLE = False
+    # Fallback implementation for numpy functions
+    class NumpyFallback:
+        @staticmethod
+        def percentile(data, percentiles):
+            """Calculate percentiles without numpy"""
+            if not data:
+                return [0.0] * len(percentiles)
+            sorted_data = sorted(data)
+            n = len(sorted_data)
+            results = []
+            for p in percentiles:
+                if p == 0:
+                    results.append(sorted_data[0])
+                elif p == 100:
+                    results.append(sorted_data[-1])
+                else:
+                    idx = (p / 100.0) * (n - 1)
+                    lower_idx = int(idx)
+                    upper_idx = min(lower_idx + 1, n - 1)
+                    if lower_idx == upper_idx:
+                        results.append(sorted_data[lower_idx])
+                    else:
+                        weight = idx - lower_idx
+                        value = sorted_data[lower_idx] * (1 - weight) + sorted_data[upper_idx] * weight
+                        results.append(value)
+            return results
+        
+        @staticmethod
+        def mean(data):
+            return statistics.mean(data) if data else 0.0
+        
+        @staticmethod
+        def std(data):
+            return statistics.stdev(data) if len(data) > 1 else 0.0
+    
+    np = NumpyFallback()
 
 
 class MetricType(Enum):
