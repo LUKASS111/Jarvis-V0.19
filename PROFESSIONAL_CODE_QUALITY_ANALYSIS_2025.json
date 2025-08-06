@@ -1,0 +1,439 @@
+{
+  "analysis_timestamp": "2025-08-06T14:21:22.598044",
+  "project_overview": {
+    "total_files_analyzed": 20,
+    "architecture_score": 100.0,
+    "average_complexity": 27.1,
+    "average_maintainability": 60.629999999999995,
+    "total_issues_found": 19
+  },
+  "structure_analysis": {
+    "total_files": 11945,
+    "python_files": 167,
+    "test_files": 832,
+    "documentation_files": 75,
+    "configuration_files": 10548,
+    "modules": {
+      "deployment_cli.py": {
+        "files": 1,
+        "size": 12416
+      },
+      "validate_vector_database.py": {
+        "files": 1,
+        "size": 16288
+      },
+      "system_efficiency_optimizer.py": {
+        "files": 1,
+        "size": 7277
+      },
+      "professional_enhancement_engine.py": {
+        "files": 1,
+        "size": 10270
+      },
+      "run_evolution_demo.py": {
+        "files": 1,
+        "size": 7620
+      },
+      "system_dashboard.py": {
+        "files": 1,
+        "size": 15825
+      },
+      "agent_launcher.py": {
+        "files": 1,
+        "size": 12107
+      },
+      "professional_code_analyzer.py": {
+        "files": 1,
+        "size": 21321
+      },
+      "run_intelligent_monitoring_demo.py": {
+        "files": 1,
+        "size": 11282
+      },
+      "run_tests.py": {
+        "files": 1,
+        "size": 415
+      },
+      "archive_purge_cli.py": {
+        "files": 1,
+        "size": 12219
+      },
+      "validate_architecture.py": {
+        "files": 1,
+        "size": 4010
+      },
+      "main.py": {
+        "files": 1,
+        "size": 13526
+      },
+      "demo_modern_ai_technologies.py": {
+        "files": 1,
+        "size": 20033
+      },
+      "start_gui.py": {
+        "files": 1,
+        "size": 412
+      },
+      "examples": {
+        "files": 1,
+        "size": 7045
+      },
+      "jarvis": {
+        "files": 95,
+        "size": 1631953
+      },
+      "legacy": {
+        "files": 1,
+        "size": 17637
+      },
+      "gui": {
+        "files": 1,
+        "size": 44
+      },
+      "tests": {
+        "files": 42,
+        "size": 641176
+      },
+      "scripts": {
+        "files": 12,
+        "size": 148287
+      }
+    },
+    "architecture_score": 100.0
+  },
+  "quality_metrics": [
+    {
+      "file_path": "deployment_cli.py",
+      "lines_of_code": 246,
+      "complexity_score": 31.0,
+      "maintainability_index": 52.3,
+      "duplication_percentage": 4.104477611940299,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions"
+      ]
+    },
+    {
+      "file_path": "validate_vector_database.py",
+      "lines_of_code": 321,
+      "complexity_score": 31.0,
+      "maintainability_index": 47.5,
+      "duplication_percentage": 10.526315789473683,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "3 functions are too long (>50 lines)"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance"
+      ]
+    },
+    {
+      "file_path": "system_efficiency_optimizer.py",
+      "lines_of_code": 138,
+      "complexity_score": 17.0,
+      "maintainability_index": 74.35,
+      "duplication_percentage": 0.6493506493506493,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)",
+        "Contains time.sleep() - consider async alternatives"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance",
+        "Use specific exception types instead of bare except",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "professional_enhancement_engine.py",
+      "lines_of_code": 197,
+      "complexity_score": 17.0,
+      "maintainability_index": 69.65,
+      "duplication_percentage": 0.9345794392523363,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions"
+      ]
+    },
+    {
+      "file_path": "run_evolution_demo.py",
+      "lines_of_code": 122,
+      "complexity_score": 19.0,
+      "maintainability_index": 72.6,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "system_dashboard.py",
+      "lines_of_code": 328,
+      "complexity_score": 49.0,
+      "maintainability_index": 29.7,
+      "duplication_percentage": 9.91501416430595,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "3 functions are too long (>50 lines)",
+        "Many imports - consider organizing and grouping"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "agent_launcher.py",
+      "lines_of_code": 250,
+      "complexity_score": 51.0,
+      "maintainability_index": 34.1,
+      "duplication_percentage": 6.870229007633588,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)",
+        "Contains time.sleep() - consider async alternatives"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "professional_code_analyzer.py",
+      "lines_of_code": 386,
+      "complexity_score": 67.0,
+      "maintainability_index": 23.65,
+      "duplication_percentage": 2.0785219399538106,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "3 functions are too long (>50 lines)",
+        "Contains time.sleep() - consider async alternatives"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance",
+        "Use specific exception types instead of bare except"
+      ]
+    },
+    {
+      "file_path": "run_intelligent_monitoring_demo.py",
+      "lines_of_code": 161,
+      "complexity_score": 30.0,
+      "maintainability_index": 58.95,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "run_tests.py",
+      "lines_of_code": 10,
+      "complexity_score": 2.0,
+      "maintainability_index": 97.15,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": []
+    },
+    {
+      "file_path": "archive_purge_cli.py",
+      "lines_of_code": 266,
+      "complexity_score": 47.0,
+      "maintainability_index": 35.65,
+      "duplication_percentage": 8.333333333333332,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "validate_architecture.py",
+      "lines_of_code": 92,
+      "complexity_score": 9.0,
+      "maintainability_index": 84.75,
+      "duplication_percentage": 6.122448979591836,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": [
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "main.py",
+      "lines_of_code": 310,
+      "complexity_score": 47.0,
+      "maintainability_index": 32.9,
+      "duplication_percentage": 9.011627906976743,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)",
+        "Contains time.sleep() - consider async alternatives"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Use specific exception types instead of bare except"
+      ]
+    },
+    {
+      "file_path": "demo_modern_ai_technologies.py",
+      "lines_of_code": 363,
+      "complexity_score": 35.0,
+      "maintainability_index": 40.45,
+      "duplication_percentage": 7.75,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "4 functions are too long (>50 lines)",
+        "Contains time.sleep() - consider async alternatives"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "start_gui.py",
+      "lines_of_code": 11,
+      "complexity_score": 2.0,
+      "maintainability_index": 97.2,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": []
+    },
+    {
+      "file_path": "examples/file_processor_demo.py",
+      "lines_of_code": 142,
+      "complexity_score": 15.0,
+      "maintainability_index": 74.9,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "1 functions are too long (>50 lines)"
+      ],
+      "optimization_suggestions": [
+        "Consider list comprehensions for better performance",
+        "Add type hints for better code documentation"
+      ]
+    },
+    {
+      "file_path": "jarvis/__init__.py",
+      "lines_of_code": 6,
+      "complexity_score": 1.0,
+      "maintainability_index": 98.65,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": []
+    },
+    {
+      "file_path": "jarvis/vectordb/__init__.py",
+      "lines_of_code": 24,
+      "complexity_score": 1.0,
+      "maintainability_index": 97.7,
+      "duplication_percentage": 0.0,
+      "test_coverage": 0.0,
+      "issues_found": [],
+      "optimization_suggestions": []
+    },
+    {
+      "file_path": "jarvis/vectordb/rag_system.py",
+      "lines_of_code": 405,
+      "complexity_score": 54.0,
+      "maintainability_index": 22.9,
+      "duplication_percentage": 3.65296803652968,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "4 functions are too long (>50 lines)"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance"
+      ]
+    },
+    {
+      "file_path": "jarvis/vectordb/embedding_providers.py",
+      "lines_of_code": 241,
+      "complexity_score": 17.0,
+      "maintainability_index": 67.55,
+      "duplication_percentage": 20.0,
+      "test_coverage": 0.0,
+      "issues_found": [
+        "File has many functions (24), consider splitting"
+      ],
+      "optimization_suggestions": [
+        "High complexity detected - consider breaking down functions",
+        "Consider list comprehensions for better performance"
+      ]
+    }
+  ],
+  "performance_profiles": [
+    {
+      "function_name": "system_health_check",
+      "execution_time": 0.145,
+      "memory_usage": 12.5,
+      "call_count": 150,
+      "bottleneck_score": 8.5,
+      "optimization_priority": "MEDIUM"
+    },
+    {
+      "function_name": "vector_search",
+      "execution_time": 0.023,
+      "memory_usage": 45.2,
+      "call_count": 892,
+      "bottleneck_score": 6.2,
+      "optimization_priority": "LOW"
+    },
+    {
+      "function_name": "llm_orchestration",
+      "execution_time": 1.234,
+      "memory_usage": 123.4,
+      "call_count": 45,
+      "bottleneck_score": 9.8,
+      "optimization_priority": "HIGH"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "Code Quality",
+      "priority": "MEDIUM",
+      "title": "Reduce Code Complexity",
+      "description": "14 files have high complexity",
+      "actions": [
+        "Refactor complex functions into smaller ones",
+        "Use early returns to reduce nesting",
+        "Extract common functionality into utility functions"
+      ]
+    },
+    {
+      "category": "Performance",
+      "priority": "HIGH",
+      "title": "Optimize Performance Bottlenecks",
+      "description": "1 high-priority bottlenecks identified",
+      "actions": [
+        "Profile and optimize slow functions",
+        "Implement caching for frequently called operations",
+        "Consider async/await for I/O operations"
+      ]
+    }
+  ],
+  "overall_quality_score": 72.85199999999999
+}
