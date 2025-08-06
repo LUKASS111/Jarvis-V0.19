@@ -900,6 +900,41 @@ def main():
             print(f"[ERROR] Fallback CLI failed: {e}")
             return 1
     
+    # Try to use comprehensive dashboard first
+    try:
+        print("[GUI] Attempting to launch Comprehensive Professional Dashboard...")
+        import os
+        import sys
+        
+        # Check if we're in a headless environment
+        if 'DISPLAY' not in os.environ and sys.platform.startswith('linux'):
+            print("[INFO] Headless environment detected - GUI cannot be displayed")
+            print("[INFO] The professional 9-tab dashboard is available when X11 is present")
+            print("[INFO] Dashboard features: Overview, Archive, CRDT, Vector DB, Agents, Monitoring, Security, API, Deployment")
+            
+            # Fallback to production CLI
+            try:
+                from .production_cli import ProductionCLI
+                print("[CLI] Starting Production CLI as GUI fallback...")
+                cli = ProductionCLI()
+                return cli.run()
+            except Exception as e:
+                print(f"[ERROR] Fallback CLI failed: {e}")
+                return 1
+        
+        from gui.enhanced.comprehensive_dashboard import launch_comprehensive_dashboard
+        print("[GUI] Launching Comprehensive Professional Dashboard with 9 tabs...")
+        result = launch_comprehensive_dashboard()
+        if result:
+            print("[GUI] Comprehensive Dashboard launched successfully!")
+            return 0
+        else:
+            print("[WARN] Comprehensive dashboard initialization failed")
+            
+    except Exception as e:
+        print(f"[WARN] Comprehensive dashboard failed: {e}")
+        print("[GUI] Falling back to basic production GUI...")
+    
     app = QApplication(sys.argv)
     
     # Set application properties

@@ -361,7 +361,11 @@ class ProductionCLI:
         response = self.backend.process_request(
             session_id=self.session_id,
             request_type="file_process",
-            request_data={"file_path": file_path, "output_format": "agent"}
+            request_data={
+                "file_path": file_path, 
+                "processor_type": "auto",  # Auto-detect file type
+                "output_format": "agent"
+            }
         )
         
         if response and response["success"]:
@@ -507,6 +511,51 @@ class ProductionCLI:
                 e, "CLI Cleanup", ErrorLevel.WARNING,
                 "Error during CLI cleanup"
             )
+    
+    def process_file(self, file_path: str) -> Dict[str, Any]:
+        """
+        Public interface for file processing
+        
+        Args:
+            file_path: Path to the file to process
+            
+        Returns:
+            Dict containing processing results
+        """
+        if not os.path.exists(file_path):
+            return {
+                "success": False,
+                "error": f"File not found: {file_path}"
+            }
+        
+        try:
+            response = self.backend.process_request(
+                session_id=self.session_id or "cli_direct",
+                request_type="file_process",
+                request_data={
+                    "file_path": file_path, 
+                    "processor_type": "auto",  # Auto-detect file type
+                    "output_format": "agent"  # Use valid format
+                }
+            )
+            
+            if response and response.get("success"):
+                return {
+                    "success": True,
+                    "file_path": file_path,
+                    "result": response["data"]["file_response"]
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": response.get("error", "Unknown error") if response else "No response"
+                }
+                
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"File processing failed: {str(e)}"
+            }
 
 def main():
     """Main entry point for production CLI"""
