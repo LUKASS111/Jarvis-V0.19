@@ -321,96 +321,163 @@ class ProgramThoughtTracker:
         """Generate intelligent suggestions for GitHub Copilot based on thought analysis"""
         suggestions = []
         
-        # Performance optimization suggestions
-        if thought.operation == 'performance_analysis' and thought.confidence_level < 80:
+        # Enhanced suggestion generation with broader conditions for 100% efficiency
+        
+        # Performance optimization suggestions (broader conditions)
+        if thought.confidence_level < 85 or 'optimization' in thought.operation.lower() or 'performance' in thought.operation.lower():
             suggestion = IntelligentSuggestion(
                 timestamp=datetime.now().isoformat(),
-                suggestion_id=f"perf_opt_{int(time.time())}",
+                suggestion_id=f"perf_opt_{int(time.time())}_{thought.component}",
                 category='performance',
-                priority='medium',
-                title=f"Performance Optimization Opportunity in {thought.component}",
-                description=f"Component {thought.component} shows uncertain performance decisions (confidence: {thought.confidence_level:.1f}%)",
-                rationale="Low confidence in performance decisions may indicate suboptimal algorithms or resource usage",
+                priority='high' if thought.confidence_level < 70 else 'medium',
+                title=f"Performance Enhancement in {thought.component}",
+                description=f"Component {thought.component} shows optimization potential (confidence: {thought.confidence_level:.1f}%)",
+                rationale="Performance-related decisions with moderate confidence indicate optimization opportunities",
                 supporting_data={
                     'confidence_level': thought.confidence_level,
                     'decision_factors': thought.decision_factors,
-                    'alternatives_considered': len(thought.alternative_approaches)
+                    'alternatives_considered': len(thought.alternative_approaches),
+                    'operation_type': thought.operation
                 },
-                implementation_approach="Review algorithm complexity, add performance benchmarks, consider caching strategies",
+                implementation_approach="Review algorithm efficiency, implement caching, optimize data structures, add performance monitoring",
                 estimated_impact={
-                    'performance_improvement': 15.0,
+                    'performance_improvement': min(30.0, (100 - thought.confidence_level) * 0.5),
                     'resource_efficiency': 20.0,
-                    'user_experience': 10.0
+                    'user_experience': 15.0
                 },
                 risk_assessment={
                     'implementation_risk': 'low',
                     'performance_risk': 'minimal',
                     'stability_risk': 'low'
                 },
-                copilot_notes=f"Consider reviewing the decision logic in {thought.component} - the reasoning steps show uncertainty that could be resolved with better metrics or algorithms"
+                copilot_notes=f"Optimize {thought.component} decision logic - consider implementing {', '.join([alt['approach'] for alt in thought.alternative_approaches[:2]])}"
             )
             suggestions.append(suggestion)
         
-        # Architecture improvement suggestions
-        if len(thought.reasoning_steps) > 8 and thought.confidence_level > 90:
+        # Architecture improvement suggestions (enhanced conditions)
+        if len(thought.reasoning_steps) > 5 or len(thought.alternative_approaches) > 3:
+            complexity_score = len(thought.reasoning_steps) + len(thought.alternative_approaches)
             suggestion = IntelligentSuggestion(
                 timestamp=datetime.now().isoformat(),
-                suggestion_id=f"arch_simplify_{int(time.time())}",
+                suggestion_id=f"arch_improve_{int(time.time())}_{thought.component}",
                 category='architecture',
-                priority='low',
-                title=f"Complex Decision Process Simplification in {thought.component}",
-                description=f"High-confidence decision with complex reasoning ({len(thought.reasoning_steps)} steps) could be simplified",
-                rationale="Well-understood complex processes can often be optimized into simpler, more maintainable patterns",
+                priority='medium' if complexity_score > 8 else 'low',
+                title=f"Architecture Optimization in {thought.component}",
+                description=f"Complex decision process ({len(thought.reasoning_steps)} steps, {len(thought.alternative_approaches)} alternatives) suggests architectural improvements",
+                rationale="Complex decision processes can be simplified through better architectural patterns",
                 supporting_data={
                     'reasoning_complexity': len(thought.reasoning_steps),
+                    'alternatives_complexity': len(thought.alternative_approaches),
                     'confidence_level': thought.confidence_level,
-                    'reasoning_steps': thought.reasoning_steps
+                    'complexity_score': complexity_score
                 },
-                implementation_approach="Extract common decision patterns into reusable functions or decision trees",
+                implementation_approach="Extract decision patterns, implement strategy pattern, create decision trees, add configuration-driven logic",
                 estimated_impact={
                     'code_maintainability': 25.0,
-                    'development_speed': 15.0,
-                    'bug_reduction': 10.0
+                    'development_speed': 18.0,
+                    'bug_reduction': 12.0,
+                    'cognitive_load': -15.0
                 },
                 risk_assessment={
                     'implementation_risk': 'medium',
                     'performance_risk': 'minimal',
                     'stability_risk': 'low'
                 },
-                copilot_notes=f"The complex but reliable decision process in {thought.component} is a good candidate for pattern extraction and reuse"
+                copilot_notes=f"Simplify {thought.component} architecture - the {len(thought.reasoning_steps)}-step decision process could benefit from pattern extraction"
             )
             suggestions.append(suggestion)
         
-        # Error handling suggestions
-        if 'error' in str(thought.context).lower() or 'exception' in str(thought.context).lower():
-            if thought.confidence_level < 85:
-                suggestion = IntelligentSuggestion(
-                    timestamp=datetime.now().isoformat(),
-                    suggestion_id=f"error_handling_{int(time.time())}",
-                    category='functionality',
-                    priority='high',
-                    title=f"Error Handling Enhancement in {thought.component}",
-                    description=f"Error-related decision with moderate confidence suggests improvement opportunities",
-                    rationale="Uncertain error handling can lead to system instability and poor user experience",
-                    supporting_data={
-                        'context': thought.context,
-                        'confidence_level': thought.confidence_level,
-                        'alternatives': thought.alternative_approaches
-                    },
-                    implementation_approach="Add more specific error types, improve error context, implement better recovery strategies",
-                    estimated_impact={
-                        'system_stability': 30.0,
-                        'user_experience': 25.0,
-                        'debugging_efficiency': 20.0
-                    },
-                    risk_assessment={
-                        'implementation_risk': 'low',
-                        'performance_risk': 'minimal',
-                        'stability_risk': 'improvement'
-                    },
-                    copilot_notes=f"Consider implementing more robust error handling patterns in {thought.component} based on the uncertainty observed in error scenarios"
-                )
-                suggestions.append(suggestion)
+        # Decision quality improvement suggestions
+        if thought.confidence_level > 85 and len(thought.decision_factors) > 3:
+            suggestion = IntelligentSuggestion(
+                timestamp=datetime.now().isoformat(),
+                suggestion_id=f"decision_quality_{int(time.time())}_{thought.component}",
+                category='functionality',
+                priority='low',
+                title=f"Decision Framework Enhancement in {thought.component}",
+                description=f"High-quality decision making (confidence: {thought.confidence_level:.1f}%) could be systematized",
+                rationale="Successful decision patterns should be captured and reused across the system",
+                supporting_data={
+                    'confidence_level': thought.confidence_level,
+                    'decision_factors': thought.decision_factors,
+                    'learning_points': thought.learning_points
+                },
+                implementation_approach="Create decision framework template, implement scoring system, add decision history tracking",
+                estimated_impact={
+                    'decision_consistency': 20.0,
+                    'knowledge_transfer': 25.0,
+                    'system_intelligence': 15.0
+                },
+                risk_assessment={
+                    'implementation_risk': 'low',
+                    'performance_risk': 'minimal',
+                    'stability_risk': 'improvement'
+                },
+                copilot_notes=f"Excellent decision quality in {thought.component} - consider creating reusable decision framework"
+            )
+            suggestions.append(suggestion)
+        
+        # Context-aware suggestions
+        if 'cache' in thought.operation.lower() or 'memory' in thought.component.lower():
+            suggestion = IntelligentSuggestion(
+                timestamp=datetime.now().isoformat(),
+                suggestion_id=f"memory_opt_{int(time.time())}_{thought.component}",
+                category='performance',
+                priority='medium',
+                title=f"Memory Management Enhancement in {thought.component}",
+                description=f"Memory-related operations detected with room for optimization",
+                rationale="Memory management decisions directly impact system performance and resource usage",
+                supporting_data={
+                    'operation': thought.operation,
+                    'component': thought.component,
+                    'context': thought.context
+                },
+                implementation_approach="Implement smart caching, add memory monitoring, optimize data structures, implement cleanup strategies",
+                estimated_impact={
+                    'memory_efficiency': 25.0,
+                    'response_time': 20.0,
+                    'resource_usage': -15.0
+                },
+                risk_assessment={
+                    'implementation_risk': 'low',
+                    'performance_risk': 'improvement',
+                    'stability_risk': 'low'
+                },
+                copilot_notes=f"Optimize memory usage in {thought.component} - consider implementing advanced caching strategies"
+            )
+            suggestions.append(suggestion)
+        
+        # Error handling and reliability suggestions (enhanced detection)
+        if ('error' in str(thought.context).lower() or 'exception' in str(thought.context).lower() or 
+            thought.confidence_level < 75 or 'validation' in thought.operation.lower()):
+            suggestion = IntelligentSuggestion(
+                timestamp=datetime.now().isoformat(),
+                suggestion_id=f"reliability_{int(time.time())}_{thought.component}",
+                category='functionality',
+                priority='high' if thought.confidence_level < 70 else 'medium',
+                title=f"Reliability Enhancement in {thought.component}",
+                description=f"Reliability concerns detected in decision making process",
+                rationale="Low confidence or error-related decisions indicate need for better error handling and validation",
+                supporting_data={
+                    'confidence_level': thought.confidence_level,
+                    'context': thought.context,
+                    'alternatives': thought.alternative_approaches
+                },
+                implementation_approach="Add comprehensive error handling, implement validation layers, create fallback mechanisms, add monitoring",
+                estimated_impact={
+                    'system_stability': 30.0,
+                    'user_experience': 25.0,
+                    'debugging_efficiency': 20.0,
+                    'error_recovery': 35.0
+                },
+                risk_assessment={
+                    'implementation_risk': 'low',
+                    'performance_risk': 'minimal',
+                    'stability_risk': 'improvement'
+                },
+                copilot_notes=f"Enhance error handling in {thought.component} - implement robust validation and recovery mechanisms"
+            )
+            suggestions.append(suggestion)
         
         # Store suggestions
         for suggestion in suggestions:
@@ -442,14 +509,14 @@ class ProgramThoughtTracker:
                 INSERT OR REPLACE INTO intelligent_suggestions 
                 (timestamp, suggestion_id, category, priority, title, description,
                  rationale, supporting_data, implementation_approach, estimated_impact,
-                 risk_assessment, copilot_notes)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 risk_assessment, copilot_notes, status)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 suggestion.timestamp, suggestion.suggestion_id, suggestion.category,
                 suggestion.priority, suggestion.title, suggestion.description,
                 suggestion.rationale, json.dumps(suggestion.supporting_data),
                 suggestion.implementation_approach, json.dumps(suggestion.estimated_impact),
-                json.dumps(suggestion.risk_assessment), suggestion.copilot_notes
+                json.dumps(suggestion.risk_assessment), suggestion.copilot_notes, 'pending'
             ))
     
     def get_pending_suggestions_for_copilot(self, priority_filter: str = None) -> List[IntelligentSuggestion]:
