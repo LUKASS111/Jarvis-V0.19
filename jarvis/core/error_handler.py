@@ -154,8 +154,27 @@ def safe_execute(fallback_value: Any = None, context: str = "",
                 user_message: str = None, level: ErrorLevel = ErrorLevel.ERROR):
     """Decorator for safe function execution with error handling"""
     def decorator(func: Callable) -> Callable:
+        """
+        Decorator function that wraps the target function with error handling.
+        
+        Args:
+            func: The function to wrap with error handling
+            
+        Returns:
+            Wrapper function with error handling
+        """
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            """
+            Wrapper function that executes the target function safely.
+            
+            Args:
+                *args: Arguments to pass to the target function
+                **kwargs: Keyword arguments to pass to the target function
+                
+            Returns:
+                Result of the target function or fallback value on error
+            """
             try:
                 return func(*args, **kwargs)
             except Exception as e:
@@ -255,6 +274,15 @@ if __name__ == "__main__":
     if "--test-error-handler" in sys.argv:
         @safe_execute(fallback_value="Fallback result", context="Test function")
         def test_function():
+            """
+            Test function for error handler demonstration.
+            
+            Raises:
+                ValueError: Always raises this error to test error handling
+                
+            Returns:
+                Never returns normally, always raises exception
+            """
             raise ValueError("Test error")
         
         print("Testing error handler...")

@@ -834,6 +834,7 @@ python agent_launcher.py --quick-test  # Agent workflow with distributed testing
 
 ### **Quick Start and Setup**
 - **[🚀 Quick Start Guide](QUICK_START_GUIDE.md)** - Complete setup instructions (15-minute deployment)
+- **[🎯 Enhanced Startup & Deployment](STARTUP_AND_DEPLOYMENT_ENHANCED.md)** - Advanced deployment patterns and troubleshooting
 - **[📋 Documentation Enhancement Plan](DOCUMENTATION_ENHANCEMENT_PLAN.md)** - Documentation roadmap and strategy
 
 ### **Architecture and Development**
@@ -843,6 +844,7 @@ python agent_launcher.py --quick-test  # Agent workflow with distributed testing
 
 ### **API and Development**
 - **[🔧 Developer API Reference](docs/DEVELOPER_API_REFERENCE.md)** - Complete API documentation
+- **[💡 Enhanced API Usage Examples](ENHANCED_API_USAGE_EXAMPLES.md)** - Comprehensive usage examples and patterns
 - **[🚀 Agent Deployment Guide](docs/AGENT_DEPLOYMENT_GUIDE.md)** - Agent deployment procedures
 - **[🧩 Plugin System Guide](docs/PLUGIN_SYSTEM_GUIDE.md)** - Plugin development framework
 
@@ -854,6 +856,10 @@ python agent_launcher.py --quick-test  # Agent workflow with distributed testing
 ### **Testing and Quality**
 - **[🧪 Comprehensive Testing](docs/COMPREHENSIVE_TEST_DOCUMENTATION.md)** - Complete testing framework
 - **[📊 System Status](docs/CURRENT_SYSTEM_STATUS.md)** - Real-time system monitoring
+
+### **Project Management**
+- **[📋 Comprehensive Audit Report](COMPREHENSIVE_AUDIT_REPORT.md)** - Complete repository analysis
+- **[✅ Updated Todo Checklist](UPDATED_TODO_CHECKLIST.md)** - Current development priorities
 
 ### **Historical Archive**
 - **[📁 Documentation Archive](docs/archive/)** - Historical documentation and migration records
