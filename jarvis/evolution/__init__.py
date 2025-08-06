@@ -1,11 +1,22 @@
-"""Evolution package for Jarvis V0.19 - Professional Program Evolution Framework"""
+"""Evolution package for Jarvis V0.19 - Professional Program Thought Tracking & Intelligent Monitoring Framework"""
 
+# Legacy evolution tracking (for backward compatibility)
 from .program_evolution_tracker import (
     ProgramEvolutionTracker,
     EvolutionMetric,
     FunctionalityUpdate,
     EvolutionSession,
     get_evolution_tracker
+)
+
+# New thought tracking system
+from .program_thought_tracker import (
+    ProgramThoughtTracker,
+    ThoughtProcess,
+    DecisionPattern,
+    IntelligentSuggestion,
+    ThoughtSession,
+    get_thought_tracker
 )
 
 from .enhanced_logging import (
@@ -23,18 +34,33 @@ from .functional_data_manager import (
     get_functional_data_updater
 )
 
+# Legacy orchestrator (for backward compatibility)
 from .professional_orchestrator import (
     ProfessionalEvolutionOrchestrator,
     get_evolution_orchestrator
 )
 
+# New intelligent monitoring orchestrator
+from .intelligent_monitoring_orchestrator import (
+    IntelligentMonitoringOrchestrator,
+    get_intelligent_monitoring_orchestrator
+)
+
 __all__ = [
-    # Core tracking
+    # Legacy evolution tracking (backward compatibility)
     'ProgramEvolutionTracker',
     'EvolutionMetric', 
     'FunctionalityUpdate',
     'EvolutionSession',
     'get_evolution_tracker',
+    
+    # New thought tracking system
+    'ProgramThoughtTracker',
+    'ThoughtProcess',
+    'DecisionPattern', 
+    'IntelligentSuggestion',
+    'ThoughtSession',
+    'get_thought_tracker',
     
     # Enhanced logging
     'EnhancedLogger',
@@ -49,7 +75,11 @@ __all__ = [
     'get_functional_data_validator',
     'get_functional_data_updater',
     
-    # Orchestration
+    # Legacy orchestration (backward compatibility)
     'ProfessionalEvolutionOrchestrator',
-    'get_evolution_orchestrator'
+    'get_evolution_orchestrator',
+    
+    # New intelligent monitoring
+    'IntelligentMonitoringOrchestrator',
+    'get_intelligent_monitoring_orchestrator'
 ]
