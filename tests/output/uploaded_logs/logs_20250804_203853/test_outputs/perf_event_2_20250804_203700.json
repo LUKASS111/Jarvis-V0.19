@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-08-04T20:37:00.313878",
-  "event": "perf_event_2",
-  "data": {
-    "index": 2,
-    "data": "test_data_2"
-  }
-}

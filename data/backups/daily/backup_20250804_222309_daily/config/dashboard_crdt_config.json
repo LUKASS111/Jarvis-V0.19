@@ -1,8 +1,0 @@
-{
-  "crdt_monitoring": true,
-  "real_time_sync_status": true,
-  "conflict_resolution_tracking": true,
-  "performance_metrics": true,
-  "distributed_node_monitoring": true,
-  "health_score_integration": true
-}

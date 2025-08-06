@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-08-04T20:21:04.234167",
-  "event": "workflow_event_4",
-  "data": {
-    "index": 4,
-    "test": "performance"
-  }
-}
