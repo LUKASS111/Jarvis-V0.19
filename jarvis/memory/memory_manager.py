@@ -80,6 +80,18 @@ class MemoryManager:
         try:
             os.makedirs(os.path.dirname(self.db_path), exist_ok=True)
             
+            # Handle database corruption gracefully
+            try:
+                with sqlite3.connect(self.db_path) as conn:
+                    # Test if database is valid
+                    cursor = conn.cursor()
+                    cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+                    cursor.fetchall()
+            except (sqlite3.DatabaseError, sqlite3.OperationalError) as e:
+                # Database is corrupted, backup and recreate
+                print(f"[WARN] Memory database corruption detected: {e}")
+                self._handle_corrupted_memory_database()
+            
             with sqlite3.connect(self.db_path) as conn:
                 conn.execute('''
                     CREATE TABLE IF NOT EXISTS memory_entries (
@@ -111,11 +123,35 @@ class MemoryManager:
                 ''')
                 
                 conn.commit()
+                print(f"[MEMORY] Database initialized successfully: {self.db_path}")
                 
         except Exception as e:
             logger.error(f"Database initialization error: {e}")
+            print(f"[ERROR] Memory database initialization failed: {e}")
             # Fallback to JSON mode
             self.db_path = None
+
+    def _handle_corrupted_memory_database(self):
+        """Handle corrupted memory database by backing up and recreating"""
+        try:
+            # Create backup of corrupted file
+            backup_path = f"{self.db_path}.corrupted.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            if os.path.exists(self.db_path):
+                os.rename(self.db_path, backup_path)
+                print(f"[MEMORY] Corrupted database backed up to: {backup_path}")
+            
+            # Remove the file to force recreation
+            if os.path.exists(self.db_path):
+                os.remove(self.db_path)
+                
+        except Exception as e:
+            print(f"[WARN] Could not backup corrupted memory database: {e}")
+            # Try to remove the corrupted file anyway
+            try:
+                if os.path.exists(self.db_path):
+                    os.remove(self.db_path)
+            except:
+                pass
     
     def _load_cache(self):
         """Load frequently accessed entries into cache."""

@@ -116,77 +116,121 @@ class DataArchiver:
     def _init_database(self):
         """Initialize the SQLite database with required tables"""
         with _archive_lock:
-            conn = sqlite3.connect(self.db_path)
-            cursor = conn.cursor()
+            # Handle database corruption gracefully
+            try:
+                # Test if database is valid
+                conn = sqlite3.connect(self.db_path)
+                cursor = conn.cursor()
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+                cursor.fetchall()
+            except (sqlite3.DatabaseError, sqlite3.OperationalError) as e:
+                # Database is corrupted, backup and recreate
+                print(f"[WARN] Database corruption detected: {e}")
+                self._handle_corrupted_database()
+                conn = sqlite3.connect(self.db_path)
+                cursor = conn.cursor()
             
-            # Main archive table
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS archive_entries (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp TEXT NOT NULL,
-                    data_type TEXT NOT NULL,
-                    content TEXT NOT NULL,
-                    source TEXT NOT NULL,
-                    operation TEXT NOT NULL,
-                    content_hash TEXT NOT NULL,
-                    metadata TEXT NOT NULL,
-                    verification_status TEXT DEFAULT 'pending',
-                    verification_score REAL,
-                    verification_model TEXT,
-                    verification_timestamp TEXT,
-                    verification_details TEXT,
-                    program_version TEXT DEFAULT 'unknown',
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
-            
-            # Create indexes separately
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_timestamp ON archive_entries(timestamp)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_data_type ON archive_entries(data_type)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_source ON archive_entries(source)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_verification_status ON archive_entries(verification_status)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_content_hash ON archive_entries(content_hash)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_program_version ON archive_entries(program_version)')
-            
-            # Ensure program_version column exists in existing tables
-            cursor.execute("PRAGMA table_info(archive_entries)")
-            columns = [row[1] for row in cursor.fetchall()]
-            if 'program_version' not in columns:
-                cursor.execute('ALTER TABLE archive_entries ADD COLUMN program_version TEXT DEFAULT ?', (self.current_version,))
-            
-            # Verification queue table
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS verification_queue (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    archive_entry_id INTEGER NOT NULL,
-                    priority INTEGER DEFAULT 1,
-                    attempts INTEGER DEFAULT 0,
-                    max_attempts INTEGER DEFAULT 3,
-                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY(archive_entry_id) REFERENCES archive_entries(id)
-                )
-            ''')
-            
-            # Agent activities table
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS agent_activities (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    agent_id TEXT NOT NULL,
-                    activity_type TEXT NOT NULL,
-                    description TEXT NOT NULL,
-                    data TEXT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
-                )
-            ''')
-            
-            # Create indexes for agent activities
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_agent_id ON agent_activities(agent_id)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_activity_type ON agent_activities(activity_type)')
-            cursor.execute('CREATE INDEX IF NOT EXISTS idx_agent_timestamp ON agent_activities(timestamp)')
-            
-            conn.commit()
-            conn.close()
+            try:
+                # Main archive table
+                cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS archive_entries (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        timestamp TEXT NOT NULL,
+                        data_type TEXT NOT NULL,
+                        content TEXT NOT NULL,
+                        source TEXT NOT NULL,
+                        operation TEXT NOT NULL,
+                        content_hash TEXT NOT NULL,
+                        metadata TEXT NOT NULL,
+                        verification_status TEXT DEFAULT 'pending',
+                        verification_score REAL,
+                        verification_model TEXT,
+                        verification_timestamp TEXT,
+                        verification_details TEXT,
+                        program_version TEXT DEFAULT 'unknown',
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )
+                ''')
+                
+                # Create indexes separately
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_timestamp ON archive_entries(timestamp)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_data_type ON archive_entries(data_type)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_source ON archive_entries(source)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_verification_status ON archive_entries(verification_status)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_content_hash ON archive_entries(content_hash)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_program_version ON archive_entries(program_version)')
+                
+                # Ensure program_version column exists in existing tables
+                cursor.execute("PRAGMA table_info(archive_entries)")
+                columns = [row[1] for row in cursor.fetchall()]
+                if 'program_version' not in columns:
+                    cursor.execute('ALTER TABLE archive_entries ADD COLUMN program_version TEXT DEFAULT ?', (self.current_version,))
+                
+                # Verification queue table
+                cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS verification_queue (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        archive_entry_id INTEGER NOT NULL,
+                        priority INTEGER DEFAULT 1,
+                        attempts INTEGER DEFAULT 0,
+                        max_attempts INTEGER DEFAULT 3,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY(archive_entry_id) REFERENCES archive_entries(id)
+                    )
+                ''')
+                
+                # Agent activities table
+                cursor.execute('''
+                    CREATE TABLE IF NOT EXISTS agent_activities (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        agent_id TEXT NOT NULL,
+                        activity_type TEXT NOT NULL,
+                        description TEXT NOT NULL,
+                        data TEXT,
+                        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )
+                ''')
+                
+                # Create indexes for agent activities
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_agent_id ON agent_activities(agent_id)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_activity_type ON agent_activities(activity_type)')
+                cursor.execute('CREATE INDEX IF NOT EXISTS idx_agent_timestamp ON agent_activities(timestamp)')
+                
+                conn.commit()
+                conn.close()
+                print(f"[DB] Archive database initialized successfully: {self.db_path}")
+                
+            except Exception as e:
+                print(f"[ERROR] Failed to initialize database: {e}")
+                # Try to close connection safely
+                try:
+                    conn.close()
+                except:
+                    pass
+                raise
     
+    def _handle_corrupted_database(self):
+        """Handle corrupted database by backing up and recreating"""
+        try:
+            # Create backup of corrupted file
+            backup_path = f"{self.db_path}.corrupted.{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            if os.path.exists(self.db_path):
+                os.rename(self.db_path, backup_path)
+                print(f"[DB] Corrupted database backed up to: {backup_path}")
+            
+            # Remove the file to force recreation
+            if os.path.exists(self.db_path):
+                os.remove(self.db_path)
+                
+        except Exception as e:
+            print(f"[WARN] Could not backup corrupted database: {e}")
+            # Try to remove the corrupted file anyway
+            try:
+                if os.path.exists(self.db_path):
+                    os.remove(self.db_path)
+            except:
+                pass
+
     def _calculate_content_hash(self, content: str) -> str:
         """Calculate SHA-256 hash of content for deduplication"""
         return hashlib.sha256(content.encode('utf-8')).hexdigest()
