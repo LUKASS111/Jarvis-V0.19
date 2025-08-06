@@ -119,3 +119,8 @@ logs/error_log.jsonl
 # Large files handled by Git LFS
 # (These patterns are defined in .gitattributes for LFS tracking)
 # *.db files are now tracked with LFS instead of being ignored
+
+# Generated documentation and validation scripts
+validate_*.py
+professional_*.py
+system_dashboard.py
