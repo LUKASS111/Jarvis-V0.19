@@ -85,7 +85,19 @@ class SessionManager(QObject):
         self.initialize_session()
     
     def initialize_session(self):
-        """Initialize a new session with the backend"""
+        """
+        Initialize a new session with the backend.
+        
+        Creates a new session with the unified backend service, enabling
+        persistent conversation history and state management.
+        
+        Raises:
+            Exception: If session creation fails or backend is unavailable
+            
+        Emits:
+            session_created: When session is successfully created
+            error_occurred: When session creation fails
+        """
         try:
             self.session_id = self.backend.create_session(
                 session_type="production_gui",
@@ -100,7 +112,20 @@ class SessionManager(QObject):
             self.error_occurred.emit(f"Session initialization failed: {str(e)}")
     
     def send_request(self, request_type: str, data: Dict[str, Any]):
-        """Send request to backend"""
+        """
+        Send request to backend service.
+        
+        Args:
+            request_type (str): Type of request ('chat', 'memory', 'file', etc.)
+            data (Dict[str, Any]): Request data with parameters
+            
+        Raises:
+            Exception: If request processing fails or session is invalid
+            
+        Emits:
+            response_received: When response is successfully received
+            error_occurred: When request fails or session is invalid
+        """
         if not self.session_id:
             self.error_occurred.emit("No active session")
             return
@@ -112,19 +137,46 @@ class SessionManager(QObject):
             self.error_occurred.emit(f"Request failed: {str(e)}")
     
     def get_session_info(self):
-        """Get current session information"""
+        """
+        Get current session information.
+        
+        Returns:
+            Dict[str, Any] or None: Session information including metadata,
+                creation time, and status, or None if no active session
+        """
         if self.session_id:
             return self.backend.get_session_info(self.session_id)
         return None
     
     def get_conversation_history(self, limit=50):
-        """Get conversation history"""
+        """
+        Get conversation history from current session.
+        
+        Args:
+            limit (int): Maximum number of conversation entries to retrieve
+            
+        Returns:
+            List[Dict[str, Any]]: List of conversation entries with timestamps,
+                user messages, and assistant responses, or empty list if no session
+        """
         if self.session_id:
             return self.backend.get_conversation_history(self.session_id, limit)
         return []
 
 class ConversationWidget(QWidget):
-    """Advanced conversation interface with history"""
+    """
+    Advanced conversation interface with history management.
+    
+    Provides a full-featured chat interface with conversation history,
+    model selection, and export capabilities. Integrates with the
+    unified backend service for persistent session management.
+    
+    Attributes:
+        session_manager (SessionManager): Backend session manager
+        conversation_display (QTextEdit): Main conversation view
+        message_input (QLineEdit): User message input field
+        model_selector (QComboBox): LLM model selection dropdown
+    """
     
     def __init__(self, session_manager):
         super().__init__()
