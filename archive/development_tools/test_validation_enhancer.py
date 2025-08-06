@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 Professional Test Enhancement and Validation System for Jarvis V0.19
 Comprehensive testing framework with 100% coverage validation and quality assurance
+
+ARCHIVAL NOTE: This development tool has been archived. The functionality is now integrated 
+into the main testing framework or was used for one-time analysis purposes.
 """
 
 import os

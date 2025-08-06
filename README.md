@@ -398,7 +398,7 @@ python run_intelligent_monitoring_demo.py
 
 **Documentation**: See `docs/PROFESSIONAL_EVOLUTION_FRAMEWORK.md` for framework reference
 **Safe Examples**: See `run_intelligent_monitoring_demo.py` for safe monitoring demonstration  
-**Legacy Archive**: See `legacy_evolution_examples.py` for historical evolution examples (disabled)
+**Legacy Archive**: See `archive/` directory for historical components (archived 2025-01-06)
 **Architecture**: See `jarvis/evolution/` for intelligent monitoring implementation
 
 ## Recent Changes - Demo to Production Migration ✅
@@ -1029,4 +1029,25 @@ python agent_launcher.py --quick-test  # Agent workflow with distributed testing
 - **[✅ Updated Todo Checklist](UPDATED_TODO_CHECKLIST.md)** - Current development priorities
 
 ### **Historical Archive**
+
+**Legacy Components Archive** (Archived: 2025-01-06)
+Archived components that are no longer part of the production system:
+
+- **[📁 Archive Directory](archive/)** - Complete archive of legacy components
+- **Legacy Evolution System** → Replaced by Intelligent Program Monitoring Framework  
+- **Legacy Demo Files** → Functionality integrated into production APIs
+- **Development Analysis Tools** → Integrated into CI/CD and monitoring systems
+
+**Archive Policy:**
+- ✅ Archived files kept for historical reference with proper archive headers
+- ❌ No imports or references from active production code
+- 🔄 Legacy functionality replaced by modern, safer implementations
+
+**Current Replacements:**
+| Legacy Component | Current Replacement |
+|------------------|-------------------|
+| `run_evolution_demo.py` | `run_intelligent_monitoring_demo.py` |
+| Legacy Evolution System | Intelligent Program Monitoring Framework |
+| `demo_modern_ai_technologies.py` | Integrated jarvis.vectordb & jarvis.llm APIs |
+| Analysis Tools | CI/CD Pipeline & Integrated Monitoring |
 - **[📁 Documentation Archive](docs/archive/)** - Historical documentation and migration records

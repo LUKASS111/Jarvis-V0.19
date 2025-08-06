@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 Simplified Modern GUI for Jarvis v0.2
 Clean, maintainable interface focused on essential functionality
+
+ARCHIVAL NOTE: This legacy GUI has been replaced by the new production GUI system.
+Use start_gui.py or the production GUI components instead.
 """
 
 import sys

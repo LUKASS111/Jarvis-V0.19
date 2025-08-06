@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 Professional Code Quality and Performance Analyzer for Jarvis V0.19
 Comprehensive analysis and optimization system for enterprise-grade development
+
+ARCHIVAL NOTE: This development tool has been archived. Code quality analysis is now 
+handled by integrated tools and CI/CD pipelines.
 """
 
 import os

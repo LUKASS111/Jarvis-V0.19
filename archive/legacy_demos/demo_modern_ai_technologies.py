@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 Modern AI Technologies Demo for Jarvis V0.19
 Demonstrates vectorization, semantic search, RAG, and multi-LLM capabilities
+
+ARCHIVAL NOTE: This demo file has been archived. Modern AI technologies are now integrated 
+into the main system and can be accessed through the production APIs.
 """
 
 import os

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 Legacy Evolution Examples
 =========================
 
@@ -11,6 +13,8 @@ Historical Evolution Features (DISABLED - For Educational Purposes Only):
 - Current system uses safe "intelligent monitoring" instead
 
 DO NOT USE THESE FUNCTIONS IN PRODUCTION - THEY ARE FOR REFERENCE ONLY
+
+ARCHIVAL NOTE: This file has been archived. These legacy evolution examples are kept for historical reference only.
 """
 
 import warnings

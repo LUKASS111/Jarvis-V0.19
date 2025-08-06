@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 Professional System Enhancement Script
 Automated professional improvements for Jarvis V0.19
+
+ARCHIVAL NOTE: This development tool has been archived. System enhancement is now 
+handled through regular development processes and integrated monitoring.
 """
 
 import os

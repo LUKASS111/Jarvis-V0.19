@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+# ARCHIWUM: Ten plik nie jest już używany w systemie produkcyjnym (data archiwizacji: 2025-01-06).
+
 LEGACY Evolution Demonstration Script - DISABLED FOR SAFETY
 ============================================================
 
@@ -13,6 +15,8 @@ Aby używać obecnych funkcji, użyj:
 - run_intelligent_monitoring_demo.py (bezpieczny monitoring)
 - IntelligentMonitoringOrchestrator (obserwacja i sugestie)
 - ProgramThoughtTracker (śledzenie procesów myślowych)
+
+ARCHIVAL NOTE: This file has been archived. Use the new intelligent monitoring system instead.
 """
 
 import os
