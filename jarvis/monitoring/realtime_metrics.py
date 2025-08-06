@@ -8,7 +8,10 @@ import threading
 import json
 import os
 import asyncio
-import websockets
+try:
+    import websockets
+except ImportError:
+    websockets = None
 import sqlite3
 from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional, Callable, Union
@@ -48,8 +51,10 @@ except ImportError:
                         results.append(sorted_data[lower_idx])
                     else:
                         weight = idx - lower_idx
-                        value = sorted_data[lower_idx] * (1 - weight) + sorted_data[upper_idx] * weight
-                        results.append(value)
+                        results.append(
+                            sorted_data[lower_idx] * (1 - weight) + 
+                            sorted_data[upper_idx] * weight
+                        )
             return results
         
         @staticmethod
@@ -59,7 +64,16 @@ except ImportError:
         @staticmethod
         def std(data):
             return statistics.stdev(data) if len(data) > 1 else 0.0
-    
+
+# WebSocket exception handling fallback
+try:
+    import websockets.exceptions
+    WebSocketError = websockets.exceptions.ConnectionClosed
+except (ImportError, AttributeError):
+    # Fallback exception class when websockets is not available
+    class WebSocketError(Exception):
+        pass
+
     np = NumpyFallback()
 
 
@@ -441,6 +455,10 @@ class MetricStreamer:
     async def start_server(self):
         """Start WebSocket server for metric streaming"""
         try:
+            if websockets is None:
+                print(f"[WARNING] WebSocket streaming not available - websockets module not installed")
+                return
+            
             self.server = await websockets.serve(
                 self.handle_client,
                 "localhost",
@@ -474,8 +492,8 @@ class MetricStreamer:
                         'error': 'Invalid JSON message'
                     }))
         
-        except websockets.exceptions.ConnectionClosed:
-            pass
+        except WebSocketError:
+            pass  # Normal disconnection
         except Exception as e:
             print(f"[ERROR] WebSocket client error: {e}")
         finally:

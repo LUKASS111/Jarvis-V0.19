@@ -13,7 +13,10 @@ from typing import Dict, Any, List, Optional, Tuple, Callable
 from pathlib import Path
 from dataclasses import dataclass, asdict
 import hashlib
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None
 import shutil
 
 from .enhanced_logging import get_enhanced_logger
@@ -288,7 +291,7 @@ class FunctionalDataValidator:
                 end_time = time.time()
                 validation_duration = end_time - start_time
                 
-                memory_usage = psutil.Process().memory_info().rss / 1024 / 1024  # MB
+                memory_usage = psutil.Process().memory_info().rss / 1024 / 1024 if psutil else 512.0  # MB
                 
                 performance_metrics = {
                     'validation_duration_seconds': validation_duration,

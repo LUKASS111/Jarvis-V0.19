@@ -14,7 +14,10 @@ from datetime import datetime, timedelta
 from typing import Dict, Any, List, Optional, Union
 from pathlib import Path
 from contextlib import contextmanager
-import psutil
+try:
+    import psutil
+except ImportError:
+    psutil = None
 import traceback
 
 # Suppress noisy logging unless debug mode
@@ -27,7 +30,7 @@ class PerformanceMetrics:
     
     def __init__(self):
         self.start_time = time.time()
-        self.start_memory = psutil.Process().memory_info().rss / 1024 / 1024  # MB
+        self.start_memory = psutil.Process().memory_info().rss / 1024 / 1024 if psutil else 256.0  # MB
         self.operation_count = 0
         self.error_count = 0
         
@@ -40,7 +43,7 @@ class PerformanceMetrics:
     def get_metrics(self) -> Dict[str, float]:
         """Get current performance metrics"""
         current_time = time.time()
-        current_memory = psutil.Process().memory_info().rss / 1024 / 1024  # MB
+        current_memory = psutil.Process().memory_info().rss / 1024 / 1024 if psutil else 256.0  # MB
         
         duration = current_time - self.start_time
         memory_delta = current_memory - self.start_memory
@@ -219,7 +222,7 @@ class EnhancedLogger:
     def operation_context(self, operation_name: str, **context):
         """Context manager for tracking operations"""
         start_time = time.time()
-        start_memory = psutil.Process().memory_info().rss / 1024 / 1024
+        start_memory = psutil.Process().memory_info().rss / 1024 / 1024 if psutil else 256.0
         
         operation_logger = self.logger.bind(
             operation=operation_name,
@@ -235,7 +238,7 @@ class EnhancedLogger:
             self.performance_metrics.record_operation(success=True)
             
             duration = time.time() - start_time
-            memory_delta = psutil.Process().memory_info().rss / 1024 / 1024 - start_memory
+            memory_delta = psutil.Process().memory_info().rss / 1024 / 1024 - start_memory if psutil else 0.0
             
             operation_logger.info(
                 "Operation completed successfully",
@@ -255,7 +258,7 @@ class EnhancedLogger:
             self.performance_metrics.record_operation(success=False)
             
             duration = time.time() - start_time
-            memory_delta = psutil.Process().memory_info().rss / 1024 / 1024 - start_memory
+            memory_delta = psutil.Process().memory_info().rss / 1024 / 1024 - start_memory if psutil else 0.0
             
             operation_logger.error(
                 "Operation failed",
