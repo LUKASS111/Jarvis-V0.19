@@ -98,6 +98,7 @@ class CollectionStats:
 class QueryConfig:
     """Configuration for semantic search queries"""
     collection_name: str
+    query: str
     limit: int = 10
     include_metadata: bool = True
     include_embeddings: bool = False

@@ -131,10 +131,10 @@ class SemanticSearchEngine:
         """Pure semantic vector search"""
         query_config = QueryConfig(
             collection_name=collection_name,
+            query=query,
             limit=config.limit,
             include_metadata=config.include_metadata,
-            score_threshold=config.score_threshold,
-            query=query
+            score_threshold=config.score_threshold
         )
         
         return self.chroma_manager.semantic_search(query_config)
