@@ -1,5 +1,12 @@
 import requests
 import os
+import time
+import logging
+from typing import Dict, Any, List, Optional, Union
+from abc import ABC, abstractmethod
+
+# Setup logging
+logger = logging.getLogger(__name__)
 
 # Import archiving system
 try:
@@ -162,6 +169,218 @@ def ask_local_llm(prompt, temperature=None, top_p=None, max_tokens=None, repetit
             print(f"[WARN] Failed to archive LLM output: {e}")
     
     return response
+
+
+class LLMInterface(ABC):
+    """
+    Abstract base class for LLM interfaces providing unified access to language models.
+    """
+    
+    @abstractmethod
+    def generate_response(self, prompt: str, **kwargs) -> str:
+        """Generate response from the language model."""
+        pass
+    
+    @abstractmethod
+    def get_available_models(self) -> List[str]:
+        """Get list of available models."""
+        pass
+    
+    @abstractmethod
+    def set_model(self, model_name: str) -> bool:
+        """Set the active model."""
+        pass
+
+
+class OllamaLLMInterface(LLMInterface):
+    """
+    Enhanced Ollama LLM Interface with advanced capabilities.
+    """
+    
+    def __init__(self, base_url: str = None):
+        """Initialize Ollama interface."""
+        self.base_url = base_url or OLLAMA_URL
+        self.current_model = CURRENT_OLLAMA_MODEL
+        self.conversation_history = []
+        self.response_stats = {
+            'total_requests': 0,
+            'successful_requests': 0,
+            'failed_requests': 0,
+            'average_response_time': 0.0
+        }
+    
+    def generate_response(self, prompt: str, **kwargs) -> str:
+        """Generate response with enhanced features."""
+        start_time = time.time()
+        self.response_stats['total_requests'] += 1
+        
+        try:
+            # Use existing ask_local_llm function
+            response = ask_local_llm(
+                prompt, 
+                model=kwargs.get('model', self.current_model),
+                system_prompt=kwargs.get('system_prompt', ''),
+                timeout=kwargs.get('timeout')
+            )
+            
+            # Update statistics
+            response_time = time.time() - start_time
+            self._update_response_stats(response_time, success=True)
+            
+            # Store in conversation history if enabled
+            if kwargs.get('store_history', True):
+                self.conversation_history.append({
+                    'timestamp': time.time(),
+                    'prompt': prompt,
+                    'response': response,
+                    'model': self.current_model,
+                    'response_time': response_time
+                })
+                
+                # Limit history size
+                if len(self.conversation_history) > 100:
+                    self.conversation_history = self.conversation_history[-50:]
+            
+            return response
+            
+        except Exception as e:
+            self._update_response_stats(time.time() - start_time, success=False)
+            logger.error(f"LLM generation error: {e}")
+            return f"[LLM ERROR: {str(e)}]"
+    
+    def generate_with_context(self, prompt: str, context_messages: int = 5, **kwargs) -> str:
+        """Generate response with conversation context."""
+        if context_messages > 0 and self.conversation_history:
+            # Get recent conversation history
+            recent_history = self.conversation_history[-context_messages:]
+            context_prompt = self._build_context_prompt(recent_history, prompt)
+            return self.generate_response(context_prompt, **kwargs)
+        else:
+            return self.generate_response(prompt, **kwargs)
+    
+    def semantic_search_response(self, query: str, **kwargs) -> Dict[str, Any]:
+        """Generate response with semantic analysis."""
+        # Enhanced prompt for semantic understanding
+        semantic_prompt = f"""
+Analyze this query semantically and provide a comprehensive response:
+
+Query: {query}
+
+Please provide:
+1. Intent analysis
+2. Key concepts identified
+3. Detailed response
+4. Related topics or suggestions
+
+Response:"""
+        
+        response = self.generate_response(semantic_prompt, **kwargs)
+        
+        return {
+            'query': query,
+            'response': response,
+            'analysis': {
+                'query_length': len(query),
+                'query_complexity': 'complex' if len(query.split()) > 10 else 'simple',
+                'timestamp': time.time()
+            }
+        }
+    
+    def batch_generate(self, prompts: List[str], **kwargs) -> List[Dict[str, Any]]:
+        """Generate responses for multiple prompts."""
+        results = []
+        
+        for i, prompt in enumerate(prompts):
+            try:
+                response = self.generate_response(prompt, **kwargs)
+                results.append({
+                    'index': i,
+                    'prompt': prompt,
+                    'response': response,
+                    'success': True
+                })
+            except Exception as e:
+                results.append({
+                    'index': i,
+                    'prompt': prompt,
+                    'error': str(e),
+                    'success': False
+                })
+        
+        return results
+    
+    def get_available_models(self) -> List[str]:
+        """Get list of available models."""
+        return get_available_models()
+    
+    def set_model(self, model_name: str) -> bool:
+        """Set the active model."""
+        if model_name in self.get_available_models():
+            set_ollama_model(model_name)
+            self.current_model = model_name
+            return True
+        return False
+    
+    def get_current_model(self) -> str:
+        """Get currently active model."""
+        return self.current_model
+    
+    def get_conversation_history(self, limit: int = None) -> List[Dict[str, Any]]:
+        """Get conversation history."""
+        if limit:
+            return self.conversation_history[-limit:]
+        return self.conversation_history.copy()
+    
+    def clear_history(self):
+        """Clear conversation history."""
+        self.conversation_history.clear()
+    
+    def get_statistics(self) -> Dict[str, Any]:
+        """Get interface statistics."""
+        return {
+            'response_stats': self.response_stats.copy(),
+            'current_model': self.current_model,
+            'history_length': len(self.conversation_history),
+            'available_models': self.get_available_models()
+        }
+    
+    def _build_context_prompt(self, history: List[Dict[str, Any]], current_prompt: str) -> str:
+        """Build prompt with conversation context."""
+        context_parts = []
+        
+        for entry in history:
+            context_parts.append(f"User: {entry['prompt']}")
+            context_parts.append(f"Assistant: {entry['response']}")
+        
+        context_parts.append(f"User: {current_prompt}")
+        
+        return "\n".join(context_parts)
+    
+    def _update_response_stats(self, response_time: float, success: bool):
+        """Update response statistics."""
+        if success:
+            self.response_stats['successful_requests'] += 1
+        else:
+            self.response_stats['failed_requests'] += 1
+        
+        # Update average response time
+        total_successful = self.response_stats['successful_requests']
+        if total_successful > 0:
+            current_avg = self.response_stats['average_response_time']
+            self.response_stats['average_response_time'] = (
+                (current_avg * (total_successful - 1) + response_time) / total_successful
+            )
+
+
+# Global interface instance
+_llm_interface = None
+
+def get_llm_interface() -> OllamaLLMInterface:
+    """Get global LLM interface instance."""
+    global _llm_interface
+    if _llm_interface is None:
+        _llm_interface = OllamaLLMInterface()
+    return _llm_interface
 
 
 

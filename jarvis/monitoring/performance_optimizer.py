@@ -40,6 +40,15 @@ class SystemHealth:
     network_health: int
     recommendations: List[str]
     alerts: List[str]
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert SystemHealth to dictionary."""
+        return asdict(self)
+    
+    def get(self, key: str, default: Any = None) -> Any:
+        """Dictionary-like access for compatibility."""
+        data = asdict(self)
+        return data.get(key, default)
 
 class PerformanceMonitor:
     """Advanced performance monitoring system."""
@@ -192,6 +201,10 @@ class PerformanceMonitor:
     def get_current_metrics(self) -> Optional[PerformanceMetric]:
         """Get most recent metrics."""
         return self.metrics_history[-1] if self.metrics_history else None
+    
+    def collect_metrics(self):
+        """Manually collect performance metrics."""
+        self._collect_metrics()
     
     def get_performance_summary(self) -> Dict[str, Any]:
         """Get comprehensive performance summary."""
