@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Unified GUI Launcher for Jarvis V0.19
-Professional launcher that detects and launches the best available GUI interface.
+Modern GUI Launcher for Jarvis V1.0
+Professional 9-tab comprehensive dashboard launcher only.
+All legacy fallbacks removed.
 """
 
 import sys
@@ -9,71 +10,42 @@ import os
 from pathlib import Path
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-def launch_enhanced_gui():
-    """Launch the comprehensive enhanced GUI"""
+def launch_comprehensive_dashboard():
+    """Launch the modern 9-tab comprehensive dashboard"""
     try:
         from gui.enhanced.comprehensive_dashboard import launch_comprehensive_dashboard
-        print("🚀 Launching Jarvis V0.19 Comprehensive Professional Dashboard...")
+        print("🚀 Launching Jarvis V1.0 Comprehensive Professional Dashboard...")
+        print("📊 Features: Overview, Archive, CRDT, Vector DB, Agents, Monitoring, Security, API, Deployment")
         return launch_comprehensive_dashboard()
     except ImportError as e:
-        print(f"❌ Enhanced GUI not available: {e}")
+        print(f"❌ Comprehensive dashboard not available: {e}")
+        print("💡 Install PyQt5: pip install PyQt5")
         return False
-
-def launch_production_gui():
-    """Launch the production GUI as fallback"""
-    try:
-        from jarvis.interfaces.production_gui import launch_production_gui
-        print("🚀 Launching Jarvis V0.19 Production GUI...")
-        return launch_production_gui()
-    except ImportError as e:
-        print(f"❌ Production GUI not available: {e}")
-        return False
-
-def launch_basic_gui():
-    """Launch the basic GUI as final fallback"""
-    try:
-        from main import main_gui
-        print("🚀 Launching Jarvis V0.19 Basic GUI...")
-        return main_gui()
-    except ImportError as e:
-        print(f"❌ Basic GUI not available: {e}")
+    except Exception as e:
+        print(f"❌ Dashboard startup failed: {e}")
         return False
 
 def main():
-    """Main launcher function"""
-    print("🎯 JARVIS V0.19 PROFESSIONAL GUI LAUNCHER")
+    """Main launcher function - Comprehensive dashboard only"""
+    print("🎯 JARVIS V1.0 MODERN PROFESSIONAL LAUNCHER")
     print("=" * 50)
     
-    # Try to launch GUIs in order of preference
-    gui_options = [
-        ("Enhanced Professional Dashboard", launch_enhanced_gui),
-        ("Production GUI", launch_production_gui),
-        ("Basic GUI", launch_basic_gui)
-    ]
-    
-    for gui_name, gui_func in gui_options:
-        print(f"🔄 Attempting to launch {gui_name}...")
-        try:
-            result = gui_func()
-            if result is not False:
-                print(f"✅ {gui_name} launched successfully")
-                return result
-        except Exception as e:
-            print(f"❌ {gui_name} failed: {e}")
-            continue
-    
-    # If all GUIs fail, offer CLI
-    print("\n⚠️ No GUI interfaces available")
-    print("🔧 Falling back to Enhanced CLI...")
+    # Launch comprehensive dashboard only - no legacy fallbacks
+    print("🔄 Launching Comprehensive Professional Dashboard...")
     
     try:
-        from jarvis.interfaces.enhanced_cli import main as cli_main
-        cli_main()
-    except ImportError:
-        print("❌ Enhanced CLI not available either")
-        print("💡 Try running: python -m jarvis.interfaces.production_cli")
+        result = launch_comprehensive_dashboard()
+        if result is not False:
+            print("✅ Comprehensive dashboard launched successfully")
+            return 0
+        else:
+            print("❌ Dashboard failed to launch")
+            return 1
+    except Exception as e:
+        print(f"❌ Dashboard launch failed: {e}")
+        print("💡 Try: python main.py --cli")
         return 1
 
 if __name__ == "__main__":

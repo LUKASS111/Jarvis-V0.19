@@ -55,15 +55,35 @@ def validate_legacy_structure():
     else:
         issues_found.append("❌ jarvis.vector module missing")
     
-    # Check 4: Verify CLI has process_file method
-    cli_path = Path("jarvis/interfaces/production_cli.py")
-    if cli_path.exists():
-        with open(cli_path) as f:
+    # Check 4: Verify legacy files are properly removed
+    legacy_files_to_check = [
+        "start_gui.py",
+        "jarvis/interfaces/production_cli.py",
+        "jarvis/interfaces/production_gui.py",
+        "jarvis/interfaces/enhanced_cli.py",
+        "jarvis/interfaces/web_interface.py"
+    ]
+    
+    for legacy_file in legacy_files_to_check:
+        if Path(legacy_file).exists():
+            issues_found.append(f"❌ Legacy file still exists: {legacy_file}")
+        else:
+            print(f"✅ Legacy file properly removed: {legacy_file}")
+    
+    # Check 5: Verify modern main.py has proper functionality
+    modern_main = Path("main.py")
+    if modern_main.exists():
+        with open(modern_main) as f:
             content = f.read()
-            if "def process_file" in content:
-                print("✅ ProductionCLI.process_file() method exists")
+            if "start_comprehensive_dashboard" in content:
+                print("✅ Modern main.py has comprehensive dashboard function")
             else:
-                issues_found.append("❌ CLI missing process_file method")
+                issues_found.append("❌ main.py missing comprehensive dashboard function")
+            
+            if "start_modern_cli" in content:
+                print("✅ Modern main.py has CLI functionality")
+            else:
+                issues_found.append("❌ main.py missing CLI functionality")
     
     # Check 5: Verify entry point consolidation
     unified_launcher = Path("jarvis_launcher.py")
