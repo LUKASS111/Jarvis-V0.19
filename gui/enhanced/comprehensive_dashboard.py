@@ -613,18 +613,30 @@ def launch_comprehensive_dashboard():
         print("Falling back to terminal interface...")
         return False
     
-    app = QApplication(sys.argv)
-    app.setApplicationName("Jarvis V0.19 Professional")
-    app.setOrganizationName("Jarvis Development")
-    app.setApplicationVersion("0.19.0")
+    # Check for display availability
+    import os
+    if 'DISPLAY' not in os.environ and sys.platform.startswith('linux'):
+        print("[INFO] Headless environment detected - GUI cannot be displayed")
+        print("[INFO] The professional 9-tab dashboard is available when X11 is present")
+        print("[INFO] Dashboard features: Overview, Archive, CRDT, Vector DB, Agents, Monitoring, Security, API, Deployment")
+        return False
     
-    # Set application style
-    app.setStyle("Fusion")
-    
-    window = JarvisComprehensiveDashboard()
-    window.show()
-    
-    return app.exec_()
+    try:
+        app = QApplication(sys.argv)
+        app.setApplicationName("Jarvis V0.19 Professional")
+        app.setOrganizationName("Jarvis Development")
+        app.setApplicationVersion("0.19.0")
+        
+        # Set application style
+        app.setStyle("Fusion")
+        
+        window = JarvisComprehensiveDashboard()
+        window.show()
+        
+        return app.exec_()
+    except Exception as e:
+        print(f"[ERROR] Failed to launch comprehensive dashboard: {e}")
+        return False
 
 if __name__ == "__main__":
     sys.exit(launch_comprehensive_dashboard())

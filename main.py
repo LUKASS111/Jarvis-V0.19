@@ -157,18 +157,41 @@ def main_gui():
     run_startup_initialization()
     
     try:
+        # Check for display availability first
+        import os
+        if 'DISPLAY' not in os.environ and sys.platform.startswith('linux'):
+            print("[INFO] Headless environment detected - GUI cannot be displayed")
+            print("[INFO] The professional 9-tab dashboard is available when X11 is present")
+            print("[INFO] Dashboard features: Overview, Archive, CRDT, Vector DB, Agents, Monitoring, Security, API, Deployment")
+            print("[INFO] Falling back to CLI mode...")
+            return main_cli()
+        
         if PRODUCTION_BACKEND_AVAILABLE:
-            # Use production GUI when available
+            # Try comprehensive dashboard first
+            try:
+                from gui.enhanced.comprehensive_dashboard import launch_comprehensive_dashboard
+                print("[GUI] Launching Comprehensive Professional Dashboard with 9 tabs...")
+                result = launch_comprehensive_dashboard()
+                if result is not False:  # Success or app closed normally
+                    return 0
+                else:
+                    print("[WARN] Comprehensive dashboard failed to initialize")
+            except ImportError as e:
+                print(f"[WARN] Comprehensive dashboard not available: {e}")
+            except Exception as e:
+                print(f"[WARN] Comprehensive dashboard error: {e}")
+            
+            # Fallback to production GUI
             try:
                 from jarvis.interfaces.production_gui import main as production_gui_main
                 print("[GUI] Starting Production GUI interface...")
                 return production_gui_main()
-            except ImportError:
-                print("[GUI] Production GUI not available, using legacy GUI")
+            except ImportError as e:
+                print(f"[WARN] Production GUI not available: {e}")
         
-        # Fallback to legacy GUI
-        from legacy.legacy_gui import main as legacy_gui_main
-        print("[GUI] Starting Legacy GUI interface...")
+        # Fallback to archived legacy GUI
+        from archive.legacy_code.legacy_gui import main as legacy_gui_main
+        print("[GUI] Starting Archived Legacy GUI interface...")
         return legacy_gui_main()
         
     except ImportError as e:
