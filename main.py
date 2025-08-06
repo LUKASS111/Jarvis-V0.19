@@ -228,6 +228,13 @@ def main_backend():
         import time
         
         def signal_handler(signum, frame):
+            """
+            Handle shutdown signals for graceful backend termination.
+            
+            Args:
+                signum (int): Signal number received
+                frame: Current stack frame
+            """
             print("\n[BACKEND] Shutdown signal received")
             shutdown_jarvis_backend()
             sys.exit(0)

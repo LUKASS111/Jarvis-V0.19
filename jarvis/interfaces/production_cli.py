@@ -33,6 +33,15 @@ class ProductionCLI:
     """
     
     def __init__(self):
+        """
+        Initialize the production CLI interface.
+        
+        Sets up backend connection, session management, command history,
+        and configuration for the enterprise CLI experience.
+        
+        Raises:
+            BackendConnectionError: If unified backend service is unavailable
+        """
         self.backend = get_jarvis_backend()
         self.session_id = None
         self.command_history: List[str] = []

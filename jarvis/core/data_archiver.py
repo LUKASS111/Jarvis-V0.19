@@ -56,6 +56,17 @@ class DataArchiver:
     """Main data archiving system with SQLite backend and CRDT integration"""
     
     def __init__(self, db_path: str = ARCHIVE_DB_PATH, enable_crdt: bool = True):
+        """
+        Initialize the data archiver with SQLite backend and optional CRDT integration.
+        
+        Args:
+            db_path (str): Path to SQLite database file (default: data/jarvis_archive.db)
+            enable_crdt (bool): Enable CRDT integration for distributed operations
+            
+        Raises:
+            DatabaseInitializationError: If database cannot be created or initialized
+            CRDTIntegrationError: If CRDT system cannot be initialized
+        """
         self.db_path = db_path
         self.current_version = self._get_current_version()
         self.enable_crdt = enable_crdt

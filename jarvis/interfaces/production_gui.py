@@ -229,6 +229,15 @@ class ConversationWidget(QWidget):
         self.session_manager.response_received.connect(self.handle_response)
     
     def send_message(self):
+        """
+        Send user message to the backend LLM service.
+        
+        Retrieves message from input field, clears the field, displays
+        the message in conversation view, and sends to backend with
+        current model selection and parameters.
+        
+        Does nothing if message field is empty.
+        """
         message = self.message_input.text().strip()
         if not message:
             return
@@ -245,6 +254,16 @@ class ConversationWidget(QWidget):
         })
     
     def handle_response(self, response):
+        """
+        Handle response from backend service.
+        
+        Args:
+            response (Dict[str, Any]): Backend response containing success
+                status, data payload, and error information if applicable
+                
+        Displays successful chat responses in conversation view or
+        shows error messages for failed requests.
+        """
         if response.get("success") and "data" in response:
             chat_data = response["data"].get("chat_response", {})
             assistant_message = chat_data.get("response", "No response received")
