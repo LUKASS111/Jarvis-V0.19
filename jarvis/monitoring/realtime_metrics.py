@@ -679,6 +679,77 @@ class AdvancedMetricsCollector:
                 aggregation_window=300,
                 retention_hours=168,
                 alert_thresholds={"warning": 2.0, "critical": 5.0}
+            ),
+            # Additional system metrics
+            MetricDefinition(
+                name="system.memory.available_mb",
+                metric_type=MetricType.GAUGE,
+                description="Available memory in MB",
+                unit="MB",
+                labels=[],
+                aggregation_window=60,
+                retention_hours=168,
+                alert_thresholds={"warning": 1024, "critical": 512}
+            ),
+            MetricDefinition(
+                name="system.disk.percent",
+                metric_type=MetricType.GAUGE,
+                description="Disk usage percentage",
+                unit="percent",
+                labels=["mount"],
+                aggregation_window=60,
+                retention_hours=168,
+                alert_thresholds={"warning": 80, "critical": 90}
+            ),
+            MetricDefinition(
+                name="system.disk.free_gb",
+                metric_type=MetricType.GAUGE,
+                description="Free disk space in GB",
+                unit="GB",
+                labels=["mount"],
+                aggregation_window=60,
+                retention_hours=168,
+                alert_thresholds={"warning": 10, "critical": 5}
+            ),
+            MetricDefinition(
+                name="system.network.bytes_sent",
+                metric_type=MetricType.COUNTER,
+                description="Network bytes sent",
+                unit="bytes",
+                labels=["interface"],
+                aggregation_window=60,
+                retention_hours=168,
+                alert_thresholds={}
+            ),
+            MetricDefinition(
+                name="system.network.bytes_recv",
+                metric_type=MetricType.COUNTER,
+                description="Network bytes received",
+                unit="bytes",
+                labels=["interface"],
+                aggregation_window=60,
+                retention_hours=168,
+                alert_thresholds={}
+            ),
+            MetricDefinition(
+                name="jarvis.health.overall_score",
+                metric_type=MetricType.GAUGE,
+                description="Overall system health score",
+                unit="percent",
+                labels=[],
+                aggregation_window=300,
+                retention_hours=720,
+                alert_thresholds={"warning": 75, "critical": 50}
+            ),
+            MetricDefinition(
+                name="jarvis.health.uptime_seconds",
+                metric_type=MetricType.GAUGE,
+                description="System uptime in seconds",
+                unit="seconds",
+                labels=[],
+                aggregation_window=3600,
+                retention_hours=720,
+                alert_thresholds={}
             )
         ]
         
@@ -751,12 +822,11 @@ class AdvancedMetricsCollector:
     def record_metric(self, metric_name: str, value: Union[float, List[float]], 
                      labels: Dict[str, str] = None, source: str = "system",
                      metadata: Dict[str, Any] = None):
-        """Record a metric value"""
+        """Record a metric value with automatic registration if needed"""
         try:
-            # Validate metric definition
+            # Auto-register metric if not exists
             if metric_name not in self.metric_definitions:
-                print(f"[WARNING] Unknown metric: {metric_name}")
-                return
+                self._auto_register_metric(metric_name, metadata or {})
             
             metric_def = self.metric_definitions[metric_name]
             
@@ -786,6 +856,39 @@ class AdvancedMetricsCollector:
         except Exception as e:
             print(f"[ERROR] Failed to record metric {metric_name}: {e}")
             self.collection_stats['errors'] += 1
+    
+    def _auto_register_metric(self, metric_name: str, metadata: Dict[str, Any]):
+        """Automatically register a metric based on name and metadata"""
+        # Determine metric type from metadata or name
+        metric_type = MetricType.GAUGE  # Default
+        if metadata.get('type') == 'counter':
+            metric_type = MetricType.COUNTER
+        elif metadata.get('type') == 'histogram':
+            metric_type = MetricType.HISTOGRAM
+        elif metadata.get('type') == 'timer':
+            metric_type = MetricType.TIMER
+        elif 'counter' in metric_name.lower():
+            metric_type = MetricType.COUNTER
+        elif 'histogram' in metric_name.lower():
+            metric_type = MetricType.HISTOGRAM
+        elif 'timer' in metric_name.lower() or 'duration' in metric_name.lower():
+            metric_type = MetricType.TIMER
+        
+        # Create metric definition
+        metric_def = MetricDefinition(
+            name=metric_name,
+            metric_type=metric_type,
+            description=f"Auto-registered metric: {metric_name}",
+            unit=metadata.get('unit', 'value'),
+            labels=list(metadata.get('labels', [])),
+            aggregation_window=metadata.get('aggregation_window', 60),
+            retention_hours=metadata.get('retention_hours', 24),
+            alert_thresholds=metadata.get('alert_thresholds', {})
+        )
+        
+        # Register the metric
+        self.register_metric(metric_def)
+        print(f"[METRICS] Auto-registered metric: {metric_name} ({metric_type.value})")
     
     def record_counter(self, metric_name: str, increment: float = 1.0, 
                       labels: Dict[str, str] = None):
