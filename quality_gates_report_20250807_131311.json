@@ -1,17 +1,46 @@
 {
-  "timestamp": "2025-08-07T10:33:14.372366",
+  "timestamp": "2025-08-07T13:13:11.532292",
   "stage": "Stage 3 - QUAL-002",
   "title": "Automated Quality Gates Validation",
   "gates": {
     "file_size_limit": {
-      "status": "PASS",
-      "large_files": [],
+      "status": "FAIL",
+      "large_files": [
+        {
+          "file": "data/jarvis_archive.db",
+          "size_mb": 23.28
+        }
+      ],
       "limit_mb": 10,
       "description": "Prevents large file commits that could bloat repository"
     },
     "code_complexity": {
       "status": "REVIEW",
       "complex_functions": [
+        {
+          "file": "gui/design_standards.py",
+          "function": "create_modern_stylesheet",
+          "lines": 187,
+          "start_line": 242
+        },
+        {
+          "file": "scripts/regression_analysis.py",
+          "function": "main",
+          "lines": 61,
+          "start_line": 377
+        },
+        {
+          "file": "scripts/upload_logs_to_repository.py",
+          "function": "upload_logs_to_repository",
+          "lines": 67,
+          "start_line": 14
+        },
+        {
+          "file": "scripts/validate_stage4_completion.py",
+          "function": "validate_stage4_completion",
+          "lines": 85,
+          "start_line": 13
+        },
         {
           "file": "scripts/engineering_metrics.py",
           "function": "collect_code_metrics",
@@ -47,30 +76,6 @@
           "function": "calculate_engineering_score",
           "lines": 72,
           "start_line": 424
-        },
-        {
-          "file": "scripts/engineering_metrics.py",
-          "function": "run_all_metrics_collection",
-          "lines": 51,
-          "start_line": 653
-        },
-        {
-          "file": "scripts/performance_benchmarks.py",
-          "function": "benchmark_database_operations",
-          "lines": 68,
-          "start_line": 84
-        },
-        {
-          "file": "scripts/performance_benchmarks.py",
-          "function": "benchmark_gui_initialization",
-          "lines": 78,
-          "start_line": 152
-        },
-        {
-          "file": "scripts/performance_benchmarks.py",
-          "function": "benchmark_memory_usage",
-          "lines": 53,
-          "start_line": 273
         }
       ],
       "limit_lines": 50,
@@ -159,27 +164,27 @@
         },
         {
           "file": "gui/enhanced/comprehensive_dashboard.py",
-          "line": 20,
+          "line": 26,
           "issue": "Wildcard import",
           "code": "from PyQt5.QtWidgets import *"
         },
         {
           "file": "gui/enhanced/comprehensive_dashboard.py",
-          "line": 21,
+          "line": 27,
           "issue": "Wildcard import",
           "code": "from PyQt5.QtCore import *"
         },
         {
           "file": "gui/enhanced/comprehensive_dashboard.py",
-          "line": 22,
+          "line": 28,
           "issue": "Wildcard import",
           "code": "from PyQt5.QtGui import *"
         }
       ],
       "statistics": {
-        "total_imports": 1048,
+        "total_imports": 1218,
         "relative_imports": 163,
-        "absolute_imports": 885,
+        "absolute_imports": 1055,
         "wildcard_imports": 7
       },
       "description": "Ensures clean import structure and prevents unsafe imports"
@@ -257,6 +262,18 @@
       "status": "REVIEW",
       "issues": [
         {
+          "file": "gui/design_standards.py",
+          "issue": "Missing error handling in GUI component"
+        },
+        {
+          "file": "gui/design_standards.py",
+          "issue": "Missing logging in GUI component"
+        },
+        {
+          "file": "gui/design_standards.py",
+          "issue": "Insufficient PyQt best practices (0/7)"
+        },
+        {
           "file": "gui/__init__.py",
           "issue": "Missing error handling in GUI component"
         },
@@ -269,38 +286,43 @@
           "issue": "Insufficient PyQt best practices (0/7)"
         },
         {
-          "file": "gui/enhanced/comprehensive_dashboard.py",
+          "file": "gui/performance_config.py",
+          "issue": "Missing error handling in GUI component"
+        },
+        {
+          "file": "gui/performance_config.py",
           "issue": "Missing logging in GUI component"
         },
         {
-          "file": "gui/enhanced/unified_launcher.py",
-          "issue": "Missing logging in GUI component"
+          "file": "gui/performance_config.py",
+          "issue": "Insufficient PyQt best practices (0/7)"
         },
         {
-          "file": "gui/enhanced/unified_launcher.py",
-          "issue": "Insufficient PyQt best practices (2/7)"
+          "file": "gui/components/__init__.py",
+          "issue": "Missing error handling in GUI component"
         }
       ],
       "standards_compliance": {
-        "total_gui_files": 3,
+        "total_gui_files": 9,
         "files_with_error_handling": 2,
         "files_with_logging": 0,
-        "files_with_docstrings": 3,
+        "files_with_docstrings": 9,
         "pyqt_best_practices": 1
       },
-      "issue_percentage": 200.0,
+      "issue_percentage": 266.7,
       "description": "Ensures GUI components follow quality standards"
     }
   },
   "overall_status": "BLOCKED",
   "blocking_issues": [
-    "Too many complex functions detected (131)",
-    "Too many GUI component issues (6)"
+    "Large files detected exceeding 10MB limit",
+    "Too many complex functions detected (172)",
+    "Too many GUI component issues (24)"
   ],
   "gate_summary": {
     "total_gates": 6,
-    "passed_gates": 3,
-    "failed_gates": 3,
-    "pass_percentage": 50.0
+    "passed_gates": 2,
+    "failed_gates": 4,
+    "pass_percentage": 33.3
   }
 }
