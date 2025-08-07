@@ -124,3 +124,14 @@ logs/error_log.jsonl
 validate_*.py
 professional_*.py
 system_dashboard.py
+
+# Validation reports and temporary analysis files
+validation_report_*.json
+analysis_report_*.json
+stage_validation_*.json
+engineering_metrics_*.json
+
+# Stage execution temporary files
+stage_*.tmp
+stage_progress_*.json
+micro_task_*.log

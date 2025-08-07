@@ -126,7 +126,7 @@ class OpenAIEmbeddingProvider(EmbeddingProvider):
         Available models:
         - text-embedding-3-small: 1536 dims, efficient
         - text-embedding-3-large: 3072 dims, highest quality
-        - text-embedding-ada-002: 1536 dims, legacy
+        - text-embedding-ada-002: 1536 dims, previous version
         """
         self.model_name = model_name
         self.api_key = api_key

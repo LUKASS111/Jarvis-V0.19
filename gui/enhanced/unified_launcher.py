@@ -2,7 +2,7 @@
 """
 Modern GUI Launcher for Jarvis V1.0
 Professional 9-tab comprehensive dashboard launcher only.
-All legacy fallbacks removed.
+Complete modern system with no fallbacks.
 """
 
 import sys
@@ -32,7 +32,7 @@ def main():
     print("🎯 JARVIS V1.0 MODERN PROFESSIONAL LAUNCHER")
     print("=" * 50)
     
-    # Launch comprehensive dashboard only - no legacy fallbacks
+    # Launch comprehensive dashboard only - modern system
     print("🔄 Launching Comprehensive Professional Dashboard...")
     
     try:

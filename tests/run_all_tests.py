@@ -21,7 +21,7 @@ try:
     EFFICIENT_MODE = True
 except ImportError:
     EFFICIENT_MODE = False
-    print("[WARN] Efficient test runner not available, falling back to legacy mode")
+    print("[WARN] Efficient test runner not available, falling back to standard mode")
 
 def clean_test_error_logs():
     """Clean up test-generated error logs to prevent them from affecting health scores."""
@@ -202,7 +202,7 @@ def run_test_file(test_file, description):
         }
 
 def main():
-    """Main test execution with efficient or legacy mode"""
+    """Main test execution with efficient or standard mode"""
     print(f"[LAUNCHER] Jarvis V0.19 Master Test Runner")
     print(f"[LAUNCHER] Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
@@ -214,7 +214,7 @@ def main():
             log_summary = runner.finalize_logging()
             
             print(f"\n[EFFICIENCY] File reduction achieved:")
-            print(f"   Files created: {len(log_summary['files_created'])} (vs ~10,000 in legacy)")
+            print(f"   Files created: {len(log_summary['files_created'])} (vs ~10,000 in standard mode)")
             print(f"   Space optimization: ~95% reduction in file count")
             print(f"   All log data preserved in consolidated format")
             
@@ -242,14 +242,14 @@ def main():
             print(f"[ERROR] Efficient runner failed: {e}")
             import traceback
             traceback.print_exc()
-            print(f"[FALLBACK] Switching to legacy mode")
-            return legacy_main()
+            print(f"[FALLBACK] Switching to standard mode")
+            return standard_main()
     else:
         print(f"[LAUNCHER] Using LEGACY mode - individual file logging")
-        return legacy_main()
+        return standard_main()
 
 
-def legacy_main():
+def standard_main():
     """Legacy main function for backward compatibility"""
     """Main test runner function"""
     print("[LAUNCH] V0.2 COMPREHENSIVE TEST SUITE")

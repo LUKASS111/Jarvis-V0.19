@@ -156,7 +156,7 @@
 
 ### **Created/Validated Scripts:**
 1. **`scripts/validate_windows11.py`** - Comprehensive Windows 11 validation framework
-2. **`run_tests.py`** - Master test runner with efficient/legacy modes
+2. **`run_tests.py`** - Master test runner with efficient/standard modes
 3. **`scripts/efficient_test_runner.py`** - Consolidated logging test runner
 4. **Database test scripts** - Individual database validation tools
 
