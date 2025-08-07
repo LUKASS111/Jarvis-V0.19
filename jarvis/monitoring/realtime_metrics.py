@@ -74,7 +74,22 @@ except (ImportError, AttributeError):
     class WebSocketError(Exception):
         pass
 
-    np = NumpyFallback()
+    # Handle missing numpy gracefully
+    try:
+        import numpy as np
+    except ImportError:
+        class NumpyFallback:
+            def array(self, data):
+                return data
+            def mean(self, data):
+                return sum(data) / len(data) if data else 0
+            def std(self, data):
+                if not data:
+                    return 0
+                mean_val = self.mean(data)
+                return (sum((x - mean_val) ** 2 for x in data) / len(data)) ** 0.5
+        
+        np = NumpyFallback()
 
 
 class MetricType(Enum):
