@@ -120,3 +120,11 @@ micro_task_*.log
 # Foundation repair and validation framework files
 test_aggregator_*.log
 upload_summary_*.json
+
+# Additional validation report patterns (prevent clutter)
+*_20[0-9][0-9][0-9][0-9][0-9][0-9]_*.json
+gui_completeness_test_*.json
+error_prevention_validation_*.json
+stage*_validation_report.json
+comprehensive_foundation_validation_*.json
+foundation_validation_*.json
