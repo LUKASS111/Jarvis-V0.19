@@ -1,0 +1,150 @@
+{
+  "timestamp": "2025-08-07T11:00:48.898554",
+  "validation_type": "information_architecture",
+  "stage": 4,
+  "tests": {
+    "core_files_exist": {
+      "status": "PASS",
+      "required": 5,
+      "found": 5,
+      "missing": []
+    },
+    "semantic_organization": {
+      "status": "PASS",
+      "violations": [],
+      "total_patterns": 12,
+      "validated": 12
+    },
+    "information_consistency": {
+      "status": "PASS",
+      "stage_references": {
+        "SYSTEMATIC_ENGINEERING_PLAN.md": [
+          "1",
+          "2",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ],
+        "STAGE_STATUS.md": [
+          "4",
+          "5",
+          "2",
+          "3",
+          "4",
+          "5",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "4",
+          "4",
+          "3",
+          "3",
+          "2",
+          "2",
+          "1",
+          "1",
+          "1",
+          "1",
+          "2",
+          "3",
+          "3",
+          "3",
+          "1",
+          "1",
+          "1",
+          "1",
+          "2",
+          "3",
+          "8",
+          "3",
+          "4",
+          "1",
+          "2",
+          "3",
+          "5",
+          "5",
+          "5",
+          "5",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "10",
+          "1",
+          "3",
+          "5",
+          "7",
+          "9"
+        ],
+        "ERROR_REGISTRY.md": [
+          "2",
+          "1",
+          "3",
+          "4",
+          "1",
+          "3",
+          "1",
+          "3",
+          "2",
+          "3"
+        ],
+        "ENGINEERING_METRICS.md": [
+          "3",
+          "4"
+        ],
+        "INFORMATION_ARCHITECTURE.md": [
+          "4",
+          "4",
+          "4",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "3",
+          "3",
+          "3",
+          "1",
+          "2",
+          "3",
+          "4",
+          "4",
+          "1",
+          "2",
+          "3",
+          "4",
+          "4",
+          "4",
+          "5"
+        ]
+      },
+      "consistency_issues": []
+    },
+    "version_control": {
+      "status": "PASS",
+      "tracked_files": [
+        "SYSTEMATIC_ENGINEERING_PLAN.md",
+        "STAGE_STATUS.md",
+        "ERROR_REGISTRY.md",
+        "ENGINEERING_METRICS.md",
+        "INFORMATION_ARCHITECTURE.md"
+      ],
+      "untracked_files": [],
+      "total_files": 5
+    }
+  },
+  "overall": {
+    "status": "PASS",
+    "passed": 4,
+    "total": 4,
+    "success_rate": 100.0
+  }
+}
