@@ -157,7 +157,17 @@ class VectorDatabaseManager:
             }
         }
 
-# Make VectorDatabaseManager available at module level
-from .database_manager import VectorDatabaseManager
+# Create global instance
+_vector_manager = None
 
-__all__ = ['VectorDatabaseManager']
+def get_vector_manager():
+    """Get global vector database manager instance"""
+    global _vector_manager
+    if _vector_manager is None:
+        _vector_manager = VectorDatabaseManager()
+    return _vector_manager
+
+# Aliases for backward compatibility
+VectorDatabase = VectorDatabaseManager
+
+__all__ = ['VectorDatabaseManager', 'VectorDatabase', 'get_vector_manager']

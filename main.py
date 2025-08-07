@@ -99,42 +99,13 @@ def start_modern_cli():
     print("[CLI] Starting Modern CLI Interface...")
     
     try:
-        # Create a simple modern CLI without legacy dependencies
-        from jarvis.api.api_router import quick_chat
-        
-        print("[CLI] Jarvis v1.0 Modern CLI Ready")
-        print("[CLI] Type 'help' for commands, 'exit' to quit")
-        
-        while True:
-            try:
-                user_input = input("jarvis> ").strip()
-                
-                if user_input.lower() in ['exit', 'quit', 'q']:
-                    break
-                elif user_input.lower() == 'help':
-                    print("Available commands:")
-                    print("  help    - Show this help")
-                    print("  status  - Show system status") 
-                    print("  exit    - Exit CLI")
-                    print("  <text>  - Chat with Jarvis")
-                elif user_input.lower() == 'status':
-                    from jarvis.backend import get_jarvis_backend
-                    backend = get_jarvis_backend()
-                    status = backend.get_system_status()
-                    print(f"System Health: {status.get('system_metrics', {}).get('health_score', 'unknown')}")
-                    print(f"Subsystems: {len(status.get('subsystems', {}))}")
-                elif user_input:
-                    response = quick_chat(user_input)
-                    print(f"Jarvis: {response}")
-                    
-            except KeyboardInterrupt:
-                break
-            except Exception as e:
-                print(f"Error: {e}")
-        
-        print("[CLI] Goodbye!")
+        from jarvis.interfaces.cli import ModernCLI
+        cli = ModernCLI()
+        cli.run()
         return 0
-        
+    except ImportError as e:
+        print(f"[ERROR] CLI interface not available: {e}")
+        return 1
     except Exception as e:
         print(f"[ERROR] CLI startup failed: {e}")
         return 1
