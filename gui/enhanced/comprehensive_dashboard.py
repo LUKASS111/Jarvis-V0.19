@@ -101,6 +101,9 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         self.setWindowTitle("Jarvis V0.19 - Comprehensive Professional Dashboard")
         self.setGeometry(50, 50, 1600, 1000)
         
+        # Initialize activity_list early to prevent AttributeError
+        self.activity_list = None
+        
         # Data refresh timer
         self.refresh_timer = QTimer()
         self.refresh_timer.timeout.connect(self.refresh_all_data)
@@ -634,6 +637,10 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         logs_layout.addWidget(self.log_display)
         
         layout.addWidget(logs_group)
+        
+        # Add activity overview section
+        activity_group = self.create_activity_overview()
+        layout.addWidget(activity_group)
         
         self.tab_widget.addTab(tab, "📊 Monitoring")
     
@@ -1424,6 +1431,10 @@ All endpoints require authentication via API key.""")
     
     def update_activity(self, message: str):
         """Update activity log"""
+        if not hasattr(self, 'activity_list') or self.activity_list is None:
+            print(f"[Activity] {message}")  # Fallback to console output
+            return
+            
         timestamp = datetime.now().strftime("%H:%M:%S")
         formatted_message = f"[{timestamp}] {message}"
         self.activity_list.addItem(formatted_message)

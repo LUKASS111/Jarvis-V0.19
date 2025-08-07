@@ -6,9 +6,12 @@ Comprehensive design system for consistent, professional interface patterns
 # Color palette - Professional dark theme
 class ColorsObject:
     # Primary colors
+    PRIMARY = "#0078d4"  # Main primary color
     PRIMARY_DARK = "#1a1a1a"
     PRIMARY_MEDIUM = "#2d2d2d"
     PRIMARY_LIGHT = "#404040"
+    PRIMARY_CONTAINER = "#2d2d2d"  # Container background
+    PRIMARY_VARIANT = "#333333"  # Variant for hover states
     
     # Accent colors
     ACCENT_BLUE = "#0078d4"
@@ -21,6 +24,7 @@ class ColorsObject:
     TEXT_SECONDARY = "#b3b3b3"
     TEXT_DISABLED = "#666666"
     ON_PRIMARY = "#ffffff"  # Text on primary surfaces
+    ON_PRIMARY_CONTAINER = "#ffffff"  # Text on primary container
     
     # Border and separator colors
     BORDER_LIGHT = "#404040"
@@ -37,9 +41,12 @@ class ColorsObject:
         """Support dictionary-style access for backwards compatibility"""
         # Legacy flat access mapping
         mappings = {
+            "primary": "#0078d4",
             "primary_dark": "#1a1a1a",
             "primary_medium": "#2d2d2d",
             "primary_light": "#404040",
+            "primary_container": "#2d2d2d",
+            "primary_variant": "#333333",
             "accent_blue": "#0078d4",
             "accent_green": "#16c60c",
             "accent_orange": "#ff8c00",
@@ -47,6 +54,8 @@ class ColorsObject:
             "text_primary": "#ffffff",
             "text_secondary": "#b3b3b3",
             "text_disabled": "#666666",
+            "on_primary": "#ffffff",
+            "on_primary_container": "#ffffff",
             "border_light": "#404040",
             "border_medium": "#595959",
             "separator": "#333333",
