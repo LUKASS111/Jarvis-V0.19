@@ -1,0 +1,345 @@
+{
+  "validation_info": {
+    "jarvis_version": "V0.19",
+    "validation_framework": "Windows 11 Comprehensive Validator",
+    "start_time": "2025-08-07T08:42:00.490936",
+    "end_time": "2025-08-07T08:42:00.791109",
+    "total_duration": 0.300173,
+    "system": "Windows 11"
+  },
+  "summary": {
+    "total_tests": 33,
+    "passed": 30,
+    "failed": 3,
+    "warnings": 0,
+    "success_rate": 90.9090909090909
+  },
+  "categories": {
+    "Dependencies": {
+      "pass": 9,
+      "fail": 0,
+      "warning": 0,
+      "total": 9
+    },
+    "Database": {
+      "pass": 5,
+      "fail": 0,
+      "warning": 0,
+      "total": 5
+    },
+    "Core Modules": {
+      "pass": 3,
+      "fail": 1,
+      "warning": 0,
+      "total": 4
+    },
+    "CLI": {
+      "pass": 3,
+      "fail": 0,
+      "warning": 0,
+      "total": 3
+    },
+    "GUI": {
+      "pass": 0,
+      "fail": 1,
+      "warning": 0,
+      "total": 1
+    },
+    "API": {
+      "pass": 2,
+      "fail": 0,
+      "warning": 0,
+      "total": 2
+    },
+    "Memory": {
+      "pass": 2,
+      "fail": 1,
+      "warning": 0,
+      "total": 3
+    },
+    "File Ops": {
+      "pass": 3,
+      "fail": 0,
+      "warning": 0,
+      "total": 3
+    },
+    "Error Handling": {
+      "pass": 2,
+      "fail": 0,
+      "warning": 0,
+      "total": 2
+    },
+    "Performance": {
+      "pass": 1,
+      "fail": 0,
+      "warning": 0,
+      "total": 1
+    }
+  },
+  "detailed_results": [
+    {
+      "category": "Dependencies",
+      "test": "SQLite Database",
+      "status": "PASS",
+      "details": "",
+      "duration": 1.430511474609375e-06,
+      "timestamp": "2025-08-07T08:42:00.491038"
+    },
+    {
+      "category": "Dependencies",
+      "test": "JSON Processing",
+      "status": "PASS",
+      "details": "",
+      "duration": 1.1920928955078125e-06,
+      "timestamp": "2025-08-07T08:42:00.491069"
+    },
+    {
+      "category": "Dependencies",
+      "test": "Process Management",
+      "status": "PASS",
+      "details": "",
+      "duration": 7.152557373046875e-07,
+      "timestamp": "2025-08-07T08:42:00.491092"
+    },
+    {
+      "category": "Dependencies",
+      "test": "Dynamic Imports",
+      "status": "PASS",
+      "details": "",
+      "duration": 7.152557373046875e-07,
+      "timestamp": "2025-08-07T08:42:00.491114"
+    },
+    {
+      "category": "Dependencies",
+      "test": "Path Operations",
+      "status": "PASS",
+      "details": "",
+      "duration": 7.152557373046875e-07,
+      "timestamp": "2025-08-07T08:42:00.491135"
+    },
+    {
+      "category": "Dependencies",
+      "test": "Time Functions",
+      "status": "PASS",
+      "details": "",
+      "duration": 4.76837158203125e-07,
+      "timestamp": "2025-08-07T08:42:00.491157"
+    },
+    {
+      "category": "Dependencies",
+      "test": "Date/Time Operations",
+      "status": "PASS",
+      "details": "",
+      "duration": 7.152557373046875e-07,
+      "timestamp": "2025-08-07T08:42:00.491178"
+    },
+    {
+      "category": "Dependencies",
+      "test": "System Interface",
+      "status": "PASS",
+      "details": "",
+      "duration": 4.76837158203125e-07,
+      "timestamp": "2025-08-07T08:42:00.491199"
+    },
+    {
+      "category": "Dependencies",
+      "test": "Operating System Interface",
+      "status": "PASS",
+      "details": "",
+      "duration": 4.76837158203125e-07,
+      "timestamp": "2025-08-07T08:42:00.491221"
+    },
+    {
+      "category": "Database",
+      "test": "Archive Database",
+      "status": "PASS",
+      "details": "Integrity check passed",
+      "duration": 0.0062024593353271484,
+      "timestamp": "2025-08-07T08:42:00.497479"
+    },
+    {
+      "category": "Database",
+      "test": "Memory Cache Database",
+      "status": "PASS",
+      "details": "Created new database",
+      "duration": 0.0018169879913330078,
+      "timestamp": "2025-08-07T08:42:00.499703"
+    },
+    {
+      "category": "Database",
+      "test": "Health Metrics Database",
+      "status": "PASS",
+      "details": "Created new database",
+      "duration": 0.0013794898986816406,
+      "timestamp": "2025-08-07T08:42:00.501112"
+    },
+    {
+      "category": "Database",
+      "test": "System Metrics Database",
+      "status": "PASS",
+      "details": "Created new database",
+      "duration": 0.0013129711151123047,
+      "timestamp": "2025-08-07T08:42:00.502450"
+    },
+    {
+      "category": "Database",
+      "test": "CRDT Store Database",
+      "status": "PASS",
+      "details": "Created new database",
+      "duration": 0.0014057159423828125,
+      "timestamp": "2025-08-07T08:42:00.503881"
+    },
+    {
+      "category": "Core Modules",
+      "test": "Data Archiver",
+      "status": "PASS",
+      "details": "Module loaded successfully",
+      "duration": 0.17604684829711914,
+      "timestamp": "2025-08-07T08:42:00.679977"
+    },
+    {
+      "category": "Core Modules",
+      "test": "Memory Manager",
+      "status": "FAIL",
+      "details": "Import failed: No module named 'jarvis.core.memory_manager'",
+      "duration": 6.341934204101562e-05,
+      "timestamp": "2025-08-07T08:42:00.680076"
+    },
+    {
+      "category": "Core Modules",
+      "test": "Agent Workflow",
+      "status": "PASS",
+      "details": "Module loaded successfully",
+      "duration": 4.0531158447265625e-06,
+      "timestamp": "2025-08-07T08:42:00.680103"
+    },
+    {
+      "category": "Core Modules",
+      "test": "API System",
+      "status": "PASS",
+      "details": "Module loaded successfully",
+      "duration": 0.02562546730041504,
+      "timestamp": "2025-08-07T08:42:00.705738"
+    },
+    {
+      "category": "CLI",
+      "test": "Version Command",
+      "status": "PASS",
+      "details": "Command executed successfully",
+      "duration": 0.027927875518798828,
+      "timestamp": "2025-08-07T08:42:00.733714"
+    },
+    {
+      "category": "CLI",
+      "test": "Help Command",
+      "status": "PASS",
+      "details": "Command executed successfully",
+      "duration": 0.029516935348510742,
+      "timestamp": "2025-08-07T08:42:00.763267"
+    },
+    {
+      "category": "CLI",
+      "test": "Main Module Import",
+      "status": "PASS",
+      "details": "Command executed successfully",
+      "duration": 0.02601027488708496,
+      "timestamp": "2025-08-07T08:42:00.789316"
+    },
+    {
+      "category": "GUI",
+      "test": "PyQt5 Framework",
+      "status": "FAIL",
+      "details": "PyQt5 not available: No module named 'PyQt5'",
+      "duration": 0.00028777122497558594,
+      "timestamp": "2025-08-07T08:42:00.789668"
+    },
+    {
+      "category": "API",
+      "test": "API Health Check",
+      "status": "PASS",
+      "details": "API module accessible",
+      "duration": 5.0067901611328125e-06,
+      "timestamp": "2025-08-07T08:42:00.789719"
+    },
+    {
+      "category": "API",
+      "test": "API Model Availability",
+      "status": "PASS",
+      "details": "Model check passed",
+      "duration": 9.5367431640625e-07,
+      "timestamp": "2025-08-07T08:42:00.789736"
+    },
+    {
+      "category": "Memory",
+      "test": "Memory Store",
+      "status": "FAIL",
+      "details": "Memory error: No module named 'jarvis.core.memory_manager'",
+      "duration": 6.771087646484375e-05,
+      "timestamp": "2025-08-07T08:42:00.789825"
+    },
+    {
+      "category": "Memory",
+      "test": "Memory Retrieve",
+      "status": "PASS",
+      "details": "Memory retrieve operational",
+      "duration": 1.1920928955078125e-06,
+      "timestamp": "2025-08-07T08:42:00.789854"
+    },
+    {
+      "category": "Memory",
+      "test": "Memory Cache",
+      "status": "PASS",
+      "details": "Memory cache operational",
+      "duration": 9.5367431640625e-07,
+      "timestamp": "2025-08-07T08:42:00.789868"
+    },
+    {
+      "category": "File Ops",
+      "test": "File Read",
+      "status": "PASS",
+      "details": "File read successful",
+      "duration": 0.000110626220703125,
+      "timestamp": "2025-08-07T08:42:00.789999"
+    },
+    {
+      "category": "File Ops",
+      "test": "File Write",
+      "status": "PASS",
+      "details": "File write successful",
+      "duration": 0.00016117095947265625,
+      "timestamp": "2025-08-07T08:42:00.790182"
+    },
+    {
+      "category": "File Ops",
+      "test": "Directory Access",
+      "status": "PASS",
+      "details": "Directory access successful",
+      "duration": 4.673004150390625e-05,
+      "timestamp": "2025-08-07T08:42:00.790251"
+    },
+    {
+      "category": "Error Handling",
+      "test": "Exception Handling",
+      "status": "PASS",
+      "details": "Exception handling works",
+      "duration": 3.5762786865234375e-06,
+      "timestamp": "2025-08-07T08:42:00.790296"
+    },
+    {
+      "category": "Error Handling",
+      "test": "Database Error Recovery",
+      "status": "PASS",
+      "details": "Database error handling works",
+      "duration": 0.0001857280731201172,
+      "timestamp": "2025-08-07T08:42:00.790496"
+    },
+    {
+      "category": "Performance",
+      "test": "Calculation Speed",
+      "status": "PASS",
+      "details": "Completed in 0.001s",
+      "duration": 0.0005340576171875,
+      "timestamp": "2025-08-07T08:42:00.791084"
+    }
+  ]
+}

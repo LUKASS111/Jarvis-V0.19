@@ -1,0 +1,1708 @@
+[WARN] Efficient test runner not available, falling back to legacy mode
+[LAUNCHER] Jarvis V0.19 Master Test Runner
+[LAUNCHER] Timestamp: 2025-08-07 08:45:07
+[LAUNCHER] Using LEGACY mode - individual file logging
+[LAUNCH] V0.2 COMPREHENSIVE TEST SUITE
+================================================================================
+Started at: 2025-08-07 08:45:07
+
+
+============================================================
+[TEST] Running Unit Tests - Core functionality
+============================================================
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+
+============================================================
+UNIT TEST SUMMARY
+============================================================
+Tests run: 23
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Integration Tests - Module interactions
+============================================================
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[WARN] This is a test warning
+
+============================================================
+INTEGRATION TEST SUMMARY
+============================================================
+Tests run: 12
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Functional Tests - End-user scenarios
+============================================================
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+
+============================================================
+FUNCTIONAL TEST SUMMARY
+============================================================
+Tests run: 12
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Regression Tests - Prevent old bugs
+============================================================
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[SKIP] Could not check module gui.modern_gui: No module named 'gui.modern_gui'
+[SKIP] Could not check module jarvis.core.logs: No module named 'jarvis.core.logs'
+
+============================================================
+REGRESSION TEST SUMMARY
+============================================================
+Tests run: 14
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Performance Tests - Speed and efficiency
+============================================================
+
+[SAVE] Memory Performance Metrics:
+   Remember: 0.528s (947.2 ops/sec)
+   Recall:   0.108s (4642.8 ops/sec)
+   Forget:   0.274s (912.7 ops/sec)
+
+[REFRESH] Concurrent Memory Performance:
+   Avg Remember: 0.0058s
+   Avg Recall:   0.0012s
+
+[MEMO] Logging Performance Metrics:
+   Logging:   0.106s (9412.9 events/sec)
+   Retrieval: 0.029s
+   Total logs: 1051
+
+[REFRESH] Concurrent Logging Performance:
+   Avg Log Time: 0.0003s
+   Total Events: 20
+   Size 1000: 0.0001s
+   Size 5000: 0.0001s
+   Size 10000: 0.0001s
+   Size 20000: 0.0002s
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+
+[ROBOT] LLM Interface Performance:
+   Direct calls:    0.0170s avg
+   Processed calls: 0.0157s avg
+
+[REFRESH] Model Switching Performance:
+   Avg Switch Time: 0.0000s
+[WARN] Performance test message 0
+[WARN] Performance test message 1
+[WARN] Performance test message 2
+[WARN] Performance test message 3
+[WARN] Performance test message 4
+[WARN] Performance test message 5
+[WARN] Performance test message 6
+[WARN] Performance test message 7
+[WARN] Performance test message 8
+[WARN] Performance test message 9
+[WARN] Performance test message 10
+[WARN] Performance test message 11
+[WARN] Performance test message 12
+[WARN] Performance test message 13
+[WARN] Performance test message 14
+[WARN] Performance test message 15
+[WARN] Performance test message 16
+[WARN] Performance test message 17
+[WARN] Performance test message 18
+[WARN] Performance test message 19
+[WARN] Performance test message 20
+[WARN] Performance test message 21
+[WARN] Performance test message 22
+[WARN] Performance test message 23
+[WARN] Performance test message 24
+[WARN] Performance test message 25
+[WARN] Performance test message 26
+[WARN] Performance test message 27
+[WARN] Performance test message 28
+[WARN] Performance test message 29
+[WARN] Performance test message 30
+[WARN] Performance test message 31
+[WARN] Performance test message 32
+[WARN] Performance test message 33
+[WARN] Performance test message 34
+[WARN] Performance test message 35
+[WARN] Performance test message 36
+[WARN] Performance test message 37
+[WARN] Performance test message 38
+[WARN] Performance test message 39
+[WARN] Performance test message 40
+[WARN] Performance test message 41
+[WARN] Performance test message 42
+[WARN] Performance test message 43
+[WARN] Performance test message 44
+[WARN] Performance test message 45
+[WARN] Performance test message 46
+[WARN] Performance test message 47
+[WARN] Performance test message 48
+[WARN] Performance test message 49
+[WARN] Performance test message 50
+[WARN] Performance test message 51
+[WARN] Performance test message 52
+[WARN] Performance test message 53
+[WARN] Performance test message 54
+[WARN] Performance test message 55
+[WARN] Performance test message 56
+[WARN] Performance test message 57
+[WARN] Performance test message 58
+[WARN] Performance test message 59
+[WARN] Performance test message 60
+[WARN] Performance test message 61
+[WARN] Performance test message 62
+[WARN] Performance test message 63
+[WARN] Performance test message 64
+[WARN] Performance test message 65
+[WARN] Performance test message 66
+[WARN] Performance test message 67
+[WARN] Performance test message 68
+[WARN] Performance test message 69
+[WARN] Performance test message 70
+[WARN] Performance test message 71
+[WARN] Performance test message 72
+[WARN] Performance test message 73
+[WARN] Performance test message 74
+[WARN] Performance test message 75
+[WARN] Performance test message 76
+[WARN] Performance test message 77
+[WARN] Performance test message 78
+[WARN] Performance test message 79
+[WARN] Performance test message 80
+[WARN] Performance test message 81
+[WARN] Performance test message 82
+[WARN] Performance test message 83
+[WARN] Performance test message 84
+[WARN] Performance test message 85
+[WARN] Performance test message 86
+[WARN] Performance test message 87
+[WARN] Performance test message 88
+[WARN] Performance test message 89
+[WARN] Performance test message 90
+[WARN] Performance test message 91
+[WARN] Performance test message 92
+[WARN] Performance test message 93
+[WARN] Performance test message 94
+[WARN] Performance test message 95
+[WARN] Performance test message 96
+[WARN] Performance test message 97
+[WARN] Performance test message 98
+[WARN] Performance test message 99
+[WARN] Performance test message 100
+[WARN] Performance test message 101
+[WARN] Performance test message 102
+[WARN] Performance test message 103
+[WARN] Performance test message 104
+[WARN] Performance test message 105
+[WARN] Performance test message 106
+[WARN] Performance test message 107
+[WARN] Performance test message 108
+[WARN] Performance test message 109
+[WARN] Performance test message 110
+[WARN] Performance test message 111
+[WARN] Performance test message 112
+[WARN] Performance test message 113
+[WARN] Performance test message 114
+[WARN] Performance test message 115
+[WARN] Performance test message 116
+[WARN] Performance test message 117
+[WARN] Performance test message 118
+[WARN] Performance test message 119
+[WARN] Performance test message 120
+[WARN] Performance test message 121
+[WARN] Performance test message 122
+[WARN] Performance test message 123
+[WARN] Performance test message 124
+[WARN] Performance test message 125
+[WARN] Performance test message 126
+[WARN] Performance test message 127
+[WARN] Performance test message 128
+[WARN] Performance test message 129
+[WARN] Performance test message 130
+[WARN] Performance test message 131
+[WARN] Performance test message 132
+[WARN] Performance test message 133
+[WARN] Performance test message 134
+[WARN] Performance test message 135
+[WARN] Performance test message 136
+[WARN] Performance test message 137
+[WARN] Performance test message 138
+[WARN] Performance test message 139
+[WARN] Performance test message 140
+[WARN] Performance test message 141
+[WARN] Performance test message 142
+[WARN] Performance test message 143
+[WARN] Performance test message 144
+[WARN] Performance test message 145
+[WARN] Performance test message 146
+[WARN] Performance test message 147
+[WARN] Performance test message 148
+[WARN] Performance test message 149
+[WARN] Performance test message 150
+[WARN] Performance test message 151
+[WARN] Performance test message 152
+[WARN] Performance test message 153
+[WARN] Performance test message 154
+[WARN] Performance test message 155
+[WARN] Performance test message 156
+[WARN] Performance test message 157
+[WARN] Performance test message 158
+[WARN] Performance test message 159
+[WARN] Performance test message 160
+[WARN] Performance test message 161
+[WARN] Performance test message 162
+[WARN] Performance test message 163
+[WARN] Performance test message 164
+[WARN] Performance test message 165
+[WARN] Performance test message 166
+[WARN] Performance test message 167
+[WARN] Performance test message 168
+[WARN] Performance test message 169
+[WARN] Performance test message 170
+[WARN] Performance test message 171
+[WARN] Performance test message 172
+[WARN] Performance test message 173
+[WARN] Performance test message 174
+[WARN] Performance test message 175
+[WARN] Performance test message 176
+[WARN] Performance test message 177
+[WARN] Performance test message 178
+[WARN] Performance test message 179
+[WARN] Performance test message 180
+[WARN] Performance test message 181
+[WARN] Performance test message 182
+[WARN] Performance test message 183
+[WARN] Performance test message 184
+[WARN] Performance test message 185
+[WARN] Performance test message 186
+[WARN] Performance test message 187
+[WARN] Performance test message 188
+[WARN] Performance test message 189
+[WARN] Performance test message 190
+[WARN] Performance test message 191
+[WARN] Performance test message 192
+[WARN] Performance test message 193
+[WARN] Performance test message 194
+[WARN] Performance test message 195
+[WARN] Performance test message 196
+[WARN] Performance test message 197
+[WARN] Performance test message 198
+[WARN] Performance test message 199
+
+[WARN]  Error Logging Performance:
+   Avg Log Time: 0.0001s
+   Total Time:   0.018s for 200 errors
+   Rate:         11356.1 errors/sec
+
+[SHIELD]  Safe Execute Performance:
+   Failing functions:    0.0001s avg
+   Successful functions: 0.0000s avg
+
+[REFRESH] Complete Workflow Performance:
+   Avg Workflow Time: 0.017s
+   Operations per workflow: 4
+
+============================================================
+PERFORMANCE TEST SUMMARY
+============================================================
+Tests run: 11
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Coverage Tests - Code coverage analysis
+============================================================
+
+[CHART] MODULE COVERAGE ANALYSIS:
+
+============================================================
+CODE COVERAGE TEST SUMMARY
+============================================================
+Tests run: 6
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Function Tests - All program functions
+============================================================
+[LAUNCH] Comprehensive Function Test for Jarvis-V0.19
+================================================================================
+Started at: 2025-08-07 08:45:15
+
+[TEST] Testing Core Module Imports...
+
+[TEST] Testing Memory System Functions...
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+
+[TEST] Testing LLM Interface Functions...
+
+[TEST] Testing Data Archiving Functions...
+
+[TEST] Testing Logging Functions...
+
+[TEST] Testing Main Workflow Functions...
+
+[TEST] Testing System Utilities...
+
+================================================================================
+[REPORT] COMPREHENSIVE FUNCTION TEST RESULTS
+================================================================================
+
+[CATEGORY] CORE MODULES:
+  [OK] core.main
+  [OK] core.error_handler
+  [OK] utils.logs
+  [OK] memory.memory
+  [OK] llm.llm_interface
+  [OK] core.data_archiver
+  [OK] gui
+
+[CATEGORY] MEMORY FUNCTIONS:
+  [OK] remember_fact
+  [OK] recall_fact
+  [OK] forget_fact
+
+[CATEGORY] LLM FUNCTIONS:
+  [OK] get_ollama_model
+  [OK] get_available_models
+  [OK] ask_local_llm
+
+[CATEGORY] ARCHIVING FUNCTIONS:
+  [OK] archive_input
+  [OK] archive_output
+  [OK] get_archive_stats
+
+[CATEGORY] LOGGING FUNCTIONS:
+  [OK] log_event
+  [OK] log_error
+
+[CATEGORY] MAIN WORKFLOW:
+  [OK] simple_llm_process
+  [OK] process_interactive_input
+
+[CATEGORY] SYSTEM UTILITIES:
+  [ERROR] system_dashboard: No module named 'system_dashboard'
+  [ERROR] agent_launcher: No module named 'agent_launcher'
+
+--------------------------------------------------------------------------------
+[SUMMARY] Function Test Results:
+  Total Functions:     22
+  Successful:          20 (90.9%)
+  Failed:              0
+  Errors:              2
+  Overall Status:      [GREEN] EXCELLENT
+  Completion Time:     2025-08-07 08:45:15
+
+[SAVE] Detailed results saved to: /home/runner/work/Jarvis-V0.19/Jarvis-V0.19/tests/output/logs/function_test_results_20250807_084515.json
+
+
+============================================================
+[TEST] Running Simplified System Tests - Basic functionality
+============================================================
+[TEST] SIMPLIFIED SYSTEM TEST SUITE
+==================================================
+[TIME1] Started at: 2025-08-07 08:45:15
+
+[SEARCH] Running test_core_imports...
+✅ Core imports: PASS
+
+[SEARCH] Running test_error_handler...
+✅ Error handler: PASS
+
+[SEARCH] Running test_llm_interface...
+✅ LLM interface: PASS (Current model: llama3:8b)
+
+[SEARCH] Running test_memory_system...
+✅ Memory system: PASS
+
+[SEARCH] Running test_logging_system...
+✅ Logging system: PASS
+
+[SEARCH] Running test_gui_imports...
+[FAIL] GUI imports: FAIL - No module named 'gui.modern_gui'
+
+[SEARCH] Running test_main_processing...
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+✅ Main processing: PASS
+
+[CHART] TEST RESULTS SUMMARY
+==================================================
+   ✅ PASS test_core_imports (0.10s)
+   ✅ PASS test_error_handler (0.00s)
+   ✅ PASS test_llm_interface (0.00s)
+   ✅ PASS test_memory_system (0.00s)
+   ✅ PASS test_logging_system (0.00s)
+   [FAIL] FAIL test_gui_imports (0.00s)
+   ✅ PASS test_main_processing (0.05s)
+
+[TARGET] OVERALL SUMMARY:
+   Total Tests: 7
+   Passed: 6
+   Failed: 1
+   Success Rate: 85.7%
+   Total Execution Time: 0.15s
+   System Status: [YELLOW] GOOD
+
+[TIME1] Completed at: 2025-08-07 08:45:15
+
+
+============================================================
+[TEST] Running Error Handling Tests - Comprehensive error scenarios
+============================================================
+[WARN] Błąd w session_warning: Test session error
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[WARN] Błąd w e2e_warning: End-to-end test error
+[WARN] Błąd w integration_context: Integration test error
+
+============================================================
+ERROR HANDLING TEST SUMMARY
+============================================================
+Tests run: 16
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+
+============================================================
+[TEST] Running Archiving System Tests - Data verification and backup
+============================================================
+Starting Comprehensive Data Archiving and Verification System Tests
+======================================================================
+
+=== Testing Data Archiving System ===
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[OK] Input archived with ID: 3982
+[OK] Output archived with ID: 3983
+[OK] Archive statistics: 3983 total entries
+[OK] Pending verification: 2878
+
+=== Testing Data Verification System ===
+[OK] Verification completed
+[OK] Is verified: False
+[OK] Confidence score: 0.50
+[OK] Verification type: general_content
+[OK] Reasoning: [LLM ERROR: nie można połączyć się z Ollama (czy serwer działa?)]...
+[OK] Verifier instance created: DataVerifier
+
+=== Testing Backup & Recovery System ===
+[INFO] Scheduled daily backup completed: backup_20250807_084515_daily
+[OK] Backup created: backup_20250807_084516_manual
+[OK] Backup size: 438050 bytes
+[OK] Backup path: data/backups/manual/backup_20250807_084516_manual.tar.gz
+[OK] Total backups available: 5
+[OK] Backup statistics: 5 backups
+[OK] Total backup size: 1764535 bytes
+
+=== Testing Agent Workflow System ===
+[OK] Workflow manager created: AgentWorkflowManager
+[OK] Test agent registered
+[OK] Workflow started: test_agent_validation_20250807_084516
+[INFO] Waiting for workflow cycles to execute...
+[CORRECT] Applied 8/16 corrections for agent test_agent_validation
+[CORRECT] Applied 9/20 corrections for agent test_agent_validation
+[CORRECT] Applied 8/16 corrections for agent test_agent_validation
+[CORRECT] Applied 8/16 corrections for agent test_agent_validation
+[INFO] Agent report saved: tests/output/agent_reports/agent_report_test_agent_validation_20250807_084521.json
+[OK] Workflow status: completed
+
+=== Testing System Integration ===
+[INFO] Testing integrated data flow...
+[OK] Integration test data archived: 4987
+[OK] Integration verification: False (confidence: 0.50)
+[OK] Integration backup created: backup_20250807_084526_manual
+[OK] System status - Total entries: 5017
+[OK] System status - Avg verification score: 0.50
+
+======================================================================
+TEST SUMMARY
+======================================================================
+[PASS] Data Archiving
+[PASS] Data Verification
+[PASS] Backup System
+[PASS] Agent Workflow
+[PASS] System Integration
+----------------------------------------------------------------------
+Total Tests: 5
+Passed: 5
+Failed: 0
+Success Rate: 100.0%
+
+[SUCCESS] All tests passed! System ready for production use.
+
+
+============================================================
+[TEST] Running Agent Workflow Tests - Autonomous testing cycles
+============================================================
+============================================================
+AGENT WORKFLOW SYSTEM TESTS
+============================================================
+
+============================================================
+AGENT WORKFLOW TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 2.1 seconds
+
+Agent Workflow System test results:
+✓ Module import and basic functionality
+✓ Data structure creation and validation
+✓ Configuration and initialization
+✓ Workflow scenario management
+✓ Cycle execution and reporting
+✓ Error handling and concurrent processing
+
+
+============================================================
+[TEST] Running Backup Recovery Tests - Data protection systems
+============================================================
+============================================================
+BACKUP RECOVERY SYSTEM TESTS
+============================================================
+
+============================================================
+BACKUP RECOVERY TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 1.8 seconds
+
+Backup Recovery System test results:
+✓ Module import and initialization
+✓ Backup creation and verification
+✓ Recovery process functionality
+✓ Backup listing and management
+✓ Integrity checking capabilities
+✓ Retention policy and compression support
+
+
+============================================================
+[TEST] Running Archive Purge Tests - Data lifecycle management
+============================================================
+============================================================
+ARCHIVE PURGE MANAGEMENT TESTS
+============================================================
+
+============================================================
+ARCHIVE PURGE TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 1.5 seconds
+
+Archive Purge Management test results:
+✓ Module import and initialization
+✓ Purge policy configuration
+✓ Archive analysis functionality
+✓ Safe purge execution
+✓ Statistics and selective purging
+✓ Backup, scheduling, and recovery capabilities
+
+
+============================================================
+[TEST] Running Verification Optimizer Tests - Performance optimization
+============================================================
+============================================================
+VERIFICATION OPTIMIZER TESTS
+============================================================
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+
+============================================================
+VERIFICATION OPTIMIZER TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 1.9 seconds
+
+Verification Optimizer test results:
+✓ Module import and initialization
+✓ Queue management and batch processing
+✓ Concurrent processing capabilities
+✓ Performance metrics collection
+✓ Adaptive optimization algorithms
+✓ Resource management and optimization strategies
+
+
+============================================================
+[TEST] Running System Dashboard Tests - Main monitoring interface
+============================================================
+============================================================
+SYSTEM DASHBOARD TESTS
+============================================================
+
+============================================================
+SYSTEM DASHBOARD TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 1.3 seconds
+
+System Dashboard test results:
+✓ Module import and initialization
+✓ System metrics collection
+✓ Health status monitoring
+✓ Archive statistics display
+✓ CRDT status monitoring
+✓ Performance graphs and real-time updates
+✓ Alert system and configuration management
+
+
+============================================================
+[TEST] Running GUI Component Tests - User interface elements
+============================================================
+============================================================
+GUI COMPONENTS TESTS
+============================================================
+
+============================================================
+GUI COMPONENTS TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 0.8 seconds
+
+GUI Components test results:
+✓ Module imports and initialization
+✓ Component creation and event handling
+✓ Theme and window management
+✓ Widget interactions and layout
+✓ GUI cleanup functionality
+
+
+============================================================
+[TEST] Running CLI Interface Tests - Command-line functionality
+============================================================
+============================================================
+CLI INTERFACES TESTS
+============================================================
+
+============================================================
+CLI INTERFACES TEST SUMMARY
+============================================================
+Tests run: 10
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 1.1 seconds
+
+CLI Interfaces test results:
+✓ Module imports and functionality
+✓ Argument parsing and command execution
+✓ Agent launcher capabilities
+✓ Help system and configuration
+✓ Error handling and output formatting
+✓ Main entry points validation
+
+
+============================================================
+[TEST] Running CRDT Phase 1-3 - Foundation and Basic/Advanced Types
+============================================================
+
+============================================================
+[TEST] Running CRDT Comprehensive - Mathematical properties validation
+============================================================
+CRDT Mathematical Properties and Integration Test Suite
+============================================================
+Testing conflict-free replicated data types...
+
+✓ Loaded test_crdt_implementation
+✓ Loaded test_crdt_phase4
+✓ Loaded test_crdt_phase5
+
+Running comprehensive CRDT test suite (3 modules)...
+
+test_counter_operations (test_crdt_implementation.TestCRDTManager.test_counter_operations)
+Test counter operations through manager. ... ok
+test_health_metrics (test_crdt_implementation.TestCRDTManager.test_health_metrics)
+Test health metrics reporting. ... ok
+test_persistence (test_crdt_implementation.TestCRDTManager.test_persistence)
+Test that CRDT states persist across manager instances. ... ok
+test_register_operations (test_crdt_implementation.TestCRDTManager.test_register_operations)
+Test register operations through manager. ... ok
+test_set_operations (test_crdt_implementation.TestCRDTManager.test_set_operations)
+Test set operations through manager. ... ok
+test_or_set_operations (test_crdt_implementation.TestCRDTManagerAdvanced.test_or_set_operations)
+Test OR-Set operations through manager. ... ok
+test_pn_counter_operations (test_crdt_implementation.TestCRDTManagerAdvanced.test_pn_counter_operations)
+Test PN-Counter operations through manager. ... ok
+test_tombstone_cleanup (test_crdt_implementation.TestCRDTManagerAdvanced.test_tombstone_cleanup)
+Test OR-Set tombstone cleanup. ... ok
+test_increment_basic (test_crdt_implementation.TestGCounter.test_increment_basic)
+Test basic increment functionality. ... ok
+test_increment_negative_raises_error (test_crdt_implementation.TestGCounter.test_increment_negative_raises_error)
+Test that negative increments raise error. ... ok
+test_merge_convergence (test_crdt_implementation.TestGCounter.test_merge_convergence)
+Test merge convergence property. ... ok
+test_merge_idempotent (test_crdt_implementation.TestGCounter.test_merge_idempotent)
+Test merge idempotence. ... ok
+test_serialization (test_crdt_implementation.TestGCounter.test_serialization)
+Test JSON serialization/deserialization. ... ok
+test_add_basic (test_crdt_implementation.TestGSet.test_add_basic)
+Test basic add functionality. ... ok
+test_add_duplicate (test_crdt_implementation.TestGSet.test_add_duplicate)
+Test adding duplicate elements. ... ok
+test_merge_convergence (test_crdt_implementation.TestGSet.test_merge_convergence)
+Test merge convergence property. ... ok
+test_serialization (test_crdt_implementation.TestGSet.test_serialization)
+Test JSON serialization/deserialization. ... ok
+test_merge_latest_wins (test_crdt_implementation.TestLWWRegister.test_merge_latest_wins)
+Test that latest write wins during merge. ... ok
+test_merge_tie_breaker (test_crdt_implementation.TestLWWRegister.test_merge_tie_breaker)
+Test tie-breaker by node ID. ... ok
+test_serialization (test_crdt_implementation.TestLWWRegister.test_serialization)
+Test JSON serialization/deserialization. ... ok
+test_write_read_basic (test_crdt_implementation.TestLWWRegister.test_write_read_basic)
+Test basic write/read functionality. ... ok
+test_add_remove_basic (test_crdt_implementation.TestORSet.test_add_remove_basic)
+Test basic add/remove functionality. ... ok
+test_add_remove_concurrent (test_crdt_implementation.TestORSet.test_add_remove_concurrent)
+Test concurrent add/remove operations. ... ok
+test_merge_convergence (test_crdt_implementation.TestORSet.test_merge_convergence)
+Test merge convergence property. ... ok
+test_serialization (test_crdt_implementation.TestORSet.test_serialization)
+Test JSON serialization/deserialization. ... ok
+test_comparison_operations (test_crdt_implementation.TestPNCounter.test_comparison_operations)
+Test comparison operations. ... ok
+test_increment_decrement_basic (test_crdt_implementation.TestPNCounter.test_increment_decrement_basic)
+Test basic increment/decrement functionality. ... ok
+test_merge_convergence (test_crdt_implementation.TestPNCounter.test_merge_convergence)
+Test merge convergence property. ... ok
+test_negative_amounts_error (test_crdt_implementation.TestPNCounter.test_negative_amounts_error)
+Test that negative amounts raise errors. ... ok
+test_node_breakdown (test_crdt_implementation.TestPNCounter.test_node_breakdown)
+Test per-node operation breakdown. ... ok
+test_serialization (test_crdt_implementation.TestPNCounter.test_serialization)
+Test JSON serialization/deserialization. ... ok
+test_add_remove_resolution_rules (test_crdt_phase4.TestCRDTConflictResolver.test_add_remove_resolution_rules)
+Test adding and removing resolution rules ... ok
+test_conflict_detection_business_logic (test_crdt_phase4.TestCRDTConflictResolver.test_conflict_detection_business_logic)
+Test business logic conflict detection ... ok
+test_conflict_detection_no_conflict (test_crdt_phase4.TestCRDTConflictResolver.test_conflict_detection_no_conflict)
+Test no conflict detection for compatible operations ... ok
+test_conflict_statistics (test_crdt_phase4.TestCRDTConflictResolver.test_conflict_statistics)
+Test conflict statistics collection ... ok
+test_default_resolution_rules (test_crdt_phase4.TestCRDTConflictResolver.test_default_resolution_rules)
+Test default resolution rules setup ... ok
+test_highest_priority_resolution (test_crdt_phase4.TestCRDTConflictResolver.test_highest_priority_resolution)
+Test highest priority conflict resolution ... ok
+test_last_write_wins_resolution (test_crdt_phase4.TestCRDTConflictResolver.test_last_write_wins_resolution)
+Test last-write-wins conflict resolution ... ok
+test_manual_conflict_resolution (test_crdt_phase4.TestCRDTConflictResolver.test_manual_conflict_resolution)
+Test manual conflict resolution ... ok
+test_merge_values_resolution_numeric (test_crdt_phase4.TestCRDTConflictResolver.test_merge_values_resolution_numeric)
+Test merge values resolution for numeric values ... ok
+test_merge_values_resolution_sets (test_crdt_phase4.TestCRDTConflictResolver.test_merge_values_resolution_sets)
+Test merge values resolution for set values ... ok
+test_resolution_rule_matching (test_crdt_phase4.TestCRDTConflictResolver.test_resolution_rule_matching)
+Test resolution rule matching ... ok
+test_resolver_initialization (test_crdt_phase4.TestCRDTConflictResolver.test_resolver_initialization)
+Test conflict resolver initialization ... ok
+test_network_and_resolver_integration (test_crdt_phase4.TestCRDTIntegrationPhase4.test_network_and_resolver_integration)
+Test integration between network manager and conflict resolver ... ok
+test_phase_4_module_imports (test_crdt_phase4.TestCRDTIntegrationPhase4.test_phase_4_module_imports)
+Test that all Phase 4 modules can be imported without errors ... ok
+test_message_handler_setup (test_crdt_phase4.TestCRDTNetwork.test_message_handler_setup)
+Test message handler registration ... ok
+test_network_manager_initialization (test_crdt_phase4.TestCRDTNetwork.test_network_manager_initialization)
+Test network manager initialization ... ok
+test_network_status (test_crdt_phase4.TestCRDTNetwork.test_network_status)
+Test network status reporting ... ok
+test_peer_info_creation (test_crdt_phase4.TestCRDTNetwork.test_peer_info_creation)
+Test peer information handling ... ok
+test_sync_message_serialization (test_crdt_phase4.TestCRDTNetwork.test_sync_message_serialization)
+Test sync message serialization ... ok
+test_crdt_registration (test_crdt_phase4.TestCRDTSynchronizer.test_crdt_registration)
+Test CRDT registration for synchronization ... ok
+test_sync_status_reporting (test_crdt_phase4.TestCRDTSynchronizer.test_sync_status_reporting)
+Test sync status reporting ... ok
+test_synchronizer_initialization (test_crdt_phase4.TestCRDTSynchronizer.test_synchronizer_initialization)
+Test synchronizer initialization ... ok
+test_alert_rule_management (test_crdt_phase5.TestCRDTAlerting.test_alert_rule_management)
+Test adding and managing alert rules ... ok
+test_alert_triggering (test_crdt_phase5.TestCRDTAlerting.test_alert_triggering)
+Test alert triggering ... ok
+test_alerting_initialization (test_crdt_phase5.TestCRDTAlerting.test_alerting_initialization)
+Test alerting system initialization ... ok
+test_cooldown_mechanism (test_crdt_phase5.TestCRDTAlerting.test_cooldown_mechanism)
+Test alert cooldown mechanism ... ok
+test_default_alerts_setup (test_crdt_phase5.TestCRDTAlerting.test_default_alerts_setup)
+Test default alert rules setup ... ok
+test_collector_initialization (test_crdt_phase5.TestCRDTMetricsCollector.test_collector_initialization)
+Test metrics collector initialization ... ok
+test_conflict_analysis (test_crdt_phase5.TestCRDTMetricsCollector.test_conflict_analysis)
+Test conflict analysis ... ok
+test_health_metrics_recording (test_crdt_phase5.TestCRDTMetricsCollector.test_health_metrics_recording)
+Test health metrics recording ... ok
+test_health_score_calculation (test_crdt_phase5.TestCRDTMetricsCollector.test_health_score_calculation)
+Test health score calculation ... ok
+test_sync_performance_trend (test_crdt_phase5.TestCRDTMetricsCollector.test_sync_performance_trend)
+Test sync performance trend calculation ... ok
+test_comprehensive_status_generation (test_crdt_phase5.TestCRDTMonitoring.test_comprehensive_status_generation)
+Test comprehensive status generation ... ok
+test_metrics_simulation (test_crdt_phase5.TestCRDTMonitoring.test_metrics_simulation)
+Test metrics simulation for testing ... ok
+test_monitoring_coordinator_lifecycle (test_crdt_phase5.TestCRDTMonitoring.test_monitoring_coordinator_lifecycle)
+Test monitoring coordinator start/stop ... ok
+test_conflict_batching (test_crdt_phase5.TestCRDTPerformanceOptimizer.test_conflict_batching)
+Test conflict batching optimization ... ok
+test_delta_transmission_optimization (test_crdt_phase5.TestCRDTPerformanceOptimizer.test_delta_transmission_optimization)
+Test delta transmission optimization ... ok
+test_optimization_lifecycle (test_crdt_phase5.TestCRDTPerformanceOptimizer.test_optimization_lifecycle)
+Test starting and stopping optimization ... ok
+test_optimization_status (test_crdt_phase5.TestCRDTPerformanceOptimizer.test_optimization_status)
+Test optimization status reporting ... ok
+test_optimized_sync_scheduling (test_crdt_phase5.TestCRDTPerformanceOptimizer.test_optimized_sync_scheduling)
+Test optimized sync scheduling ... ok
+test_optimizer_initialization (test_crdt_phase5.TestCRDTPerformanceOptimizer.test_optimizer_initialization)
+Test optimizer initialization ... ok
+test_comprehensive_health_reporting (test_crdt_phase5.TestCRDTPhase5Integration.test_comprehensive_health_reporting)
+Test comprehensive health reporting ... ok
+test_end_to_end_performance_monitoring (test_crdt_phase5.TestCRDTPhase5Integration.test_end_to_end_performance_monitoring)
+Test end-to-end performance monitoring ... ok
+test_metrics_export_functionality (test_crdt_phase5.TestCRDTPhase5Integration.test_metrics_export_functionality)
+Test metrics export functionality ... ok
+test_phase_5_components_integration (test_crdt_phase5.TestCRDTPhase5Integration.test_phase_5_components_integration)
+Test that all Phase 5 components work together ... ok
+test_batcher_initialization (test_crdt_phase5.TestConflictBatcher.test_batcher_initialization)
+Test conflict batcher initialization ... ok
+test_conflict_batching_by_size (test_crdt_phase5.TestConflictBatcher.test_conflict_batching_by_size)
+Test conflict batching when batch size is reached ... ok
+test_conflict_batching_by_timeout (test_crdt_phase5.TestConflictBatcher.test_conflict_batching_by_timeout)
+Test conflict batching by timeout with optimized verification ... ok
+test_conflict_batching_concurrent_timeout_and_size (test_crdt_phase5.TestConflictBatcher.test_conflict_batching_concurrent_timeout_and_size)
+Test edge case where timeout and size threshold could race with optimized timing ... ok
+test_conflict_batching_timeout_cancellation (test_crdt_phase5.TestConflictBatcher.test_conflict_batching_timeout_cancellation)
+Test that timeout is cancelled when batch size is reached first ... ok
+test_compression_algorithms (test_crdt_phase5.TestDeltaCompressor.test_compression_algorithms)
+Test different compression algorithms ... ok
+test_compression_decompression_roundtrip (test_crdt_phase5.TestDeltaCompressor.test_compression_decompression_roundtrip)
+Test compression and decompression roundtrip ... ok
+test_optimal_algorithm_selection (test_crdt_phase5.TestDeltaCompressor.test_optimal_algorithm_selection)
+Test optimal algorithm selection based on data size ... ok
+test_activity_recording (test_crdt_phase5.TestLazySynchronizer.test_activity_recording)
+Test activity recording for adaptive intervals ... ok
+test_adaptive_interval_calculation (test_crdt_phase5.TestLazySynchronizer.test_adaptive_interval_calculation)
+Test adaptive interval calculation ... ok
+test_priority_based_scheduling (test_crdt_phase5.TestLazySynchronizer.test_priority_based_scheduling)
+Test priority-based sync scheduling ... ok
+test_synchronizer_lifecycle (test_crdt_phase5.TestLazySynchronizer.test_synchronizer_lifecycle)
+Test synchronizer start/stop ... ok
+test_metric_recording (test_crdt_phase5.TestPerformanceMonitor.test_metric_recording)
+Test metric recording ... ok
+test_monitor_lifecycle (test_crdt_phase5.TestPerformanceMonitor.test_monitor_lifecycle)
+Test monitor start/stop ... ok
+test_operation_measurement (test_crdt_phase5.TestPerformanceMonitor.test_operation_measurement)
+Test operation performance measurement ... ok
+test_performance_summary (test_crdt_phase5.TestPerformanceMonitor.test_performance_summary)
+Test performance summary generation ... ok
+
+----------------------------------------------------------------------
+Ran 92 tests in 38.352s
+
+OK
+
+============================================================
+CRDT TEST SUMMARY
+============================================================
+Tests run: 92
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+Duration: 38.46 seconds
+
+CRDT comprehensive test results:
+✓ Phase 1-3: Core CRDT types (GCounter, GSet, LWWRegister, ORSet, PNCounter)
+✓ Phase 4: Network synchronization and conflict resolution
+✓ Phase 5: Performance optimization and enterprise monitoring
+✓ Mathematical properties validated:
+  - Convergence: Concurrent updates reach identical state
+  - Associativity: Operation order doesn't affect final state
+  - Commutativity: Update order doesn't affect final state
+  - Idempotence: Duplicate operations don't change state
+
+
+
+============================================================
+[TEST] Running CRDT Phase 4 - Network synchronization and conflict resolution
+============================================================
+
+============================================================
+[TEST] Running CRDT Phase 5 - Performance optimization and enterprise monitoring
+============================================================
+
+============================================================
+[TEST] Running Distributed Coordination - Phase 6 Advanced distributed intelligence
+============================================================
+
+================================================================================
+DISTRIBUTED AGENT COORDINATION TESTS - Phase 6 Implementation
+================================================================================
+
+Running TestDistributedAgentCoordination...
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+✓ Agent registration test passed
+✓ Assignment scoring test passed - base score: 0.93, specialized score: 1.00
+[COORDINATOR] Started distributed coordination: coordinator_612b3425
+[COORDINATOR] Stopped distributed coordination: coordinator_612b3425
+✓ Coordination lifecycle test passed
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+[COORDINATOR] Submitted task: test_task_0
+[COORDINATOR] Submitted task: test_task_1
+[COORDINATOR] Submitted task: test_task_2
+[COORDINATOR] Submitted task: test_task_3
+[COORDINATOR] Submitted task: test_task_4
+✓ Coordination metrics test passed - 5 tasks coordinated
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+[COORDINATOR] Submitted task: test_task_0
+[COORDINATOR] Submitted task: test_task_1
+[COORDINATOR] Submitted task: test_task_2
+[COORDINATOR] Submitted task: test_task_3
+[COORDINATOR] Submitted task: test_task_4
+✓ Coordination status test passed
+✓ Coordinator initialization test passed
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Submitted task: test_task_0
+✓ CRDT integration test passed
+✓ Global coordinator instance test passed
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+✓ Health metrics test passed
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+[COORDINATOR] Submitted task: test_task_0
+[COORDINATOR] Submitted task: test_task_1
+[COORDINATOR] Submitted task: test_task_2
+[COORDINATOR] Submitted task: test_task_3
+[COORDINATOR] Submitted task: test_task_4
+✓ Intelligent assignment test passed - 5 successful assignments
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+[COORDINATOR] Submitted task: test_task_0
+[COORDINATOR] Submitted task: test_task_1
+[COORDINATOR] Submitted task: test_task_2
+[COORDINATOR] Submitted task: test_task_3
+[COORDINATOR] Submitted task: test_task_4
+✓ Load balancing test passed - efficiency: 1.00
+[COORDINATOR] Registered agent: test_agent_0
+✓ Resource management test passed
+[COORDINATOR] Registered agent: test_agent_0
+[COORDINATOR] Registered agent: test_agent_1
+[COORDINATOR] Registered agent: test_agent_2
+[COORDINATOR] Submitted task: test_task_0
+[COORDINATOR] Submitted task: test_task_1
+[COORDINATOR] Submitted task: test_task_2
+[COORDINATOR] Submitted task: test_task_3
+[COORDINATOR] Submitted task: test_task_4
+✓ Task coordination test passed - 5/5 tasks assigned
+[COORDINATOR] Submitted task: test_task_0
+[COORDINATOR] Submitted task: test_task_1
+[COORDINATOR] Submitted task: test_task_2
+[COORDINATOR] Submitted task: test_task_3
+[COORDINATOR] Submitted task: test_task_4
+✓ Task submission test passed
+
+Running TestDistributedTaskManagement...
+[COORDINATOR] Registered agent: task_test_agent
+[COORDINATOR] Submitted task: resource_intensive_task
+✓ Resource requirements test passed
+[COORDINATOR] Registered agent: task_test_agent
+[COORDINATOR] Submitted task: parent_task
+[COORDINATOR] Submitted task: child_task
+✓ Task dependencies test passed
+[COORDINATOR] Registered agent: task_test_agent
+[COORDINATOR] Submitted task: low_priority_task
+[COORDINATOR] Submitted task: high_priority_task
+✓ Task priority handling test passed
+
+Running TestDistributedAgentCapabilities...
+[COORDINATOR] Registered agent: functional_agent
+[COORDINATOR] Registered agent: performance_agent
+✓ Agent specialization test passed
+
+================================================================================
+DISTRIBUTED COORDINATION TEST SUMMARY
+================================================================================
+Total Tests: 18
+Passed: 18
+Failed: 0
+Success Rate: 100.0%
+🎉 ALL DISTRIBUTED COORDINATION TESTS PASSED!
+
+
+============================================================
+[TEST] Running Phase 7 Memory - Advanced distributed memory architecture
+============================================================
+================================================================================
+PHASE 7: DISTRIBUTED MEMORY ARCHITECTURE TESTS
+================================================================================
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[MEMORY] Distributed memory system initialized on node test_memory_node
+[COORDINATOR] Submitted task: memory_process_conv_test_session_001_1754556408100
+[MEMORY] Stored conversation entry: conv_test_session_001_1754556408100
+[COORDINATOR] Submitted task: memory_process_conv_test_session_001_1754556408101
+[MEMORY] Stored conversation entry: conv_test_session_001_1754556408101
+[COORDINATOR] Submitted task: memory_process_conv_test_session_001_1754556408102
+[MEMORY] Stored conversation entry: conv_test_session_001_1754556408102
+✓ Conversation history retrieval test passed
+[MEMORY] Distributed memory system initialized on node test_memory_node
+[COORDINATOR] Submitted task: memory_process_conv_test_session_001_1754556408103
+[MEMORY] Stored conversation entry: conv_test_session_001_1754556408103
+✓ Conversation storage test passed
+[MEMORY] Distributed memory system initialized on node test_memory_node
+[MEMORY] Stored learning data: learn_1754556408103
+✓ Learning data storage test passed
+[MEMORY] Distributed memory system initialized on node test_memory_node
+[COORDINATOR] Submitted task: memory_process_conv_test_session_001_1754556408104
+[MEMORY] Stored conversation entry: conv_test_session_001_1754556408104
+[MEMORY] Updated user profile: test_user_001
+[MEMORY] Stored learning data: learn_1754556408104
+✓ Memory statistics test passed
+[MEMORY] Distributed memory system initialized on node test_memory_node
+✓ Memory system initialization test passed
+[MEMORY] Distributed memory system initialized on node test_memory_node
+[MEMORY] Updated user profile: test_user_001
+✓ User profile management test passed
+[MEMORY] Distributed memory system initialized on node sync_node_1
+[MEMORY] Distributed memory system initialized on node sync_node_2
+[MEMORY] Updated user profile: conflict_test_user
+[MEMORY] Updated user profile: conflict_test_user
+✓ Conflict resolution test passed
+[MEMORY] Distributed memory system initialized on node sync_node_1
+[MEMORY] Distributed memory system initialized on node sync_node_2
+[COORDINATOR] Submitted task: memory_process_conv_sync_session_1754556408104
+[MEMORY] Stored conversation entry: conv_sync_session_1754556408104
+[MEMORY] Syncing with peer node: sync_node_2
+[MEMORY] Syncing with peer node: sync_node_3
+✓ Peer synchronization test passed
+[MEMORY] Distributed memory system initialized on node agent_integration_node
+[COORDINATOR] Submitted task: memory_process_conv_agent_test_session_1754556408104
+[MEMORY] Stored conversation entry: conv_agent_test_session_1754556408104
+✓ Agent coordination integration test passed
+[MEMORY] Distributed memory system initialized on node integration_test_node
+✓ CRDT integration test passed
+[MEMORY] Distributed memory system initialized on node memory_node_0
+[COORDINATOR] Submitted task: memory_process_conv_convenience_test_session_1754556408105
+[MEMORY] Stored conversation entry: conv_convenience_test_session_1754556408105
+✓ Convenience functions test passed
+✓ Global memory system test passed
+[MEMORY] Distributed memory system initialized on node performance_test_node
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408105
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408105
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408105
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408105
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408106
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408106
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408107
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408107
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408108
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408108
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408109
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408109
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_performance_session_1754556408110
+[MEMORY] Stored conversation entry: conv_performance_session_1754556408110
+✓ High-volume storage test passed (50 entries in 0.006s)
+[MEMORY] Distributed memory system initialized on node cleanup_test_node
+[COORDINATOR] Submitted task: memory_process_conv_old_session_001_1754556408110
+[MEMORY] Stored conversation entry: conv_old_session_001_1754556408110
+[COORDINATOR] Submitted task: memory_process_conv_recent_session_001_1754556408110
+[MEMORY] Stored conversation entry: conv_recent_session_001_1754556408110
+[MEMORY] Cleaned up 1 old sessions
+✓ Memory cleanup test passed
+
+Phase 7 Test Results:
+Tests run: 14
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+✅ PHASE 7 TESTS PASSED
+================================================================================
+
+
+============================================================
+[TEST] Running Phase 8 Network - Advanced network topologies and enterprise features
+============================================================
+
+============================================================
+PHASE 8: ADVANCED NETWORK TOPOLOGIES - TEST SUITE
+============================================================
+
+[TEST SUITE] Network Topology Management
+--------------------------------------------------
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node node_0 registered
+[NETWORK] Node node_0 added to enterprise topology
+[LOAD_BALANCER] Node node_1 registered
+[NETWORK] Node node_1 added to enterprise topology
+[LOAD_BALANCER] Node node_2 registered
+[NETWORK] Node node_2 added to enterprise topology
+[LOAD_BALANCER] Node node_3 registered
+[NETWORK] Node node_3 added to enterprise topology
+[LOAD_BALANCER] Node node_4 registered
+[NETWORK] Node node_4 added to enterprise topology
+✓ Enterprise topology optimization test passed
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node node_0 registered
+[NETWORK] Node node_0 added to enterprise topology
+[LOAD_BALANCER] Node node_1 registered
+[NETWORK] Node node_1 added to enterprise topology
+[LOAD_BALANCER] Node node_2 registered
+[NETWORK] Node node_2 added to enterprise topology
+[LOAD_BALANCER] Node node_3 registered
+[NETWORK] Node node_3 added to enterprise topology
+[LOAD_BALANCER] Node node_4 registered
+[NETWORK] Node node_4 added to enterprise topology
+[NETWORK] Advanced topology manager started for node mesh_master
+[LOAD_BALANCER] Node mesh_node_0 registered
+[NETWORK] Node mesh_node_0 added to mesh topology
+[LOAD_BALANCER] Node mesh_node_1 registered
+[NETWORK] Node mesh_node_1 added to mesh topology
+[LOAD_BALANCER] Node mesh_node_2 registered
+[NETWORK] Node mesh_node_2 added to mesh topology
+[LOAD_BALANCER] Node mesh_node_3 registered
+[NETWORK] Node mesh_node_3 added to mesh topology
+[LOAD_BALANCER] Node mesh_node_4 registered
+[NETWORK] Node mesh_node_4 added to mesh topology
+[LOAD_BALANCER] Node mesh_node_5 registered
+[NETWORK] Node mesh_node_5 added to mesh topology
+✓ Mesh topology optimization test passed
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node node_0 registered
+[NETWORK] Node node_0 added to enterprise topology
+[LOAD_BALANCER] Node node_1 registered
+[NETWORK] Node node_1 added to enterprise topology
+[LOAD_BALANCER] Node node_2 registered
+[NETWORK] Node node_2 added to enterprise topology
+[LOAD_BALANCER] Node node_3 registered
+[NETWORK] Node node_3 added to enterprise topology
+[LOAD_BALANCER] Node node_4 registered
+[NETWORK] Node node_4 added to enterprise topology
+✓ Network topology manager initialization test passed
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node node_0 registered
+[NETWORK] Node node_0 added to enterprise topology
+[LOAD_BALANCER] Node node_1 registered
+[NETWORK] Node node_1 added to enterprise topology
+[LOAD_BALANCER] Node node_2 registered
+[NETWORK] Node node_2 added to enterprise topology
+[LOAD_BALANCER] Node node_3 registered
+[NETWORK] Node node_3 added to enterprise topology
+[LOAD_BALANCER] Node node_4 registered
+[NETWORK] Node node_4 added to enterprise topology
+[LOAD_BALANCER] Node new_test_node registered
+[NETWORK] Node new_test_node added to enterprise topology
+[FAILOVER] Failed node new_test_node -> failover node node_0
+[LOAD_BALANCER] Node new_test_node unregistered
+[NETWORK] Node new_test_node removed from topology
+✓ Node management test passed
+✅ Network Topology Management: 4/4 tests passed
+
+[TEST SUITE] Load Balancer
+--------------------------------------------------
+[LOAD_BALANCER] Node lb_node_0 registered
+[LOAD_BALANCER] Node lb_node_1 registered
+[LOAD_BALANCER] Node lb_node_2 registered
+[LOAD_BALANCER] Node lb_node_3 registered
+✓ Load balancer node registration test passed
+[LOAD_BALANCER] Node lb_node_0 registered
+[LOAD_BALANCER] Node lb_node_1 registered
+[LOAD_BALANCER] Node lb_node_2 registered
+[LOAD_BALANCER] Node lb_node_3 registered
+[LOAD_BALANCER] Node lb_node_0 unregistered
+✓ Load balancer node unregistration test passed
+[LOAD_BALANCER] Node lb_node_0 registered
+[LOAD_BALANCER] Node lb_node_1 registered
+[LOAD_BALANCER] Node lb_node_2 registered
+[LOAD_BALANCER] Node lb_node_3 registered
+✓ Load balancer optimal node selection test passed
+✅ Load Balancer: 3/3 tests passed
+
+[TEST SUITE] Failover Manager
+--------------------------------------------------
+[FAILOVER] Failed node failover_node_0 -> failover node failover_node_1
+✓ Failover trigger test passed
+✓ No candidates failover test passed
+✅ Failover Manager: 2/2 tests passed
+
+[TEST SUITE] Partition Detector
+--------------------------------------------------
+✓ No partitions detection test passed
+✓ Partition detection test passed
+✅ Partition Detector: 2/2 tests passed
+
+[TEST SUITE] Bandwidth Optimizer
+--------------------------------------------------
+✓ Bandwidth optimization test passed
+✅ Bandwidth Optimizer: 1/1 tests passed
+
+[TEST SUITE] Network Integration
+--------------------------------------------------
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node test_node_0 registered
+[NETWORK] Node test_node_0 added to enterprise topology
+[LOAD_BALANCER] Node test_node_1 registered
+[NETWORK] Node test_node_1 added to enterprise topology
+[LOAD_BALANCER] Node test_node_2 registered
+[NETWORK] Node test_node_2 added to enterprise topology
+[LOAD_BALANCER] Node test_node_3 registered
+[NETWORK] Node test_node_3 added to enterprise topology
+[LOAD_BALANCER] Node test_node_4 registered
+[NETWORK] Node test_node_4 added to enterprise topology
+[LOAD_BALANCER] Node test_node_5 registered
+[NETWORK] Node test_node_5 added to enterprise topology
+[LOAD_BALANCER] Node test_node_6 registered
+[NETWORK] Node test_node_6 added to enterprise topology
+[LOAD_BALANCER] Node test_node_7 registered
+[NETWORK] Node test_node_7 added to enterprise topology
+✓ Enterprise integration test passed
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node test_node_0 registered
+[NETWORK] Node test_node_0 added to enterprise topology
+[LOAD_BALANCER] Node test_node_1 registered
+[NETWORK] Node test_node_1 added to enterprise topology
+[LOAD_BALANCER] Node test_node_2 registered
+[NETWORK] Node test_node_2 added to enterprise topology
+[LOAD_BALANCER] Node test_node_3 registered
+[NETWORK] Node test_node_3 added to enterprise topology
+[LOAD_BALANCER] Node test_node_4 registered
+[NETWORK] Node test_node_4 added to enterprise topology
+[LOAD_BALANCER] Node test_node_5 registered
+[NETWORK] Node test_node_5 added to enterprise topology
+[LOAD_BALANCER] Node test_node_6 registered
+[NETWORK] Node test_node_6 added to enterprise topology
+[LOAD_BALANCER] Node test_node_7 registered
+[NETWORK] Node test_node_7 added to enterprise topology
+✓ Full network status test passed
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node test_node_0 registered
+[NETWORK] Node test_node_0 added to enterprise topology
+[LOAD_BALANCER] Node test_node_1 registered
+[NETWORK] Node test_node_1 added to enterprise topology
+[LOAD_BALANCER] Node test_node_2 registered
+[NETWORK] Node test_node_2 added to enterprise topology
+[LOAD_BALANCER] Node test_node_3 registered
+[NETWORK] Node test_node_3 added to enterprise topology
+[LOAD_BALANCER] Node test_node_4 registered
+[NETWORK] Node test_node_4 added to enterprise topology
+[LOAD_BALANCER] Node test_node_5 registered
+[NETWORK] Node test_node_5 added to enterprise topology
+[LOAD_BALANCER] Node test_node_6 registered
+[NETWORK] Node test_node_6 added to enterprise topology
+[LOAD_BALANCER] Node test_node_7 registered
+[NETWORK] Node test_node_7 added to enterprise topology
+✓ High availability features test passed
+[NETWORK] Advanced topology manager started for node test_master
+[LOAD_BALANCER] Node test_node_0 registered
+[NETWORK] Node test_node_0 added to enterprise topology
+[LOAD_BALANCER] Node test_node_1 registered
+[NETWORK] Node test_node_1 added to enterprise topology
+[LOAD_BALANCER] Node test_node_2 registered
+[NETWORK] Node test_node_2 added to enterprise topology
+[LOAD_BALANCER] Node test_node_3 registered
+[NETWORK] Node test_node_3 added to enterprise topology
+[LOAD_BALANCER] Node test_node_4 registered
+[NETWORK] Node test_node_4 added to enterprise topology
+[LOAD_BALANCER] Node test_node_5 registered
+[NETWORK] Node test_node_5 added to enterprise topology
+[LOAD_BALANCER] Node test_node_6 registered
+[NETWORK] Node test_node_6 added to enterprise topology
+[LOAD_BALANCER] Node test_node_7 registered
+[NETWORK] Node test_node_7 added to enterprise topology
+[LOAD_BALANCER] Node scale_node_20 registered
+[NETWORK] Node scale_node_20 added to enterprise topology
+[LOAD_BALANCER] Node scale_node_21 registered
+[NETWORK] Node scale_node_21 added to enterprise topology
+[LOAD_BALANCER] Node scale_node_22 registered
+[NETWORK] Node scale_node_22 added to enterprise topology
+[LOAD_BALANCER] Node scale_node_23 registered
+[NETWORK] Node scale_node_23 added to enterprise topology
+[LOAD_BALANCER] Node scale_node_24 registered
+[NETWORK] Node scale_node_24 added to enterprise topology
+✓ Network scalability test passed
+✅ Network Integration: 4/4 tests passed
+
+============================================================
+PHASE 8 TEST RESULTS SUMMARY
+============================================================
+Total Tests: 16
+Passed: 16
+Failed: 0
+Success Rate: 100.0%
+
+🎉 ALL PHASE 8 TESTS PASSED!
+✅ Advanced Network Topologies implementation is operational
+✅ Enterprise features validated
+✅ High availability confirmed
+✅ Mathematical guarantees maintained
+
+
+============================================================
+[TEST] Running Phase 9 ML - Machine Learning Integration with predictive conflict resolution
+============================================================
+================================================================================
+PHASE 9: MACHINE LEARNING INTEGRATION TESTS
+================================================================================
+[ML_CONFLICT] Initialized ML conflict resolver for node test_ml_node
+[ML_CONFLICT] Generated 1 conflict predictions
+[ML_CONFLICT] Validated prediction test_op_0, accuracy: 0.0%
+[ML_CONFLICT] Generated 1 conflict predictions
+[ML_CONFLICT] Validated prediction test_op_1, accuracy: 50.0%
+[ML_CONFLICT] Generated 1 conflict predictions
+[ML_CONFLICT] Validated prediction test_op_2, accuracy: 33.3%
+[ML_CONFLICT] Generated 1 conflict predictions
+[ML_CONFLICT] Validated prediction test_op_3, accuracy: 50.0%
+[ML_CONFLICT] Generated 1 conflict predictions
+[ML_CONFLICT] Validated prediction test_op_4, accuracy: 40.0%
+✓ Accuracy metrics calculation test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node test_ml_node
+[ML_CONFLICT] Generated 2 conflict predictions
+✓ Conflict prediction generation test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node test_ml_node
+✓ Conflict resolver initialization test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node test_ml_node
+[ML_CONFLICT] Generated 2 conflict predictions
+[ML_CONFLICT] Validated prediction op_001, accuracy: 0.0%
+✓ Prediction validation test passed
+[ML_MODEL] Initialized conflict_predictor model for node test_node
+[ML_MODEL] Federated update from remote_node_1, total updates: 1
+✓ Federated learning test passed
+[ML_MODEL] Initialized conflict_predictor model for node test_node
+✓ ML model initialization test passed
+[ML_MODEL] Initialized conflict_predictor model for node test_node
+✓ Model prediction test passed
+[ML_MODEL] Initialized conflict_predictor model for node test_node
+✓ Model state retrieval test passed
+[ML_MODEL] Initialized conflict_predictor model for node test_node
+[ML_MODEL] Local training step completed, epoch 1
+[ML_MODEL] Local training step completed, epoch 2
+[ML_MODEL] Local training step completed, epoch 3
+✓ Training data addition test passed
+[ML_MODEL] Initialized sync_optimizer model for node test_sync_node
+[ML_SYNC] Initialized ML sync optimizer for node test_sync_node
+✓ Sync optimizer initialization test passed
+[ML_MODEL] Initialized sync_optimizer model for node test_sync_node
+[ML_SYNC] Initialized ML sync optimizer for node test_sync_node
+[ML_SYNC] Recorded sync performance for node_1
+✓ Sync performance recording test passed
+[ML_MODEL] Initialized sync_optimizer model for node test_sync_node
+[ML_SYNC] Initialized ML sync optimizer for node test_sync_node
+[ML_SYNC] Generated sync optimizations for 3 nodes
+✓ Sync schedule optimization test passed
+[DB] Archive database initialized successfully: data/jarvis_archive.db
+[ML_CONFLICT] Initialized ML conflict resolver for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_SYNC] Initialized ML sync optimizer for node test_integration_node
+[ML_MODEL] Initialized conflict_predictor model for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_MODEL] Initialized pattern_analyzer model for node test_integration_node
+[ML_MODEL] Initialized resource_predictor model for node test_integration_node
+[ML_MODEL] Initialized performance_optimizer model for node test_integration_node
+[ML_SYSTEM] Initialized ML integration system for node test_integration_node
+[ML_CONFLICT] Generated 2 conflict predictions
+[ML_SYNC] Generated sync optimizations for 2 nodes
+[ML_SYSTEM] Processed 2 operations in 0.1ms
+✓ Comprehensive prediction and optimization test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_SYNC] Initialized ML sync optimizer for node test_integration_node
+[ML_MODEL] Initialized conflict_predictor model for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_MODEL] Initialized pattern_analyzer model for node test_integration_node
+[ML_MODEL] Initialized resource_predictor model for node test_integration_node
+[ML_MODEL] Initialized performance_optimizer model for node test_integration_node
+[ML_SYSTEM] Initialized ML integration system for node test_integration_node
+[ML_MODEL] Federated update from remote_node_1, total updates: 1
+[ML_MODEL] Federated update from remote_node_1, total updates: 1
+[ML_SYSTEM] Processed 2 federated learning updates from remote_node_1
+✓ Federated learning coordination test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_SYNC] Initialized ML sync optimizer for node test_integration_node
+[ML_MODEL] Initialized conflict_predictor model for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_MODEL] Initialized pattern_analyzer model for node test_integration_node
+[ML_MODEL] Initialized resource_predictor model for node test_integration_node
+[ML_MODEL] Initialized performance_optimizer model for node test_integration_node
+[ML_SYSTEM] Initialized ML integration system for node test_integration_node
+✓ ML system health monitoring test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_SYNC] Initialized ML sync optimizer for node test_integration_node
+[ML_MODEL] Initialized conflict_predictor model for node test_integration_node
+[ML_MODEL] Initialized sync_optimizer model for node test_integration_node
+[ML_MODEL] Initialized pattern_analyzer model for node test_integration_node
+[ML_MODEL] Initialized resource_predictor model for node test_integration_node
+[ML_MODEL] Initialized performance_optimizer model for node test_integration_node
+[ML_SYSTEM] Initialized ML integration system for node test_integration_node
+✓ ML system initialization test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node convenience_node
+[ML_MODEL] Initialized sync_optimizer model for node convenience_node
+[ML_SYNC] Initialized ML sync optimizer for node convenience_node
+[ML_MODEL] Initialized conflict_predictor model for node convenience_node
+[ML_MODEL] Initialized sync_optimizer model for node convenience_node
+[ML_MODEL] Initialized pattern_analyzer model for node convenience_node
+[ML_MODEL] Initialized resource_predictor model for node convenience_node
+[ML_MODEL] Initialized performance_optimizer model for node convenience_node
+[ML_SYSTEM] Initialized ML integration system for node convenience_node
+[ML_CONFLICT] Generated 2 conflict predictions
+[ML_SYNC] Generated sync optimizations for 1 nodes
+[ML_SYSTEM] Processed 2 operations in 0.1ms
+✓ Conflict prediction convenience test passed
+✓ Global ML system access test passed
+✓ ML metrics convenience test passed
+[ML_SYNC] Generated sync optimizations for 2 nodes
+✓ Sync optimization convenience test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node associativity_test_node
+[ML_MODEL] Initialized sync_optimizer model for node associativity_test_node
+[ML_SYNC] Initialized ML sync optimizer for node associativity_test_node
+[ML_MODEL] Initialized conflict_predictor model for node associativity_test_node
+[ML_MODEL] Initialized sync_optimizer model for node associativity_test_node
+[ML_MODEL] Initialized pattern_analyzer model for node associativity_test_node
+[ML_MODEL] Initialized resource_predictor model for node associativity_test_node
+[ML_MODEL] Initialized performance_optimizer model for node associativity_test_node
+[ML_SYSTEM] Initialized ML integration system for node associativity_test_node
+[ML_MODEL] Federated update from node_1, total updates: 1
+[ML_SYSTEM] Processed 1 federated learning updates from node_1
+[ML_MODEL] Federated update from node_2, total updates: 2
+[ML_SYSTEM] Processed 1 federated learning updates from node_2
+[ML_CONFLICT] Initialized ML conflict resolver for node associativity_test_node_2
+[ML_MODEL] Initialized sync_optimizer model for node associativity_test_node_2
+[ML_SYNC] Initialized ML sync optimizer for node associativity_test_node_2
+[ML_MODEL] Initialized conflict_predictor model for node associativity_test_node_2
+[ML_MODEL] Initialized sync_optimizer model for node associativity_test_node_2
+[ML_MODEL] Initialized pattern_analyzer model for node associativity_test_node_2
+[ML_MODEL] Initialized resource_predictor model for node associativity_test_node_2
+[ML_MODEL] Initialized performance_optimizer model for node associativity_test_node_2
+[ML_SYSTEM] Initialized ML integration system for node associativity_test_node_2
+[ML_MODEL] Federated update from node_2, total updates: 1
+[ML_SYSTEM] Processed 1 federated learning updates from node_2
+[ML_MODEL] Federated update from node_1, total updates: 2
+[ML_SYSTEM] Processed 1 federated learning updates from node_1
+✓ ML associativity preservation test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node commutativity_test_node
+[ML_MODEL] Initialized sync_optimizer model for node commutativity_test_node
+[ML_SYNC] Initialized ML sync optimizer for node commutativity_test_node
+[ML_MODEL] Initialized conflict_predictor model for node commutativity_test_node
+[ML_MODEL] Initialized sync_optimizer model for node commutativity_test_node
+[ML_MODEL] Initialized pattern_analyzer model for node commutativity_test_node
+[ML_MODEL] Initialized resource_predictor model for node commutativity_test_node
+[ML_MODEL] Initialized performance_optimizer model for node commutativity_test_node
+[ML_SYSTEM] Initialized ML integration system for node commutativity_test_node
+[ML_CONFLICT] Generated 2 conflict predictions
+[ML_SYNC] Generated sync optimizations for 1 nodes
+[ML_SYSTEM] Processed 2 operations in 0.1ms
+[ML_CONFLICT] Generated 2 conflict predictions
+[ML_SYNC] Generated sync optimizations for 1 nodes
+[ML_SYSTEM] Processed 2 operations in 0.1ms
+✓ ML commutativity preservation test passed
+[ML_CONFLICT] Initialized ML conflict resolver for node convergence_test_node
+[ML_MODEL] Initialized sync_optimizer model for node convergence_test_node
+[ML_SYNC] Initialized ML sync optimizer for node convergence_test_node
+[ML_MODEL] Initialized conflict_predictor model for node convergence_test_node
+[ML_MODEL] Initialized sync_optimizer model for node convergence_test_node
+[ML_MODEL] Initialized pattern_analyzer model for node convergence_test_node
+[ML_MODEL] Initialized resource_predictor model for node convergence_test_node
+[ML_MODEL] Initialized performance_optimizer model for node convergence_test_node
+[ML_SYSTEM] Initialized ML integration system for node convergence_test_node
+[ML_CONFLICT] Generated 2 conflict predictions
+[ML_SYNC] Generated sync optimizations for 1 nodes
+[ML_SYSTEM] Processed 2 operations in 0.0ms
+✓ ML convergence preservation test passed
+
+Phase 9 Test Results:
+Tests run: 23
+Failures: 0
+Errors: 0
+Success rate: 100.0%
+
+ML Capabilities Verified:
+✓ Conflict Prediction: 90%+ accuracy target
+✓ Adaptive Synchronization: ML-driven optimization
+✓ Federated Learning: Distributed model updates
+✓ Mathematical Guarantees: CRDT properties preserved
+✓ Performance: < 10ms prediction latency
+
+✅ PHASE 9 TESTS PASSED
+================================================================================
+
+
+================================================================================
+[CHART] COMPREHENSIVE TEST RESULTS SUMMARY
+================================================================================
+Test Suite                               Status     Tests    Fails    Errors   Time    
+--------------------------------------------------------------------------------
+Unit Tests - Core functionality          ✅ PASS    23       0        0        0.3s
+Integration Tests - Module interactions  ✅ PASS    12       0        0        0.4s
+Functional Tests - End-user scenarios    ✅ PASS    12       0        0        0.7s
+Regression Tests - Prevent old bugs      ✅ PASS    14       0        0        2.2s
+Performance Tests - Speed and efficiency ✅ PASS    11       0        0        3.4s
+Coverage Tests - Code coverage analysis  ✅ PASS    6        0        0        0.6s
+Function Tests - All program functions   ✅ PASS    0        0        0        0.3s
+Simplified System Tests - Basic functionality ✅ PASS    0        0        0        0.2s
+Error Handling Tests - Comprehensive error scenarios ✅ PASS    16       0        0        0.2s
+Archiving System Tests - Data verification and backup ✅ PASS    0        0        0        10.9s
+Agent Workflow Tests - Autonomous testing cycles ✅ PASS    10       0        0        0.2s
+Backup Recovery Tests - Data protection systems ✅ PASS    10       0        0        0.2s
+Archive Purge Tests - Data lifecycle management ✅ PASS    10       0        0        0.2s
+Verification Optimizer Tests - Performance optimization ✅ PASS    10       0        0        0.2s
+System Dashboard Tests - Main monitoring interface ✅ PASS    10       0        0        0.1s
+GUI Component Tests - User interface elements ✅ PASS    10       0        0        0.1s
+CLI Interface Tests - Command-line functionality ✅ PASS    10       0        0        0.1s
+CRDT Phase 1-3 - Foundation and Basic/Advanced Types ✅ PASS    0        0        0        0.2s
+CRDT Comprehensive - Mathematical properties validation ✅ PASS    92       0        0        38.5s
+CRDT Phase 4 - Network synchronization and conflict resolution ✅ PASS    0        0        0        0.2s
+CRDT Phase 5 - Performance optimization and enterprise monitoring ✅ PASS    0        0        0        38.5s
+Distributed Coordination - Phase 6 Advanced distributed intelligence ✅ PASS    0        0        0        3.0s
+Phase 7 Memory - Advanced distributed memory architecture ✅ PASS    14       0        0        0.2s
+Phase 8 Network - Advanced network topologies and enterprise features ✅ PASS    0        0        0        10.2s
+Phase 9 ML - Machine Learning Integration with predictive conflict resolution ✅ PASS    23       0        0        0.2s
+--------------------------------------------------------------------------------
+TOTALS                                   ---        293      0        0        111.2s
+
+[TARGET] OVERALL SUMMARY:
+   Test Suites:     25/25 passed (100.0%)
+   Individual Tests: 293/293 passed (100.0%)
+   Total Duration:   111.2 seconds
+   Total Failures:   0
+   Total Errors:     0
+   Overall Status:   [GREEN] PERFECT
+
+[IDEA] RECOMMENDATIONS:
+   - ✅ Test suite is in good condition!
+   - Consider running performance benchmarks
+   - Review code coverage reports
+
+[TIME1] Completed at: 2025-08-07 08:46:58
+
+[LAUNCH] Auto-triggering test aggregation...
+[LOG] Filtered out test errors, kept 4 real errors
+[WARN] Test aggregator not found at /home/runner/work/Jarvis-V0.19/Jarvis-V0.19/scripts/test_aggregator.py
+
+[LAUNCH] Auto-triggering log upload to repository...
+[WARN] Log upload script not found at /home/runner/work/Jarvis-V0.19/Jarvis-V0.19/scripts/upload_logs_to_repository.py
+
+[CLEANUP] Cleaning up test output files...
+[CLEANUP] Removed 1070 test output files
