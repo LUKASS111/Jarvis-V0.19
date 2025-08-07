@@ -28,17 +28,22 @@ def run_stage_validator(stage_num):
                               capture_output=True, text=True, timeout=60)
         
         # Try to read the generated report
-        report_path = f"stage{stage_num}_validation_report.json"
-        if os.path.exists(report_path):
-            with open(report_path, 'r') as f:
-                return json.load(f)
+        report_paths = [
+            f"stage{stage_num}_validation_report.json",
+            f"STAGE{stage_num}_COMPLETION_VALIDATION.json"
+        ]
+        
+        for report_path in report_paths:
+            if os.path.exists(report_path):
+                with open(report_path, 'r') as f:
+                    return json.load(f)
         else:
             # Parse output for completion percentage if report file missing
             output = result.stdout
             completion = 0
-            if "Overall Completion:" in output:
+            if "OVERALL COMPLETION:" in output:
                 try:
-                    line = [l for l in output.split('\n') if "Overall Completion:" in l][0]
+                    line = [l for l in output.split('\n') if "OVERALL COMPLETION:" in l][0]
                     completion = float(line.split(':')[1].replace('%', '').strip())
                 except:
                     completion = 0
