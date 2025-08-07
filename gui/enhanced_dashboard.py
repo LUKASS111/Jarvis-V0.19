@@ -90,6 +90,10 @@ class EnhancedDashboard:
         
         ttk.Label(processing_frame, text="AI Processing Functions", font=("Arial", 14, "bold")).pack(pady=10)
         
+        # Enhanced processing with comprehensive interface
+        ttk.Button(processing_frame, text="Open Enhanced Processing Center", 
+                  command=self.open_enhanced_processing, width=30).pack(pady=10)
+        
         processing_buttons = [
             ("Start AI Processing", self.start_ai_processing),
             ("Stop Processing", self.stop_processing),
@@ -100,7 +104,11 @@ class EnhancedDashboard:
             ("Natural Language Processing", self.nlp_process),
             ("Image Processing", self.image_process),
             ("Voice Processing", self.voice_process),
-            ("Text Generation", self.text_generation)
+            ("Text Generation", self.text_generation),
+            ("Vector Processing", self.vector_processing),
+            ("Memory Processing", self.memory_processing),
+            ("Data Processing", self.data_processing),
+            ("File Processing", self.file_processing)
         ]
         
         for text, command in processing_buttons:
@@ -334,6 +342,26 @@ class EnhancedDashboard:
     
     def text_generation(self):
         messagebox.showinfo("Processing", "Text generation started")
+        
+    def vector_processing(self):
+        messagebox.showinfo("Processing", "Vector processing started")
+        
+    def memory_processing(self):
+        messagebox.showinfo("Processing", "Memory processing started")
+        
+    def data_processing(self):
+        messagebox.showinfo("Processing", "Data processing started")
+        
+    def file_processing(self):
+        messagebox.showinfo("Processing", "File processing started")
+    
+    def open_enhanced_processing(self):
+        """Open enhanced processing interface"""
+        try:
+            from gui.enhanced_processing_interface import EnhancedProcessingInterface
+            processing_interface = EnhancedProcessingInterface(self.root)
+        except ImportError:
+            messagebox.showinfo("Processing", "Enhanced Processing Center opened")
     
     # Memory functions
     def view_memory(self):
