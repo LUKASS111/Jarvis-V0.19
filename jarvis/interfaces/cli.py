@@ -303,3 +303,6 @@ def process_file(file_path: str, options: Dict[str, Any] = None) -> Dict[str, An
 if __name__ == "__main__":
     cli = ModernCLI()
     cli.run()
+
+# Alias for backwards compatibility
+CLI = ModernCLI

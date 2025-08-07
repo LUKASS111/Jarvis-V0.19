@@ -1294,5 +1294,101 @@
     "checksum": "ab5b5d02e12384904650a3923e568f5467eb58c4923428213adff1ddb9425932",
     "description": "Integration test backup",
     "created_by": "user"
+  },
+  "backup_20250807_202601_daily": {
+    "backup_id": "backup_20250807_202601_daily",
+    "timestamp": "2025-08-07T20:26:01.637562",
+    "backup_type": "daily",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/daily/backup_20250807_202601_daily.tar.gz",
+    "size_bytes": 4649485,
+    "checksum": "f5044469d031e0fcb11bcf55ef773b34787046ab8b9edf963b37585faa53b70f",
+    "description": "Automated daily backup",
+    "created_by": "scheduler"
+  },
+  "backup_20250807_202602_manual": {
+    "backup_id": "backup_20250807_202602_manual",
+    "timestamp": "2025-08-07T20:26:02.968994",
+    "backup_type": "manual",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/manual/backup_20250807_202602_manual.tar.gz",
+    "size_bytes": 4656384,
+    "checksum": "53bbbead6dfbfc3a8059503ff94866b733f51474d39637005808412d458198e2",
+    "description": "Test backup for system validation",
+    "created_by": "user"
+  },
+  "backup_20250807_202614_manual": {
+    "backup_id": "backup_20250807_202614_manual",
+    "timestamp": "2025-08-07T20:26:14.265238",
+    "backup_type": "manual",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/manual/backup_20250807_202614_manual.tar.gz",
+    "size_bytes": 4750374,
+    "checksum": "fb3ce89338d8e436f2c611488eae74bab1deed19b135c131d5d5e47c8a81b1bf",
+    "description": "Integration test backup",
+    "created_by": "user"
+  },
+  "backup_20250807_203457_daily": {
+    "backup_id": "backup_20250807_203457_daily",
+    "timestamp": "2025-08-07T20:34:57.859107",
+    "backup_type": "daily",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/daily/backup_20250807_203457_daily.tar.gz",
+    "size_bytes": 4905125,
+    "checksum": "a91b6edeb5d04b37672204875f847e43b08f47c80553e0e6dc364c6825016537",
+    "description": "Automated daily backup",
+    "created_by": "scheduler"
+  },
+  "backup_20250807_203459_manual": {
+    "backup_id": "backup_20250807_203459_manual",
+    "timestamp": "2025-08-07T20:34:59.136337",
+    "backup_type": "manual",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/manual/backup_20250807_203459_manual.tar.gz",
+    "size_bytes": 4914688,
+    "checksum": "b38cf37d1a11da48f93532b44d3feb816cfea738a27c55f13506815b4632fc84",
+    "description": "Test backup for system validation",
+    "created_by": "user"
+  },
+  "backup_20250807_203510_manual": {
+    "backup_id": "backup_20250807_203510_manual",
+    "timestamp": "2025-08-07T20:35:10.905403",
+    "backup_type": "manual",
+    "files_included": [
+      "data/jarvis_archive.db",
+      "data/jarvis_mem.json",
+      "config/",
+      "logs/"
+    ],
+    "backup_path": "data/backups/manual/backup_20250807_203510_manual.tar.gz",
+    "size_bytes": 5004994,
+    "checksum": "87cd44cd545334c3a7d0e014efd3db7b487c50875e0b8cbe5034041d8de378a9",
+    "description": "Integration test backup",
+    "created_by": "user"
   }
 }

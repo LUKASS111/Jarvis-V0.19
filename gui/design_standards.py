@@ -4,71 +4,129 @@ Comprehensive design system for consistent, professional interface patterns
 """
 
 # Color palette - Professional dark theme
-COLORS = {
+class ColorsObject:
     # Primary colors
-    "primary_dark": "#1a1a1a",      # Main background
-    "primary_medium": "#2d2d2d",    # Secondary background
-    "primary_light": "#404040",     # Elevated surfaces
+    PRIMARY_DARK = "#1a1a1a"
+    PRIMARY_MEDIUM = "#2d2d2d"
+    PRIMARY_LIGHT = "#404040"
     
     # Accent colors
-    "accent_blue": "#0078d4",       # Primary actions
-    "accent_green": "#16c60c",      # Success states
-    "accent_orange": "#ff8c00",     # Warning states
-    "accent_red": "#e74856",        # Error states
+    ACCENT_BLUE = "#0078d4"
+    ACCENT_GREEN = "#16c60c"
+    ACCENT_ORANGE = "#ff8c00"
+    ACCENT_RED = "#e74856"
     
     # Text colors
-    "text_primary": "#ffffff",      # Primary text
-    "text_secondary": "#b3b3b3",    # Secondary text
-    "text_disabled": "#666666",     # Disabled text
+    TEXT_PRIMARY = "#ffffff"
+    TEXT_SECONDARY = "#b3b3b3"
+    TEXT_DISABLED = "#666666"
+    ON_PRIMARY = "#ffffff"  # Text on primary surfaces
     
     # Border and separator colors
-    "border_light": "#404040",      # Light borders
-    "border_medium": "#595959",     # Medium borders
-    "separator": "#333333",         # Separators
+    BORDER_LIGHT = "#404040"
+    BORDER_MEDIUM = "#595959"
+    SEPARATOR = "#333333"
     
     # Special purpose
-    "highlight": "#0078d4",         # Selections and highlights
-    "hover": "#333333",             # Hover states
-    "pressed": "#1a1a1a",          # Pressed states
-    "transparent": "rgba(0,0,0,0)"  # Transparent
-}
+    HIGHLIGHT = "#0078d4"
+    HOVER = "#333333"
+    PRESSED = "#1a1a1a"
+    TRANSPARENT = "rgba(0,0,0,0)"
+    
+    def __getitem__(self, key):
+        """Support dictionary-style access for backwards compatibility"""
+        # Legacy flat access mapping
+        mappings = {
+            "primary_dark": "#1a1a1a",
+            "primary_medium": "#2d2d2d",
+            "primary_light": "#404040",
+            "accent_blue": "#0078d4",
+            "accent_green": "#16c60c",
+            "accent_orange": "#ff8c00",
+            "accent_red": "#e74856",
+            "text_primary": "#ffffff",
+            "text_secondary": "#b3b3b3",
+            "text_disabled": "#666666",
+            "border_light": "#404040",
+            "border_medium": "#595959",
+            "separator": "#333333",
+            "highlight": "#0078d4",
+            "hover": "#333333",
+            "pressed": "#1a1a1a",
+            "transparent": "rgba(0,0,0,0)"
+        }
+        return mappings.get(key, getattr(self, key.upper(), None))
+
+COLORS = ColorsObject()
 
 # Typography system
-TYPOGRAPHY = {
-    # Font families
-    "font_primary": "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
-    "font_monospace": "Consolas, Monaco, 'Courier New', monospace",
+class TypographySizes:
+    XS = 10
+    SMALL = 12
+    BASE = 14
+    MEDIUM = 16
+    LARGE = 18
+    XLARGE = 24
+    XXL = 32
+
+class TypographyWeights:
+    NORMAL = "normal"
+    MEDIUM = "500"
+    BOLD = "bold"
+
+class TypographyObject:
+    FONT_FAMILY = "Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
+    FONT_MONOSPACE = "Consolas, Monaco, 'Courier New', monospace"
+    SIZES = TypographySizes()
+    WEIGHTS = TypographyWeights()
     
-    # Font sizes (in pixels)
-    "text_xs": 10,      # Very small text
-    "text_sm": 12,      # Small text
-    "text_base": 14,    # Base text size
-    "text_lg": 16,      # Large text
-    "text_xl": 18,      # Extra large text
-    "text_2xl": 24,     # Headers
-    "text_3xl": 32,     # Large headers
-    
-    # Font weights
-    "weight_normal": "normal",
-    "weight_medium": "500",
-    "weight_bold": "bold",
-    
-    # Line heights
-    "line_height_tight": 1.2,
-    "line_height_normal": 1.4,
-    "line_height_relaxed": 1.6
-}
+    def __getitem__(self, key):
+        """Support dictionary-style access for backwards compatibility"""
+        mappings = {
+            "font_primary": "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+            "font_monospace": "Consolas, Monaco, 'Courier New', monospace",
+            "text_xs": 10,
+            "text_sm": 12,
+            "text_base": 14,
+            "text_lg": 16,
+            "text_xl": 18,
+            "text_2xl": 24,
+            "text_3xl": 32,
+            "weight_normal": "normal",
+            "weight_medium": "500",
+            "weight_bold": "bold",
+            "line_height_tight": 1.2,
+            "line_height_normal": 1.4,
+            "line_height_relaxed": 1.6
+        }
+        return mappings.get(key, getattr(self, key.upper(), None))
+
+TYPOGRAPHY = TypographyObject()
 
 # Spacing system (in pixels)
-SPACING = {
-    "xs": 4,    # 4px
-    "sm": 8,    # 8px
-    "md": 16,   # 16px
-    "lg": 24,   # 24px
-    "xl": 32,   # 32px
-    "2xl": 48,  # 48px
-    "3xl": 64   # 64px
-}
+class SpacingObject:
+    XS = 4
+    SMALL = 8
+    MEDIUM = 16
+    LARGE = 24
+    XLARGE = 32
+    XXL = 48
+    XXXL = 64
+    
+    def __getitem__(self, key):
+        """Support dictionary-style access for backwards compatibility"""
+        mappings = {
+            "xs": 4,
+            "sm": 8,
+            "md": 16,
+            "lg": 24,
+            "xl": 32,
+            "2xl": 48,
+            "3xl": 64
+        }
+        return mappings.get(key, getattr(self, key.upper(), None))
+    
+SPACING = SpacingObject()
 
 # Component dimensions
 DIMENSIONS = {
