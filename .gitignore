@@ -130,8 +130,16 @@ validation_report_*.json
 analysis_report_*.json
 stage_validation_*.json
 engineering_metrics_*.json
+*_validation_report_*.json
+validate_stage*_completion_report_*.json
+comprehensive_stage_validation_report_*.json
+aggregated_test_results_*.json
 
 # Stage execution temporary files
 stage_*.tmp
 stage_progress_*.json
 micro_task_*.log
+
+# Foundation repair and validation framework files
+test_aggregator_*.log
+upload_summary_*.json
