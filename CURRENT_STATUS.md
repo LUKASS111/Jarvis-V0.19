@@ -17,7 +17,7 @@
 
 | Stage | Status | Completion | Critical Issues |
 |-------|--------|------------|-----------------|
-| **1** | ⚠️ NEAR_COMPLETE | 75% | 1,050 legacy references (297 cleaned) |
+| **1** | ⚠️ NEAR_COMPLETE | 75% | 1,050 deprecated references (297 cleaned) |
 | **2** | ⚠️ PARTIAL | 65% | GUI coverage only 16.7% |
 | **3** | ✅ COMPLETE | 100% | Engineering framework excellent |
 | **4** | ⚠️ PARTIAL | 94% | Cross-references need completion |
@@ -31,10 +31,10 @@
 
 ### **Primary Blockers for Stage 6:**
 
-1. **Legacy Code Burden** (Stage 1 & 5)
-   - 2,352+ legacy references identified
-   - 783 active legacy references in codebase
-   - Target: Zero legacy code remaining
+1. **deprecated code Burden** (Stage 1 & 5)
+   - 2,352+ deprecated references identified
+   - 783 active deprecated references in codebase
+   - Target: Zero deprecated code remaining
 
 2. **GUI Functionality Gap** (Stage 2 & 5)
    - Current GUI accessibility: 20.4%
@@ -50,10 +50,10 @@
 
 ## 🛠️ **FOUNDATION REPAIR PLAN**
 
-### **Phase 1: Legacy Elimination**
-- [ ] Remove all legacy references from archive/
-- [ ] Clean legacy imports from active codebase
-- [ ] Verify zero legacy code with comprehensive scan
+### **Phase 1: code modernization**
+- [ ] Remove all deprecated references from archive/
+- [ ] Clean Deprecated imports from active codebase
+- [ ] Verify zero deprecated code with comprehensive scan
 
 ### **Phase 2: GUI Expansion**
 - [ ] Implement Configuration Management interface
@@ -77,13 +77,13 @@
 ### **Stage 1: Repository Archaeological Analysis (75%)**
 **Completed:**
 - File audit and optimization (297 files)
-- Significant legacy cleanup (297 references cleaned)
+- Significant code modernization (297 references cleaned)
 - Directory structure optimization (6/6 directories)
 - .gitignore enhancement (100% optimization)
 - GUI architecture foundation (4/4 components ready)
 
 **Remaining:**
-- Complete legacy reference elimination (1,050 refs remaining)
+- Complete Deprecated reference elimination (1,050 refs remaining)
 - Final repository validation
 - Achieve 85%+ completion target
 
@@ -129,7 +129,7 @@
 
 **Remaining:**
 - GUI accessibility expansion (20.4% → 90%+)
-- Legacy reference cleanup (783 refs)
+- Deprecated reference cleanup (783 refs)
 - Complete GUI implementation
 
 ---
@@ -137,7 +137,7 @@
 ## 🎯 **READINESS CRITERIA FOR STAGE 6**
 
 ### **Required Before Proceeding:**
-- [ ] Stage 1: 85%+ completion (legacy elimination)
+- [ ] Stage 1: 85%+ completion (code modernization)
 - [ ] Stage 2: 85%+ completion (GUI expansion)
 - [x] Stage 3: 100% completion (maintained)
 - [ ] Stage 4: 98%+ completion (cross-references)
@@ -176,7 +176,7 @@
 - **System Functionality:** All enterprise features working
 
 ### **Areas Requiring Foundation Repair:**
-- **Legacy Code:** Elimination incomplete
+- **deprecated code:** Elimination incomplete
 - **GUI Coverage:** Significant expansion needed
 - **Validation Framework:** Professional infrastructure required
 
@@ -186,7 +186,7 @@
 
 ### **Stages 6-7: Professional Validation**
 - Complete GUI system validation
-- Final legacy elimination
+- Final code modernization
 - Technical debt removal
 
 ### **Stages 8-9: User Experience Excellence**

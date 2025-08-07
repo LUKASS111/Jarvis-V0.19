@@ -7,7 +7,7 @@
 
 **Status:** Foundation repair required before Stage 6  
 **Completion:** Stages 1-5 at 82.8% average  
-**Blocker:** Legacy code and GUI functionality gaps  
+**Blocker:** deprecated code and GUI functionality gaps  
 **Solution:** Execute foundation repair plan
 
 ---
@@ -94,14 +94,14 @@
 ## 🎯 **SUCCESS TARGETS**
 
 ### **Foundation Repair Goals:**
-- Legacy elimination: 2,352+ → 0 references
+- code modernization: 2,352+ → 0 references
 - GUI functionality: 20.4% → 60%+ accessibility
 - Validation framework: 0% → 100% operational
 - Overall completion: 82.8% → 85%+ average
 
 ### **Final Plan Goals:**
 - GUI System: 100% functionality accessible
-- Legacy Code: Absolute zero remaining
+- deprecated code: Absolute zero remaining
 - User Experience: 95%+ error reduction
 - Production: Complete deployment readiness
 

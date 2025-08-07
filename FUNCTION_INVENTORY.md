@@ -4,7 +4,7 @@
 **Generated:** 2025-01-07  
 **Total Functions Mapped:** 3,469  
 **GUI Accessible:** 709 (20.4%)  
-**Legacy Functions Found:** 32  
+**Deprecated Functions Found:** 32  
 **Coverage Analysis:** Comprehensive inventory with systematic categorization
 
 ---
@@ -16,7 +16,7 @@ This comprehensive function inventory represents the complete mapping of all pro
 ### **Key Findings:**
 - **Total Program Functions:** 3,469 mapped across 116 files
 - **GUI Accessibility Gap:** 2,760 functions require GUI interfaces (79.6%)
-- **Legacy Code Burden:** 32 legacy functions identified for removal
+- **deprecated code Burden:** 32 Deprecated functions identified for removal
 - **Category Distribution:** 11 major functional categories identified
 - **Priority Functions:** 1,490 uncovered functions requiring testing
 
@@ -118,24 +118,24 @@ This comprehensive function inventory represents the complete mapping of all pro
 
 ---
 
-## 📋 **Legacy Code Elimination Status**
+## 📋 **deprecated code Elimination Status**
 
-### **Legacy Functions Identified:** 32
+### **Deprecated Functions Identified:** 32
 **Categories:**
 - **High Priority Removal:** 12 functions with active usage
 - **Medium Priority:** 15 functions in deprecated modules  
 - **Low Priority:** 5 functions in documentation/comments
 
-### **Legacy Patterns Found:**
-- **Legacy Keywords:** 441 references across codebase
-- **Legacy Imports:** 27 import statements  
-- **Legacy Functions:** 21 function definitions
-- **Legacy Variables:** 293 variable references
+### **deprecated patterns Found:**
+- **Deprecated Keywords:** 441 references across codebase
+- **Deprecated Imports:** 27 import statements  
+- **Deprecated Functions:** 21 function definitions
+- **Deprecated Variables:** 293 variable references
 
 ### **Cleanup Requirements:**
-- **Critical:** Remove 49 high-severity legacy references
-- **High:** Clean 293 medium-severity legacy references  
-- **Total Files Affected:** 68 files require legacy cleanup
+- **Critical:** Remove 49 high-severity deprecated references
+- **High:** Clean 293 medium-severity deprecated references  
+- **Total Files Affected:** 68 files require code modernization
 
 ---
 
@@ -257,7 +257,7 @@ This comprehensive function inventory represents the complete mapping of all pro
 ### **Stage 5 Achievements:**
 - ✅ **100% Functionality Mapping:** 3,469 functions catalogued
 - ✅ **Comprehensive GUI System:** Foundation architecture implemented
-- ⚠️ **Legacy Code Status:** 783 references require cleanup (NOT ACHIEVED)
+- ⚠️ **deprecated code Status:** 783 references require cleanup (NOT ACHIEVED)
 - ✅ **Zero Functional Regression:** All core components operational
 - ✅ **Non-Technical User Experience:** 80% readiness achieved
 - ✅ **Test Coverage Framework:** 68.6% baseline established
@@ -265,7 +265,7 @@ This comprehensive function inventory represents the complete mapping of all pro
 
 ### **Stage 6 Targets:**
 - **GUI Accessibility:** Increase from 20.4% to 85%+
-- **Legacy Code:** Reduce from 783 to <50 references
+- **deprecated code:** Reduce from 783 to <50 references
 - **Test Coverage:** Increase from 68.6% to 80%+
 - **UX Score:** Improve from 59.8% to 85%+
 - **Configuration Access:** Improve from 4.8% to 90%+
@@ -283,7 +283,7 @@ This comprehensive function inventory represents the complete mapping of all pro
 ### **Validation Scripts Operational:**
 - `functionality_audit.py` - Function inventory tracking
 - `gui_functionality_test.py` - GUI accessibility validation
-- `legacy_reference_scan.py` - Legacy code monitoring
+- `legacy_reference_scan.py` - deprecated code monitoring
 - `regression_analysis.py` - Functionality regression detection
 - `coverage_analysis.py` - Test coverage tracking
 - `gui_user_experience_test.py` - UX quality validation
@@ -300,7 +300,7 @@ This comprehensive function inventory represents the complete mapping of all pro
 
 ### **Critical Actions for Stage 6:**
 1. **Address GUI Coverage Gap:** Implement interfaces for 2,760 missing functions
-2. **Complete Legacy Cleanup:** Remove 783 legacy references
+2. **Complete code modernization:** Remove 783 deprecated references
 3. **Enhance UX Score:** Improve navigation clarity and accessibility
 4. **Maintain Performance:** Preserve 95.3% performance score
 

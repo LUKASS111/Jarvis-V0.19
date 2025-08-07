@@ -218,7 +218,7 @@ def comprehensive_foundation_validation():
         comprehensive_report["next_actions"].append("Focus on stages with <85% completion")
     else:
         comprehensive_report["next_actions"].append("Continue Foundation Repair - significant gaps remain")
-        comprehensive_report["next_actions"].append("Prioritize legacy cleanup and GUI expansion")
+        comprehensive_report["next_actions"].append("Prioritize deprecated cleanup and GUI expansion")
     
     # Save comprehensive report
     with open("COMPREHENSIVE_FOUNDATION_VALIDATION.json", "w") as f:

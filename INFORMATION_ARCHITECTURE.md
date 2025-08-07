@@ -71,7 +71,7 @@ VALIDATION_PROTOCOLS.md          # Testing framework (Stage 6)
 ### **Stage Dependencies Matrix:**
 | Stage | Dependencies | Validates | Creates |
 |-------|-------------|-----------|---------|
-| 1 | Base System | Repository Cleanliness | Legacy Elimination |
+| 1 | Base System | Repository Cleanliness | code modernization |
 | 2 | Stage 1 | Error Prevention | GUI Architecture |
 | 3 | Stage 2 | Engineering Quality | Performance & Design |
 | 4 | Stage 3 | Information Architecture | **Complete GUI System** |

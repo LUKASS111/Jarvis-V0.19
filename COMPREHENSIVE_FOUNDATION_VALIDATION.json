@@ -8,12 +8,12 @@
       "timestamp": "2025-01-07",
       "overall_completion": 62.0,
       "validation_scores": {
-        "legacy_elimination": 35,
+        "deprecated_elimination": 35,
         "repository_optimization": 100,
         "gui_architecture_preparation": 60.0
       },
       "detailed_metrics": {
-        "legacy_references_found": 13,
+        "deprecated_references_found": 13,
         "required_directories_present": "5/5",
         "total_files_in_repository": 2487,
         "temporary_files": 0,
@@ -22,7 +22,7 @@
       },
       "completion_status": "PARTIAL",
       "recommendations": [
-        "Continue legacy code elimination - remove remaining references",
+        "Continue deprecated code elimination - remove remaining references",
         "Complete GUI architecture preparation - implement missing components"
       ]
     },

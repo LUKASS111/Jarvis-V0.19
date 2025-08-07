@@ -15,14 +15,14 @@
 
 ## 🔧 **CRITICAL REPAIR AREAS**
 
-### **1. Legacy Code Elimination (Stages 1 & 5)**
-**Current Issue:** 2,352+ legacy references remain
-**Target:** Zero legacy code anywhere in system
+### **1. deprecated code Elimination (Stages 1 & 5)**
+**Current Issue:** 2,352+ deprecated references remain
+**Target:** Zero deprecated code anywhere in system
 
 **Actions:**
 - Remove all files from `/archive/legacy_code/` directory
-- Clean legacy imports from active codebase
-- Remove legacy function calls and references
+- Clean Deprecated imports from active codebase
+- Remove Deprecated function calls and references
 - Validate with comprehensive scanning
 
 ### **2. GUI Functionality Expansion (Stages 2 & 5)**
@@ -71,15 +71,15 @@
    - Core system interface components
    - Dashboard expansion framework
 
-### **Phase 2: Legacy Elimination (Priority 2)**
-1. **Complete Legacy Code Removal**
+### **Phase 2: code modernization (Priority 2)**
+1. **Complete deprecated code Removal**
    - Archive directory cleanup
    - Active codebase reference removal
    - Import statement cleanup
    - Comprehensive verification
 
 2. **Documentation Cleanup**
-   - Remove legacy references from docs
+   - Remove deprecated references from docs
    - Update all documentation links
    - Maintain information consistency
 
@@ -110,7 +110,7 @@
 ## 🎯 **SUCCESS CRITERIA**
 
 ### **Stage 1 Target (85%+):**
-- Legacy references: <100 (from 2,352+)
+- deprecated references: <100 (from 2,352+)
 - Repository optimization: Complete
 - GUI architecture: Fully prepared
 
@@ -131,7 +131,7 @@
 
 ### **Stage 5 Target (85%+):**
 - GUI implementation: 60%+ accessible
-- Legacy cleanup: <50 references
+- code modernization: <50 references
 - Functionality preservation: 100%
 
 ---
@@ -144,7 +144,7 @@
 - Testing framework enhancement
 
 ### **Phase 2: Cleanup (45 minutes)**
-- Legacy code elimination
+- deprecated code elimination
 - Documentation cleanup
 - Reference removal
 
@@ -166,7 +166,7 @@
 
 ### **Individual Stage Validators:**
 ```bash
-python scripts/validate_stage1_completion.py  # Repository & legacy analysis
+python scripts/validate_stage1_completion.py  # Repository & Deprecated analysis
 python scripts/validate_stage2_completion.py  # Error patterns & GUI architecture
 python scripts/validate_stage3_completion.py  # Engineering rigor & quality
 python scripts/validate_stage4_completion.py  # Information architecture
@@ -179,7 +179,7 @@ python scripts/comprehensive_foundation_validation.py  # Overall completion chec
 ```
 
 ### **Expected Results:**
-- Stage 1: 85%+ (legacy elimination complete)
+- Stage 1: 85%+ (code modernization complete)
 - Stage 2: 85%+ (GUI expansion significant)
 - Stage 3: 100% (maintained excellence)
 - Stage 4: 98%+ (information architecture complete)
@@ -193,7 +193,7 @@ python scripts/comprehensive_foundation_validation.py  # Overall completion chec
 - [x] Foundation repair execution complete
 - [x] All validation scripts operational
 - [x] 85%+ average completion achieved
-- [x] Legacy code elimination verified
+- [x] deprecated code elimination verified
 - [x] GUI functionality expansion confirmed
 - [x] Validation framework comprehensive
 

@@ -245,12 +245,12 @@ def main():
             print(f"[FALLBACK] Switching to standard mode")
             return standard_main()
     else:
-        print(f"[LAUNCHER] Using LEGACY mode - individual file logging")
+        print(f"[LAUNCHER] Using deprecated mode - individual file logging")
         return standard_main()
 
 
 def standard_main():
-    """Legacy main function for backward compatibility"""
+    """deprecated main function for backward compatibility"""
     """Main test runner function"""
     print("[LAUNCH] V0.2 COMPREHENSIVE TEST SUITE")
     print("=" * 80)
