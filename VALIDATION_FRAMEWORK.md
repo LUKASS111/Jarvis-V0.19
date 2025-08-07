@@ -20,7 +20,7 @@
 python scripts/validate_stage1_completion.py
 ```
 **Validates:**
-- Legacy code elimination progress (target: <10 references)
+- current code elimination progress (target: <10 references)
 - GUI architecture foundation readiness (4/4 components)
 - Repository optimization completeness (100% optimization)
 

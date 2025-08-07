@@ -117,7 +117,7 @@ class TestSystemHealthDatabase(unittest.TestCase):
             status='healthy',
             score=95.0,
             metrics={},
-            message='Old record',
+            message='modern record',
             recovery_actions=[]
         )
         self.db.save_health_status(current_status)

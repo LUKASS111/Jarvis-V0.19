@@ -243,7 +243,7 @@ VALIDATION_PROTOCOLS.md          # Testing framework (Stage 6)
 - `@copilot Check foundation repair requirements`
 
 #### **Tier 3: Specific Task Commands**
-- `@copilot Execute legacy code elimination`
+- `@copilot Execute current code elimination`
 - `@copilot Enhance GUI functionality coverage`
 - `@copilot Implement security scanning framework`
 

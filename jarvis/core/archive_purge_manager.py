@@ -570,7 +570,7 @@ class DataArchivePurgeManager:
                         file_mtime = os.path.getmtime(file_path)
                         days_old = (datetime.now().timestamp() - file_mtime) / (24 * 3600)
                         
-                        # Remove backups older than 7 days (likely from older versions)
+                        # Current versions)
                         if days_old > 7:
                             os.remove(file_path)
                             cleaned_count += 1

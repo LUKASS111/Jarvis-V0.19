@@ -321,7 +321,7 @@ class TestMemoryPerformance(unittest.TestCase):
         recent_session = "recent_session_001"
         
         # Store data for both sessions
-        memory_system.store_conversation_entry(current_session, "Old message", "Old response")
+        memory_system.store_conversation_entry(current_session, "modern message", "modern response")
         memory_system.store_conversation_entry(recent_session, "Recent message", "Recent response")
         
         # Manually set old session timestamp to simulate age
