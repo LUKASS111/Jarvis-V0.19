@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Jarvis AI Assistant v1.0 - Modern Production Entry Point
-Professional 9-tab comprehensive dashboard interface only.
-All updated code removed - clean modern implementation.
+Jarvis AI Assistant v1.0 - Production Entry Point
+Professional 9-tab comprehensive dashboard interface with full functionality.
+Complete system with all features accessible via modern GUI.
 """
 
 import sys
@@ -16,7 +16,7 @@ VERSION_STRING = "1.0.0"
 AVAILABLE_MODELS = ["llama3:8b", "mistral:7b", "gemma:2b", "phi:latest"]
 
 def main():
-    """Modern Jarvis entry point - Comprehensive 9-tab dashboard only"""
+    """Jarvis entry point - Comprehensive 9-tab dashboard with full functionality"""
     
     parser = argparse.ArgumentParser(
         description="Jarvis AI Assistant v1.0 - Professional Dashboard",
@@ -49,7 +49,7 @@ Examples:
 
     args = parser.parse_args()
 
-    print(f"[LAUNCH] Jarvis {VERSION_STRING} - Modern Production System")
+    print(f"[LAUNCH] Jarvis {VERSION_STRING} - Production System with Full Functionality")
     print("=" * 60)
 
     # Initialize production backend
@@ -66,12 +66,12 @@ Examples:
     if args.backend:
         return start_backend_service()
     elif args.cli:
-        return start_modern_cli()
+        return start_cli()
     else:
         return start_comprehensive_dashboard()
 
 def start_comprehensive_dashboard():
-    """Launch the modern 9-tab comprehensive dashboard"""
+    """Launch the comprehensive 9-tab dashboard with full functionality"""
     print("[GUI] Starting Comprehensive Professional Dashboard...")
     print("[GUI] Features: Overview, Archive, CRDT, Vector DB, Agents, Monitoring, Security, API, Deployment")
     
@@ -94,13 +94,13 @@ def start_comprehensive_dashboard():
         print(f"[ERROR] Dashboard startup failed: {e}")
         return 1
 
-def start_modern_cli():
-    """Launch modern CLI interface"""
-    print("[CLI] Starting Modern CLI Interface...")
+def start_cli():
+    """Launch CLI interface"""
+    print("[CLI] Starting CLI Interface...")
     
     try:
-        from jarvis.interfaces.cli import ModernCLI
-        cli = ModernCLI()
+        from jarvis.interfaces.cli import CLI
+        cli = CLI()
         cli.run()
         return 0
     except ImportError as e:
