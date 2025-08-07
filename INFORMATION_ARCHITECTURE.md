@@ -531,7 +531,7 @@ Commit: [hash]
 
 #### **Tier 2: Stage-Specific Validation**
 ```bash
-python scripts/validate_stage1_completion.py  # Repository & Legacy cleanup
+python scripts/validate_stage1_completion.py  # Repository cleanup
 python scripts/validate_stage2_completion.py  # Error prevention & GUI architecture
 python scripts/validate_stage3_completion.py  # Engineering rigor & quality
 python scripts/validate_stage4_completion.py  # Information architecture & GUI system
