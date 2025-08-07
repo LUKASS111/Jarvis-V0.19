@@ -154,7 +154,7 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         self.tab_widget = QTabWidget()
         layout.addWidget(self.tab_widget)
         
-        # Add all capability tabs (Stage 4: Complete GUI System Architecture)
+        # Add all capability tabs (Complete GUI System Architecture)
         self.add_ai_models_tab()           # Tab 1: AI Models & LLM Management (234 functions)
         self.add_multimodal_tab()          # Tab 2: Multimodal Processing (187 functions)
         self.add_memory_management_tab()   # Tab 3: Memory Management (298 functions)
@@ -1426,7 +1426,7 @@ All endpoints require authentication via API key.""")
         # Scroll to bottom
         self.activity_list.scrollToBottom()
     
-    # Action methods for GUI functionality (Stage 4: Complete Implementation)
+    # Action methods for GUI functionality (Complete Implementation)
     def send_ai_message(self):
         """Send message to AI model"""
         message = self.ai_chat_input.text()
