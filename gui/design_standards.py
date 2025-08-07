@@ -25,11 +25,29 @@ class ColorsObject:
     TEXT_DISABLED = "#666666"
     ON_PRIMARY = "#ffffff"  # Text on primary surfaces
     ON_PRIMARY_CONTAINER = "#ffffff"  # Text on primary container
+    ON_SECONDARY = "#000000"  # Text on secondary surfaces
+    ON_SURFACE = "#ffffff"  # Text on surface
+    ON_SURFACE_VARIANT = "#b3b3b3"  # Text on surface variant
+    
+    # Secondary colors
+    SECONDARY = "#16c60c"  # Secondary green
+    SECONDARY_VARIANT = "#14a10a"  # Secondary variant
+    
+    # Surface colors
+    SURFACE = "#1a1a1a"  # Main surface color
+    SURFACE_VARIANT = "#2d2d2d"  # Surface variant
     
     # Border and separator colors
+    BORDER = "#404040"  # Main border color
     BORDER_LIGHT = "#404040"
     BORDER_MEDIUM = "#595959"
     SEPARATOR = "#333333"
+    OUTLINE = "#595959"  # Outline color
+    
+    # Status colors
+    SUCCESS = "#16c60c"  # Success green
+    WARNING = "#ff8c00"  # Warning orange  
+    ERROR = "#e74856"  # Error red
     
     # Special purpose
     HIGHLIGHT = "#0078d4"
@@ -47,6 +65,10 @@ class ColorsObject:
             "primary_light": "#404040",
             "primary_container": "#2d2d2d",
             "primary_variant": "#333333",
+            "secondary": "#16c60c",
+            "secondary_variant": "#14a10a",
+            "surface": "#1a1a1a",
+            "surface_variant": "#2d2d2d",
             "accent_blue": "#0078d4",
             "accent_green": "#16c60c",
             "accent_orange": "#ff8c00",
@@ -56,9 +78,17 @@ class ColorsObject:
             "text_disabled": "#666666",
             "on_primary": "#ffffff",
             "on_primary_container": "#ffffff",
+            "on_secondary": "#000000",
+            "on_surface": "#ffffff",
+            "on_surface_variant": "#b3b3b3",
+            "border": "#404040",
             "border_light": "#404040",
             "border_medium": "#595959",
             "separator": "#333333",
+            "outline": "#595959",
+            "success": "#16c60c",
+            "warning": "#ff8c00",
+            "error": "#e74856",
             "highlight": "#0078d4",
             "hover": "#333333",
             "pressed": "#1a1a1a",
