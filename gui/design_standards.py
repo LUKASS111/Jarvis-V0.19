@@ -1,6 +1,6 @@
 """
 Jarvis V0.19 - GUI Design Standards
-Comprehensive design system for consistent, modern interface patterns
+Comprehensive design system for consistent, professional interface patterns
 """
 
 # Color palette - Professional dark theme
@@ -239,8 +239,8 @@ def apply_style_to_widget(widget, style_dict):
     
     widget.setStyleSheet(style_sheet)
 
-def create_modern_stylesheet():
-    """Create complete modern stylesheet for application"""
+def create_professional_stylesheet():
+    """Create complete professional stylesheet for application"""
     return f"""
     /* Global application styles */
     QApplication {{

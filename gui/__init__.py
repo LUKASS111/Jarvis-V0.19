@@ -20,4 +20,4 @@ gui_components = {
     'processing_interface': 'gui.interfaces.processing_interface'
 }
 
-logger.info("GUI framework initialized with modern component architecture")
+logger.info("GUI framework initialized with professional component architecture")

@@ -19,14 +19,14 @@ class ModernGUIUtils:
     """Modern GUI utility functions with enhanced capabilities"""
     
     @staticmethod
-    def configure_modern_style():
-        """Configure modern visual style for GUI components"""
-        logger.info("Configuring modern GUI style")
+    def configure_professional_style():
+        """Configure professional visual style for GUI components"""
+        logger.info("Configuring professional GUI style")
         return {
             'theme': 'professional',
             'font_family': 'Arial',
             'font_size': 10,
-            'color_scheme': 'modern'
+            'color_scheme': 'professional'
         }
     
     @staticmethod

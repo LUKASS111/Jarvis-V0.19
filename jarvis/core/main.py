@@ -341,7 +341,7 @@ def main(skip_startup_init=False):
     
     global chat_history
     
-    # Print modern system banner when launching
+    # Print system banner when launching
     print(f"[LAUNCH] Jarvis {VERSION_STRING} - Enterprise Distributed AI System")
     print("=" * 60)
     

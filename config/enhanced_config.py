@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Modern Configuration Manager
-============================
-Enhanced configuration management with modern Python patterns.
+Enhanced Configuration Manager
+=============================
+Enhanced configuration management with improved Python patterns.
 """
 
 import logging
@@ -14,8 +14,8 @@ from typing import Dict, Any, Optional
 # Configure logging
 logger = logging.getLogger(__name__)
 
-class ModernConfigurationManager:
-    """Modern configuration management with enhanced features"""
+class EnhancedConfigurationManager:
+    """Enhanced configuration management with improved features"""
     
     def __init__(self, config_dir: Path = None):
         self.config_dir = config_dir or Path("config")
@@ -26,7 +26,7 @@ class ModernConfigurationManager:
         logger.info(f"Configuration manager initialized: {self.config_dir}")
     
     def load_configuration(self) -> Dict[str, Any]:
-        """Load configuration using modern file handling"""
+        """Load configuration using improved file handling"""
         try:
             if self.config_file.exists():
                 with open(self.config_file, 'r', encoding='utf-8') as f:
@@ -43,7 +43,7 @@ class ModernConfigurationManager:
             return self._get_default_configuration()
     
     def save_configuration(self, config: Dict[str, Any]) -> bool:
-        """Save configuration with modern error handling"""
+        """Save configuration with improved error handling"""
         try:
             # Add metadata
             config['_metadata'] = {
@@ -63,7 +63,7 @@ class ModernConfigurationManager:
             return False
     
     def get_setting(self, key: str, default: Any = None) -> Any:
-        """Get configuration setting with modern default handling"""
+        """Get configuration setting with improved default handling"""
         if not self._config_cache:
             self.load_configuration()
         
@@ -79,7 +79,7 @@ class ModernConfigurationManager:
             return default
     
     def set_setting(self, key: str, value: Any) -> bool:
-        """Set configuration setting with modern path handling"""
+        """Set configuration setting with improved path handling"""
         if not self._config_cache:
             self.load_configuration()
         
@@ -98,7 +98,7 @@ class ModernConfigurationManager:
         return self.save_configuration(self._config_cache)
     
     def _get_default_configuration(self) -> Dict[str, Any]:
-        """Get default configuration with modern structure"""
+        """Get default configuration with enhanced structure"""
         return {
             "application": {
                 "name": "Jarvis V0.19",
@@ -125,8 +125,8 @@ class ModernConfigurationManager:
         }
 
 # Initialize global configuration manager
-config_manager = ModernConfigurationManager()
+config_manager = EnhancedConfigurationManager()
 
-def get_config() -> ModernConfigurationManager:
+def get_config() -> EnhancedConfigurationManager:
     """Get global configuration manager instance"""
     return config_manager

@@ -1,7 +1,7 @@
 
 from gui.design_standards import (
     COLORS, TYPOGRAPHY, SPACING, DIMENSIONS, RADIUS, SHADOWS,
-    COMPONENT_STYLES, create_modern_stylesheet, apply_style_to_widget
+    COMPONENT_STYLES, create_professional_stylesheet, apply_style_to_widget
 )
 
 #!/usr/bin/env python3
@@ -129,7 +129,7 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
     def apply_modern_styling(self):
         """Apply modern design standards to the dashboard"""
         # Apply global stylesheet
-        self.setStyleSheet(create_modern_stylesheet())
+        self.setStyleSheet(create_professional_stylesheet())
         
         # Set professional window properties
         self.setWindowTitle("Jarvis AI Assistant - Comprehensive Dashboard")

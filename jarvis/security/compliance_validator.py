@@ -540,7 +540,7 @@ class ComplianceValidator:
                 evidence.append("Encryption manager initialized")
                 score -= 10
             
-            # Check for modern algorithms (would need actual system check)
+            # Check for current algorithms (would need actual system check)
             evidence.append("AES-256 encryption support verified")
             
             # Check TLS configuration (simulated but based on real checks)
