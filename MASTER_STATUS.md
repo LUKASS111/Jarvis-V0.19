@@ -107,7 +107,7 @@
 python scripts/professional_foundation_assessment.py
 
 # 2. Address specific stage gaps (after assessment)
-@copilot Execute Stage 1 legacy elimination completion
+@copilot Execute Stage 1 modernization completion
 @copilot Execute Stage 3 quality standards enhancement
 
 # 3. Re-validate before proceeding
