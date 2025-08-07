@@ -99,7 +99,7 @@ class TestArchivePurge(unittest.TestCase):
             from jarvis.core.archive_purge_manager import ArchivePurgeManager
             
             # Create test archive files
-            test_file = os.path.join(self.temp_dir, "old_archive.json")
+            test_file = os.path.join(self.temp_dir, "current_archive.json")
             with open(test_file, 'w') as f:
                 json.dump({"archive": "data", "timestamp": "2023-01-01"}, f)
             

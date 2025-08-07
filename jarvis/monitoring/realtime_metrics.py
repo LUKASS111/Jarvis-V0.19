@@ -332,7 +332,7 @@ class MetricStorage:
             
             return results
     
-    def cleanup_old_data(self, hours_to_keep: int = 168):  # 7 days default
+    def cleanup_current_data(self, hours_to_keep: int = 168):  # 7 days default
         """Clean up old metric data"""
         cutoff_time = (datetime.now() - timedelta(hours=hours_to_keep)).isoformat()
         
@@ -1042,7 +1042,7 @@ class AdvancedMetricsCollector:
                 
                 # Clean up old data periodically
                 if int(time.time()) % 3600 == 0:  # Every hour
-                    self.storage.cleanup_old_data()
+                    self.storage.cleanup_current_data()
                 
                 time.sleep(self.config.get('collection_interval', 30))
                 

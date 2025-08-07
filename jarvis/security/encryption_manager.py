@@ -410,21 +410,21 @@ class EncryptionManager:
             if key_id not in self.encryption_keys:
                 raise ValueError(f"Key not found: {key_id}")
             
-            old_key = self.encryption_keys[key_id]
+            current_key = self.encryption_keys[key_id]
             
             # Generate new key with same purpose and algorithm
             new_key_id = self._generate_encryption_key(
-                purpose=old_key.purpose,
-                algorithm=old_key.algorithm
+                purpose=current_key.purpose,
+                algorithm=current_key.algorithm
             )
             
             # Deactivate old key (don't delete for decryption of existing data)
-            old_key.is_active = False
+            current_key.is_active = False
             
             # Log key rotation
             self._log_encryption_operation(
                 'key_rotation',
-                old_key.algorithm,
+                current_key.algorithm,
                 f"{key_id}->{new_key_id}",
                 0,
                 True

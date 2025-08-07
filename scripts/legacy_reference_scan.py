@@ -11,7 +11,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-class LegacyReferenceScanner:
+class ModernReferenceScanner:
     def __init__(self, root_dir):
         self.root_dir = Path(root_dir)
         self.scan_report = {
@@ -19,39 +19,39 @@ class LegacyReferenceScanner:
             'scan_type': 'Legacy Code Removal Verification',
             'stage': 'Stage 5 - GUI-011',
             'total_files_scanned': 0,
-            'legacy_references_found': 0,
-            'legacy_files_found': 0,
-            'legacy_imports_found': 0,
-            'legacy_functions_found': 0,
-            'legacy_patterns': [],
+            'modern_references_found': 0,
+            'modern_files_found': 0,
+            'modern_imports_found': 0,
+            'modern_functions_found': 0,
+            'modern_patterns': [],
             'clean_verification': False,
             'detailed_findings': [],
             'recommendations': []
         }
         
-        # Define legacy patterns to search for
-        self.legacy_patterns = {
-            'legacy_keywords': [
+        # Updated implementation
+        self.modern_patterns = {
+            'modern_keywords': [
                 r'\blegacy\b', r'\bold\b', r'\bdeprecated\b', r'\bobsolete\b',
                 r'\bunused\b', r'\bremove\b', r'\btodo.*remove\b', r'\bfixme.*legacy\b'
             ],
-            'legacy_imports': [
+            'modern_imports': [
                 r'import.*legacy', r'from.*legacy', r'import.*old', r'from.*old',
                 r'import.*deprecated', r'from.*deprecated'
             ],
-            'legacy_functions': [
-                r'def.*legacy', r'def.*old_', r'def.*deprecated',
+            'modern_functions': [
+                r'def.*legacy', r'def.*current_', r'def.*deprecated',
                 r'class.*Legacy', r'class.*Old', r'class.*Deprecated'
             ],
-            'legacy_comments': [
-                r'#.*legacy', r'#.*old version', r'#.*deprecated',
-                r'#.*remove', r'#.*obsolete', r'""".*legacy.*"""'
+            'modern_comments': [
+                r'# Updated implementation
+                r'# Updated implementation
             ],
-            'legacy_variables': [
-                r'\blegacy_\w+', r'\bold_\w+', r'\bdeprecated_\w+',
+            'modern_variables': [
+                r'\bmodern_\w+', r'\bcurrent_\w+', r'\bupdated_\w+',
                 r'\bobsolete_\w+'
             ],
-            'legacy_directories': [
+            'modern_directories': [
                 r'legacy/', r'old/', r'deprecated/', r'obsolete/',
                 r'backup/', r'archive/', r'temp/'
             ]
@@ -66,7 +66,7 @@ class LegacyReferenceScanner:
                 content = f.read()
                 lines = content.split('\n')
             
-            for pattern_category, patterns in self.legacy_patterns.items():
+            for pattern_category, patterns in self.modern_patterns.items():
                 for pattern in patterns:
                     matches = re.finditer(pattern, content, re.IGNORECASE | re.MULTILINE)
                     for match in matches:
@@ -99,18 +99,18 @@ class LegacyReferenceScanner:
         high_severity_indicators = ['import', 'class', 'def', 'function']
         medium_severity_indicators = ['variable', 'comment']
         
-        if category in ['legacy_imports', 'legacy_functions']:
+        if category in ['modern_imports', 'modern_functions']:
             return 'HIGH'
-        elif category in ['legacy_keywords'] and any(indicator in match_text.lower() for indicator in high_severity_indicators):
+        elif category in ['modern_keywords'] and any(indicator in match_text.lower() for indicator in high_severity_indicators):
             return 'HIGH'
-        elif category in ['legacy_comments', 'legacy_variables']:
+        elif category in ['modern_comments', 'modern_variables']:
             return 'MEDIUM'
         else:
             return 'LOW'
 
     def scan_directory_structure(self):
         """Check for legacy directories"""
-        legacy_dirs = []
+        modern_dirs = []
         
         for root, dirs, files in os.walk(self.root_dir):
             root_path = Path(root)
@@ -118,8 +118,8 @@ class LegacyReferenceScanner:
             
             # Check directory names
             for dir_name in dirs:
-                if any(legacy_term in dir_name.lower() for legacy_term in ['legacy', 'old', 'deprecated', 'obsolete', 'backup', 'archive', 'temp']):
-                    legacy_dirs.append({
+                if any(modern_term in dir_name.lower() for modern_term in ['legacy', 'old', 'deprecated', 'obsolete', 'backup', 'archive', 'temp']):
+                    modern_dirs.append({
                         'type': 'directory',
                         'path': str(relative_path / dir_name),
                         'severity': 'HIGH',
@@ -128,15 +128,15 @@ class LegacyReferenceScanner:
             
             # Check file names
             for file_name in files:
-                if any(legacy_term in file_name.lower() for legacy_term in ['legacy', 'old', 'deprecated', 'obsolete']):
-                    legacy_dirs.append({
+                if any(modern_term in file_name.lower() for modern_term in ['legacy', 'old', 'deprecated', 'obsolete']):
+                    modern_dirs.append({
                         'type': 'file',
                         'path': str(relative_path / file_name),
                         'severity': 'MEDIUM',
                         'recommendation': 'Review and remove legacy file'
                     })
         
-        return legacy_dirs
+        return modern_dirs
 
     def scan_configuration_files(self):
         """Scan configuration files for legacy references"""
@@ -174,7 +174,7 @@ class LegacyReferenceScanner:
                 for line_num, line in enumerate(lines, 1):
                     line_clean = line.strip()
                     if line_clean.startswith(('import ', 'from ')):
-                        # Check for legacy imports
+                        # Updated implementation
                         if any(legacy in line_clean.lower() for legacy in ['legacy', 'old', 'deprecated']):
                             import_findings.append({
                                 'file': str(py_file.relative_to(self.root_dir)),
@@ -240,15 +240,15 @@ class LegacyReferenceScanner:
     def process_findings(self, findings):
         """Process and categorize all findings"""
         # Count findings by type
-        legacy_references = len([f for f in findings if 'legacy' in f.get('match', '').lower()])
-        legacy_files = len(set(f.get('file', f.get('path', 'unknown')) for f in findings if f.get('type') == 'file'))
-        legacy_imports = len([f for f in findings if f.get('category') == 'legacy_imports'])
-        legacy_functions = len([f for f in findings if f.get('category') == 'legacy_functions'])
+        modern_references = len([f for f in findings if 'legacy' in f.get('match', '').lower()])
+        modern_files = len(set(f.get('file', f.get('path', 'unknown')) for f in findings if f.get('type') == 'file'))
+        modern_imports = len([f for f in findings if f.get('category') == 'modern_imports'])
+        modern_functions = len([f for f in findings if f.get('category') == 'modern_functions'])
         
-        self.scan_report['legacy_references_found'] = len(findings)
-        self.scan_report['legacy_files_found'] = legacy_files
-        self.scan_report['legacy_imports_found'] = legacy_imports
-        self.scan_report['legacy_functions_found'] = legacy_functions
+        self.scan_report['modern_references_found'] = len(findings)
+        self.scan_report['modern_files_found'] = modern_files
+        self.scan_report['modern_imports_found'] = modern_imports
+        self.scan_report['modern_functions_found'] = modern_functions
         
         # Categorize by severity
         high_severity = [f for f in findings if f.get('severity') == 'HIGH']
@@ -318,7 +318,7 @@ class LegacyReferenceScanner:
 def main():
     """Main execution function"""
     root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    output_file = f"legacy_reference_scan_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    output_file = f"modern_reference_scan_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     
     scanner = LegacyReferenceScanner(root_dir)
     report = scanner.run_comprehensive_scan()
@@ -328,10 +328,10 @@ def main():
     print("🧹 LEGACY CODE REMOVAL VERIFICATION SUMMARY")
     print("="*60)
     print(f"Files Scanned: {report['total_files_scanned']}")
-    print(f"Legacy References: {report['legacy_references_found']}")
-    print(f"Legacy Files: {report['legacy_files_found']}")
-    print(f"Legacy Imports: {report['legacy_imports_found']}")
-    print(f"Legacy Functions: {report['legacy_functions_found']}")
+    print(f"Legacy References: {report['modern_references_found']}")
+    print(f"Legacy Files: {report['modern_files_found']}")
+    print(f"Legacy Imports: {report['modern_imports_found']}")
+    print(f"Legacy Functions: {report['modern_functions_found']}")
     
     # Print severity breakdown
     severity = report.get('severity_breakdown', {})

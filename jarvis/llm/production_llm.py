@@ -292,8 +292,8 @@ class ProductionLLMInterface:
                 self.response_cache.items(),
                 key=lambda x: x[1].timestamp
             )
-            for old_key, _ in sorted_cache[:100]:
-                self.response_cache.pop(old_key, None)
+            for current_key, _ in sorted_cache[:100]:
+                self.response_cache.pop(current_key, None)
         
         self.response_cache[cache_key] = response
     

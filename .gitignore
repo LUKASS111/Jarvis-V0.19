@@ -128,3 +128,11 @@ error_prevention_validation_*.json
 stage*_validation_report.json
 comprehensive_foundation_validation_*.json
 foundation_validation_*.json
+# Validation Reports
+*_report.json
+comprehensive_validation_*.json
+foundation_repair_*.json
+
+# Temporary Files
+*.bak
+repair_*.log

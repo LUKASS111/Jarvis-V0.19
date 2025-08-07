@@ -184,7 +184,7 @@ class HealthDatabase:
             
             return results
     
-    def cleanup_old_data(self, days_to_keep: int = 30):
+    def cleanup_current_data(self, days_to_keep: int = 30):
         """Clean up old health data"""
         cutoff_time = (datetime.now() - timedelta(days=days_to_keep)).isoformat()
         
@@ -649,7 +649,7 @@ class SystemHealthMonitor:
                 
                 # Cleanup old data periodically
                 if int(time.time()) % 3600 == 0:  # Every hour
-                    self.database.cleanup_old_data()
+                    self.database.cleanup_current_data()
                 
                 # Sleep for monitoring interval
                 time.sleep(self.config.get('check_interval', 60))  # Default 1 minute

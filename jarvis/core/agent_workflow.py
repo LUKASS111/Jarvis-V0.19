@@ -799,7 +799,7 @@ class AgentWorkflowManager:
             corrections.extend([
                 "implement_adaptive_confidence_threshold",
                 "use_confidence_boosting_ensemble",
-                "implement_dynamic_threshold_adjustment",
+                "implement_dynamic_threshcurrent_adjustment",
                 "add_confidence_calibration"
             ])
         

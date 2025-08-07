@@ -285,7 +285,7 @@ class ORSet(BaseCRDT):
             cutoff_time = time.time() - (30 * 24 * 3600)  # 30 days
         
         # Find old removed tags to clean up
-        old_removed = set()
+        current_removed = set()
         for tag in self.removed:
             try:
                 # Extract timestamp from tag format: node:uuid:timestamp
@@ -293,15 +293,15 @@ class ORSet(BaseCRDT):
                 if len(parts) >= 3:
                     tag_time = int(parts[-1]) / 1_000_000_000  # Convert ns to seconds
                     if tag_time < cutoff_time:
-                        old_removed.add(tag)
+                        current_removed.add(tag)
             except (ValueError, IndexError):
                 # Keep tags with unexpected format
                 continue
         
         # Remove old tombstones
-        self.removed -= old_removed
+        self.removed -= current_removed
         
-        return len(old_removed)
+        return len(current_removed)
     
     def __str__(self) -> str:
         """String representation of the OR-Set."""

@@ -168,7 +168,7 @@ class TestLWWRegister(unittest.TestCase):
         register1 = LWWRegister("node1")
         register2 = LWWRegister("node2")
         
-        register1.write("old_value")
+        register1.write("current_value")
         time.sleep(0.001)  # Ensure timestamp difference
         register2.write("new_value")
         

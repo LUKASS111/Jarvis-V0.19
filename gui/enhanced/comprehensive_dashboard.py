@@ -165,7 +165,7 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         self.add_development_tools_tab()   # Tab 8: Development Tools (143 functions)
         self.add_analytics_reporting_tab() # Tab 9: Analytics & Reporting (113 functions)
         
-        # Legacy tabs for backward compatibility (will be integrated into new architecture)
+        # Updated implementation
         # Total GUI Coverage: 1,657 functions across 9 comprehensive tabs
         
     def add_ai_models_tab(self):

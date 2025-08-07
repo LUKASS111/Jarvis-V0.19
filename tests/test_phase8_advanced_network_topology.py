@@ -275,9 +275,9 @@ class TestPartitionDetector(unittest.TestCase):
     def test_partition_detection(self):
         """Test partition detection"""
         # Simulate old heartbeat for some nodes (partition condition)
-        old_time = datetime.now() - timedelta(seconds=10)
-        self.nodes["partition_node_2"].last_heartbeat = old_time
-        self.nodes["partition_node_3"].last_heartbeat = old_time
+        current_time = datetime.now() - timedelta(seconds=10)
+        self.nodes["partition_node_2"].last_heartbeat = current_time
+        self.nodes["partition_node_3"].last_heartbeat = current_time
         
         partitions = self.partition_detector.detect_partitions(self.nodes, self.routing_table)
         

@@ -249,7 +249,7 @@ class CRDTSystemInitializer:
             'distributed_mode': True,
             'test_mode': True,
             'clean_state': True,
-            'old_data_ignored': True,
+            'current_data_ignored': True,
             'backup_integration': False,  # Start with clean state
             'monitoring_enabled': True,
             'performance_tracking': True

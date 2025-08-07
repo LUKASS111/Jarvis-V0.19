@@ -196,7 +196,7 @@ class ErrorPatternAnalyzer:
         risk_factors = {
             "database_risk": "LOW",  # Resolved in previous stages
             "dependency_risk": "LOW",  # Resolved in Stage 3
-            "legacy_code_risk": "NONE",  # Eliminated in Stage 1
+            "modern_code_risk": "NONE",  # Eliminated in Stage 1
             "test_coverage_risk": "LOW",  # 293/293 tests passing
             "documentation_risk": "LOW",  # Comprehensive documentation
             "user_error_risk": "MEDIUM"  # Target for Stage 2

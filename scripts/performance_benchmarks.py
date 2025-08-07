@@ -74,7 +74,7 @@ class PerformanceBenchmarks:
         self.results["benchmarks"]["import_performance"] = {
             "individual_imports": import_times,
             "average_import_time_ms": round(avg_import_time, 2),
-            "threshold_ms": 100,
+            "threshcurrent_ms": 100,
             "status": "PASS" if benchmark_status else "SLOW",
             "description": "Module import performance benchmark"
         }
@@ -141,8 +141,8 @@ class PerformanceBenchmarks:
         self.results["benchmarks"]["database_operations"] = {
             "sqlite_benchmarks": db_benchmarks,
             "thresholds": {
-                "insert_threshold_ms": 50,
-                "select_threshold_ms": 10
+                "insert_threshcurrent_ms": 50,
+                "select_threshcurrent_ms": 10
             },
             "description": "Database operation performance benchmark"
         }
@@ -218,8 +218,8 @@ class PerformanceBenchmarks:
         self.results["gui_performance"]["initialization"] = {
             "components": gui_init_times,
             "thresholds": {
-                "pyqt5_threshold_ms": 200,
-                "dashboard_threshold_ms": 500
+                "pyqt5_threshcurrent_ms": 200,
+                "dashboard_threshcurrent_ms": 500
             },
             "overall_status": "PASS" if overall_status else "SLOW",
             "description": "GUI component initialization performance"
@@ -364,8 +364,8 @@ class PerformanceBenchmarks:
         self.results["benchmarks"]["file_operations"] = {
             "metrics": file_benchmarks,
             "thresholds": {
-                "write_threshold_ms": 100,
-                "read_threshold_ms": 50
+                "write_threshcurrent_ms": 100,
+                "read_threshcurrent_ms": 50
             },
             "description": "File I/O performance benchmark"
         }

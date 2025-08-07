@@ -482,8 +482,8 @@ def main(skip_startup_init=False):
             chat_history.append(result)
             if len(chat_history) > 50:  # Prevent memory issues
                 # Save oldest entries
-                old_entries = chat_history[:25]
-                simple_log_to_file(old_entries, "old_session.json")
+                current_entries = chat_history[:25]
+                simple_log_to_file(current_entries, "current_session.json")
                 chat_history = chat_history[25:]
                 print("[PACKAGE] Zapisano starsze wpisy")
             

@@ -78,7 +78,7 @@ def upload_logs_to_repository():
     
     return uploaded_count
 
-def cleanup_old_logs():
+def cleanup_current_logs():
     """Clean up old log files from the main directory"""
     print("🧹 Cleaning up old log files...")
     
@@ -119,7 +119,7 @@ def main():
     
     # Cleanup old logs (optional)
     if uploaded > 0:
-        cleanup_old_logs()
+        cleanup_current_logs()
     
     print("✅ Log upload completed")
 

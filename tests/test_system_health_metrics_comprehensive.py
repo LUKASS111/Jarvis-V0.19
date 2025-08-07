@@ -108,10 +108,10 @@ class TestSystemHealthDatabase(unittest.TestCase):
         self.assertEqual(len(history), 5)
         self.assertIsInstance(history[0], HealthStatus)
     
-    def test_cleanup_old_data(self):
+    def test_cleanup_current_data(self):
         """Test cleanup of old data"""
         # Save old record
-        old_status = HealthStatus(
+        current_status = HealthStatus(
             timestamp=(datetime.now() - timedelta(days=35)).isoformat(),
             component='test',
             status='healthy',
@@ -120,7 +120,7 @@ class TestSystemHealthDatabase(unittest.TestCase):
             message='Old record',
             recovery_actions=[]
         )
-        self.db.save_health_status(old_status)
+        self.db.save_health_status(current_status)
         
         # Save recent record
         recent_status = HealthStatus(
@@ -135,7 +135,7 @@ class TestSystemHealthDatabase(unittest.TestCase):
         self.db.save_health_status(recent_status)
         
         # Cleanup
-        self.db.cleanup_old_data(days_to_keep=30)
+        self.db.cleanup_current_data(days_to_keep=30)
         
         # Verify only recent record remains
         history = self.db.get_health_history('test', hours=24*40)
@@ -424,17 +424,17 @@ class TestMetricStorage(unittest.TestCase):
         # Should get all 5 metrics 
         self.assertGreaterEqual(len(metrics), 3)
     
-    def test_cleanup_old_data(self):
+    def test_cleanup_current_data(self):
         """Test cleanup of old metric data"""
         # Store old metric
-        old_metric = MetricValue(
+        current_metric = MetricValue(
             timestamp=(datetime.now() - timedelta(days=10)).isoformat(),
             value=100.0,
             labels={},
             source='test',
             metadata={}
         )
-        self.storage.store_metric('old.metric', old_metric)
+        self.storage.store_metric('old.metric', current_metric)
         
         # Store recent metric
         recent_metric = MetricValue(
@@ -447,13 +447,13 @@ class TestMetricStorage(unittest.TestCase):
         self.storage.store_metric('recent.metric', recent_metric)
         
         # Cleanup (keep 7 days)
-        self.storage.cleanup_old_data(hours_to_keep=7*24)
+        self.storage.cleanup_current_data(hours_to_keep=7*24)
         
         # Verify old metric is gone, recent remains
-        old_metrics = self.storage.get_metrics('old.metric')
+        current_metrics = self.storage.get_metrics('old.metric')
         recent_metrics = self.storage.get_metrics('recent.metric')
         
-        self.assertEqual(len(old_metrics), 0)
+        self.assertEqual(len(current_metrics), 0)
         self.assertEqual(len(recent_metrics), 1)
 
 

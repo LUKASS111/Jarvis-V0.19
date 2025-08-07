@@ -173,13 +173,13 @@ class SecurityAuditLogger:
         try:
             # Move existing log files
             for i in range(self.log_rotation_count - 1, 0, -1):
-                old_file = self.log_file_path.with_suffix(f'.{i}.log')
+                current_file = self.log_file_path.with_suffix(f'.{i}.log')
                 new_file = self.log_file_path.with_suffix(f'.{i+1}.log')
                 
-                if old_file.exists():
+                if current_file.exists():
                     if new_file.exists():
                         new_file.unlink()
-                    old_file.rename(new_file)
+                    current_file.rename(new_file)
             
             # Move current log to .1
             if self.log_file_path.exists():

@@ -17,7 +17,7 @@ class FunctionalityAuditor:
         self.root_dir = Path(root_dir)
         self.capabilities = {}
         self.gui_mappings = {}
-        self.legacy_functions = []
+        self.modern_functions = []
         self.missing_functions = []
         self.report = {
             'timestamp': datetime.now().isoformat(),
@@ -25,7 +25,7 @@ class FunctionalityAuditor:
             'stage': 'Stage 5 - FUNC-001',
             'total_functions': 0,
             'gui_accessible': 0,
-            'legacy_functions': 0,
+            'modern_functions': 0,
             'missing_gui_access': 0,
             'capability_categories': {},
             'function_inventory': [],
@@ -221,24 +221,24 @@ class FunctionalityAuditor:
         
         self.report['capability_categories'] = categories
 
-    def check_legacy_functions(self):
+    def check_modern_functions(self):
         """Identify any remaining legacy functions"""
-        legacy_indicators = ['legacy', 'old', 'deprecated', 'obsolete', 'unused']
-        legacy_count = 0
+        modern_indicators = ['legacy', 'old', 'deprecated', 'obsolete', 'unused']
+        modern_count = 0
         
         for file_path, functions in self.capabilities.items():
             for func in functions:
                 func_name_lower = func['name'].lower()
-                if any(indicator in func_name_lower for indicator in legacy_indicators):
-                    self.legacy_functions.append({
+                if any(indicator in func_name_lower for indicator in modern_indicators):
+                    self.modern_functions.append({
                         'function': func['name'],
                         'file': func['file'],
                         'type': func['type'],
                         'line': func['line']
                     })
-                    legacy_count += 1
+                    modern_count += 1
         
-        self.report['legacy_functions'] = legacy_count
+        self.report['modern_functions'] = modern_count
 
     def generate_recommendations(self):
         """Generate recommendations for improvement"""
@@ -255,12 +255,12 @@ class FunctionalityAuditor:
                 'impact': 'Users forced to use CLI for critical functions'
             })
         
-        # Legacy code recommendations
-        if self.report['legacy_functions'] > 0:
+        # Updated implementation
+        if self.report['modern_functions'] > 0:
             recommendations.append({
                 'priority': 'HIGH',
                 'category': 'Legacy Elimination',
-                'issue': f'{self.report["legacy_functions"]} legacy functions found',
+                'issue': f'{self.report["modern_functions"]} legacy functions found',
                 'recommendation': 'Remove or refactor all legacy functions',
                 'impact': 'Technical debt and maintenance burden'
             })
@@ -320,10 +320,10 @@ class FunctionalityAuditor:
         self.categorize_capabilities()
         print(f"   Identified {len(self.report['capability_categories'])} capability categories")
         
-        # Step 4: Check for legacy functions
+        # Updated implementation
         print("🧹 Checking for legacy functions...")
-        self.check_legacy_functions()
-        print(f"   Legacy functions found: {self.report['legacy_functions']}")
+        self.check_modern_functions()
+        print(f"   Legacy functions found: {self.report['modern_functions']}")
         
         # Step 5: Create function inventory
         print("📋 Creating detailed function inventory...")
@@ -358,7 +358,7 @@ def main():
     print(f"Total Functions: {report['total_functions']}")
     print(f"GUI Accessible: {report['gui_accessible']} ({report.get('gui_coverage_percentage', 0)}%)")
     print(f"Missing GUI Access: {report['missing_gui_access']}")
-    print(f"Legacy Functions: {report['legacy_functions']}")
+    print(f"Legacy Functions: {report['modern_functions']}")
     print(f"Capability Categories: {len(report['capability_categories'])}")
     print(f"Recommendations: {len(report['recommendations'])}")
     
@@ -379,7 +379,7 @@ def main():
     
     # Return success/failure based on coverage
     coverage = report.get('gui_coverage_percentage', 0)
-    if coverage >= 90 and report['legacy_functions'] == 0:
+    if coverage >= 90 and report['modern_functions'] == 0:
         print("\n✅ FUNCTIONALITY AUDIT: EXCELLENT")
         print("   All functions accessible via GUI, zero legacy code")
         return 0

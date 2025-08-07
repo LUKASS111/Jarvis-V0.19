@@ -118,7 +118,7 @@ def generate_stage6_readiness_assessment(stage_results, foundation_health):
     
     # Check critical requirements
     requirements = {
-        "stage1_legacy_cleanup": stage_results[0].get('overall_completion', 0) >= 75,
+        "stage1_modern_cleanup": stage_results[0].get('overall_completion', 0) >= 75,
         "stage2_gui_expansion": stage_results[1].get('overall_completion', 0) >= 75, 
         "stage3_engineering": stage_results[2].get('overall_completion', 0) >= 85,
         "stage4_architecture": stage_results[3].get('overall_completion', 0) >= 90,

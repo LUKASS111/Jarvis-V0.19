@@ -313,7 +313,7 @@ class DataArchivePurgeManager:
                     WHERE created_at < ? AND program_version != ?
                 ''', (cutoff_date, self.current_version))
                 
-                old_entries = cursor.fetchall()
+                current_entries = cursor.fetchall()
                 
                 # 2. Check version limits
                 cursor.execute('''
@@ -326,7 +326,7 @@ class DataArchivePurgeManager:
                 # Keep only the most recent N versions
                 versions_to_purge = all_versions[policy.max_versions_keep:]
                 
-                for entry in old_entries:
+                for entry in current_entries:
                     entry_id, version, data_type, source, operation, created_at = entry
                     
                     # Apply preservation rules
@@ -436,7 +436,7 @@ class DataArchivePurgeManager:
         print(f"[PURGE] Pre-cleanup analysis: {total_before} entries across {versions_before} versions")
         
         # Identify all entries NOT from current version
-        old_version_entries = []
+        current_version_entries = []
         with self._lock:
             conn = sqlite3.connect(self.db_path)
             cursor = conn.cursor()
@@ -447,10 +447,10 @@ class DataArchivePurgeManager:
                 WHERE program_version != ? AND program_version IS NOT NULL
             ''', (self.current_version,))
             
-            old_version_entries = cursor.fetchall()
+            current_version_entries = cursor.fetchall()
             conn.close()
         
-        if not old_version_entries:
+        if not current_version_entries:
             print("[PURGE] No old version entries found - archive is clean!")
             return {
                 'current_version': self.current_version,
@@ -464,7 +464,7 @@ class DataArchivePurgeManager:
                 'backup_cleanup': {'cleaned_backups': 0}
             }
         
-        print(f"[PURGE] Found {len(old_version_entries)} entries from old versions to remove")
+        print(f"[PURGE] Found {len(current_version_entries)} entries from old versions to remove")
         
         # Create backup before major cleanup
         try:
@@ -476,7 +476,7 @@ class DataArchivePurgeManager:
         
         # Execute version-based purge
         purge_stats = {
-            'total_identified': len(old_version_entries),
+            'total_identified': len(current_version_entries),
             'purged_count': 0,
             'errors': [],
             'timestamp': datetime.now().isoformat(),
@@ -489,8 +489,8 @@ class DataArchivePurgeManager:
             
             try:
                 # Remove entries in batches for performance
-                entry_ids = [entry[0] for entry in old_version_entries]
-                versions_being_removed = set(entry[1] for entry in old_version_entries)
+                entry_ids = [entry[0] for entry in current_version_entries]
+                versions_being_removed = set(entry[1] for entry in current_version_entries)
                 purge_stats['versions_removed'] = list(versions_being_removed)
                 
                 batch_size = 100
@@ -524,7 +524,7 @@ class DataArchivePurgeManager:
                 conn.close()
         
         # Clean up old version backups
-        backup_cleanup = self._cleanup_old_version_backups()
+        backup_cleanup = self._cleanup_current_version_backups()
         
         # Final analysis
         final_analysis = self.analyze_archive_data()
@@ -548,7 +548,7 @@ class DataArchivePurgeManager:
             }
         }
     
-    def _cleanup_old_version_backups(self):
+    def _cleanup_current_version_backups(self):
         """Clean up backup files from older versions"""
         cleaned_count = 0
         errors = []

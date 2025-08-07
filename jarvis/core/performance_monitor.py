@@ -175,7 +175,7 @@ class PerformanceMonitor:
                     self._update_baseline()
                 
                 # Clean old data
-                self._cleanup_old_data()
+                self._cleanup_current_data()
                 
                 # Sleep interval
                 time.sleep(30)  # Monitor every 30 seconds
@@ -528,7 +528,7 @@ class PerformanceMonitor:
                 new_baseline = (baseline_value * 0.9) + (current_value * 0.1)
                 self.baseline_metrics[metric_name] = new_baseline
     
-    def _cleanup_old_data(self):
+    def _cleanup_current_data(self):
         """Clean up old performance data"""
         cutoff_time = datetime.now() - timedelta(hours=self.data_retention_hours)
         

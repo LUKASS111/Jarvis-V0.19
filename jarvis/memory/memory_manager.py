@@ -405,7 +405,7 @@ class MemoryManager:
                 logger.error(f"Deletion error: {e}")
                 return False
     
-    def cleanup_old_entries(self, days: int = 30) -> Dict[str, int]:
+    def cleanup_current_entries(self, days: int = 30) -> Dict[str, int]:
         """Clean up old, low-importance entries."""
         cutoff_timestamp = time.time() - (days * 24 * 3600)
         

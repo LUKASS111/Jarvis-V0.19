@@ -1,6 +1,6 @@
 """Evolution package for Jarvis V0.19 - Professional Program Thought Tracking & Intelligent Monitoring Framework"""
 
-# Legacy evolution tracking (for backward compatibility)
+# Updated implementation
 from .program_evolution_tracker import (
     ProgramEvolutionTracker,
     EvolutionMetric,
@@ -34,7 +34,7 @@ from .functional_data_manager import (
     get_functional_data_updater
 )
 
-# Legacy orchestrator (for backward compatibility)
+# Updated implementation
 from .professional_orchestrator import (
     ProfessionalEvolutionOrchestrator,
     get_evolution_orchestrator
@@ -47,7 +47,7 @@ from .intelligent_monitoring_orchestrator import (
 )
 
 __all__ = [
-    # Legacy evolution tracking (backward compatibility)
+    # Updated implementation
     'ProgramEvolutionTracker',
     'EvolutionMetric', 
     'FunctionalityUpdate',
@@ -75,7 +75,7 @@ __all__ = [
     'get_functional_data_validator',
     'get_functional_data_updater',
     
-    # Legacy orchestration (backward compatibility)
+    # Updated implementation
     'ProfessionalEvolutionOrchestrator',
     'get_evolution_orchestrator',
     

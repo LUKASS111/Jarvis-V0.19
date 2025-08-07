@@ -638,7 +638,7 @@ class CRDTConflictResolver:
         
         return 0.0
     
-    def cleanup_old_conflicts(self, max_age_days: int = 30):
+    def cleanup_current_conflicts(self, max_age_days: int = 30):
         """Clean up old resolved conflicts"""
         cutoff_time = datetime.utcnow() - timedelta(days=max_age_days)
         

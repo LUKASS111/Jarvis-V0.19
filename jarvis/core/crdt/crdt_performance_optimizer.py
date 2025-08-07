@@ -137,8 +137,8 @@ class LazySynchronizer:
         self.min_interval = 1  # 1 second minimum
         self.max_interval = 3600  # 1 hour maximum
         self.base_interval = 60  # 1 minute base interval
-        self.activity_threshold_high = 100
-        self.activity_threshold_low = 10
+        self.activity_threshcurrent_high = 100
+        self.activity_threshcurrent_low = 10
         
     def start(self):
         """Start lazy synchronization"""
@@ -178,9 +178,9 @@ class LazySynchronizer:
         base = self.base_interval
         
         # Adjust based on activity
-        if activity_count > self.activity_threshold_high:
+        if activity_count > self.activity_threshcurrent_high:
             base = base / 4  # High activity - sync more frequently
-        elif activity_count > self.activity_threshold_low:
+        elif activity_count > self.activity_threshcurrent_low:
             base = base / 2  # Medium activity - sync moderately
         elif activity_count < 5:
             base = base * 2  # Low activity - sync less frequently

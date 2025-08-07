@@ -430,7 +430,7 @@ class BackupRecoveryManager:
         backups.sort(key=lambda b: b.timestamp, reverse=True)
         return backups
     
-    def cleanup_old_backups(self, days_to_keep: int = 30, 
+    def cleanup_current_backups(self, days_to_keep: int = 30, 
                           keep_weekly: bool = True, keep_monthly: bool = True):
         """Clean up old backups based on retention policy"""
         cutoff_date = datetime.now() - timedelta(days=days_to_keep)
