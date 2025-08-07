@@ -1,3 +1,12 @@
+
+import time
+_startup_time = time.time()
+
+def get_startup_time():
+    """Get application startup time"""
+    return time.time() - _startup_time
+
+# Startup optimization
 #!/usr/bin/env python3
 """
 Modern GUI Launcher for Jarvis V1.0

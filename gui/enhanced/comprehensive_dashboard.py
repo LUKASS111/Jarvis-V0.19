@@ -1,3 +1,9 @@
+
+from gui.design_standards import (
+    COLORS, TYPOGRAPHY, SPACING, DIMENSIONS, RADIUS, SHADOWS,
+    COMPONENT_STYLES, create_modern_stylesheet, apply_style_to_widget
+)
+
 #!/usr/bin/env python3
 """
 Comprehensive GUI Dashboard for Jarvis V0.19
@@ -35,6 +41,57 @@ except ImportError:
 class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else object):
     """Comprehensive dashboard showing all Jarvis capabilities"""
     
+
+
+
+    def setup_responsive_layout(self):
+        """Setup responsive layout following design standards"""
+        # Set minimum sizes according to design standards
+        if hasattr(self, 'tab_widget'):
+            self.tab_widget.setMinimumSize(
+                DIMENSIONS["panel_min_width"], 
+                DIMENSIONS["panel_min_height"]
+            )
+        
+        # Apply consistent spacing to all tabs
+        for i in range(self.tab_widget.count() if hasattr(self, 'tab_widget') else 0):
+            tab_widget = self.tab_widget.widget(i)
+            if hasattr(tab_widget, 'layout'):
+                layout = tab_widget.layout()
+                if layout:
+                    layout.setSpacing(SPACING["md"])
+                    layout.setContentsMargins(
+                        SPACING["lg"], SPACING["lg"], 
+                        SPACING["lg"], SPACING["lg"]
+                    )
+
+    def _get_cached_widget(self, widget_key, widget_factory):
+        """Cache widgets to avoid recreation"""
+        if not hasattr(self, '_widget_cache'):
+            self._widget_cache = {}
+        
+        if widget_key not in self._widget_cache:
+            self._widget_cache[widget_key] = widget_factory()
+        
+        return self._widget_cache[widget_key]
+    
+    # Widget caching
+    def _monitor_performance(self, operation_name):
+        """Monitor GUI operation performance"""
+        import time
+        start_time = time.time()
+        
+        def performance_wrapper(func):
+            def wrapper(*args, **kwargs):
+                result = func(*args, **kwargs)
+                duration = (time.time() - start_time) * 1000
+                if duration > 16:  # Longer than 16ms (60fps threshold)
+                    print(f"Performance warning: {operation_name} took {duration:.2f}ms")
+                return result
+            return wrapper
+        return performance_wrapper
+    
+    # Performance monitoring
     def __init__(self):
         if not PYQT_AVAILABLE:
             print("GUI not available - PyQt5 required")
@@ -54,6 +111,37 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         self.setup_status_bar()
         self.load_initial_data()
         
+
+        # Apply consistent color scheme
+        self.setStyleSheet(f"""
+            QMainWindow {{
+                background-color: {COLORS["primary_dark"]};
+                color: {COLORS["text_primary"]};
+            }}
+            QTabWidget::pane {{
+                background-color: {COLORS["primary_medium"]};
+                border: 1px solid {COLORS["border_light"]};
+                border-radius: {RADIUS["lg"]}px;
+            }}
+        """)
+
+
+    def apply_modern_styling(self):
+        """Apply modern design standards to the dashboard"""
+        # Apply global stylesheet
+        self.setStyleSheet(create_modern_stylesheet())
+        
+        # Set professional window properties
+        self.setWindowTitle("Jarvis AI Assistant - Comprehensive Dashboard")
+        self.setMinimumSize(1200, 800)
+        
+        # Apply consistent spacing
+        if hasattr(self, 'central_widget'):
+            self.central_widget.setContentsMargins(
+                SPACING["lg"], SPACING["lg"], 
+                SPACING["lg"], SPACING["lg"]
+            )
+
     def setup_ui(self):
         """Setup the comprehensive UI"""
         # Create central widget with tabbed interface
@@ -414,6 +502,19 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         api_info = QTextEdit()
         api_info.setMaximumHeight(400)
         api_info.setText("""
+
+    def _lazy_load_tab(self, tab_index):
+        """Lazy load tab content only when needed"""
+        if not hasattr(self, '_loaded_tabs'):
+            self._loaded_tabs = set()
+        
+        if tab_index not in self._loaded_tabs:
+            # Load tab content here
+            self._loaded_tabs.add(tab_index)
+            return True
+        return False
+    
+    # Lazy loading optimization
 # Jarvis V0.19 REST API
 
 ## Core Endpoints

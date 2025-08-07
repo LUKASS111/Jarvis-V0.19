@@ -1,0 +1,123 @@
+{
+  "timestamp": "2025-08-07T10:32:16.684758",
+  "stage": "Stage 3 - QUAL-001",
+  "title": "Comprehensive Code Quality Standards Check",
+  "checks": {
+    "flake8": {
+      "error": "[Errno 2] No such file or directory: 'flake8'",
+      "status": "ERROR"
+    },
+    "black_formatting": {
+      "error": "[Errno 2] No such file or directory: 'black'",
+      "status": "ERROR"
+    },
+    "documentation_coverage": {
+      "total_files": 158,
+      "documented_files": 95,
+      "file_coverage": 60.1,
+      "total_functions": 2474,
+      "documented_functions": 2216,
+      "function_coverage": 89.6,
+      "status": "GOOD"
+    },
+    "security_patterns": {
+      "security_issues": 36,
+      "issues_details": [
+        {
+          "file": "tests/test_phase9_ml_integration.py",
+          "issue": "Use of eval() function",
+          "pattern": "eval("
+        },
+        {
+          "file": "tests/test_phase7_distributed_memory.py",
+          "issue": "Use of eval() function",
+          "pattern": "eval("
+        },
+        {
+          "file": "tests/test_system_health_metrics_comprehensive.py",
+          "issue": "Use of eval() function",
+          "pattern": "eval("
+        },
+        {
+          "file": "scripts/initialize_memory_cache.py",
+          "issue": "Potential hardcoded API key",
+          "pattern": "api_key"
+        },
+        {
+          "file": "scripts/code_quality_check.py",
+          "issue": "Use of eval() function",
+          "pattern": "eval("
+        },
+        {
+          "file": "scripts/code_quality_check.py",
+          "issue": "Use of exec() function",
+          "pattern": "exec("
+        },
+        {
+          "file": "scripts/code_quality_check.py",
+          "issue": "Potential hardcoded password",
+          "pattern": "password"
+        },
+        {
+          "file": "scripts/code_quality_check.py",
+          "issue": "Potential hardcoded secret",
+          "pattern": "secret"
+        },
+        {
+          "file": "scripts/code_quality_check.py",
+          "issue": "Potential hardcoded API key",
+          "pattern": "api_key"
+        },
+        {
+          "file": "scripts/security_scan.py",
+          "issue": "Use of eval() function",
+          "pattern": "eval("
+        }
+      ],
+      "good_practices_count": 19,
+      "status": "FAIL"
+    }
+  },
+  "gui_specific": {
+    "code_quality": {
+      "total_files": 3,
+      "files_analyzed": [
+        {
+          "file": "gui/__init__.py",
+          "lines": 3,
+          "has_docstring": true,
+          "has_type_hints": false,
+          "has_error_handling": false,
+          "has_classes": false
+        },
+        {
+          "file": "gui/enhanced/comprehensive_dashboard.py",
+          "lines": 642,
+          "has_docstring": true,
+          "has_type_hints": true,
+          "has_error_handling": true,
+          "has_classes": true
+        },
+        {
+          "file": "gui/enhanced/unified_launcher.py",
+          "lines": 52,
+          "has_docstring": true,
+          "has_type_hints": true,
+          "has_error_handling": true,
+          "has_classes": false
+        }
+      ],
+      "quality_issues": [],
+      "best_practices": {
+        "error_handling": 2,
+        "documentation": 3,
+        "type_hints": 2,
+        "class_structure": 1
+      },
+      "quality_score": 66.7,
+      "status": "NEEDS_IMPROVEMENT"
+    }
+  },
+  "overall_score": 25.4,
+  "status": "CRITICAL"
+}
