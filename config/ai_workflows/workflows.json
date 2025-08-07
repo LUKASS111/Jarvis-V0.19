@@ -1,0 +1,11 @@
+{
+  "workflows": [
+    {
+      "id": "60dc460e-d8fe-4888-9074-4ad495eb1227",
+      "name": "Data Processing Pipeline",
+      "description": "Automated data preprocessing and analysis workflow",
+      "tasks": [
+        {
+          "id": "60dc460e-d8fe-4888-9074-4ad495eb1227_task_0",
+          "name": "Data Validation",
+          "task_type": 

@@ -169,30 +169,39 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         # Total GUI Coverage: 1,657 functions across 9 comprehensive tabs
         
     def add_ai_models_tab(self):
-        """Add AI Models & LLM Management tab (234 functions)"""
-        tab = QWidget()
-        layout = QVBoxLayout(tab)
-        
-        # Tab title
-        title = QLabel("🤖 AI Models & LLM Management")
-        title.setAlignment(Qt.AlignCenter)
-        title.setStyleSheet("font-size: 20px; font-weight: bold; color: #2196F3; margin: 15px;")
-        layout.addWidget(title)
-        
-        # Model selection section
-        models_group = QGroupBox("🔧 Model Selection & Configuration")
-        models_layout = QGridLayout(models_group)
-        
-        # Available models
-        model_list = QListWidget()
-        model_list.addItems([
-            "🧠 OpenAI GPT-4 (Available)",
-            "🤖 Anthropic Claude (Available)", 
-            "⚡ Local LLaMA Model (Available)",
-            "🔬 Google PaLM (Available)"
-        ])
-        models_layout.addWidget(QLabel("Available Models:"), 0, 0)
-        models_layout.addWidget(model_list, 1, 0)
+        """Add AI Models & LLM Management tab - Enhanced for Stage 7"""
+        try:
+            # Import the new AI management interface
+            from gui.ai_management_interface import AIManagementInterface
+            ai_interface = AIManagementInterface()
+            self.tab_widget.addTab(ai_interface, "🤖 AI Models & Management")
+            print("[Dashboard] Added enhanced AI management interface")
+        except Exception as e:
+            print(f"[Dashboard] Error loading AI interface: {e}")
+            # Fallback to basic interface
+            tab = QWidget()
+            layout = QVBoxLayout(tab)
+            
+            # Tab title
+            title = QLabel("🤖 AI Models & LLM Management")
+            title.setAlignment(Qt.AlignCenter)
+            title.setStyleSheet("font-size: 20px; font-weight: bold; color: #2196F3; margin: 15px;")
+            layout.addWidget(title)
+            
+            # Model selection section
+            models_group = QGroupBox("🔧 Model Selection & Configuration")
+            models_layout = QGridLayout(models_group)
+            
+            # Available models
+            model_list = QListWidget()
+            model_list.addItems([
+                "🧠 OpenAI GPT-4 (Available)",
+                "🤖 Anthropic Claude (Available)", 
+                "⚡ Local LLaMA Model (Available)",
+                "🔬 Google PaLM (Available)"
+            ])
+            models_layout.addWidget(QLabel("Available Models:"), 0, 0)
+            models_layout.addWidget(model_list, 1, 0)
         
         # Model configuration
         config_widget = QWidget()

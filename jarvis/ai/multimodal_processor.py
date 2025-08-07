@@ -15,19 +15,29 @@ from datetime import datetime
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from jarvis.core.error_handler import error_handler, ErrorLevel, safe_execute
+from jarvis.core.error_handler import ErrorHandler, ErrorLevel, safe_execute
 
 class MultiModalProcessor:
     """
-    Professional multimodal AI processor
-    Supports image processing, audio processing, and text analysis
+    Professional multimodal AI processor - Enhanced for Stage 7
+    Supports advanced image processing, audio processing, and text analysis
     """
     
     def __init__(self):
         self.supported_formats = {
-            'image': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'],
-            'audio': ['.mp3', '.wav', '.ogg', '.m4a', '.flac'],
-            'text': ['.txt', '.md', '.json', '.csv']
+            'image': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp'],
+            'audio': ['.mp3', '.wav', '.ogg', '.m4a', '.flac', '.aac'],
+            'text': ['.txt', '.md', '.json', '.csv', '.xml', '.html'],
+            'video': ['.mp4', '.avi', '.mov', '.mkv', '.webm']
+        }
+        
+        # Enhanced processing capabilities
+        self.processing_stats = {
+            'images_processed': 0,
+            'audio_processed': 0,
+            'text_processed': 0,
+            'video_processed': 0,
+            'total_processing_time': 0.0
         }
         
         # Initialize components
