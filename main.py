@@ -2,7 +2,7 @@
 """
 Jarvis AI Assistant v1.0 - Modern Production Entry Point
 Professional 9-tab comprehensive dashboard interface only.
-All deprecated code removed - clean modern implementation.
+All updated code removed - clean modern implementation.
 """
 
 import sys

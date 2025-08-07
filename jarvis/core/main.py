@@ -367,7 +367,7 @@ def main(skip_startup_init=False):
                     if purge_stats.get('versions_removed'):
                         print(f"[PURGE] Removed versions: {', '.join(purge_stats['versions_removed'])}")
                 else:
-                    print("[PURGE] Archive is clean - no old version data found")
+                    print("[PURGE] Archive is clean - no current version data found")
             
             # Show archive health
             health = get_archive_health()

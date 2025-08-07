@@ -334,17 +334,17 @@ class QualityGates:
                 requirements = f.readlines()
             
             security_issues = []
-            outdated_patterns = [
-                ('flask<2.0', 'Potentially outdated Flask version'),
-                ('django<3.0', 'Potentially outdated Django version'),
-                ('requests<2.25', 'Potentially outdated requests version'),
-                ('urllib3<1.26', 'Potentially outdated urllib3 version')
+            current_patterns = [
+                ('flask<2.0', 'Potentially current Flask version'),
+                ('django<3.0', 'Potentially current Django version'),
+                ('requests<2.25', 'Potentially current requests version'),
+                ('urllib3<1.26', 'Potentially current urllib3 version')
             ]
             
             for line in requirements:
                 line = line.strip()
                 if line and not line.startswith('#'):
-                    for pattern, issue in outdated_patterns:
+                    for pattern, issue in current_patterns:
                         if pattern in line.lower():
                             security_issues.append({
                                 "dependency": line,

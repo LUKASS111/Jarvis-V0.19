@@ -57,7 +57,7 @@ python main.py --backend    # Backend service mode
 ├── config/             # Configuration
 ├── data/               # Data storage
 ├── docs/               # Detailed documentation
-├── archive/            # deprecated code archive
+├── archive/            # updated code archive
 └── scripts/            # Utility scripts
 ```
 

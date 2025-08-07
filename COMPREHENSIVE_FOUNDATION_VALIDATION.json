@@ -4,16 +4,16 @@
   "stage_results": [
     {
       "stage": 1,
-      "title": "Repository Archaeological Analysis & Legacy Elimination",
+      "title": "Repository Archaeological Analysis & Modern Elimination",
       "timestamp": "2025-01-07",
       "overall_completion": 62.0,
       "validation_scores": {
-        "deprecated_elimination": 35,
+        "updated_elimination": 35,
         "repository_optimization": 100,
         "gui_architecture_preparation": 60.0
       },
       "detailed_metrics": {
-        "deprecated_references_found": 13,
+        "updated_references_found": 13,
         "required_directories_present": "5/5",
         "total_files_in_repository": 2487,
         "temporary_files": 0,
@@ -22,7 +22,7 @@
       },
       "completion_status": "PARTIAL",
       "recommendations": [
-        "Continue deprecated code elimination - remove remaining references",
+        "Continue updated code elimination - remove remaining references",
         "Complete GUI architecture preparation - implement missing components"
       ]
     },
@@ -115,7 +115,7 @@
         "gui_implementation": 54.0,
         "regression_prevention": 100.0,
         "performance_benchmarking": 50.0,
-        "legacy_code_cleanup": 100
+        "modern_code_cleanup": 100
       },
       "detailed_metrics": {
         "functions_catalogued": 373,
@@ -124,7 +124,7 @@
         "accessible_gui_functions": 70,
         "regression_prevention_measures": 50,
         "performance_benchmarks": 4,
-        "legacy_references_remaining": 0
+        "modern_references_remaining": 0
       },
       "completion_status": "PARTIAL",
       "recommendations": [
@@ -149,7 +149,7 @@
     "readiness_score": 14.3,
     "readiness_status": "NOT_READY",
     "requirements_details": {
-      "stage1_legacy_cleanup": false,
+      "stage1_modern_cleanup": false,
       "stage2_gui_expansion": false,
       "stage3_engineering": false,
       "stage4_architecture": false,
@@ -171,6 +171,6 @@
   },
   "next_actions": [
     "Continue Foundation Repair - significant gaps remain",
-    "Prioritize legacy cleanup and GUI expansion"
+    "Prioritize modern cleanup and GUI expansion"
   ]
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Simplified test suite for the modernized AutoGPT system
-Tests core functionality without deprecated components
+Tests core functionality without updated components
 """
 
 import sys

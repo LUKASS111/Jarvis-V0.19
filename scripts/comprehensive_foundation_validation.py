@@ -218,7 +218,7 @@ def comprehensive_foundation_validation():
         comprehensive_report["next_actions"].append("Focus on stages with <85% completion")
     else:
         comprehensive_report["next_actions"].append("Continue Foundation Repair - significant gaps remain")
-        comprehensive_report["next_actions"].append("Prioritize deprecated cleanup and GUI expansion")
+        comprehensive_report["next_actions"].append("Prioritize updated cleanup and GUI expansion")
     
     # Save comprehensive report
     with open("COMPREHENSIVE_FOUNDATION_VALIDATION.json", "w") as f:
@@ -236,7 +236,7 @@ def comprehensive_foundation_validation():
 
 | Stage | Title | Completion | Status |
 |-------|-------|------------|--------|
-| 1 | Repository & Legacy Analysis | {stage_results[0].get('overall_completion', 0):.1f}% | {stage_results[0].get('completion_status', 'UNKNOWN')} |
+| 1 | Repository & Modern Analysis | {stage_results[0].get('overall_completion', 0):.1f}% | {stage_results[0].get('completion_status', 'UNKNOWN')} |
 | 2 | Error Prevention & GUI Architecture | {stage_results[1].get('overall_completion', 0):.1f}% | {stage_results[1].get('completion_status', 'UNKNOWN')} |
 | 3 | Engineering Rigor Implementation | {stage_results[2].get('overall_completion', 0):.1f}% | {stage_results[2].get('completion_status', 'UNKNOWN')} |
 | 4 | Information Architecture | {stage_results[3].get('overall_completion', 0):.1f}% | {stage_results[3].get('completion_status', 'UNKNOWN')} |

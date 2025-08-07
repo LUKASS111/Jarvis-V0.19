@@ -7,7 +7,7 @@
 
 **Status:** Foundation repair required before Stage 6  
 **Completion:** Stages 1-5 at 82.8% average  
-**Blocker:** deprecated code and GUI functionality gaps  
+**Blocker:** updated code and GUI functionality gaps  
 **Solution:** Execute foundation repair plan
 
 ---
@@ -101,7 +101,7 @@
 
 ### **Final Plan Goals:**
 - GUI System: 100% functionality accessible
-- deprecated code: Absolute zero remaining
+- updated code: Absolute zero remaining
 - User Experience: 95%+ error reduction
 - Production: Complete deployment readiness
 

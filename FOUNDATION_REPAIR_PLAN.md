@@ -15,14 +15,14 @@
 
 ## 🔧 **CRITICAL REPAIR AREAS**
 
-### **1. deprecated code Elimination (Stages 1 & 5)**
-**Current Issue:** 2,352+ deprecated references remain
-**Target:** Zero deprecated code anywhere in system
+### **1. updated code Elimination (Stages 1 & 5)**
+**Current Issue:** 2,352+ updated references remain
+**Target:** Zero updated code anywhere in system
 
 **Actions:**
-- Remove all files from `/archive/legacy_code/` directory
-- Clean Deprecated imports from active codebase
-- Remove Deprecated function calls and references
+- Remove all files from `/archive/modern_code/` directory
+- Clean Updated imports from active codebase
+- Remove Updated function calls and references
 - Validate with comprehensive scanning
 
 ### **2. GUI Functionality Expansion (Stages 2 & 5)**
@@ -72,14 +72,14 @@
    - Dashboard expansion framework
 
 ### **Phase 2: code modernization (Priority 2)**
-1. **Complete deprecated code Removal**
+1. **Complete updated code Removal**
    - Archive directory cleanup
    - Active codebase reference removal
    - Import statement cleanup
    - Comprehensive verification
 
 2. **Documentation Cleanup**
-   - Remove deprecated references from docs
+   - Remove updated references from docs
    - Update all documentation links
    - Maintain information consistency
 
@@ -110,7 +110,7 @@
 ## 🎯 **SUCCESS CRITERIA**
 
 ### **Stage 1 Target (85%+):**
-- deprecated references: <100 (from 2,352+)
+- updated references: <100 (from 2,352+)
 - Repository optimization: Complete
 - GUI architecture: Fully prepared
 
@@ -144,7 +144,7 @@
 - Testing framework enhancement
 
 ### **Phase 2: Cleanup (45 minutes)**
-- deprecated code elimination
+- updated code elimination
 - Documentation cleanup
 - Reference removal
 
@@ -166,7 +166,7 @@
 
 ### **Individual Stage Validators:**
 ```bash
-python scripts/validate_stage1_completion.py  # Repository & Deprecated analysis
+python scripts/validate_stage1_completion.py  # Repository & Updated analysis
 python scripts/validate_stage2_completion.py  # Error patterns & GUI architecture
 python scripts/validate_stage3_completion.py  # Engineering rigor & quality
 python scripts/validate_stage4_completion.py  # Information architecture
@@ -193,7 +193,7 @@ python scripts/comprehensive_foundation_validation.py  # Overall completion chec
 - [x] Foundation repair execution complete
 - [x] All validation scripts operational
 - [x] 85%+ average completion achieved
-- [x] deprecated code elimination verified
+- [x] updated code elimination verified
 - [x] GUI functionality expansion confirmed
 - [x] Validation framework comprehensive
 

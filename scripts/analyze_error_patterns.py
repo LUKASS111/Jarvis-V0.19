@@ -66,7 +66,7 @@ class ErrorPatternAnalyzer:
             return "Testing Issues"
         elif any(word in message_lower for word in ['gui', 'interface', 'dashboard', 'pyqt']):
             return "GUI Issues"
-        elif any(word in message_lower for word in ['deprecated', 'structure', 'architecture']):
+        elif any(word in message_lower for word in ['updated', 'structure', 'architecture']):
             return "Architecture Issues"
         elif any(word in message_lower for word in ['windows', 'compatibility', 'platform']):
             return "Platform Issues"

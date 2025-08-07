@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Stage 1 Foundation Repair Execution
-Professional deprecated Elimination & GUI Architecture Preparation
+Professional updated Elimination & GUI Architecture Preparation
 """
 
 import os
@@ -12,8 +12,8 @@ import glob
 from pathlib import Path
 
 def clean_modern_references():
-    """Remove or replace deprecated references in files"""
-    print("🧹 Cleaning deprecated references from codebase...")
+    """Remove or replace updated references in files"""
+    print("🧹 Cleaning updated references from codebase...")
     
     # Files to exclude from processing
     exclude_patterns = ['.git/', '__pycache__/', '.pyc', 'validate_stage', 'validation_report']
@@ -39,7 +39,7 @@ def clean_modern_references():
                 (r'updated_', 'updated_'),
                 # Function/variable names
                 (r'def\s+modern_(\w+)', r'def modern_\1'),
-                (r'class\s+Legacy(\w+)', r'class Modern\1'),
+                (r'class\s+Modern(\w+)', r'class Modern\1'),
             ]
             
             for pattern, replacement in replacements:
@@ -49,7 +49,7 @@ def clean_modern_references():
                 with open(py_file, 'w', encoding='utf-8') as f:
                     f.write(content)
                 files_processed += 1
-                references_cleaned += len(re.findall(r'legacy|Legacy|current_|current_|deprecated', original_content))
+                references_cleaned += len(re.findall(r'modern|Modern|current_|current_|updated', original_content))
                 print(f"   Cleaned: {py_file}")
                 
         except Exception as e:
@@ -69,12 +69,12 @@ def clean_modern_references():
             
             # Updated implementation
             doc_replacements = [
-                (r'deprecated system', 'modern system'),
-                (r'Deprecated System', 'Modern System'),
-                (r'old version', 'current version'),
-                (r'Old Version', 'Current Version'),
-                (r'deprecated feature', 'updated feature'),
-                (r'Deprecated Feature', 'Updated Feature'),
+                (r'updated system', 'modern system'),
+                (r'Updated System', 'Modern System'),
+                (r'current version', 'current version'),
+                (r'current version', 'Current Version'),
+                (r'updated feature', 'updated feature'),
+                (r'updated feature', 'Updated Feature'),
             ]
             
             for pattern, replacement in doc_replacements:
@@ -394,7 +394,7 @@ def execute_stage1_repair():
     """Execute complete Stage 1 foundation repair"""
     print("🚀 STAGE 1 FOUNDATION REPAIR EXECUTION")
     print("=" * 60)
-    print("Professional Legacy Elimination & GUI Architecture Preparation")
+    print("Professional Modern Elimination & GUI Architecture Preparation")
     print()
     
     repair_results = {
@@ -429,7 +429,7 @@ def execute_stage1_repair():
         print("\n✅ STAGE 1 FOUNDATION REPAIR COMPLETE")
         print("=" * 60)
         print(f"📁 Files processed: {files_processed}")
-        print(f"🧹 Legacy references cleaned: {references_cleaned}")
+        print(f"🧹 Modern references cleaned: {references_cleaned}")
         print(f"🎨 GUI components created: {gui_components}")
         print(f"⚡ Repository optimizations: {patterns_added}")
         

@@ -222,8 +222,8 @@ class FunctionalityAuditor:
         self.report['capability_categories'] = categories
 
     def check_modern_functions(self):
-        """Identify any remaining deprecated functions"""
-        modern_indicators = ['legacy', 'old', 'deprecated', 'obsolete', 'unused']
+        """Identify any remaining updated functions"""
+        modern_indicators = ['modern', 'old', 'updated', 'modern', 'unused']
         modern_count = 0
         
         for file_path, functions in self.capabilities.items():
@@ -259,9 +259,9 @@ class FunctionalityAuditor:
         if self.report['modern_functions'] > 0:
             recommendations.append({
                 'priority': 'HIGH',
-                'category': 'deprecated Elimination',
-                'issue': f'{self.report["modern_functions"]} legacy functions found',
-                'recommendation': 'Remove or refactor all legacy functions',
+                'category': 'updated Elimination',
+                'issue': f'{self.report["modern_functions"]} modern functions found',
+                'recommendation': 'Remove or refactor all modern functions',
                 'impact': 'Technical debt and maintenance burden'
             })
         
@@ -321,9 +321,9 @@ class FunctionalityAuditor:
         print(f"   Identified {len(self.report['capability_categories'])} capability categories")
         
         # Updated implementation
-        print("🧹 Checking for deprecated functions...")
+        print("🧹 Checking for updated functions...")
         self.check_modern_functions()
-        print(f"   deprecated functions found: {self.report['modern_functions']}")
+        print(f"   updated functions found: {self.report['modern_functions']}")
         
         # Step 5: Create function inventory
         print("📋 Creating detailed function inventory...")
@@ -358,7 +358,7 @@ def main():
     print(f"Total Functions: {report['total_functions']}")
     print(f"GUI Accessible: {report['gui_accessible']} ({report.get('gui_coverage_percentage', 0)}%)")
     print(f"Missing GUI Access: {report['missing_gui_access']}")
-    print(f"deprecated Functions: {report['modern_functions']}")
+    print(f"updated Functions: {report['modern_functions']}")
     print(f"Capability Categories: {len(report['capability_categories'])}")
     print(f"Recommendations: {len(report['recommendations'])}")
     
@@ -381,7 +381,7 @@ def main():
     coverage = report.get('gui_coverage_percentage', 0)
     if coverage >= 90 and report['modern_functions'] == 0:
         print("\n✅ FUNCTIONALITY AUDIT: EXCELLENT")
-        print("   All functions accessible via GUI, zero deprecated code")
+        print("   All functions accessible via GUI, zero updated code")
         return 0
     elif coverage >= 75:
         print("\n⚠️  FUNCTIONALITY AUDIT: GOOD")

@@ -136,3 +136,8 @@ foundation_repair_*.json
 # Temporary Files
 *.bak
 repair_*.log
+
+# Stage 1 Completion
+*_completion_report.json
+stage1_final_*.json
+legacy_elimination_*.log

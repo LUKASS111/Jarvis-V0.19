@@ -1,7 +1,7 @@
 {
   "aggregation_config": {
     "auto_run_after_tests": true,
-    "auto_cleanup_old_logs": true,
+    "auto_cleanup_current_logs": true,
     "max_log_age_days": 7,
     "max_total_log_size_mb": 500,
     "report_retention_days": 30,
@@ -38,7 +38,7 @@
       "generate_markdown": true,
       "generate_summary_only": false,
       "include_raw_data": false,
-      "compress_old_reports": true
+      "compress_current_reports": true
     },
     
     "notification_settings": {
@@ -49,8 +49,8 @@
     },
     
     "cleanup_rules": {
-      "delete_old_performance_logs": true,
-      "archive_old_reports": true,
+      "delete_current_performance_logs": true,
+      "archive_current_reports": true,
       "compress_large_logs": true,
       "max_concurrent_log_files": 1000,
       "max_performance_log_files": 2000

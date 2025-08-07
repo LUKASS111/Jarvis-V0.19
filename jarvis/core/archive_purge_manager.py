@@ -451,7 +451,7 @@ class DataArchivePurgeManager:
             conn.close()
         
         if not current_version_entries:
-            print("[PURGE] No old version entries found - archive is clean!")
+            print("[PURGE] No current version entries found - archive is clean!")
             return {
                 'current_version': self.current_version,
                 'analysis': analysis,
@@ -464,7 +464,7 @@ class DataArchivePurgeManager:
                 'backup_cleanup': {'cleaned_backups': 0}
             }
         
-        print(f"[PURGE] Found {len(current_version_entries)} entries from old versions to remove")
+        print(f"[PURGE] Found {len(current_version_entries)} entries from current versions to remove")
         
         # Create backup before major cleanup
         try:
@@ -513,7 +513,7 @@ class DataArchivePurgeManager:
                     purge_stats['purged_count'] += cursor.rowcount
                 
                 conn.commit()
-                print(f"[PURGE] Successfully removed {purge_stats['purged_count']} entries from {len(versions_being_removed)} old versions")
+                print(f"[PURGE] Successfully removed {purge_stats['purged_count']} entries from {len(versions_being_removed)} current versions")
                 
             except Exception as e:
                 conn.rollback()
@@ -523,7 +523,7 @@ class DataArchivePurgeManager:
             finally:
                 conn.close()
         
-        # Clean up old version backups
+        # Clean up current version backups
         backup_cleanup = self._cleanup_current_version_backups()
         
         # Final analysis
@@ -623,7 +623,7 @@ class DataArchivePurgeManager:
         recommendations = []
         
         if len(analysis['version_stats']) > 10:
-            recommendations.append("Consider purging old version data - more than 10 versions detected")
+            recommendations.append("Consider purging current version data - more than 10 versions detected")
         
         if analysis['total_content_size_bytes'] > 100 * 1024 * 1024:  # 100MB
             recommendations.append("Archive size is large (>100MB) - consider implementing size-based purging")

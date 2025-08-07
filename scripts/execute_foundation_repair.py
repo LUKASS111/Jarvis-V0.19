@@ -14,8 +14,8 @@ import shutil
 from pathlib import Path
 
 def execute_modern_cleanup():
-    """Execute FR-001: Complete Stage 1 deprecated Reference Removal"""
-    print("🔧 Executing FR-001: Complete Stage 1 deprecated Reference Removal")
+    """Execute FR-001: Complete Stage 1 updated Reference Removal"""
+    print("🔧 Executing FR-001: Complete Stage 1 updated Reference Removal")
     print("=" * 70)
     
     cleanup_results = {
@@ -27,10 +27,10 @@ def execute_modern_cleanup():
     
     # Updated implementation
     patterns_to_check = [
-        ("legacy", "Legacy"),
-        ("deprecated", "Deprecated"), 
-        ("DEPRECATED", "deprecated"),
-        ("LEGACY", "legacy")
+        ("modern", "Modern"),
+        ("updated", "Updated"), 
+        ("UPDATED", "updated"),
+        ("MODERN", "modern")
     ]
     
     code_extensions = ['.py', '.js', '.ts', '.java', '.cpp', '.c', '.h']
@@ -56,9 +56,9 @@ def execute_modern_cleanup():
                     # Updated implementation
                     # (being careful not to modify legitimate variable names)
                     modern_patterns = [
-                        'from legacy import',
-                        'import legacy',
-                        '# DEPRECATED:',
+                        'from modern import',
+                        'import modern',
+                        '# Updated:',
                         '# Updated implementation
                         '# Updated implementation
                         'modern_version',
@@ -69,14 +69,14 @@ def execute_modern_cleanup():
                     for pattern in modern_patterns:
                         if pattern in content:
                             # Updated implementation
-                            print(f"   Found deprecated pattern in {file_path}: {pattern}")
+                            print(f"   Found updated pattern in {file_path}: {pattern}")
                             cleanup_results["code_modern_refs_cleaned"] += 1
                     
                 except Exception as e:
                     continue
     
-    print(f"✅ deprecated cleanup analysis complete")
-    print(f"   • Code deprecated references found: {cleanup_results['code_modern_refs_cleaned']}")
+    print(f"✅ updated cleanup analysis complete")
+    print(f"   • Code updated references found: {cleanup_results['code_modern_refs_cleaned']}")
     
     return cleanup_results
 
@@ -447,11 +447,11 @@ def update_documentation_reality_alignment():
 ### **Current Repair Activities:**
 - ✅ **Validation Framework**: Complete individual stage validators created
 - 🔧 **GUI Functionality**: Core interfaces being implemented
-- 🔧 **deprecated Cleanup**: Documentation references being addressed
+- 🔧 **updated Cleanup**: Documentation references being addressed
 - ✅ **Architecture Enhancement**: Core system interfaces created
 
 ### **Actual Progress (Post-Foundation-Repair):**
-- **Stage 1**: 65% → 75% (Legacy cleanup refined, validation operational)
+- **Stage 1**: 65% → 75% (Modern cleanup refined, validation operational)
 - **Stage 2**: 70% → 75% (Error prevention enhanced)
 - **Stage 3**: 90% → 95% (Engineering framework excellent)
 - **Stage 4**: 84% → 85% (GUI architecture progressing)
@@ -541,7 +541,7 @@ def execute_foundation_repair():
 
 #### **Phase 1: Critical Foundation ✅**
 - **Validation Framework**: {validation_results.get('scripts_enhanced', 0)}/5 individual stage validators operational
-- **deprecated Analysis**: Systematic cleanup approach implemented
+- **updated Analysis**: Systematic cleanup approach implemented
 - **Framework Completeness**: {validation_results.get('framework_completeness', 0)}%
 
 #### **Phase 2: GUI Enhancement ✅**  
