@@ -22,9 +22,17 @@ from ..utils.file_processors import get_file_processor_manager
 from ..monitoring.phase6_optimizer import get_performance_optimizer
 from ..monitoring.phase6_ux_enhancer import get_ux_enhancer
 
+# Phase 7 Integration
+try:
+    from ..phase7 import get_phase7_integration_manager
+    PHASE7_AVAILABLE = True
+except ImportError:
+    PHASE7_AVAILABLE = False
+    print("[BACKEND] Phase 7 systems not available")
+
 class JarvisBackendService:
     """
-    Unified Jarvis Backend Service with Phase 6 Enhancements
+    Unified Jarvis Backend Service with Phase 6 & 7 Enhancements
     
     This service provides a complete backend infrastructure that:
     - Integrates all Jarvis subsystems (memory, LLM, file processing, agents)
@@ -33,6 +41,7 @@ class JarvisBackendService:
     - Handles concurrent operations and resource management
     - Provides enterprise-grade monitoring and analytics
     - Phase 6: Advanced performance optimization and UX enhancement
+    - Phase 7: AI integration, platform expansion, and enterprise features
     """
     
     def __init__(self):
@@ -48,6 +57,17 @@ class JarvisBackendService:
         # Phase 6 Enhancement Systems
         self.performance_optimizer = get_performance_optimizer()
         self.ux_enhancer = get_ux_enhancer()
+        
+        # Phase 7 Advanced Integration Systems
+        if PHASE7_AVAILABLE:
+            try:
+                self.phase7_manager = get_phase7_integration_manager()
+                print("[BACKEND] Phase 7 Advanced Integration Systems initialized")
+            except Exception as e:
+                print(f"[BACKEND] Phase 7 initialization failed: {e}")
+                self.phase7_manager = None
+        else:
+            self.phase7_manager = None
         
         # Service state
         self.active_sessions: Dict[str, Dict[str, Any]] = {}
@@ -495,7 +515,7 @@ class JarvisBackendService:
         print(f"[BACKEND] Service shutdown complete")
     
     def get_system_health(self) -> float:
-        """Get simplified system health score with Phase 6 enhancements"""
+        """Get simplified system health score with Phase 6 & 7 enhancements"""
         try:
             # Get basic health metrics
             base_health = 80.0  # Base operational health
@@ -523,6 +543,18 @@ class JarvisBackendService:
                         user_satisfaction = ux_summary["ux_metrics"].get("user_satisfaction", 0.8)
                         ux_bonus = user_satisfaction * 10
                         base_health += ux_bonus
+                except:
+                    pass
+            
+            # Phase 7 enhancement metrics
+            if hasattr(self, 'phase7_manager') and self.phase7_manager:
+                try:
+                    phase7_status = self.phase7_manager.get_comprehensive_status()
+                    integration_health = phase7_status.get("integration_metrics", {}).get("integration_health", {}).get("overall_score", 85)
+                    
+                    # Phase 7 bonus (up to 10 points)
+                    phase7_bonus = min(10, integration_health / 10)
+                    base_health += phase7_bonus
                 except:
                     pass
             
