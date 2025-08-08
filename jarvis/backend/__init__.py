@@ -1,6 +1,6 @@
 """
 Unified Jarvis Backend Service
-Production-ready backend that integrates all Jarvis systems
+Production-ready backend that integrates all Jarvis systems with Phase 6 enhancements
 """
 
 import asyncio
@@ -19,10 +19,12 @@ from ..llm.production_llm import get_production_llm
 from ..core.error_handler import error_handler, ErrorLevel, safe_execute
 from ..core.performance_monitor import get_system_metrics
 from ..utils.file_processors import get_file_processor_manager
+from ..monitoring.phase6_optimizer import get_performance_optimizer
+from ..monitoring.phase6_ux_enhancer import get_ux_enhancer
 
 class JarvisBackendService:
     """
-    Unified Jarvis Backend Service
+    Unified Jarvis Backend Service with Phase 6 Enhancements
     
     This service provides a complete backend infrastructure that:
     - Integrates all Jarvis subsystems (memory, LLM, file processing, agents)
@@ -30,6 +32,7 @@ class JarvisBackendService:
     - Manages system state and configuration
     - Handles concurrent operations and resource management
     - Provides enterprise-grade monitoring and analytics
+    - Phase 6: Advanced performance optimization and UX enhancement
     """
     
     def __init__(self):
@@ -41,6 +44,10 @@ class JarvisBackendService:
         self.api = get_jarvis_api()
         self.memory = get_production_memory()
         self.llm = get_production_llm()
+        
+        # Phase 6 Enhancement Systems
+        self.performance_optimizer = get_performance_optimizer()
+        self.ux_enhancer = get_ux_enhancer()
         
         # Service state
         self.active_sessions: Dict[str, Dict[str, Any]] = {}
@@ -55,10 +62,15 @@ class JarvisBackendService:
             "cleanup_interval": 1800,  # 30 minutes
             "enable_analytics": True,
             "enable_caching": True,
-            "debug_mode": False
+            "debug_mode": False,
+            # Phase 6 enhancements
+            "enable_performance_optimization": True,
+            "enable_ux_tracking": True,
+            "performance_monitoring_interval": 30,
+            "ux_analysis_interval": 300
         }
         
-        # Statistics
+        # Statistics (enhanced for Phase 6)
         self.stats = {
             "total_sessions": 0,
             "current_sessions": 0,
@@ -66,7 +78,11 @@ class JarvisBackendService:
             "successful_requests": 0,
             "failed_requests": 0,
             "uptime_seconds": 0,
-            "subsystem_health": {}
+            "subsystem_health": {},
+            # Phase 6 metrics
+            "performance_score": 0,
+            "ux_satisfaction": 0,
+            "optimization_applied": 0
         }
         
         self._lock = threading.RLock()
@@ -477,6 +493,50 @@ class JarvisBackendService:
             pass
         
         print(f"[BACKEND] Service shutdown complete")
+    
+    def get_system_health(self) -> float:
+        """Get simplified system health score with Phase 6 enhancements"""
+        try:
+            # Get basic health metrics
+            base_health = 80.0  # Base operational health
+            
+            # Add performance optimizer metrics
+            if hasattr(self, 'performance_optimizer'):
+                try:
+                    perf_summary = self.performance_optimizer.get_performance_summary()
+                    if "metrics_summary" in perf_summary:
+                        # Performance bonus (up to 15 points)
+                        cpu_usage = perf_summary["metrics_summary"].get("cpu_usage", {}).get("current", 50)
+                        memory_usage = perf_summary["metrics_summary"].get("memory_usage", {}).get("current", 50)
+                        
+                        performance_bonus = max(0, 15 - (cpu_usage / 10) - (memory_usage / 10))
+                        base_health += performance_bonus
+                except:
+                    pass
+            
+            # Add UX enhancement metrics
+            if hasattr(self, 'ux_enhancer'):
+                try:
+                    ux_summary = self.ux_enhancer.get_ux_summary()
+                    if "ux_metrics" in ux_summary:
+                        # UX bonus (up to 10 points)
+                        user_satisfaction = ux_summary["ux_metrics"].get("user_satisfaction", 0.8)
+                        ux_bonus = user_satisfaction * 10
+                        base_health += ux_bonus
+                except:
+                    pass
+            
+            # Service health bonus
+            if self.stats["total_requests"] > 0:
+                success_rate = self.stats["successful_requests"] / self.stats["total_requests"]
+                success_bonus = success_rate * 5  # Up to 5 points
+                base_health += success_bonus
+            
+            return min(100.0, base_health)
+            
+        except Exception as e:
+            print(f"[BACKEND] Health check error: {e}")
+            return 75.0  # Default safe health score
 
 # Global backend service instance
 _backend_service = None
