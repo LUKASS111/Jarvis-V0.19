@@ -14,7 +14,7 @@ class JarvisMainWindow:
     
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Jarvis V0.19 - Professional Interface")
+        self.root.title("Jarvis 1.0.0 - Professional Interface")
         self.root.geometry("1200x800")
         
         # Modern styling
@@ -30,7 +30,7 @@ class JarvisMainWindow:
         main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # Title
-        title_label = ttk.Label(main_frame, text="Jarvis V0.19 Professional Interface", 
+        title_label = ttk.Label(main_frame, text="Jarvis 1.0.0 Professional Interface", 
                                font=('Arial', 16, 'bold'))
         title_label.pack(pady=(0, 20))
         

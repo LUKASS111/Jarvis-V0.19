@@ -1,5 +1,5 @@
 """
-Jarvis V0.19 - GUI Design Standards
+Jarvis 1.0.0 - GUI Design Standards
 Comprehensive design system for consistent, professional interface patterns
 """
 
@@ -10,8 +10,8 @@ class ColorsObject:
     PRIMARY_DARK = "#1a1a1a"
     PRIMARY_MEDIUM = "#2d2d2d"
     PRIMARY_LIGHT = "#404040"
-    PRIMARY_CONTAINER = "#2d2d2d"  # Container background
-    PRIMARY_VARIANT = "#333333"  # Variant for hover states
+    PRIMARY_CONTAINER = "#3a3a3a"  # Lighter container background for better contrast
+    PRIMARY_VARIANT = "#404040"     # Lighter variant for hover states
     
     # Accent colors
     ACCENT_BLUE = "#0078d4"
@@ -20,29 +20,29 @@ class ColorsObject:
     ACCENT_RED = "#e74856"
     
     # Text colors
-    TEXT_PRIMARY = "#ffffff"
-    TEXT_SECONDARY = "#b3b3b3"
-    TEXT_DISABLED = "#666666"
-    ON_PRIMARY = "#ffffff"  # Text on primary surfaces
-    ON_PRIMARY_CONTAINER = "#ffffff"  # Text on primary container
-    ON_SECONDARY = "#000000"  # Text on secondary surfaces
-    ON_SURFACE = "#ffffff"  # Text on surface
-    ON_SURFACE_VARIANT = "#b3b3b3"  # Text on surface variant
+    TEXT_PRIMARY = "#e8e8e8"       # Light gray instead of pure white for better readability
+    TEXT_SECONDARY = "#b8b8b8"     # Slightly lighter secondary text
+    TEXT_DISABLED = "#888888"      # Lighter disabled text
+    ON_PRIMARY = "#e8e8e8"         # Light gray text on primary surfaces
+    ON_PRIMARY_CONTAINER = "#e8e8e8"  # Light gray text on primary container
+    ON_SECONDARY = "#1a1a1a"       # Dark text on secondary surfaces
+    ON_SURFACE = "#e8e8e8"         # Light gray text on surface
+    ON_SURFACE_VARIANT = "#c0c0c0" # Lighter text on surface variant
     
     # Secondary colors
     SECONDARY = "#16c60c"  # Secondary green
     SECONDARY_VARIANT = "#14a10a"  # Secondary variant
     
-    # Surface colors
-    SURFACE = "#1a1a1a"  # Main surface color
-    SURFACE_VARIANT = "#2d2d2d"  # Surface variant
+    # Surface colors  
+    SURFACE = "#2a2a2a"        # Slightly lighter main surface for better contrast
+    SURFACE_VARIANT = "#3a3a3a" # Lighter surface variant to reduce bright whites
     
     # Border and separator colors
-    BORDER = "#404040"  # Main border color
-    BORDER_LIGHT = "#404040"
-    BORDER_MEDIUM = "#595959"
-    SEPARATOR = "#333333"
-    OUTLINE = "#595959"  # Outline color
+    BORDER = "#505050"        # Lighter border for better visibility  
+    BORDER_LIGHT = "#505050"
+    BORDER_MEDIUM = "#606060"
+    SEPARATOR = "#404040"     # Lighter separator
+    OUTLINE = "#606060"       # Lighter outline color
     
     # Status colors
     SUCCESS = "#16c60c"  # Success green
@@ -63,29 +63,29 @@ class ColorsObject:
             "primary_dark": "#1a1a1a",
             "primary_medium": "#2d2d2d",
             "primary_light": "#404040",
-            "primary_container": "#2d2d2d",
-            "primary_variant": "#333333",
+            "primary_container": "#3a3a3a",
+            "primary_variant": "#404040",
             "secondary": "#16c60c",
             "secondary_variant": "#14a10a",
-            "surface": "#1a1a1a",
-            "surface_variant": "#2d2d2d",
+            "surface": "#2a2a2a",
+            "surface_variant": "#3a3a3a",
             "accent_blue": "#0078d4",
             "accent_green": "#16c60c",
             "accent_orange": "#ff8c00",
             "accent_red": "#e74856",
-            "text_primary": "#ffffff",
-            "text_secondary": "#b3b3b3",
-            "text_disabled": "#666666",
-            "on_primary": "#ffffff",
-            "on_primary_container": "#ffffff",
-            "on_secondary": "#000000",
-            "on_surface": "#ffffff",
-            "on_surface_variant": "#b3b3b3",
-            "border": "#404040",
-            "border_light": "#404040",
-            "border_medium": "#595959",
-            "separator": "#333333",
-            "outline": "#595959",
+            "text_primary": "#e8e8e8",
+            "text_secondary": "#b8b8b8",
+            "text_disabled": "#888888",
+            "on_primary": "#e8e8e8",
+            "on_primary_container": "#e8e8e8",
+            "on_secondary": "#1a1a1a",
+            "on_surface": "#e8e8e8",
+            "on_surface_variant": "#c0c0c0",
+            "border": "#505050",
+            "border_light": "#505050",
+            "border_medium": "#606060",
+            "separator": "#404040",
+            "outline": "#606060",
             "success": "#16c60c",
             "warning": "#ff8c00",
             "error": "#e74856",
@@ -240,7 +240,7 @@ COMPONENT_STYLES = {
     },
     
     "button_secondary": {
-        "background": COLORS["primary_light"],
+        "background": COLORS["primary_container"],  # Use the lighter container color
         "color": COLORS["text_primary"],
         "border": f"1px solid {COLORS['border_medium']}",
         "border_radius": RADIUS["md"],
@@ -251,7 +251,7 @@ COMPONENT_STYLES = {
     
     # Input styles
     "input_default": {
-        "background": COLORS["primary_medium"],
+        "background": COLORS["surface_variant"],  # Use the lighter surface variant
         "color": COLORS["text_primary"],
         "border": f"1px solid {COLORS['border_light']}",
         "border_radius": RADIUS["md"],
@@ -262,7 +262,7 @@ COMPONENT_STYLES = {
     
     # Panel styles
     "panel_default": {
-        "background": COLORS["primary_medium"],
+        "background": COLORS["surface_variant"],  # Use the lighter surface variant
         "border": f"1px solid {COLORS['border_light']}",
         "border_radius": RADIUS["lg"],
         "padding": SPACING["lg"],
@@ -386,7 +386,7 @@ def create_professional_stylesheet():
     
     /* Input fields */
     QLineEdit, QTextEdit, QPlainTextEdit {{
-        background-color: {COLORS["primary_medium"]};
+        background-color: {COLORS["surface_variant"]};
         color: {COLORS["text_primary"]};
         border: 1px solid {COLORS["border_light"]};
         border-radius: {RADIUS["md"]}px;
@@ -417,7 +417,7 @@ def create_professional_stylesheet():
     
     /* Panels and containers */
     QFrame, QGroupBox {{
-        background-color: {COLORS["primary_medium"]};
+        background-color: {COLORS["surface_variant"]};
         border: 1px solid {COLORS["border_light"]};
         border-radius: {RADIUS["lg"]}px;
         padding: {SPACING["md"]}px;
@@ -425,13 +425,13 @@ def create_professional_stylesheet():
     
     /* Tab widget */
     QTabWidget::pane {{
-        background-color: {COLORS["primary_medium"]};
+        background-color: {COLORS["surface_variant"]};
         border: 1px solid {COLORS["border_light"]};
         border-radius: {RADIUS["md"]}px;
     }}
     
     QTabBar::tab {{
-        background-color: {COLORS["primary_light"]};
+        background-color: {COLORS["primary_container"]};
         color: {COLORS["text_secondary"]};
         border: 1px solid {COLORS["border_light"]};
         padding: {SPACING["sm"]}px {SPACING["md"]}px;
@@ -440,9 +440,9 @@ def create_professional_stylesheet():
     }}
     
     QTabBar::tab:selected {{
-        background-color: {COLORS["primary_medium"]};
+        background-color: {COLORS["surface_variant"]};
         color: {COLORS["text_primary"]};
-        border-bottom: 1px solid {COLORS["primary_medium"]};
+        border-bottom: 1px solid {COLORS["surface_variant"]};
     }}
     
     QTabBar::tab:hover {{
@@ -451,7 +451,7 @@ def create_professional_stylesheet():
     
     /* Scroll bars */
     QScrollBar:vertical {{
-        background-color: {COLORS["primary_light"]};
+        background-color: {COLORS["primary_container"]};
         width: 12px;
         border-radius: 6px;
     }}
@@ -491,11 +491,11 @@ def create_professional_stylesheet():
     
     /* List and tree widgets */
     QListWidget, QTreeWidget {{
-        background-color: {COLORS["primary_medium"]};
+        background-color: {COLORS["surface_variant"]};
         color: {COLORS["text_primary"]};
         border: 1px solid {COLORS["border_light"]};
         border-radius: {RADIUS["md"]}px;
-        alternate-background-color: {COLORS["primary_light"]};
+        alternate-background-color: {COLORS["primary_container"]};
     }}
     
     QListWidget::item, QTreeWidget::item {{
@@ -510,7 +510,7 @@ def create_professional_stylesheet():
     
     /* Progress bars */
     QProgressBar {{
-        background-color: {COLORS["primary_light"]};
+        background-color: {COLORS["primary_container"]};
         border: 1px solid {COLORS["border_light"]};
         border-radius: {RADIUS["md"]}px;
         text-align: center;

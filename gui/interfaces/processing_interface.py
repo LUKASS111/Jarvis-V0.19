@@ -12,7 +12,7 @@ Features:
 - File processing with format conversion
 - Real-time processing monitoring
 
-Author: Jarvis V0.19 Engineering Team
+Author: Jarvis 1.0.0 Engineering Team
 Date: 2025-01-07
 """
 

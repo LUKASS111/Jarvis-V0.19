@@ -11,7 +11,7 @@ Features:
 - System options with organized categories
 - Advanced configuration with expert controls
 
-Author: Jarvis V0.19 Engineering Team
+Author: Jarvis 1.0.0 Engineering Team
 Date: 2025-01-07
 """
 
@@ -52,7 +52,7 @@ class ConfigurationInterface:
         
         # Application name setting
         ttk.Label(general_frame, text="Application Name:").grid(row=0, column=0, sticky="w", pady=2)
-        self.app_name_var = tk.StringVar(value="Jarvis V0.19")
+        self.app_name_var = tk.StringVar(value="Jarvis 1.0.0")
         ttk.Entry(general_frame, textvariable=self.app_name_var, width=30).grid(row=0, column=1, sticky="w", pady=2)
         
         # Auto-save setting
@@ -191,7 +191,7 @@ class ConfigurationInterface:
         """Get default settings"""
         return {
             "general": {
-                "app_name": "Jarvis V0.19",
+                "app_name": "Jarvis 1.0.0",
                 "auto_save": True,
                 "startup_behavior": "dashboard",
                 "data_directory": "data/"
@@ -220,7 +220,7 @@ class ConfigurationInterface:
         """Load current settings into interface"""
         if "general" in self.settings:
             general = self.settings["general"]
-            self.app_name_var.set(general.get("app_name", "Jarvis V0.19"))
+            self.app_name_var.set(general.get("app_name", "Jarvis 1.0.0"))
             self.auto_save_var.set(general.get("auto_save", True))
             self.startup_var.set(general.get("startup_behavior", "dashboard"))
             self.data_dir_var.set(general.get("data_directory", "data/"))

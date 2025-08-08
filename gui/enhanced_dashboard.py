@@ -14,7 +14,7 @@ class EnhancedDashboard:
     
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Jarvis V0.19 - Professional Dashboard")
+        self.root.title("Jarvis 1.0.0 - Professional Dashboard")
         self.root.geometry("1000x700")
         self.setup_dashboard()
     

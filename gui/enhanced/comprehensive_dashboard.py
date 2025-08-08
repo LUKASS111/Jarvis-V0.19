@@ -98,7 +98,7 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
             return
             
         super().__init__()
-        self.setWindowTitle("Jarvis V0.19 - Comprehensive Professional Dashboard")
+        self.setWindowTitle("Jarvis 1.0.0 - Comprehensive Professional Dashboard")
         self.setGeometry(50, 50, 1600, 1000)
         
         # Initialize activity_list early to prevent AttributeError
@@ -115,18 +115,8 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
         self.load_initial_data()
         
 
-        # Apply consistent color scheme
-        self.setStyleSheet(f"""
-            QMainWindow {{
-                background-color: {COLORS["primary_dark"]};
-                color: {COLORS["text_primary"]};
-            }}
-            QTabWidget::pane {{
-                background-color: {COLORS["primary_medium"]};
-                border: 1px solid {COLORS["border_light"]};
-                border-radius: {RADIUS["lg"]}px;
-            }}
-        """)
+        # Apply professional stylesheet for improved readability
+        self.setStyleSheet(create_professional_stylesheet())
 
 
     def apply_modern_styling(self):
@@ -1365,7 +1355,7 @@ All endpoints require authentication via API key.""")
     def setup_status_bar(self):
         """Setup status bar"""
         self.status_bar = self.statusBar()
-        self.status_bar.showMessage("🚀 Jarvis V0.19 Professional Dashboard Ready")
+        self.status_bar.showMessage("🚀 Jarvis 1.0.0 Professional Dashboard Ready")
         
         # Add permanent widgets
         self.connection_status = QLabel("🟢 Connected")
