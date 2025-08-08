@@ -205,11 +205,12 @@ def validate_gui_backend_integration():
     
     try:
         # Test that GUI components can import and connect to backend
-        from gui.enhanced.comprehensive_dashboard import get_system_status
+        from gui.interfaces import CoreSystemInterface
         
-        status = get_system_status()
-        if isinstance(status, dict) and 'health_score' in status:
-            print(f"    ✅ GUI-Backend integration: {status['health_score']:.1f}% health")
+        core_interface = CoreSystemInterface()
+        status = core_interface.get_system_status()
+        if isinstance(status, dict) and 'cpu_usage' in status:
+            print(f"    ✅ GUI-Backend integration: {status['cpu_usage']} CPU usage")
             return True
         else:
             print("    ❌ GUI-Backend integration failed")
