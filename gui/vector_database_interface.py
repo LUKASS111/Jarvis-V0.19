@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Stage 8: Vector Database & Semantic Search Interface
-Professional vector database management for Jarvis V0.19
+Professional vector database management for Jarvis 1.0.0
 """
 
 import tkinter as tk

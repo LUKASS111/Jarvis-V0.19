@@ -520,7 +520,7 @@ class EnhancedDashboard:
         messagebox.showinfo("Help", "Support contact opened")
     
     def about_jarvis(self):
-        messagebox.showinfo("About", "Jarvis V0.19 - Professional AI Assistant\nComplete 9-Tab Dashboard\nAll functions accessible via GUI")
+        messagebox.showinfo("About", "Jarvis 1.0.0 - Professional AI Assistant\nComplete 9-Tab Dashboard\nAll functions accessible via GUI")
     
     def check_updates(self):
         messagebox.showinfo("Updates", "Checking for updates...")
