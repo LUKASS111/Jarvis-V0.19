@@ -29,8 +29,8 @@ pip install pytest pytest-cov black flake8
 
 1. **Clone Repository**
    ```bash
-   git clone https://github.com/LUKASS111/Jarvis-V0.19.git
-   cd Jarvis-V0.19
+   git clone https://github.com/LUKASS111/Jarvis-1.0.0.git
+   cd Jarvis-1.0.0
    ```
 
 2. **Install Dependencies**

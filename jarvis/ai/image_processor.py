@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Image Processor for Jarvis V0.19
+Image Processor for Jarvis 1.0.0
 Specialized image processing capabilities
 """
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Vector Database Manager for Jarvis V0.19
+Vector Database Manager for Jarvis 1.0.0
 Unified interface for vector database operations
 """
 

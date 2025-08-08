@@ -1,5 +1,5 @@
 """
-Configuration Management System for Jarvis V0.19
+Configuration Management System for Jarvis 1.0.0
 Centralized configuration management with environment support, validation, and hot reloading
 """
 
@@ -184,7 +184,7 @@ class ConfigManager:
         default_config = {
             "system": {
                 "name": "Jarvis",
-                "version": "0.19",
+                "version": "1.0.0",
                 "debug": False,
                 "log_level": "INFO"
             },

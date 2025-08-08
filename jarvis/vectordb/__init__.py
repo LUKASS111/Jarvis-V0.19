@@ -1,5 +1,5 @@
 """
-Vector Database Module for Jarvis V0.19
+Vector Database Module for Jarvis 1.0.0
 Provides semantic search, embeddings, and RAG capabilities
 """
 

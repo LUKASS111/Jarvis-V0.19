@@ -8,8 +8,8 @@
 
 ### Installation & Launch
 ```bash
-git clone https://github.com/LUKASS111/Jarvis-V0.19.git
-cd Jarvis-V0.19
+git clone https://github.com/LUKASS111/Jarvis-1.0.0.git
+cd Jarvis-1.0.0
 pip install -r requirements.txt
 
 # Launch Options

@@ -1,5 +1,5 @@
 """
-Data Archive Purge Manager for Jarvis-V0.19
+Data Archive Purge Manager for Jarvis-1.0.0
 Implements intelligent purge policies for version-based data cleanup.
 """
 

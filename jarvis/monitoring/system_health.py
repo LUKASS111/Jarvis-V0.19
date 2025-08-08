@@ -1,5 +1,5 @@
 """
-Advanced System Health Monitoring for Jarvis-V0.19
+Advanced System Health Monitoring for Jarvis-1.0.0
 Real-time health tracking with persistence, alerting, and recovery mechanisms
 """
 
@@ -286,7 +286,7 @@ class HealthAlertSystem:
             msg['Subject'] = f"Jarvis Health Alert: {alert_data['component']} - {alert_data['severity'].upper()}"
             
             body = f"""
-Health Alert from Jarvis V0.19
+Health Alert from Jarvis 1.0.0
 
 Component: {alert_data['component']}
 Status: {alert_data['status']}

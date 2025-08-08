@@ -1,5 +1,5 @@
 """
-Universal File Processing System for Jarvis V0.19
+Universal File Processing System for Jarvis 1.0.0
 Handles PDF, Excel (XLS/XLSX), and TXT file processing for memory, logs, and agent interaction.
 """
 

@@ -1,5 +1,5 @@
 """
-Plugin System for Jarvis V0.19
+Plugin System for Jarvis 1.0.0
 Enterprise-grade plugin architecture for modular development
 
 This module provides the foundation for a plugin-based architecture that allows

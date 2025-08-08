@@ -1,4 +1,4 @@
-# Jarvis V0.19 Production Dependencies
+# Jarvis 1.0.0 Production Dependencies
 # Core AI and CRDT functionality
 
 # Core dependencies

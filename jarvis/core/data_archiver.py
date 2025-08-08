@@ -1,5 +1,5 @@
 """
-Data Archiving System for Jarvis-V0.19
+Data Archiving System for Jarvis-1.0.0
 Comprehensive data archiving with SQLite backend for all program operations.
 """
 

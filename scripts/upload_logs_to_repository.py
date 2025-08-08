@@ -152,7 +152,7 @@ def main():
     print("=" * 40)
     
     # Change to repository root
-    os.chdir('/home/runner/work/Jarvis-V0.19/Jarvis-V0.19')
+    os.chdir('/home/runner/work/Jarvis-1.0.0/Jarvis-1.0.0')
     
     # Upload logs
     uploaded = upload_logs_to_repository()

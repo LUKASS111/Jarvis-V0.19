@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Automated Test Runner and Coverage Generator for Jarvis v0.19
+Automated Test Runner and Coverage Generator for Jarvis 1.0.0
 Runs all test suites and generates comprehensive reports
 """
 

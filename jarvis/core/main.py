@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Jarvis V0.19 - Enterprise Distributed AI System
+Jarvis 1.0.0 - Enterprise Distributed AI System
 Main entry point for the enterprise-grade AI assistant with CRDT architecture
 
 Features:
@@ -19,7 +19,7 @@ import logging
 from typing import Dict, Any
 
 # Version information
-VERSION_STRING = "0.19"
+VERSION_STRING = "1.0.0"
 
 # Setup logging
 logger = logging.getLogger(__name__)
