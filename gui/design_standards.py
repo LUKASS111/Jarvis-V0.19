@@ -20,22 +20,22 @@ class ColorsObject:
     ACCENT_RED = "#e74856"
     
     # Text colors
-    TEXT_PRIMARY = "#e8e8e8"       # Light gray instead of pure white for better readability
-    TEXT_SECONDARY = "#b8b8b8"     # Slightly lighter secondary text
+    TEXT_PRIMARY = "#ff8c42"       # Dark orange for better readability instead of black
+    TEXT_SECONDARY = "#ff8c42"     # Dark orange secondary text 
     TEXT_DISABLED = "#888888"      # Lighter disabled text
-    ON_PRIMARY = "#e8e8e8"         # Light gray text on primary surfaces
-    ON_PRIMARY_CONTAINER = "#e8e8e8"  # Light gray text on primary container
-    ON_SECONDARY = "#1a1a1a"       # Dark text on secondary surfaces
-    ON_SURFACE = "#e8e8e8"         # Light gray text on surface
-    ON_SURFACE_VARIANT = "#c0c0c0" # Lighter text on surface variant
+    ON_PRIMARY = "#ff8c42"         # Dark orange text on primary surfaces
+    ON_PRIMARY_CONTAINER = "#ff8c42"  # Dark orange text on primary container
+    ON_SECONDARY = "#ff8c42"       # Dark orange text on secondary surfaces
+    ON_SURFACE = "#ff8c42"         # Dark orange text on surface
+    ON_SURFACE_VARIANT = "#ff8c42" # Dark orange text on surface variant
     
     # Secondary colors
     SECONDARY = "#16c60c"  # Secondary green
     SECONDARY_VARIANT = "#14a10a"  # Secondary variant
     
     # Surface colors  
-    SURFACE = "#2a2a2a"        # Slightly lighter main surface for better contrast
-    SURFACE_VARIANT = "#3a3a3a" # Lighter surface variant to reduce bright whites
+    SURFACE = "#808080"        # Medium grey surface instead of white
+    SURFACE_VARIANT = "#808080" # Medium grey surface variant instead of white
     
     # Border and separator colors
     BORDER = "#505050"        # Lighter border for better visibility  
@@ -67,20 +67,20 @@ class ColorsObject:
             "primary_variant": "#404040",
             "secondary": "#16c60c",
             "secondary_variant": "#14a10a",
-            "surface": "#2a2a2a",
-            "surface_variant": "#3a3a3a",
+            "surface": "#808080",
+            "surface_variant": "#808080",
             "accent_blue": "#0078d4",
             "accent_green": "#16c60c",
             "accent_orange": "#ff8c00",
             "accent_red": "#e74856",
-            "text_primary": "#e8e8e8",
-            "text_secondary": "#b8b8b8",
+            "text_primary": "#ff8c42",
+            "text_secondary": "#ff8c42",
             "text_disabled": "#888888",
-            "on_primary": "#e8e8e8",
-            "on_primary_container": "#e8e8e8",
-            "on_secondary": "#1a1a1a",
-            "on_surface": "#e8e8e8",
-            "on_surface_variant": "#c0c0c0",
+            "on_primary": "#ff8c42",
+            "on_primary_container": "#ff8c42",
+            "on_secondary": "#ff8c42",
+            "on_surface": "#ff8c42",
+            "on_surface_variant": "#ff8c42",
             "border": "#505050",
             "border_light": "#505050",
             "border_medium": "#606060",

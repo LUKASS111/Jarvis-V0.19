@@ -607,7 +607,7 @@ class AIManagementInterface(QWidget if PYQT_AVAILABLE else object):
         status_label = QLabel(status)
         status_label.setStyleSheet(f"""
             background: {status_colors.get(status, COLORS.SURFACE_VARIANT)};
-            color: white;
+            color: {COLORS.TEXT_PRIMARY};
             padding: 2px 8px;
             border-radius: {RADIUS.SMALL}px;
             font-size: {TYPOGRAPHY.SIZES.SMALL}px;

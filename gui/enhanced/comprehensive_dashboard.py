@@ -293,7 +293,7 @@ class JarvisComprehensiveDashboard(QMainWindow_base if PYQT_AVAILABLE else objec
             QTextEdit {
                 border: 2px dashed #2196F3;
                 border-radius: 10px;
-                background-color: #f0f8ff;
+                background-color: #808080;
                 text-align: center;
             }
         """)
@@ -1512,7 +1512,7 @@ All endpoints require authentication via API key.""")
             QFrame {
                 border: 2px solid #e0e0e0;
                 border-radius: 8px;
-                background-color: #f9f9f9;
+                background-color: #808080;
                 margin: 3px;
                 padding: 8px;
             }
@@ -1533,7 +1533,7 @@ All endpoints require authentication via API key.""")
         
         # Info
         info_label = QLabel(info)
-        info_label.setStyleSheet("font-size: 10px; color: #666;")
+        info_label.setStyleSheet("font-size: 10px; color: #ff8c42;")
         layout.addWidget(info_label)
         
         return card
@@ -1549,7 +1549,7 @@ All endpoints require authentication via API key.""")
             QFrame {
                 border: 2px solid #e0e0e0;
                 border-radius: 8px;
-                background-color: #f9f9f9;
+                background-color: #808080;
                 margin: 3px;
                 padding: 8px;
             }
@@ -1570,7 +1570,7 @@ All endpoints require authentication via API key.""")
         
         # Info
         info_label = QLabel(info)
-        info_label.setStyleSheet("font-size: 9px; color: #666;")
+        info_label.setStyleSheet("font-size: 9px; color: #ff8c42;")
         layout.addWidget(info_label)
         
         return card
