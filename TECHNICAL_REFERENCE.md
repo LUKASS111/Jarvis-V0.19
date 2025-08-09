@@ -297,10 +297,103 @@ python run_tests.py --headless
 
 ---
 
+## 🛠️ Development Guidelines
+
+### Development Environment Setup
+```bash
+# 1. Clone and Setup
+git clone https://github.com/LUKASS111/Jarvis-V0.19.git
+cd Jarvis-V0.19
+pip install -r requirements.txt
+
+# 2. Development Dependencies  
+pip install pytest pytest-cov black flake8 mypy
+
+# 3. Run Tests
+python run_tests.py
+```
+
+### Code Quality Standards
+- **Clean Code**: Maintainable, readable, and well-documented
+- **Test Coverage**: Comprehensive testing for all features 
+- **Documentation**: Clear documentation for all components
+- **Linting**: Black formatting, flake8 compliance
+
+---
+
+## 🔧 Troubleshooting Guide
+
+### Common Issues
+
+#### Database Issues
+**"file is not a database" Error:**
+```bash
+# Fix corrupted databases
+python scripts/repair_databases.py
+
+# Verify system health  
+python production_validation.py
+```
+
+#### Import Issues
+**ModuleNotFoundError:**
+```bash
+# Reinstall dependencies
+pip install -r requirements.txt
+
+# Check Python path
+python -c "import sys; print(sys.path)"
+```
+
+#### GUI Issues
+**PyQt5 Display Problems:**
+```bash
+# For headless environments
+export QT_QPA_PLATFORM=offscreen
+python main.py --cli
+```
+
+### Performance Optimization
+- **Memory Usage**: Monitor with `htop` during operation
+- **Database Performance**: Regular vacuum operations
+- **Cache Management**: Clear cache if performance degrades
+
+---
+
+## 🚀 Installation Guide
+
+### System Requirements
+- **Python**: 3.8+ (3.9+ recommended)
+- **Memory**: 4GB RAM minimum (8GB recommended)
+- **Storage**: 1GB available space
+- **OS**: Windows 10+, macOS 10.14+, Ubuntu 18.04+
+
+### Quick Installation
+```bash
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Initialize system
+python scripts/initialize_memory_cache.py
+
+# Verify installation
+python main.py --version
+```
+
+### Advanced Configuration
+- **Multi-LLM Setup**: Configure in `config/` directory
+- **Performance Tuning**: Adjust settings in performance configs
+- **Security**: Configure authentication in security settings
+
+---
+
 ## Changelog / Revision Log
 
 | Date | Version | Change Type | Author | Commit Link | Description |
 |------|---------|-------------|--------|-------------|-------------|
+| 2025-01-08 | v2.0.1 | Repository Cleanup | copilot | [current] | Complete repository cleanup - removed 80+ obsolete files while preserving essential information |
+| 2025-01-08 | v2.0.0 | Technology Integration | copilot | [1183f30](https://github.com/LUKASS111/Jarvis-V0.19/commit/1183f30) | 15 modern technologies integration roadmap |
+| 2025-01-08 | v1.0.2 | Cleanup | copilot | [current] | Repository cleanup and docs consolidation |
 | 2025-01-08 | v1.0.1 | Documentation | copilot | [a0d7e04](https://github.com/LUKASS111/Jarvis-V0.19/commit/a0d7e04) | Consolidated technical reference |
 | 2025-01-08 | v1.0.0 | Architecture | copilot | [2b0b59f](https://github.com/LUKASS111/Jarvis-V0.19/commit/2b0b59f) | Professional testing framework |
 | 2025-01-08 | v1.0.0 | Enhancement | copilot | [10fda0b](https://github.com/LUKASS111/Jarvis-V0.19/commit/10fda0b) | Modular architecture implementation |
