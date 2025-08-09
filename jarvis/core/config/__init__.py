@@ -281,13 +281,21 @@ class ConfigManager:
             bool: True if loaded successfully
         """
         env = environment or self.environment
-        env_config_path = os.path.join(self.config_dir, "environments", f"{env}.yaml")
         
-        if os.path.exists(env_config_path):
-            return self.load_from_file(env_config_path, merge=True)
-        else:
-            self.logger.info(f"No environment configuration found for {env}")
-            return True
+        # Try multiple file formats for environment config
+        env_dir = os.path.join(self.config_dir, "environments")
+        possible_files = [
+            os.path.join(env_dir, f"{env}.yaml"),
+            os.path.join(env_dir, f"{env}.yml"),
+            os.path.join(env_dir, f"{env}.json")
+        ]
+        
+        for env_config_path in possible_files:
+            if os.path.exists(env_config_path):
+                return self.load_from_file(env_config_path, merge=True)
+        
+        self.logger.info(f"No environment configuration found for {env}")
+        return True
     
     def load_from_env(self) -> bool:
         """Load configuration from environment variables"""
