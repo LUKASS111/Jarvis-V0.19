@@ -151,7 +151,7 @@ class TabFactory:
                 from PyQt5.QtWidgets import QLabel
                 label = QLabel(f"Tab '{title}' is under construction.\nPlease check back later.")
                 label.setStyleSheet("color: #666; font-size: 14px; padding: 20px;")
-                self.layout.addWidget(label)
+                self._main_layout.addWidget(label)
         
         return FallbackTab(title, icon)
     

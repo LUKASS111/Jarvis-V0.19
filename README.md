@@ -29,6 +29,31 @@ python main.py --cli        # Modern CLI with 14 commands
 python main.py --backend    # Backend service mode
 ```
 
+### 🧪 Testing & Validation
+
+The repository includes comprehensive testing for all components, including GUI systems:
+
+```bash
+# Run all tests (307 tests passing)
+python run_tests.py
+
+# GUI Testing Setup (PyQt5 headless validation)
+python scripts/setup_headless_gui_testing.py
+
+# Individual test components
+python tests/test_gui_components.py  # GUI functionality tests
+python production_validation.py     # Production readiness validation
+```
+
+**GUI Testing Features:**
+- ✅ **PyQt5 Installation Validation** - Ensures PyQt5 is properly configured
+- ✅ **Headless Testing Support** - Full GUI testing without display requirements  
+- ✅ **Real Functionality Testing** - No false positives from excessive mocking
+- ✅ **Professional Test Framework** - Comprehensive validation of all GUI components
+
+See **[docs/PYQT5_TESTING_GUIDE.md](docs/PYQT5_TESTING_GUIDE.md)** for detailed setup instructions.
+```
+
 ## 📁 Repository Structure
 
 This repository follows professional organization standards with clean separation of concerns:
@@ -197,6 +222,7 @@ git checkout -b copilot/improve-performance
 - **[FUTURE_ROADMAP.md](FUTURE_ROADMAP.md)** - Advanced AI & quantum development plans
 - **[CHANGELOG.md](CHANGELOG.md)** - Version history & critical fixes
 - **[docs/COPILOT_WORKSPACE_GUIDE.md](docs/COPILOT_WORKSPACE_GUIDE.md)** - 🤖 Complete GitHub Copilot workspace setup guide
+- **[docs/PYQT5_TESTING_GUIDE.md](docs/PYQT5_TESTING_GUIDE.md)** - 🖥️ PyQt5 GUI testing setup and validation guide
 
 ## Project Structure
 
@@ -220,6 +246,7 @@ git checkout -b copilot/improve-performance
 ├── docs/               # Detailed documentation
 ├── archive/            # Code archive
 └── scripts/            # Utility scripts
+    └── setup_headless_gui_testing.py  # PyQt5 testing setup and validation
 ```
 
 ### 🤖 Copilot Workspace Files

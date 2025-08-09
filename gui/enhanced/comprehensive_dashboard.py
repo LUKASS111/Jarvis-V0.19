@@ -136,13 +136,18 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
         # Apply consistent spacing to all tabs
         for i in range(self.tab_widget.count() if self.tab_widget else 0):
             tab_widget = self.tab_widget.widget(i)
-            if hasattr(tab_widget, 'layout') and tab_widget.layout():
-                layout = tab_widget.layout()
-                layout.setSpacing(SPACING["md"])
-                layout.setContentsMargins(
-                    SPACING["lg"], SPACING["lg"], 
-                    SPACING["lg"], SPACING["lg"]
-                )
+            if tab_widget and hasattr(tab_widget, 'layout'):
+                try:
+                    layout = tab_widget.layout()
+                    if layout:
+                        layout.setSpacing(SPACING["md"])
+                        layout.setContentsMargins(
+                            SPACING["lg"], SPACING["lg"], 
+                            SPACING["lg"], SPACING["lg"]
+                        )
+                except Exception:
+                    # Skip layout configuration if there are issues
+                    continue
     
     def apply_modern_styling(self):
         """Apply modern professional styling"""

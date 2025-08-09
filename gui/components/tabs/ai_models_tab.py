@@ -31,7 +31,7 @@ class AIModelsTab(BaseTab):
             # Try to use the enhanced AI management interface
             from gui.ai_management_interface import AIManagementInterface
             ai_interface = AIManagementInterface()
-            self.layout.addWidget(ai_interface)
+            self._main_layout.addWidget(ai_interface)
             print("[AIModelsTab] Using enhanced AI management interface")
         except Exception as e:
             print(f"[AIModelsTab] Enhanced interface not available: {e}")
@@ -71,7 +71,7 @@ class AIModelsTab(BaseTab):
         models_layout.addWidget(QLabel("Model Information:"), 0, 1)
         models_layout.addWidget(info_panel, 1, 1)
         
-        self.layout.addWidget(models_group)
+        self._main_layout.addWidget(models_group)
     
     def add_model_configuration(self):
         """Add model configuration controls"""
@@ -105,7 +105,7 @@ class AIModelsTab(BaseTab):
         model_combo.addItems(["GPT-4", "Claude", "LLaMA", "PaLM"])
         config_layout.addWidget(model_combo, 2, 1)
         
-        self.layout.addWidget(config_group)
+        self._main_layout.addWidget(config_group)
     
     def add_model_testing(self):
         """Add model testing interface"""
@@ -146,4 +146,4 @@ class AIModelsTab(BaseTab):
         metrics_layout.addWidget(tokens_label)
         test_layout.addLayout(metrics_layout)
         
-        self.layout.addWidget(test_group)
+        self._main_layout.addWidget(test_group)

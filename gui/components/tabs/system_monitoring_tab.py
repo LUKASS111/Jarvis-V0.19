@@ -32,7 +32,7 @@ class SystemMonitoringTab(BaseTab):
             # Try to use the enhanced monitoring interface
             from gui.system_monitoring_interface import SystemMonitoringInterface
             monitoring_interface = SystemMonitoringInterface()
-            self.layout.addWidget(monitoring_interface)
+            self._main_layout.addWidget(monitoring_interface)
             print("[SystemMonitoringTab] Using enhanced monitoring interface")
         except Exception as e:
             print(f"[SystemMonitoringTab] Enhanced interface not available: {e}")
@@ -84,7 +84,7 @@ class SystemMonitoringTab(BaseTab):
         net_out_label = QLabel("89 KB/s")
         metrics_layout.addWidget(net_out_label, 4, 1, 1, 2)
         
-        self.layout.addWidget(metrics_group)
+        self._main_layout.addWidget(metrics_group)
     
     def add_service_status(self):
         """Add service status monitoring"""
@@ -124,7 +124,7 @@ class SystemMonitoringTab(BaseTab):
         controls_layout.addStretch()
         
         services_layout.addLayout(controls_layout)
-        self.layout.addWidget(services_group)
+        self._main_layout.addWidget(services_group)
     
     def add_performance_logs(self):
         """Add performance logs display"""
@@ -157,7 +157,7 @@ class SystemMonitoringTab(BaseTab):
         log_controls.addStretch()
         
         logs_layout.addLayout(log_controls)
-        self.layout.addWidget(logs_group)
+        self._main_layout.addWidget(logs_group)
     
     def setup_monitoring_timer(self):
         """Setup timer for real-time updates"""

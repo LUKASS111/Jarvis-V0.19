@@ -26,9 +26,14 @@ class BaseTab(QWidget if PYQT_AVAILABLE else object):
     
     def init_ui(self):
         """Initialize the basic UI structure"""
-        self.layout = QVBoxLayout(self)
-        self.layout.setSpacing(15)
-        self.layout.setContentsMargins(20, 20, 20, 20)
+        # Create layout and set it on the widget
+        main_layout = QVBoxLayout()
+        main_layout.setSpacing(15)
+        main_layout.setContentsMargins(20, 20, 20, 20)
+        self.setLayout(main_layout)
+        
+        # Store reference for convenience (but don't override the layout() method)
+        self._main_layout = main_layout
         
         # Add title
         self.add_title()
@@ -48,7 +53,7 @@ class BaseTab(QWidget if PYQT_AVAILABLE else object):
             margin: 15px;
             padding: 10px;
         """)
-        self.layout.addWidget(title_label)
+        self._main_layout.addWidget(title_label)
     
     def create_group_box(self, title: str, icon: str = "") -> 'QGroupBox':
         """Create consistently styled group box"""
