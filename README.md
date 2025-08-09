@@ -29,6 +29,29 @@ python main.py --cli        # Modern CLI with 14 commands
 python main.py --backend    # Backend service mode
 ```
 
+## 📁 Repository Structure
+
+This repository follows professional organization standards with clean separation of concerns:
+
+```
+Jarvis-V0.19/
+├── README.md              # Main project documentation
+├── CHANGELOG.md           # Version history and updates
+├── main.py                # Application entry point
+├── requirements.txt       # Python dependencies
+├── Dockerfile             # Container configuration
+├── production_validation.py # Production testing suite
+├── run_tests.py           # Test framework runner
+├── jarvis/                # Core AI system modules
+├── gui/                   # User interface components
+├── tests/                 # Comprehensive test suite
+├── config/                # Configuration files
+├── docs/                  # Technical documentation
+├── examples/              # Usage examples and demos
+├── .github/               # GitHub workflows & Copilot workspace
+└── archive/               # Historical documentation and deprecated files
+```
+
 ## 🤖 GitHub Copilot Workspace Integration
 
 This repository is **GitHub Copilot Workspace ready** with automated AI assistance for development tasks.
