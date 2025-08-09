@@ -89,6 +89,56 @@ class TabFactory:
             return TabFactory._create_fallback_tab("Configuration", "⚙️")
     
     @staticmethod
+    def create_core_system_tab():
+        """Create Core System tab"""
+        try:
+            from gui.components.tabs.core_system_tab import CoreSystemTab
+            return CoreSystemTab()
+        except Exception as e:
+            print(f"[TabFactory] Error creating core system tab: {e}")
+            return TabFactory._create_fallback_tab("Core System", "🏛️")
+    
+    @staticmethod
+    def create_processing_tab():
+        """Create Enhanced Processing tab"""
+        try:
+            from gui.components.tabs.processing_tab import ProcessingTab
+            return ProcessingTab()
+        except Exception as e:
+            print(f"[TabFactory] Error creating processing tab: {e}")
+            return TabFactory._create_fallback_tab("Processing", "🔄")
+    
+    @staticmethod
+    def create_logs_tab():
+        """Create Logs tab"""
+        try:
+            from gui.components.tabs.logs_tab import LogsTab
+            return LogsTab()
+        except Exception as e:
+            print(f"[TabFactory] Error creating logs tab: {e}")
+            return TabFactory._create_fallback_tab("Logs", "📋")
+    
+    @staticmethod
+    def create_analytics_tab():
+        """Create Analytics tab"""
+        try:
+            from gui.components.tabs.analytics_tab import AnalyticsTab
+            return AnalyticsTab()
+        except Exception as e:
+            print(f"[TabFactory] Error creating analytics tab: {e}")
+            return TabFactory._create_fallback_tab("Analytics", "📊")
+    
+    @staticmethod
+    def create_help_tab():
+        """Create Help tab"""
+        try:
+            from gui.components.tabs.help_tab import HelpTab
+            return HelpTab()
+        except Exception as e:
+            print(f"[TabFactory] Error creating help tab: {e}")
+            return TabFactory._create_fallback_tab("Help", "❓")
+    
+    @staticmethod
     def _create_fallback_tab(title: str, icon: str):
         """Create a simple fallback tab when the main interface fails"""
         if not PYQT_AVAILABLE:
@@ -109,11 +159,16 @@ class TabFactory:
     def get_all_tab_creators():
         """Get all available tab creator methods"""
         return [
-            ("ai_models", TabFactory.create_ai_models_tab),
-            ("system_monitoring", TabFactory.create_system_monitoring_tab),
-            ("vector_database", TabFactory.create_vector_database_tab),
+            ("configuration", TabFactory.create_configuration_tab),
+            ("core_system", TabFactory.create_core_system_tab),
+            ("processing", TabFactory.create_processing_tab),
             ("memory_management", TabFactory.create_memory_management_tab),
+            ("system_monitoring", TabFactory.create_system_monitoring_tab),
+            ("logs", TabFactory.create_logs_tab),
+            ("analytics", TabFactory.create_analytics_tab),
+            ("ai_models", TabFactory.create_ai_models_tab),
+            ("vector_database", TabFactory.create_vector_database_tab),
             ("agent_workflows", TabFactory.create_agent_workflows_tab),
             ("development_tools", TabFactory.create_development_tools_tab),
-            ("configuration", TabFactory.create_configuration_tab),
+            ("help", TabFactory.create_help_tab),
         ]
