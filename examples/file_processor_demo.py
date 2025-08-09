@@ -30,7 +30,7 @@ def demo_file_processing():
 ========================================
 
 Project Name: Jarvis AI Assistant Enhancement
-Version: 0.19
+Version: 1.0.0
 Date: 2025-08-05
 
 Overview:

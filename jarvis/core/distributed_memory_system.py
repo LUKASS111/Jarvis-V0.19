@@ -300,7 +300,7 @@ class DistributedMemorySystem:
         
         return sync_results
     
-    def cleanup_old_sessions(self, max_age_hours: int = 24) -> int:
+    def cleanup_current_sessions(self, max_age_hours: int = 24) -> int:
         """Clean up old inactive sessions"""
         cutoff_time = datetime.now() - timedelta(hours=max_age_hours)
         cleaned_count = 0

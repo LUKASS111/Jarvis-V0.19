@@ -3,43 +3,20 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
+*.pyc
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Unit test / coverage reports
+# Testing cache
+.pytest_cache/
+.cache/
+nosetests.xml
 htmlcov/
 .tox/
 .coverage
 .coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+# Node modules and dependencies  
+node_modules/
+npm-debug.log*
 
 # Environment variables
 .env
@@ -119,3 +96,64 @@ logs/error_log.jsonl
 # Large files handled by Git LFS
 # (These patterns are defined in .gitattributes for LFS tracking)
 # *.db files are now tracked with LFS instead of being ignored
+
+# Generated documentation and validation scripts
+validate_*.py
+professional_*.py
+system_dashboard.py
+
+# Validation reports and temporary analysis files
+validation_report_*.json
+analysis_report_*.json
+stage_validation_*.json
+engineering_metrics_*.json
+*_validation_report_*.json
+validate_stage*_completion_report_*.json
+comprehensive_stage_validation_report_*.json
+aggregated_test_results_*.json
+
+# Stage execution temporary files
+stage_*.tmp
+stage_progress_*.json
+micro_task_*.log
+
+# Foundation repair and validation framework files
+test_aggregator_*.log
+upload_summary_*.json
+
+# Additional validation report patterns (prevent clutter)
+*_20[0-9][0-9][0-9][0-9][0-9][0-9]_*.json
+gui_completeness_test_*.json
+error_prevention_validation_*.json
+stage*_validation_report.json
+comprehensive_foundation_validation_*.json
+foundation_validation_*.json
+# Validation Reports
+*_report.json
+comprehensive_validation_*.json
+foundation_repair_*.json
+
+# Temporary Files
+*.bak
+repair_*.log
+
+# Stage 1 Completion
+*_completion_report.json
+stage1_final_*.json
+legacy_elimination_*.log
+
+# Professional Documentation Cleanup
+# Prevent validation JSON clutter in root directory
+*_COMPLETION_VALIDATION.json
+STAGE*_COMPLETION_VALIDATION.json
+TARGETED_FOUNDATION_REPAIR_RESULTS.json
+*_compatibility_report.json
+*_consistency_report.json
+*_completeness_test_report.json
+*_validation_report.json
+
+# Stage completion documentation clutter
+STAGE*_FOUNDATION_REPAIR_COMPLETE.md
+FOUNDATION_REPAIR_COMPLETE.md
+FOUNDATION_REPAIR_SUCCESS.md
+FOUNDATION_VALIDATION_SUMMARY.md

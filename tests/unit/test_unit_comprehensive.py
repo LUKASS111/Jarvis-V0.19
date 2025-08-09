@@ -318,7 +318,7 @@ class TestMainModule(unittest.TestCase):
         from main import VERSION_STRING
         
         self.assertIsInstance(VERSION_STRING, str)
-        self.assertIn("0.2", VERSION_STRING)
+        self.assertIn("1.0", VERSION_STRING)
     
     def test_available_models(self):
         """Test available models constant"""

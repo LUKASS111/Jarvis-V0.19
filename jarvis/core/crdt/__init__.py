@@ -25,27 +25,44 @@ Advanced Features:
 - Automated alerting and health monitoring
 """
 
-from .crdt_base import BaseCRDT
-from .g_counter import GCounter
-from .g_set import GSet
-from .lww_register import LWWRegister
-from .or_set import ORSet
-from .pn_counter import PNCounter
+try:
+    from .crdt_base import BaseCRDT
+    from .g_counter import GCounter
+    from .g_set import GSet
+    from .lww_register import LWWRegister
+    from .or_set import ORSet
+    from .pn_counter import PNCounter
 
-# Phase 4-5 Advanced Features
-from .crdt_network import CRDTNetworkManager, CRDTSynchronizer
-from .crdt_conflict_resolver import CRDTConflictResolver
-from .crdt_performance_optimizer import CRDTPerformanceOptimizer
-from .crdt_monitoring_dashboard import CRDTMonitoringCoordinator
+    # Phase 4-5 Advanced Features
+    from .crdt_network import CRDTNetworkManager, CRDTSynchronizer
+    from .crdt_conflict_resolver import CRDTConflictResolver
+    from .crdt_performance_optimizer import CRDTPerformanceOptimizer
+    from .crdt_monitoring_dashboard import CRDTMonitoringCoordinator
+    
+    ADVANCED_CRDT_AVAILABLE = True
+except ImportError:
+    ADVANCED_CRDT_AVAILABLE = False
+
+# Always available: basic CRDT manager
+from .crdt_manager import CRDTManager, get_crdt_manager, create_test_crdt_scenario
 
 __version__ = "0.2.0"
-__all__ = [
-    # Core CRDT Types
-    "BaseCRDT", "GCounter", "GSet", "LWWRegister", "ORSet", "PNCounter",
-    # Network & Synchronization
-    "CRDTNetworkManager", "CRDTSynchronizer",
-    # Conflict Resolution
-    "CRDTConflictResolver", 
-    # Performance & Monitoring
-    "CRDTPerformanceOptimizer", "CRDTMonitoringCoordinator"
-]
+
+if ADVANCED_CRDT_AVAILABLE:
+    __all__ = [
+        # Core CRDT Types
+        "BaseCRDT", "GCounter", "GSet", "LWWRegister", "ORSet", "PNCounter",
+        # Network & Synchronization
+        "CRDTNetworkManager", "CRDTSynchronizer",
+        # Conflict Resolution
+        "CRDTConflictResolver", 
+        # Performance & Monitoring
+        "CRDTPerformanceOptimizer", "CRDTMonitoringCoordinator",
+        # Basic Manager
+        "CRDTManager", "get_crdt_manager", "create_test_crdt_scenario"
+    ]
+else:
+    __all__ = [
+        # Basic Manager only
+        "CRDTManager", "get_crdt_manager", "create_test_crdt_scenario"
+    ]

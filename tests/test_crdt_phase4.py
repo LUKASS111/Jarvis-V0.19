@@ -247,7 +247,7 @@ class TestCRDTConflictResolver(unittest.TestCase):
             {
                 "operation_id": "op_001",
                 "timestamp": 1000,
-                "value": "old_value"
+                "value": "current_value"
             },
             {
                 "operation_id": "op_002", 

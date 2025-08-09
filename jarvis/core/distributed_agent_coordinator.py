@@ -1,5 +1,5 @@
 """
-Advanced Distributed Agent Coordination System for Jarvis-V0.19
+Advanced Distributed Agent Coordination System for Jarvis-1.0.0
 Phase 6 Implementation: Multi-Node Agent Intelligence using CRDT Foundation
 """
 
@@ -446,7 +446,7 @@ class DistributedAgentCoordinator:
     def _reassign_task(self, task: DistributedTask, new_agent: AgentCapabilities):
         """Reassign a task to a different agent"""
         try:
-            old_agent_id = task.assigned_agents[0] if task.assigned_agents else None
+            current_agent_id = task.assigned_agents[0] if task.assigned_agents else None
             
             # Update task assignment
             task.assigned_agents = [new_agent.agent_id]
@@ -455,7 +455,7 @@ class DistributedAgentCoordinator:
             reassignment_data = {
                 "task_id": task.task_id,
                 "new_agent_id": new_agent.agent_id,
-                "old_agent_id": old_agent_id,
+                "current_agent_id": current_agent_id,
                 "reassigned_at": datetime.now().isoformat(),
                 "reason": "optimization"
             }
@@ -464,7 +464,7 @@ class DistributedAgentCoordinator:
             
             self._log_coordination_event("task_reassigned", reassignment_data)
             
-            print(f"[COORDINATOR] Reassigned task {task.task_id} from {old_agent_id} to {new_agent.agent_id}")
+            print(f"[COORDINATOR] Reassigned task {task.task_id} from {current_agent_id} to {new_agent.agent_id}")
             
         except Exception as e:
             print(f"[ERROR] Task reassignment failed: {e}")

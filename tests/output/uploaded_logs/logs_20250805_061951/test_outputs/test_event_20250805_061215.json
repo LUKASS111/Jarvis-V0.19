@@ -1,8 +1,0 @@
-{
-  "timestamp": "2025-08-05T06:12:15.424853",
-  "event": "test_event",
-  "data": {
-    "test": "data",
-    "value": 123
-  }
-}

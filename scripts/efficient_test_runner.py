@@ -374,7 +374,7 @@ class EfficientTestRunner:
         summary = self.log_manager.create_session_summary()
         
         # Clean up old sessions (keep last 3 days)
-        cleaned_files = self.log_manager.cleanup_old_sessions(keep_days=3)
+        cleaned_files = self.log_manager.cleanup_current_sessions(keep_days=3)
         
         print(f"[FINALIZATION] Log consolidation complete:")
         print(f"   Session ID: {self.log_manager.session_id}")

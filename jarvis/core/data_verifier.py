@@ -1,5 +1,5 @@
 """
-Data Verification System for Jarvis-V0.19
+Data Verification System for Jarvis-1.0.0
 Implements dual-model verification with confidence scoring.
 """
 

@@ -1,1 +1,0 @@
-{"timestamp": "2025-08-04T22:48:01.234464", "session_id": "20250804_224613", "category": "performance", "context": "performance_monitoring", "data": {"event": "test_suite_complete", "total_duration": 107.83619427680969, "total_suites": 19, "passed_suites": 19, "failed_suites": 0, "total_tests": 273, "success_rate": 100.0, "suite_success_rate": 100.0}}

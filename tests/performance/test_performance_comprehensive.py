@@ -246,16 +246,17 @@ class TestLoggingPerformance(unittest.TestCase):
                 }
                 
                 start_time = time.time()
-                log_event(f"concurrent_log_{worker_id}_{i}", event_data)
+                # Use a single shared event name to prevent creating many files
+                log_event(f"concurrent_perf_test", event_data)
                 times.append(time.time() - start_time)
             
             return times
         
-        # Concurrent logging
-        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+        # Concurrent logging with reduced event count to prevent file bloat
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             futures = []
-            for worker_id in range(4):
-                future = executor.submit(worker_log, worker_id, 100)
+            for worker_id in range(2):  # Reduced from 4 to 2
+                future = executor.submit(worker_log, worker_id, 10)  # Reduced from 100 to 10
                 futures.append(future)
             
             all_times = []

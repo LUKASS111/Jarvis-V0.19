@@ -1,225 +1,167 @@
 #!/usr/bin/env python3
 """
-Automated Log Upload System for Jarvis V0.19
-Uploads all test logs and reports to a centralized repository location after test execution.
+Log Upload to Repository Script
+Uploads test logs and results to repository for tracking
 """
 
 import os
 import sys
 import json
 import shutil
-import zipfile
 from datetime import datetime
 from pathlib import Path
 
-class LogUploadSystem:
-    """Manages automatic upload of test logs to repository structure"""
+def upload_logs_to_repository():
+    """Upload test logs and results to repository archive"""
+    print("📤 Uploading logs to repository...")
     
-    def __init__(self, project_root=None):
-        self.project_root = Path(project_root) if project_root else Path(__file__).parent.parent
-        self.upload_target = self.project_root / "tests" / "output" / "uploaded_logs"
-        self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-    def collect_all_logs(self):
-        """Collect all log files from various locations"""
-        log_sources = {
-            "consolidated_logs": self.project_root / "tests" / "output" / "consolidated_logs",
-            "test_outputs": self.project_root / "tests" / "output",
-            "logs": self.project_root / "logs",
-            "agent_reports": self.project_root / "data" / "agent_reports",
-            "test_reports": self.project_root.glob("test_report_*.json"),
-            "aggregate_reports": self.project_root.glob("TEST_AGGREGATE_REPORT_*.json"),
-            "markdown_reports": self.project_root.glob("TEST_AGGREGATE_REPORT_*.md"),
-            "compliance_reports": [self.project_root / "PROCESS_COMPLIANCE_REPORT.json"],
-        }
-        
-        collected_files = {}
-        total_size = 0
-        
-        for category, source in log_sources.items():
-            collected_files[category] = []
+    # Create logs directory if it doesn't exist
+    logs_dir = Path("archive/logs")
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    
+    current_date = datetime.now().strftime('%Y%m%d')
+    session_dir = logs_dir / current_date
+    session_dir.mkdir(exist_ok=True)
+    
+    # Find log files to upload - expanded search patterns
+    log_files = []
+    search_locations = [
+        ".",  # Current directory
+        "tests/output/logs",  # Test output directory
+        "archive/consolidated_logs",  # Consolidated logs
+        "logs"  # Main logs directory
+    ]
+    
+    # Comprehensive file patterns for all test artifacts
+    search_patterns = [
+        "test_results_*.json", "aggregated_test_results_*.json", "*_test_*.log",
+        "*validation_report_*.json", "comprehensive_*.json", "session_summary_*.json",
+        "*_test_summary.json", "test_execution_*.json", "performance_*.json",
+        "agent_reports_*.json", "compliance_*.json", "errors_*.json",
+        "system_*.json", "crdt_*.json", "network_*.json"
+    ]
+    
+    # Search all locations for test artifacts
+    for location in search_locations:
+        location_path = Path(location)
+        if location_path.exists():
+            for pattern in search_patterns:
+                found_files = list(location_path.glob(pattern))
+                log_files.extend(found_files)
+                if found_files:
+                    print(f"📁 Found {len(found_files)} files matching {pattern} in {location}")
+    
+    # Also check for recent files that might be test-related
+    for location in search_locations:
+        location_path = Path(location)
+        if location_path.exists():
+            try:
+                for file_path in location_path.glob("*.json"):
+                    # Include recently modified JSON files that might be test results
+                    file_time = datetime.fromtimestamp(file_path.stat().st_mtime)
+                    if (datetime.now() - file_time).total_seconds() < 3600:  # Last hour
+                        if file_path not in log_files:
+                            log_files.append(file_path)
+                            print(f"📁 Including recent file: {file_path}")
+            except Exception as e:
+                print(f"❌ Error scanning {location}: {e}")
+    
+    uploaded_count = 0
+    preserved_count = 0
+    
+    for log_file in log_files:
+        try:
+            # Create timestamped filename
+            timestamp = datetime.now().strftime('%H%M%S')
+            new_filename = f"{timestamp}_{log_file.name}"
+            destination = session_dir / new_filename
             
-            if isinstance(source, Path):
-                if source.exists():
-                    if source.is_dir():
-                        for file_path in source.rglob("*"):
-                            if file_path.is_file() and not file_path.name.startswith('.'):
-                                # Skip already uploaded files to avoid duplicates
-                                if "uploaded_logs" not in str(file_path):
-                                    collected_files[category].append(file_path)
-                                    total_size += file_path.stat().st_size
-                    else:
-                        collected_files[category].append(source)
-                        total_size += source.stat().st_size
-            elif isinstance(source, list):
-                for file_path in source:
-                    if file_path.exists():
-                        collected_files[category].append(file_path)
-                        total_size += file_path.stat().st_size
-            else:  # generator
-                for file_path in source:
-                    if file_path.exists():
-                        collected_files[category].append(file_path)
-                        total_size += file_path.stat().st_size
-        
-        return collected_files, total_size
-    
-    def create_upload_structure(self, collected_files):
-        """Create organized upload structure"""
-        
-        # Create upload directory
-        upload_dir = self.upload_target / f"logs_{self.timestamp}"
-        upload_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Copy files to organized structure
-        file_count = 0
-        total_copied_size = 0
-        
-        for category, files in collected_files.items():
-            if not files:
-                continue
-                
-            category_dir = upload_dir / category
-            category_dir.mkdir(exist_ok=True)
+            # Copy file to archive (preserve original)
+            shutil.copy2(log_file, destination)
+            uploaded_count += 1
+            preserved_count += 1
             
-            for file_path in files:
-                try:
-                    dest_path = category_dir / file_path.name
-                    
-                    # Handle name conflicts
-                    counter = 1
-                    original_dest = dest_path
-                    while dest_path.exists():
-                        stem = original_dest.stem
-                        suffix = original_dest.suffix
-                        dest_path = category_dir / f"{stem}_{counter}{suffix}"
-                        counter += 1
-                    
-                    shutil.copy2(file_path, dest_path)
-                    file_count += 1
-                    total_copied_size += dest_path.stat().st_size
-                    
-                except Exception as e:
-                    print(f"[WARN] Could not copy {file_path}: {e}")
-        
-        return upload_dir, file_count, total_copied_size
+            print(f"📁 Uploaded: {log_file.name} -> {destination}")
+            
+        except Exception as e:
+            print(f"❌ Error uploading {log_file}: {e}")
     
-    def create_upload_manifest(self, upload_dir, file_count, total_size):
-        """Create manifest file for uploaded logs"""
-        manifest = {
-            "upload_timestamp": datetime.now().isoformat(),
-            "upload_session": self.timestamp,
-            "file_count": file_count,
-            "total_size_bytes": total_size,
-            "total_size_mb": round(total_size / (1024*1024), 2),
-            "categories": {},
-            "system_info": {
-                "python_version": sys.version,
-                "project_root": str(self.project_root),
-                "upload_trigger": "automated_test_completion"
-            }
+    # Create upload summary
+    upload_summary = {
+        'timestamp': datetime.now().isoformat(),
+        'session_date': current_date,
+        'files_uploaded': uploaded_count,
+        'files_preserved': preserved_count,
+        'upload_directory': str(session_dir),
+        'search_locations': search_locations,
+        'search_patterns': search_patterns,
+        'file_types': {
+            'test_results': len([f for f in log_files if 'test_result' in f.name]),
+            'validation_reports': len([f for f in log_files if 'validation_report' in f.name]),
+            'comprehensive_reports': len([f for f in log_files if 'comprehensive' in f.name]),
+            'session_summaries': len([f for f in log_files if 'session_summary' in f.name]),
+            'performance_logs': len([f for f in log_files if 'performance' in f.name]),
+            'other_logs': uploaded_count - len([f for f in log_files if any(keyword in f.name for keyword in ['test_result', 'validation_report', 'comprehensive', 'session_summary', 'performance'])])
         }
-        
-        # Analyze uploaded categories
-        for category_dir in upload_dir.iterdir():
-            if category_dir.is_dir():
-                category_files = list(category_dir.glob("*"))
-                category_size = sum(f.stat().st_size for f in category_files if f.is_file())
-                
-                manifest["categories"][category_dir.name] = {
-                    "file_count": len(category_files),
-                    "size_bytes": category_size,
-                    "size_mb": round(category_size / (1024*1024), 2),
-                    "files": [f.name for f in category_files if f.is_file()]
-                }
-        
-        # Save manifest
-        manifest_path = upload_dir / "upload_manifest.json"
-        with open(manifest_path, 'w') as f:
-            json.dump(manifest, f, indent=2)
-        
-        return manifest_path, manifest
+    }
     
-    def create_archive(self, upload_dir):
-        """Create compressed archive of uploaded logs"""
-        archive_path = upload_dir.parent / f"logs_archive_{self.timestamp}.zip"
-        
-        with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
-            for file_path in upload_dir.rglob("*"):
-                if file_path.is_file():
-                    arcname = file_path.relative_to(upload_dir.parent)
-                    zipf.write(file_path, arcname)
-        
-        return archive_path
+    # Save upload summary
+    summary_file = session_dir / f"upload_summary_{datetime.now().strftime('%H%M%S')}.json"
+    with open(summary_file, 'w') as f:
+        json.dump(upload_summary, f, indent=2)
     
-    def upload_logs(self):
-        """Main upload function"""
-        print(f"\n{'='*60}")
-        print("[UPLOAD] AUTOMATED LOG UPLOAD SYSTEM")
-        print(f"{'='*60}")
-        print(f"[TIMESTAMP] Upload session: {self.timestamp}")
-        
-        # Collect all logs
-        print("[COLLECT] Collecting logs from all sources...")
-        collected_files, total_size = self.collect_all_logs()
-        
-        total_files = sum(len(files) for files in collected_files.values())
-        print(f"[FOUND] {total_files} log files ({round(total_size/(1024*1024), 1)}MB)")
-        
-        if total_files == 0:
-            print("[INFO] No logs found to upload")
-            return None
-        
-        # Create upload structure
-        print("[ORGANIZE] Creating organized upload structure...")
-        upload_dir, file_count, copied_size = self.create_upload_structure(collected_files)
-        
-        # Create manifest
-        print("[MANIFEST] Creating upload manifest...")
-        manifest_path, manifest = self.create_upload_manifest(upload_dir, file_count, copied_size)
-        
-        # Create archive
-        print("[ARCHIVE] Creating compressed archive...")
-        archive_path = self.create_archive(upload_dir)
-        
-        print(f"\n[SUCCESS] Log upload completed:")
-        print(f"  Organized logs: {upload_dir}")
-        print(f"  Manifest file: {manifest_path}")
-        print(f"  Archive file: {archive_path}")
-        print(f"  Files uploaded: {file_count}")
-        print(f"  Total size: {manifest['total_size_mb']}MB")
-        
-        # Summary by category
-        print(f"\n[SUMMARY] Upload by category:")
-        for category, info in manifest["categories"].items():
-            print(f"  {category}: {info['file_count']} files ({info['size_mb']}MB)")
-        
-        print(f"\n[LOCATION] All logs are now available in the repository at:")
-        print(f"  {upload_dir.relative_to(self.project_root)}")
-        
-        return {
-            "upload_dir": upload_dir,
-            "manifest_path": manifest_path,
-            "archive_path": archive_path,
-            "manifest": manifest
-        }
+    print(f"📊 Upload Summary:")
+    print(f"   Files uploaded: {uploaded_count}")
+    print(f"   Files preserved: {preserved_count}")
+    print(f"   Destination: {session_dir}")
+    print(f"   Summary saved: {summary_file}")
+    
+    return uploaded_count
+
+def cleanup_current_logs():
+    """Clean up old log files from the main directory AFTER upload is complete"""
+    print("🧹 Cleaning up old log files...")
+    
+    cleanup_patterns = [
+        "test_results_*.json",
+        "aggregated_test_results_*.json", 
+        "*validation_report_*.json",
+        "comprehensive_*.json"
+    ]
+    
+    cleaned_count = 0
+    
+    for pattern in cleanup_patterns:
+        for file_path in Path(".").glob(pattern):
+            try:
+                # Keep files from today, only clean files older than 1 day
+                file_time = datetime.fromtimestamp(file_path.stat().st_mtime)
+                if file_time.date() < datetime.now().date():
+                    file_path.unlink()
+                    cleaned_count += 1
+                    print(f"🗑️ Cleaned: {file_path}")
+            except Exception as e:
+                print(f"❌ Error cleaning {file_path}: {e}")
+    
+    print(f"✅ Cleaned {cleaned_count} old log files (preserved today's files)")
+    return cleaned_count
 
 def main():
-    """Main execution function"""
-    try:
-        uploader = LogUploadSystem()
-        result = uploader.upload_logs()
-        
-        if result:
-            print(f"\n[COMPLETE] Automated log upload successful!")
-            return 0
-        else:
-            print(f"\n[INFO] No logs to upload")
-            return 0
-            
-    except Exception as e:
-        print(f"\n[ERROR] Log upload failed: {e}")
-        return 1
+    """Main log upload function"""
+    print("🎯 Log Upload to Repository")
+    print("=" * 40)
+    
+    # Change to repository root
+    os.chdir('/home/runner/work/Jarvis-1.0.0/Jarvis-1.0.0')
+    
+    # Upload logs
+    uploaded = upload_logs_to_repository()
+    
+    # Cleanup old logs (optional)
+    if uploaded > 0:
+        cleanup_current_logs()
+    
+    print("✅ Log upload completed")
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

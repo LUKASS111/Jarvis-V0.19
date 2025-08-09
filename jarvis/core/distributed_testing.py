@@ -1,5 +1,5 @@
 """
-Distributed Deployment Testing Framework for Jarvis-V0.19
+Distributed Deployment Testing Framework for Jarvis-1.0.0
 Multi-node synchronization validation and network resilience testing
 """
 

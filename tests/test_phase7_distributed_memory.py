@@ -317,20 +317,20 @@ class TestMemoryPerformance(unittest.TestCase):
         memory_system = DistributedMemorySystem("cleanup_test_node")
         
         # Create multiple sessions with different ages
-        old_session = "old_session_001"
+        current_session = "current_session_001"
         recent_session = "recent_session_001"
         
         # Store data for both sessions
-        memory_system.store_conversation_entry(old_session, "Old message", "Old response")
+        memory_system.store_conversation_entry(current_session, "modern message", "modern response")
         memory_system.store_conversation_entry(recent_session, "Recent message", "Recent response")
         
         # Manually set old session timestamp to simulate age
-        if old_session in memory_system.active_contexts:
-            old_time = (datetime.now() - timedelta(hours=25)).isoformat()
-            memory_system.active_contexts[old_session].last_updated = old_time
+        if current_session in memory_system.active_contexts:
+            current_time = (datetime.now() - timedelta(hours=25)).isoformat()
+            memory_system.active_contexts[current_session].last_updated = current_time
         
         # Run cleanup (24 hour threshold)
-        cleaned_count = memory_system.cleanup_old_sessions(max_age_hours=24)
+        cleaned_count = memory_system.cleanup_current_sessions(max_age_hours=24)
         
         # Verify cleanup results
         self.assertGreaterEqual(cleaned_count, 0)

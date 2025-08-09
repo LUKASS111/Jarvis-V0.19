@@ -21,7 +21,7 @@ try:
     EFFICIENT_MODE = True
 except ImportError:
     EFFICIENT_MODE = False
-    print("[WARN] Efficient test runner not available, falling back to legacy mode")
+    print("[WARN] Efficient test runner not available, falling back to standard mode")
 
 def clean_test_error_logs():
     """Clean up test-generated error logs to prevent them from affecting health scores."""
@@ -53,9 +53,62 @@ def clean_test_error_logs():
             with open(error_log, 'w') as f:
                 f.writelines(real_errors)
                 
-            print(f"[CLEANUP] Cleaned error log: {len(lines)} -> {len(real_errors)} entries")
+            print(f"[LOG] Filtered out test errors, kept {len(real_errors)} real errors")
+    
     except Exception as e:
-        print(f"[WARN] Error cleaning logs: {e}")
+        print(f"[WARN] Could not clean test error logs: {e}")
+
+
+def preserve_essential_test_files():
+    """Preserve essential test files while cleaning up only temporary/redundant files."""
+    try:
+        project_root = os.path.dirname(os.path.dirname(__file__))
+        test_output_dir = os.path.join(project_root, "tests", "output", "logs")
+        
+        if os.path.exists(test_output_dir):
+            # Count all files
+            all_files = [f for f in os.listdir(test_output_dir) if f.endswith(('.json', '.log'))]
+            
+            # Identify essential files to preserve
+            essential_patterns = [
+                'test_results_summary',
+                'comprehensive_test',
+                'final_test_report',
+                'session_summary',
+                'aggregated_test'
+            ]
+            
+            preserved_files = []
+            cleaned_files = []
+            
+            for filename in all_files:
+                # Preserve essential files
+                if any(pattern in filename for pattern in essential_patterns):
+                    preserved_files.append(filename)
+                # Clean only temporary/redundant files  
+                elif any(temp_pattern in filename for temp_pattern in ['temp_', 'concurrent_log', '_tmp_']):
+                    file_path = os.path.join(test_output_dir, filename)
+                    os.remove(file_path)
+                    cleaned_files.append(filename)
+                else:
+                    # Preserve by default to be safe
+                    preserved_files.append(filename)
+            
+            print(f"[PRESERVE] Kept {len(preserved_files)} essential test files")
+            print(f"[CLEANUP] Removed {len(cleaned_files)} temporary files")
+        
+        # Clean only clearly temporary concurrent logs
+        logs_dir = os.path.join(project_root, "logs")
+        if os.path.exists(logs_dir):
+            temp_files = [f for f in os.listdir(logs_dir) if f.startswith('concurrent_log_temp')]
+            for filename in temp_files:
+                os.remove(os.path.join(logs_dir, filename))
+            if temp_files:
+                print(f"[CLEANUP] Removed {len(temp_files)} temporary concurrent log files")
+                
+    except Exception as e:
+        print(f"[WARN] Failed to preserve test files: {e}")
+
 
 def run_test_file(test_file, description):
     """Run a specific test file and capture results"""
@@ -169,35 +222,30 @@ def run_test_file(test_file, description):
         }
 
 def main():
-    """Main test execution with efficient or legacy mode"""
-    print(f"[LAUNCHER] Jarvis V0.19 Master Test Runner")
+    """Main test execution with efficient or standard mode"""
+    print(f"[LAUNCHER] Jarvis V1.0.0 Professional Test Runner")
     print(f"[LAUNCHER] Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
-    if EFFICIENT_MODE:
+    # Always try to use efficient mode first
+    try:
+        from scripts.efficient_test_runner import EfficientTestRunner
+        EFFICIENT_MODE = True
         print(f"[LAUNCHER] Using EFFICIENT mode - consolidated logging")
+    except ImportError:
+        EFFICIENT_MODE = False
+        print(f"[LAUNCHER] Efficient test runner not available, using standard mode")
+    
+    if EFFICIENT_MODE:
         runner = EfficientTestRunner()
         try:
             summary, results = runner.run_all_tests()
             log_summary = runner.finalize_logging()
             
-            print(f"\n[EFFICIENCY] File reduction achieved:")
-            print(f"   Files created: {len(log_summary['files_created'])} (vs ~10,000 in legacy)")
+            print(f"\n[EFFICIENCY] Professional file management achieved:")
+            print(f"   Files created: {len(log_summary['files_created'])} (vs ~1000+ in old mode)")
             print(f"   Space optimization: ~95% reduction in file count")
             print(f"   All log data preserved in consolidated format")
-            
-            # Force comprehensive log upload to ensure logs are available
-            try:
-                upload_script_path = os.path.join(os.path.dirname(__file__), "..", "scripts", "upload_logs_to_repository.py")
-                if os.path.exists(upload_script_path):
-                    print(f"\n[LAUNCH] Force-triggering comprehensive log upload...")
-                    subprocess.run([sys.executable, upload_script_path], 
-                                 cwd=os.path.dirname(os.path.dirname(__file__)),
-                                 timeout=60)
-                    print(f"[COMPLETE] Comprehensive log upload finished")
-                else:
-                    print(f"[INFO] Upload script not found, logs available in consolidated format")
-            except Exception as e:
-                print(f"[WARN] Could not trigger log upload: {e}")
+            print(f"   Essential results available for upload and analysis")
             
             # Return appropriate exit code
             if summary['suite_success_rate'] >= 80 and summary['total_errors'] == 0:
@@ -209,15 +257,15 @@ def main():
             print(f"[ERROR] Efficient runner failed: {e}")
             import traceback
             traceback.print_exc()
-            print(f"[FALLBACK] Switching to legacy mode")
-            return legacy_main()
+            print(f"[FALLBACK] Switching to standard mode")
+            return standard_main()
     else:
-        print(f"[LAUNCHER] Using LEGACY mode - individual file logging")
-        return legacy_main()
+        print(f"[LAUNCHER] Using standard mode - individual file logging")
+        return standard_main()
 
 
-def legacy_main():
-    """Legacy main function for backward compatibility"""
+def standard_main():
+    """updated main function for backward compatibility"""
     """Main test runner function"""
     print("[LAUNCH] V0.2 COMPREHENSIVE TEST SUITE")
     print("=" * 80)
@@ -379,7 +427,20 @@ def legacy_main():
     
     print(f"\n[TIME1] Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
-    # Auto-trigger test aggregation and log upload if configured
+    # Preserve essential test files and upload before any cleanup
+    print(f"\n[PRESERVE] Preserving essential test results...")
+    preserve_essential_test_files()
+    
+    # Auto-trigger log upload BEFORE cleanup
+    print(f"\n[LAUNCH] Auto-triggering log upload to repository...")
+    upload_script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts", "upload_logs_to_repository.py")
+    if os.path.exists(upload_script_path):
+        subprocess.run([sys.executable, upload_script_path], cwd=os.path.dirname(os.path.dirname(__file__)))
+        print(f"[COMPLETE] Log upload finished - all logs are now available in repository")
+    else:
+        print(f"[WARN] Log upload script not found at {upload_script_path}")
+    
+    # Auto-trigger test aggregation AFTER upload
     try:
         config_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "config", "aggregation_config.json")
         if os.path.exists(config_path):
@@ -397,15 +458,6 @@ def legacy_main():
                     print(f"[COMPLETE] Test aggregation finished")
                 else:
                     print(f"[WARN] Test aggregator not found at {aggregator_path}")
-        
-        # Auto-trigger log upload after tests complete
-        print(f"\n[LAUNCH] Auto-triggering log upload to repository...")
-        upload_script_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "scripts", "upload_logs_to_repository.py")
-        if os.path.exists(upload_script_path):
-            subprocess.run([sys.executable, upload_script_path], cwd=os.path.dirname(os.path.dirname(__file__)))
-            print(f"[COMPLETE] Log upload finished - all logs are now available in repository")
-        else:
-            print(f"[WARN] Log upload script not found at {upload_script_path}")
             
     except Exception as e:
         print(f"[WARN] Could not trigger post-test automation: {e}")

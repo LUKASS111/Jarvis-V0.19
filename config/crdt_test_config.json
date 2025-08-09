@@ -4,7 +4,7 @@
   "distributed_mode": true,
   "test_mode": true,
   "clean_state": true,
-  "old_data_ignored": true,
+  "current_data_ignored": true,
   "backup_integration": false,
   "monitoring_enabled": true,
   "performance_tracking": true

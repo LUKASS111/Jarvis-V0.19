@@ -33,13 +33,14 @@ class TestGUIComponents(unittest.TestCase):
         except ImportError as e:
             self.skipTest(f"Modern GUI module not available: {e}")
     
-    def test_start_gui_import(self):
-        """Test that start GUI module can be imported"""
+    def test_modern_main_import(self):
+        """Test that modern main module can be imported"""
         try:
-            import start_gui
-            self.assertTrue(True, "Start GUI module imported successfully")
+            import main
+            self.assertTrue(hasattr(main, 'main'), "Main module has main function")
+            self.assertTrue(hasattr(main, 'start_comprehensive_dashboard'), "Main module has dashboard function")
         except ImportError as e:
-            self.skipTest(f"Start GUI module not available: {e}")
+            self.fail(f"Modern main module not available: {e}")
     
     def test_gui_initialization(self):
         """Test GUI initialization without display"""
