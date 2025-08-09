@@ -7,7 +7,9 @@ Replaces the monolithic 1705-line comprehensive_dashboard.py with focused module
 
 import sys
 import os
+import time
 from typing import Dict, List, Any, Optional
+from collections import defaultdict, deque
 
 # Add project root to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -27,10 +29,21 @@ from gui.design_standards import (
     COMPONENT_STYLES, create_professional_stylesheet, apply_style_to_widget
 )
 
+# Import smart orchestration components
+try:
+    from gui.components.smart_orchestration import (
+        AdaptiveTabManager, IntelligentStatusWidget, AIOrchestrationEngine,
+        UserBehaviorTracker, create_smart_orchestration_widgets
+    )
+    SMART_FEATURES_AVAILABLE = True
+except ImportError as e:
+    print(f"Smart orchestration features not available: {e}")
+    SMART_FEATURES_AVAILABLE = False
+
 class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     """
-    Refactored comprehensive dashboard with modular tab architecture.
-    Replaces the 1705-line monolithic implementation.
+    Smart comprehensive dashboard with adaptive behavior and AI orchestration.
+    Features intelligent tab management and user behavior learning.
     """
     
     def __init__(self):
@@ -40,22 +53,52 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
             
         super().__init__()
         self.tab_widget = None
+        self.behavior_tracker = None
+        self.ai_orchestration = None
+        self.intelligent_status = None
+        
+        self.init_smart_components()
         self.init_ui()
         self.apply_modern_styling()
     
+    def init_smart_components(self):
+        """Initialize smart orchestration components"""
+        if SMART_FEATURES_AVAILABLE:
+            try:
+                self.behavior_tracker = UserBehaviorTracker()
+                self.ai_orchestration = AIOrchestrationEngine()
+                print("[Dashboard] Smart orchestration components initialized")
+            except Exception as e:
+                print(f"[Dashboard] Error initializing smart components: {e}")
+                SMART_FEATURES_AVAILABLE = False
+    
     def init_ui(self):
-        """Initialize the user interface with modular tabs"""
-        self.setWindowTitle("Jarvis 1.0.0 - Comprehensive Professional Dashboard")
+        """Initialize the user interface with smart adaptive tabs"""
+        self.setWindowTitle("Jarvis 1.0.0 - Smart AI Orchestration Dashboard")
         self.setGeometry(100, 100, 1400, 900)
         
         # Central widget and layout
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
-        layout = QVBoxLayout(central_widget)
+        main_layout = QHBoxLayout(central_widget)
         
-        # Create tab widget
-        self.tab_widget = QTabWidget()
-        layout.addWidget(self.tab_widget)
+        # Create smart tab widget (adaptive if available)
+        if SMART_FEATURES_AVAILABLE:
+            self.tab_widget = AdaptiveTabManager()
+            print("[Dashboard] Using adaptive tab manager")
+        else:
+            self.tab_widget = QTabWidget()
+            print("[Dashboard] Using standard tab widget")
+        
+        # Create side panel for intelligent status
+        if SMART_FEATURES_AVAILABLE:
+            self.intelligent_status = IntelligentStatusWidget()
+            self.intelligent_status.setMaximumWidth(300)
+            self.intelligent_status.setMinimumWidth(250)
+            main_layout.addWidget(self.intelligent_status, 0)
+        
+        # Add main tab widget
+        main_layout.addWidget(self.tab_widget, 1)
         
         # Setup menu and status bar
         self.setup_menu_bar()
@@ -66,9 +109,12 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
         
         # Setup responsive layout
         self.setup_responsive_layout()
+        
+        # Setup smart features
+        self.setup_smart_features()
     
     def setup_menu_bar(self):
-        """Setup application menu bar"""
+        """Setup application menu bar with smart features"""
         menubar = self.menuBar()
         
         # File menu
@@ -82,6 +128,14 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
         view_menu = menubar.addMenu('View')
         view_menu.addAction('Refresh All Tabs', self.refresh_all_tabs)
         view_menu.addAction('Reset Layout', self.reset_layout)
+        
+        # Smart features menu (if available)
+        if SMART_FEATURES_AVAILABLE:
+            smart_menu = menubar.addMenu('🤖 Smart Features')
+            smart_menu.addAction('Optimize Tab Order', self.optimize_tabs)
+            smart_menu.addAction('View Usage Analytics', self.show_usage_analytics)
+            smart_menu.addAction('AI Provider Performance', self.show_ai_performance)
+            smart_menu.addAction('Reset User Data', self.reset_user_data)
         
         # Help menu
         help_menu = menubar.addMenu('Help')
@@ -162,6 +216,166 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
         except Exception as e:
             print(f"[Dashboard] Error applying styling: {e}")
     
+    def setup_smart_features(self):
+        """Setup smart orchestration features"""
+        if not SMART_FEATURES_AVAILABLE:
+            return
+            
+        try:
+            # Start behavior tracking if using adaptive tab manager
+            if hasattr(self.tab_widget, 'behavior_tracker'):
+                print("[Dashboard] Smart behavior tracking enabled")
+            
+            # Initialize AI orchestration monitoring
+            if self.ai_orchestration:
+                print("[Dashboard] AI orchestration engine ready")
+                
+        except Exception as e:
+            print(f"[Dashboard] Error setting up smart features: {e}")
+    
+    # Smart feature menu handlers
+    def optimize_tabs(self):
+        """Manually trigger tab optimization"""
+        if SMART_FEATURES_AVAILABLE and hasattr(self.tab_widget, 'optimize_tab_order'):
+            self.tab_widget.optimize_tab_order()
+            print("[Dashboard] Tab order optimized based on usage patterns")
+        else:
+            print("[Dashboard] Tab optimization not available")
+    
+    def show_usage_analytics(self):
+        """Show user behavior analytics"""
+        if SMART_FEATURES_AVAILABLE and self.behavior_tracker:
+            from PyQt5.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton
+            
+            dialog = QDialog(self)
+            dialog.setWindowTitle("Usage Analytics")
+            dialog.setGeometry(200, 200, 600, 400)
+            
+            layout = QVBoxLayout(dialog)
+            
+            analytics_text = QTextEdit()
+            analytics_text.setReadOnly(True)
+            
+            # Generate analytics report
+            report = self.generate_analytics_report()
+            analytics_text.setText(report)
+            
+            layout.addWidget(analytics_text)
+            
+            close_btn = QPushButton("Close")
+            close_btn.clicked.connect(dialog.close)
+            layout.addWidget(close_btn)
+            
+            dialog.exec_()
+        else:
+            print("[Dashboard] Usage analytics not available")
+    
+    def show_ai_performance(self):
+        """Show AI provider performance metrics"""
+        if SMART_FEATURES_AVAILABLE and self.ai_orchestration:
+            from PyQt5.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton
+            
+            dialog = QDialog(self)
+            dialog.setWindowTitle("AI Provider Performance")
+            dialog.setGeometry(200, 200, 600, 400)
+            
+            layout = QVBoxLayout(dialog)
+            
+            performance_text = QTextEdit()
+            performance_text.setReadOnly(True)
+            
+            # Get performance summary
+            summary = self.ai_orchestration.get_performance_summary()
+            report = "AI Provider Performance Summary\n" + "="*40 + "\n\n"
+            
+            for provider, metrics in summary.items():
+                report += f"Provider: {provider}\n"
+                report += f"  Success Rate: {metrics['success_rate']}\n"
+                report += f"  Avg Response Time: {metrics['avg_response_time']}\n"
+                report += f"  Total Requests: {metrics['total_requests']}\n\n"
+            
+            if not summary:
+                report += "No AI provider metrics available yet.\nStart using AI features to see performance data."
+            
+            performance_text.setText(report)
+            layout.addWidget(performance_text)
+            
+            close_btn = QPushButton("Close")
+            close_btn.clicked.connect(dialog.close)
+            layout.addWidget(close_btn)
+            
+            dialog.exec_()
+        else:
+            print("[Dashboard] AI performance metrics not available")
+    
+    def reset_user_data(self):
+        """Reset user behavior data"""
+        if SMART_FEATURES_AVAILABLE and self.behavior_tracker:
+            from PyQt5.QtWidgets import QMessageBox
+            
+            reply = QMessageBox.question(self, "Reset User Data",
+                                       "Are you sure you want to reset all user behavior data?\n"
+                                       "This will clear usage patterns and preferences.",
+                                       QMessageBox.Yes | QMessageBox.No,
+                                       QMessageBox.No)
+            
+            if reply == QMessageBox.Yes:
+                # Reset behavior data
+                self.behavior_tracker.session_data = {
+                    'tab_usage': defaultdict(int),
+                    'feature_usage': defaultdict(int), 
+                    'session_duration': defaultdict(float),
+                    'error_patterns': defaultdict(int),
+                    'ai_provider_preferences': defaultdict(int),
+                    'workflow_patterns': deque(maxlen=100)
+                }
+                self.behavior_tracker.save_behavior_data()
+                
+                QMessageBox.information(self, "Reset Complete",
+                                      "User behavior data has been reset.")
+                print("[Dashboard] User behavior data reset")
+        else:
+            print("[Dashboard] User data reset not available")
+    
+    def generate_analytics_report(self) -> str:
+        """Generate detailed analytics report"""
+        if not (SMART_FEATURES_AVAILABLE and self.behavior_tracker):
+            return "Analytics not available"
+        
+        data = self.behavior_tracker.session_data
+        report = "User Behavior Analytics Report\n" + "="*35 + "\n\n"
+        
+        # Tab usage statistics
+        report += "Tab Usage Statistics:\n" + "-"*25 + "\n"
+        for tab, count in sorted(data['tab_usage'].items(), key=lambda x: x[1], reverse=True):
+            duration = data['session_duration'].get(tab, 0)
+            avg_time = duration / max(count, 1)
+            report += f"  {tab}: {count} visits, {avg_time:.1f}s avg duration\n"
+        
+        # Feature usage
+        report += f"\nFeature Usage Statistics:\n" + "-"*28 + "\n"
+        for feature, count in sorted(data['feature_usage'].items(), key=lambda x: x[1], reverse=True)[:10]:
+            report += f"  {feature}: {count} uses\n"
+        
+        # AI provider preferences
+        report += f"\nAI Provider Preferences:\n" + "-"*26 + "\n"
+        for provider, count in sorted(data['ai_provider_preferences'].items(), key=lambda x: x[1], reverse=True):
+            report += f"  {provider}: {count} successful requests\n"
+        
+        # Error patterns
+        if data['error_patterns']:
+            report += f"\nError Patterns:\n" + "-"*15 + "\n"
+            for error, count in sorted(data['error_patterns'].items(), key=lambda x: x[1], reverse=True)[:5]:
+                report += f"  {error}: {count} occurrences\n"
+        
+        # Session info
+        session_time = time.time() - self.behavior_tracker.session_start
+        report += f"\nCurrent Session:\n" + "-"*16 + "\n"
+        report += f"  Duration: {session_time/60:.1f} minutes\n"
+        report += f"  Workflow Actions: {len(data['workflow_patterns'])}\n"
+        
+        return report
+    
     # Menu action handlers
     def export_settings(self):
         """Export dashboard settings"""
@@ -186,9 +400,15 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     def show_about(self):
         """Show about dialog"""
         from PyQt5.QtWidgets import QMessageBox
-        QMessageBox.about(self, "About Jarvis", 
-                         "Jarvis 1.0.0\nComprehensive AI Assistant Dashboard\n\n"
-                         "Built with modular architecture for enhanced maintainability.")
+        about_text = ("Jarvis 1.0.0 - Smart AI Orchestration Dashboard\n\n"
+                     "Features:\n"
+                     "• Adaptive tab management\n"
+                     "• Intelligent user behavior tracking\n"
+                     "• AI provider performance optimization\n"
+                     "• Professional modular architecture\n\n"
+                     f"Smart Features: {'Enabled' if SMART_FEATURES_AVAILABLE else 'Disabled'}")
+        
+        QMessageBox.about(self, "About Jarvis", about_text)
     
     def show_documentation(self):
         """Show documentation"""
