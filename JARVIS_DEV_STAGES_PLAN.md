@@ -83,3 +83,26 @@ This ensures traceability, prevents confusion, and keeps all changes auditable.
 
 **Always update this plan and relevant .md files as work progresses.  
 Every change and version must be traceable from plan → documentation → code.**
+
+---
+
+## Changelog / Revision Log
+
+| Date       | Version | Change Type        | Author     | Commit Link | Description                    |
+|------------|---------|--------------------|------------|-------------|--------------------------------|
+| 2025-01-08 | v1.1.0  | Documentation      | copilot    | [pending]   | Added repository guidelines compliance |
+| 2025-01-08 | v1.0.0  | Stage completion   | copilot    | [0412bbc](https://github.com/LUKASS111/Jarvis-V0.19/commit/0412bbc) | All 5 development stages completed |
+| 2025-01-08 | v0.21.0 | Initial creation   | copilot    | [ca7408b](https://github.com/LUKASS111/Jarvis-V0.19/commit/ca7408b) | Created systematic development stages plan |
+
+## Decision Log
+
+### 2025-01-08 - 5-Stage Development Framework
+- **Author**: Copilot AI Agent
+- **Context**: Need systematic approach to repository development with clear milestones and traceability
+- **Decision**: Implement 5-stage development framework covering logic analysis, backend consistency, testing, smart GUI, and documentation
+- **Alternatives Considered**: 
+  - Ad-hoc development (rejected - no traceability)
+  - Agile sprints (rejected - not suitable for AI agent workflow)
+  - Waterfall approach (rejected - too rigid)
+- **Consequences**: Systematic development progress, clear completion criteria, improved documentation
+- **Commit**: [ca7408b](https://github.com/LUKASS111/Jarvis-V0.19/commit/ca7408b)
