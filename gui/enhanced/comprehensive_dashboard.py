@@ -15,7 +15,7 @@ from collections import defaultdict, deque
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 try:
-    from PyQt5.QtWidgets import (QApplication, QMainWindow, QTabWidget, QVBoxLayout, 
+    from PyQt5.QtWidgets import (QApplication, QMainWindow, QTabWidget, QVBoxLayout, QHBoxLayout,
                                 QWidget, QMenuBar, QStatusBar, QAction, QLabel)
     from PyQt5.QtCore import Qt, QTimer
     from PyQt5.QtGui import QIcon
@@ -63,6 +63,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     
     def init_smart_components(self):
         """Initialize smart orchestration components"""
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE:
             try:
                 self.behavior_tracker = UserBehaviorTracker()
@@ -83,6 +84,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
         main_layout = QHBoxLayout(central_widget)
         
         # Create smart tab widget (adaptive if available)
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE:
             self.tab_widget = AdaptiveTabManager()
             print("[Dashboard] Using adaptive tab manager")
@@ -130,6 +132,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
         view_menu.addAction('Reset Layout', self.reset_layout)
         
         # Smart features menu (if available)
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE:
             smart_menu = menubar.addMenu('🤖 Smart Features')
             smart_menu.addAction('Optimize Tab Order', self.optimize_tabs)
@@ -218,6 +221,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     
     def setup_smart_features(self):
         """Setup smart orchestration features"""
+        global SMART_FEATURES_AVAILABLE
         if not SMART_FEATURES_AVAILABLE:
             return
             
@@ -236,6 +240,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     # Smart feature menu handlers
     def optimize_tabs(self):
         """Manually trigger tab optimization"""
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE and hasattr(self.tab_widget, 'optimize_tab_order'):
             self.tab_widget.optimize_tab_order()
             print("[Dashboard] Tab order optimized based on usage patterns")
@@ -244,6 +249,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     
     def show_usage_analytics(self):
         """Show user behavior analytics"""
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE and self.behavior_tracker:
             from PyQt5.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton
             
@@ -272,6 +278,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     
     def show_ai_performance(self):
         """Show AI provider performance metrics"""
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE and self.ai_orchestration:
             from PyQt5.QtWidgets import QDialog, QVBoxLayout, QTextEdit, QPushButton
             
@@ -310,6 +317,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     
     def reset_user_data(self):
         """Reset user behavior data"""
+        global SMART_FEATURES_AVAILABLE
         if SMART_FEATURES_AVAILABLE and self.behavior_tracker:
             from PyQt5.QtWidgets import QMessageBox
             
@@ -339,6 +347,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     
     def generate_analytics_report(self) -> str:
         """Generate detailed analytics report"""
+        global SMART_FEATURES_AVAILABLE
         if not (SMART_FEATURES_AVAILABLE and self.behavior_tracker):
             return "Analytics not available"
         
@@ -400,6 +409,7 @@ class JarvisComprehensiveDashboard(QMainWindow if PYQT_AVAILABLE else object):
     def show_about(self):
         """Show about dialog"""
         from PyQt5.QtWidgets import QMessageBox
+        global SMART_FEATURES_AVAILABLE
         about_text = ("Jarvis 1.0.0 - Smart AI Orchestration Dashboard\n\n"
                      "Features:\n"
                      "• Adaptive tab management\n"

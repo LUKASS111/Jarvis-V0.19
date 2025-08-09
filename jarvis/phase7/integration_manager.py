@@ -14,7 +14,6 @@ from enum import Enum
 import uuid
 
 from ..core.error_handler import error_handler, ErrorLevel, safe_execute
-from ..backend import get_jarvis_backend
 from .ai_integration_framework import get_ai_integration_framework, EnhancedAIRequest, AICapabilityType
 from .platform_expansion_manager import get_platform_expansion_manager, PlatformType
 from .enterprise_features_manager import get_enterprise_features_manager, TenantType
@@ -63,8 +62,9 @@ class Phase7IntegrationManager:
         self.start_time = datetime.now()
         self.config = config or Phase7Config()
         
-        # Core system components
-        self.backend_service = get_jarvis_backend()
+        # Core system components (delay backend import to avoid circular dependency)
+        self.backend_service = None
+        self._backend_initialized = False
         self.ai_framework = get_ai_integration_framework()
         self.platform_manager = get_platform_expansion_manager()
         self.enterprise_manager = get_enterprise_features_manager()
@@ -87,6 +87,18 @@ class Phase7IntegrationManager:
         
         self._lock = threading.RLock()
         self._initialize_phase7_integration()
+    
+    def _get_backend_service(self):
+        """Get backend service with delayed initialization to avoid circular imports"""
+        if not self._backend_initialized:
+            try:
+                from ..backend import get_jarvis_backend
+                self.backend_service = get_jarvis_backend()
+                self._backend_initialized = True
+            except ImportError:
+                print("[PHASE7] Backend service not available")
+                self.backend_service = None
+        return self.backend_service
     
     def _initialize_phase7_integration(self):
         """Initialize Phase 7 comprehensive integration"""
@@ -456,8 +468,12 @@ class Phase7IntegrationManager:
             self.system_health["enterprise_manager"] = 95.0 if enterprise_status else 0.0
             
             # Backend service health
-            backend_health = self.backend_service.get_system_health()
-            self.system_health["backend_service"] = backend_health
+            backend_service = self._get_backend_service()
+            if backend_service:
+                backend_health = backend_service.get_system_health()
+                self.system_health["backend_service"] = backend_health
+            else:
+                self.system_health["backend_service"] = 50.0  # Fallback health score
     
     def _update_overall_health(self):
         """Update overall system health score"""

@@ -16,7 +16,6 @@ import os
 from pathlib import Path
 
 from ..core.error_handler import error_handler, ErrorLevel, safe_execute
-from ..backend import get_jarvis_backend
 
 class PlatformType(Enum):
     """Platform deployment types"""
@@ -105,8 +104,9 @@ class PlatformExpansionManager:
         self.manager_id = str(uuid.uuid4())
         self.start_time = datetime.now()
         
-        # Core components
-        self.backend_service = get_jarvis_backend()
+        # Core components (delayed to avoid circular imports)
+        self.backend_service = None
+        self._backend_initialized = False
         
         # Platform configurations
         self.platforms: Dict[str, PlatformConfig] = {}
@@ -129,6 +129,18 @@ class PlatformExpansionManager:
         
         self._lock = threading.RLock()
         self._initialize_platform_manager()
+    
+    def _get_backend_service(self):
+        """Get backend service with delayed initialization to avoid circular imports"""
+        if not self._backend_initialized:
+            try:
+                from ..backend import get_jarvis_backend
+                self.backend_service = get_jarvis_backend()
+                self._backend_initialized = True
+            except ImportError:
+                print("[PLATFORM] Backend service not available")
+                self.backend_service = None
+        return self.backend_service
     
     def _initialize_platform_manager(self):
         """Initialize the platform expansion manager"""
