@@ -20,7 +20,7 @@
 ### Installation & Launch
 ```bash
 git clone https://github.com/LUKASS111/Jarvis-V0.19.git
-cd Jarvis-v1.0.0
+cd Jarvis-V0.19
 pip install -r requirements.txt
 
 # Launch Options
@@ -59,7 +59,7 @@ See **[docs/PYQT5_TESTING_GUIDE.md](docs/PYQT5_TESTING_GUIDE.md)** for detailed 
 This repository follows professional organization standards with clean separation of concerns:
 
 ```
-Jarvis-v1.0.0/
+Jarvis-V0.19/
 ├── README.md              # Main project documentation
 ├── CHANGELOG.md           # Version history and updates
 ├── main.py                # Application entry point
@@ -91,7 +91,7 @@ This repository is **GitHub Copilot Workspace ready** with automated AI assistan
 1. **Clone the repository** (if not already done):
    ```bash
    git clone https://github.com/LUKASS111/Jarvis-V0.19.git
-   cd Jarvis-v1.0.0
+   cd Jarvis-V0.19
    ```
 
 2. **Enable Copilot in your IDE**:

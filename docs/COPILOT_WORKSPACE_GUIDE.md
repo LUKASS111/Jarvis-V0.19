@@ -12,7 +12,7 @@
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/LUKASS111/Jarvis-V0.19.git
-   cd Jarvis-v1.0.0
+   cd Jarvis-V0.19
    ```
 
 2. **Install dependencies**:

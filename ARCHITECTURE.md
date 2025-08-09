@@ -128,7 +128,7 @@ Jarvis v1.0.0 is a professional AI assistant platform built with modular archite
 ## File Structure
 
 ```
-Jarvis-v1.0.0/
+Jarvis-V0.19/
 ├── README.md, CHANGELOG.md              # Essential documentation
 ├── main.py                              # Application entry point
 ├── requirements.txt                     # Dependencies
