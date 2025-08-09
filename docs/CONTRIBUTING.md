@@ -67,7 +67,7 @@ When working on `copilot/*` branches:
 ```bash
 # Clone repository
 git clone https://github.com/LUKASS111/Jarvis-V0.19.git
-cd Jarvis-V0.19
+cd Jarvis-v1.0.0
 
 # Create virtual environment
 python -m venv venv

@@ -1,4 +1,4 @@
-# Jarvis V0.19 Production Docker Image
+# Jarvis v1.0.0 Production Docker Image
 # Enterprise-grade AI assistant with CRDT distributed architecture
 
 FROM python:3.11-slim-bullseye

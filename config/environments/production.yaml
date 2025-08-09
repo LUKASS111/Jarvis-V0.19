@@ -1,4 +1,4 @@
-# Production Environment Configuration for Jarvis V0.19
+# Production Environment Configuration for Jarvis v1.0.0
 
 system:
   debug: false
